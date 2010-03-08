@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.PL.Engine", "UniqueStudio.PL.Engine\UniqueStudio.PL.Engine.csproj", "{D7B98571-076B-42D1-916E-204D46DD9958}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.HttpControlLayer", "UniqueStudio.HttpControlLayer\UniqueStudio.HttpControlLayer.csproj", "{8210A6F7-8301-4B2A-8218-BCCFA48DA96C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.ApiLayer", "UniqueStudio.ApiLayer\UniqueStudio.ApiLayer.csproj", "{272E320A-1660-4F32-AC04-A6BFD47EF1DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.Common", "UniqueStudio.Common\UniqueStudio.Common.csproj", "{B9EC7556-3B7A-4357-920B-94EE1313FF95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.ComContent", "UniqueStudio.ComContent\UniqueStudio.ComContent.csproj", "{3CB902B2-D40A-4263-AB02-E95A63E71BA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.PlugInIpAuth", "UniqueStudio.PlugInIpAuth\UniqueStudio.PlugInIpAuth.csproj", "{AE6CF8A4-B18C-4014-A91E-BE983F5C4CE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.Admin", "UniqueStudio.Admin\UniqueStudio.Admin.csproj", "{DBD763B9-F7E1-4E38-8718-9981BD7BF66D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.ComContent.PL", "UniqueStudio.ComContent.PL\UniqueStudio.ComContent.PL.csproj", "{522567A4-DBFA-483C-B6E9-A60A1C79CF4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.ModPostList", "UniqueStudio.ModPostList\UniqueStudio.ModPostList.csproj", "{7F407FB3-164F-4E97-A57E-24E70E5ED444}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.Core", "UniqueStudio.Core\UniqueStudio.Core.csproj", "{F9D2C679-CD07-49AA-BD9C-B28F6BB14F20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.Controls", "UniqueStudio.Controls\UniqueStudio.Controls.csproj", "{36639990-A168-422C-9BF6-1D10373DDE78}"
+EndProject
