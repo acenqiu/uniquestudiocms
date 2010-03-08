@@ -1,0 +1,13 @@
+E:\Projects\CMS\CMS\UniqueStudio.Admin\bin\UniqueStudio.Admin.dll
+E:\Projects\CMS\CMS\UniqueStudio.Admin\bin\UniqueStudio.Admin.pdb
+E:\Projects\CMS\CMS\UniqueStudio.Admin\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\CMS\CMS\UniqueStudio.Admin\obj\Debug\UniqueStudio.Admin.dll
+E:\Projects\CMS\CMS\UniqueStudio.Admin\obj\Debug\UniqueStudio.Admin.pdb
+E:\Projects\CMS\CMS\UniqueStudio.Admin\bin\UniqueStudio.HttpControlLayer.dll
+E:\Projects\CMS\CMS\UniqueStudio.Admin\bin\UniqueStudio.Common.dll
+E:\Projects\CMS\CMS\UniqueStudio.Admin\bin\UniqueStudio.HttpControlLayer.pdb
+E:\Projects\CMS\CMS\UniqueStudio.Admin\bin\UniqueStudio.Common.pdb
+E:\Projects\CMS\CMS\UniqueStudio.Admin\bin\UniqueStudio.PL.Engine.dll
+E:\Projects\CMS\CMS\UniqueStudio.Admin\bin\UniqueStudio.PL.Engine.pdb
+E:\Projects\CMS\CMS\UniqueStudio.Admin\bin\UniqueStudio.Core.dll
+E:\Projects\CMS\CMS\UniqueStudio.Admin\bin\UniqueStudio.Core.pdb

@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfErrorInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ErrorInfo>
+    <ExceptionType>System.Exception</ExceptionType>
+    <ErrorMessage>test</ErrorMessage>
+    <InnerExceptionType>System.Exception</InnerExceptionType>
+    <InnerErrorMessage>inner</InnerErrorMessage>
+    <RepresentationString>System.Exception: test ---&gt; System.Exception: inner
+   --- End of inner exception stack trace ---
+   at UniqueStudio.Admin.admin.background.errorlog.Button1_Click(Object sender, EventArgs e) in E:\Projects\CMS\CMS\UniqueStudio.Admin\admin\background\ErrorLog.aspx.cs:line 37</RepresentationString>
+    <Time>2010-02-18T12:26:27.3535642+08:00</Time>
+    <Remarks>这是个测试用异常</Remarks>
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>security</ExceptionType>
+    <ErrorMessage>用户c82793a9-34ae-43aa-a897-b55fe90cefd7尝试创建分类</ErrorMessage>
+    <Time>2010-02-21T14:16:41.9331285+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>security</ExceptionType>
+    <ErrorMessage>用户c82793a9-34ae-43aa-a897-b55fe90cefd7尝试编辑分类</ErrorMessage>
+    <Time>2010-02-21T15:13:26.0998357+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Could not find stored procedure 'CreateCompenent'.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Could not find stored procedure 'CreateCompenent'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at UniqueStudio.Common.DatabaseHelper.SqlHelper.ExecuteScalar(CommandType cmdType, String cmdText, SqlParameter[] commandParameters) in E:\Projects\CMS\CMS\UniqueStudio.Common\DatabaseHelper\SqlHelper.cs:line 225
+   at UniqueStudio.DAL.Compenent.SqlCompenentProvider.CreateCompenent(CompenentInfo compenent) in E:\Projects\CMS\CMS\UniqueStudio.DAL\Compenent\SqlCompenentProvider.cs:line 30
+   at UniqueStudio.BLL.Compenent.CompenentManager.InstallCompenent(UserInfo currentUser, CompenentInfo compenent, String installFilePath) in E:\Projects\CMS\CMS\UniqueStudio.BLL\Compenent\CompenentManager.cs:line 91</RepresentationString>
+    <Time>2010-02-22T10:02:38.7708584+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NotImplementedException</ExceptionType>
+    <ErrorMessage>The method or operation is not implemented.</ErrorMessage>
+    <RepresentationString>System.NotImplementedException: The method or operation is not implemented.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.UserManager_OnUserCreated(Object sende, UserArgs e)
+   at UniqueStudio.BLL.User.UserManager.CreateUser(UserInfo currentUser, UserInfo user) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 123</RepresentationString>
+    <Time>2010-02-26T18:20:32.6903207+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NotImplementedException</ExceptionType>
+    <ErrorMessage>The method or operation is not implemented.</ErrorMessage>
+    <RepresentationString>System.NotImplementedException: The method or operation is not implemented.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.UserManager_OnUserCreated(Object sende, UserArgs e)
+   at UniqueStudio.BLL.User.UserManager.CreateUser(UserInfo currentUser, UserInfo user) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 125</RepresentationString>
+    <Time>2010-02-26T18:24:29.6978768+08:00</Time>
+    <Remarks>OnUserCreated事件触发异常</Remarks>
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NotImplementedException</ExceptionType>
+    <ErrorMessage>The method or operation is not implemented.</ErrorMessage>
+    <RepresentationString>System.NotImplementedException: The method or operation is not implemented.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.UserManager_OnUserCreated(Object sende, UserArgs e)
+   at UniqueStudio.BLL.User.UserManager.CreateUser(UserInfo currentUser, UserInfo user) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 142</RepresentationString>
+    <Time>2010-02-26T21:48:26.2780885+08:00</Time>
+    <Remarks>OnUserCreated事件触发异常</Remarks>
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>The formal parameter "@PageIndex" was not declared as an OUTPUT parameter, but the actual parameter passed in requested output.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: The formal parameter "@PageIndex" was not declared as an OUTPUT parameter, but the actual parameter passed in requested output.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at UniqueStudio.Common.DatabaseHelper.SqlHelper.ExecuteReader(CommandType cmdType, String cmdText, SqlParameter[] commandParameters) in E:\Projects\CMS\CMS\UniqueStudio.Common\DatabaseHelper\SqlHelper.cs:line 168
+   at UniqueStudio.DAL.User.SqlUserProvider.GetUserList(Int32 pageIndex, Int32 pageSize) in E:\Projects\CMS\CMS\UniqueStudio.DAL\User\SqlUserProvider.cs:line 85
+   at UniqueStudio.BLL.User.UserManager.GetUserList(UserInfo currentUser, Int32 pageIndex, Int32 pageSize) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 371</RepresentationString>
+    <Time>2010-02-26T22:17:53.88819+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.InvalidOperationException</ExceptionType>
+    <ErrorMessage>Invalid operation. The connection is closed.</ErrorMessage>
+    <RepresentationString>System.InvalidOperationException: Invalid operation. The connection is closed.
+   at System.Data.SqlClient.SqlConnection.GetOpenConnection()
+   at System.Data.SqlClient.SqlConnection.BeginTransaction(IsolationLevel iso, String transactionName)
+   at System.Data.SqlClient.SqlConnection.BeginTransaction()
+   at UniqueStudio.DAL.User.SqlUserProvider.CreateUser(UserInfo user) in E:\Projects\CMS\CMS\UniqueStudio.DAL\User\SqlUserProvider.cs:line 46
+   at UniqueStudio.BLL.User.UserManager.CreateUser(UserInfo currentUser, UserInfo user) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 135</RepresentationString>
+    <Time>2010-02-27T10:49:24.4734372+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.InvalidOperationException</ExceptionType>
+    <ErrorMessage>Invalid operation. The connection is closed.</ErrorMessage>
+    <RepresentationString>System.InvalidOperationException: Invalid operation. The connection is closed.
+   at System.Data.SqlClient.SqlConnection.GetOpenConnection()
+   at System.Data.SqlClient.SqlConnection.BeginTransaction(IsolationLevel iso, String transactionName)
+   at System.Data.SqlClient.SqlConnection.BeginTransaction()
+   at UniqueStudio.DAL.User.SqlUserProvider.CreateUser(UserInfo user) in E:\Projects\CMS\CMS\UniqueStudio.DAL\User\SqlUserProvider.cs:line 46
+   at UniqueStudio.BLL.User.UserManager.CreateUser(UserInfo currentUser, UserInfo user) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 135</RepresentationString>
+    <Time>2010-02-27T10:51:42.7413456+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NotImplementedException</ExceptionType>
+    <ErrorMessage>The method or operation is not implemented.</ErrorMessage>
+    <RepresentationString>System.NotImplementedException: The method or operation is not implemented.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.UserManager_OnUserCreated(Object sende, UserArgs e)
+   at UniqueStudio.BLL.User.UserManager.CreateUser(UserInfo currentUser, UserInfo user) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 142</RepresentationString>
+    <Time>2010-02-27T10:53:29.29144+08:00</Time>
+    <Remarks>OnUserCreated事件触发异常</Remarks>
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Procedure or function 'GetPageVisitList' expects parameter '@PageIndex', which was not supplied.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Procedure or function 'GetPageVisitList' expects parameter '@PageIndex', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at UniqueStudio.Common.DatabaseHelper.SqlHelper.ExecuteReader(CommandType cmdType, String cmdText, SqlParameter[] commandParameters) in E:\Projects\CMS\CMS\UniqueStudio.Common\DatabaseHelper\SqlHelper.cs:line 168
+   at UniqueStudio.DAL.PageVisit.SqlPageVisitProvider.GetPageVisitList(Int32 pageIndex, Int32 pageSize) in E:\Projects\CMS\CMS\UniqueStudio.DAL\PageVisit\SqlPageVisitProvider.cs:line 36
+   at UniqueStudio.BLL.PageVisit.PageVisitManager.GetPageVisitList(UserInfo currentUser, Int32 pageIndex, Int32 pageSize) in E:\Projects\CMS\CMS\UniqueStudio.BLL\PageVisit\PageVisitManager.cs:line 43</RepresentationString>
+    <Time>2010-02-27T21:48:23.7296605+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NotImplementedException</ExceptionType>
+    <ErrorMessage>The method or operation is not implemented.</ErrorMessage>
+    <RepresentationString>System.NotImplementedException: The method or operation is not implemented.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.UserManager_OnUserCreated(Object sende, UserArgs e)
+   at UniqueStudio.BLL.User.UserManager.CreateUser(UserInfo currentUser, UserInfo user) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 224</RepresentationString>
+    <Time>2010-02-27T22:29:50.5528987+08:00</Time>
+    <Remarks>OnUserCreated事件触发异常</Remarks>
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>IsApproved</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: IsApproved
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.User.SqlUserProvider.ValidUser(String email) in E:\Projects\CMS\CMS\UniqueStudio.DAL\User\SqlUserProvider.cs:line 361
+   at UniqueStudio.BLL.User.UserManager.UserAuthorization(String email, String password) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 755</RepresentationString>
+    <Time>2010-02-28T13:20:08.4976781+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>IsApproved</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: IsApproved
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.User.SqlUserProvider.ValidUser(String email) in E:\Projects\CMS\CMS\UniqueStudio.DAL\User\SqlUserProvider.cs:line 361
+   at UniqueStudio.BLL.User.UserManager.UserAuthorization(String email, String password) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 755</RepresentationString>
+    <Time>2010-02-28T13:20:19.4033018+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>IsApproved</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: IsApproved
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.User.SqlUserProvider.ValidUser(String email) in E:\Projects\CMS\CMS\UniqueStudio.DAL\User\SqlUserProvider.cs:line 361
+   at UniqueStudio.BLL.User.UserManager.UserAuthorization(String email, String password) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 755</RepresentationString>
+    <Time>2010-02-28T13:32:56.338596+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NotImplementedException</ExceptionType>
+    <ErrorMessage>The method or operation is not implemented.</ErrorMessage>
+    <RepresentationString>System.NotImplementedException: The method or operation is not implemented.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.UserManager_OnUserCreated(Object sende, UserArgs e)
+   at UniqueStudio.BLL.User.UserManager.CreateUser(UserInfo currentUser, UserInfo user) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 224</RepresentationString>
+    <Time>2010-02-28T13:41:20.7864488+08:00</Time>
+    <Remarks>OnUserCreated事件触发异常</Remarks>
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NotImplementedException</ExceptionType>
+    <ErrorMessage>The method or operation is not implemented.</ErrorMessage>
+    <RepresentationString>System.NotImplementedException: The method or operation is not implemented.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.UserManager_OnUserCreated(Object sende, UserArgs e)
+   at UniqueStudio.BLL.User.UserManager.CreateUser(UserInfo currentUser, UserInfo user) in E:\Projects\CMS\CMS\UniqueStudio.BLL\User\UserManager.cs:line 224</RepresentationString>
+    <Time>2010-02-28T14:03:34.064708+08:00</Time>
+    <Remarks>OnUserCreated事件触发异常</Remarks>
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Exception</ExceptionType>
+    <ErrorMessage>Exception of type 'System.Exception' was thrown.</ErrorMessage>
+    <RepresentationString>System.Exception: Exception of type 'System.Exception' was thrown.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.Init()
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\CMS\UniqueStudio.Admin\Global.asax.cs:line 33</RepresentationString>
+    <Time>2010-03-02T16:24:58.5582811+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Exception</ExceptionType>
+    <ErrorMessage>Exception of type 'System.Exception' was thrown.</ErrorMessage>
+    <RepresentationString>System.Exception: Exception of type 'System.Exception' was thrown.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.Init()
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\CMS\UniqueStudio.Admin\Global.asax.cs:line 33</RepresentationString>
+    <Time>2010-03-02T16:30:27.4780943+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Exception</ExceptionType>
+    <ErrorMessage>Exception of type 'System.Exception' was thrown.</ErrorMessage>
+    <RepresentationString>System.Exception: Exception of type 'System.Exception' was thrown.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.Init()
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\CMS\UniqueStudio.Admin\Global.asax.cs:line 33</RepresentationString>
+    <Time>2010-03-02T16:30:34.7795119+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Exception</ExceptionType>
+    <ErrorMessage>Exception of type 'System.Exception' was thrown.</ErrorMessage>
+    <RepresentationString>System.Exception: Exception of type 'System.Exception' was thrown.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.Init()
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\CMS\UniqueStudio.Admin\Global.asax.cs:line 33</RepresentationString>
+    <Time>2010-03-02T16:37:59.4909479+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Exception</ExceptionType>
+    <ErrorMessage>Exception of type 'System.Exception' was thrown.</ErrorMessage>
+    <RepresentationString>System.Exception: Exception of type 'System.Exception' was thrown.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.Init()
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\CMS\UniqueStudio.Admin\Global.asax.cs:line 33</RepresentationString>
+    <Time>2010-03-02T16:38:05.7603065+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Exception</ExceptionType>
+    <ErrorMessage>Exception of type 'System.Exception' was thrown.</ErrorMessage>
+    <RepresentationString>System.Exception: Exception of type 'System.Exception' was thrown.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.Init()
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e)</RepresentationString>
+    <Time>2010-03-02T16:42:34.3396684+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Exception</ExceptionType>
+    <ErrorMessage>Exception of type 'System.Exception' was thrown.</ErrorMessage>
+    <RepresentationString>System.Exception: Exception of type 'System.Exception' was thrown.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.Init()
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\CMS\UniqueStudio.Admin\Global.asax.cs:line 33</RepresentationString>
+    <Time>2010-03-02T18:26:16.4726264+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Exception</ExceptionType>
+    <ErrorMessage>Exception of type 'System.Exception' was thrown.</ErrorMessage>
+    <RepresentationString>System.Exception: Exception of type 'System.Exception' was thrown.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.Init()
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\CMS\UniqueStudio.Admin\Global.asax.cs:line 33</RepresentationString>
+    <Time>2010-03-02T18:32:18.3613252+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Exception</ExceptionType>
+    <ErrorMessage>Exception of type 'System.Exception' was thrown.</ErrorMessage>
+    <RepresentationString>System.Exception: Exception of type 'System.Exception' was thrown.
+   at UniqueStudio.PlugInIpAuth.PlugInIpAuth.Init()
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\CMS\UniqueStudio.Admin\Global.asax.cs:line 33</RepresentationString>
+    <Time>2010-03-02T18:43:32.800901+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Procedure or function 'SearchPostsByTime' expects parameter '@StartDate', which was not supplied.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Procedure or function 'SearchPostsByTime' expects parameter '@StartDate', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at UniqueStudio.Common.DatabaseHelper.SqlHelper.ExecuteReader(CommandType cmdType, String cmdText, SqlParameter[] commandParameters) in E:\Projects\CMS\CMS\UniqueStudio.Common\DatabaseHelper\SqlHelper.cs:line 168
+   at UniqueStudio.ComContent.DAL.PostProvider.SearchPostsByTime(DateTime startTime, DateTime endTime) in E:\Projects\CMS\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 724
+   at UniqueStudio.ComContent.BLL.PostManager.SearchPostsByTime(DateTime startTime, DateTime endTime) in E:\Projects\CMS\CMS\UniqueStudio.ComContent\BLL\PostManager.cs:line 379</RepresentationString>
+    <Time>2010-03-06T01:40:54.5130484+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Procedure or function 'SearchPostsByTime' expects parameter '@StartDate', which was not supplied.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Procedure or function 'SearchPostsByTime' expects parameter '@StartDate', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at UniqueStudio.Common.DatabaseHelper.SqlHelper.ExecuteReader(CommandType cmdType, String cmdText, SqlParameter[] commandParameters) in E:\Projects\CMS\CMS\UniqueStudio.Common\DatabaseHelper\SqlHelper.cs:line 168
+   at UniqueStudio.ComContent.DAL.PostProvider.SearchPostsByTime(DateTime startTime, DateTime endTime) in E:\Projects\CMS\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 724
+   at UniqueStudio.ComContent.BLL.PostManager.SearchPostsByTime(DateTime startTime, DateTime endTime) in E:\Projects\CMS\CMS\UniqueStudio.ComContent\BLL\PostManager.cs:line 379</RepresentationString>
+    <Time>2010-03-06T01:51:11.4533354+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+</ArrayOfErrorInfo>

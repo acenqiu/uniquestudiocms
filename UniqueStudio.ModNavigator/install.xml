@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<install>
+  <ModuleName>mod_navigator</ModuleName>
+  <DisplayName>导航栏</DisplayName>
+  <ModuleAuthor>UniqueStudio</ModuleAuthor>
+  <Description>与菜单编辑器配合，绑定某个菜单</Description>
+  <params>
+    <param name="" type="list" value="" label="菜单名" title=""></param>
+  </params>
+</install>
