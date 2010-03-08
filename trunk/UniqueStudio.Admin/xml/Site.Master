@@ -1,0 +1,62 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="UniqueStudio.ComContent.PL.Site" %>
+
+<%@ Import Namespace="UniqueStudio.Common.Config" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <script language="javascript" type="text/javascript" src="index.js"> </script>
+    <script language="javascript" type="text/javascript">
+        var t1 = new Date().getTime();
+    </script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <script language="javascript" type="text/javascript">
+        window.onload=function()
+        {
+            document.getElementById("QueryTime").innerHTML="     Query Time:"+(new Date().getTime()-t1)+"ms";
+        }
+    </script>
+    <form id="form1" runat="server">
+    <div class="wrapper">
+        <div class="header-border">
+            <div class="header">
+                <span class="enversion"><a href="<%= WebSiteConfig.BaseAddress %>/english/">English Version</a></span>
+                <h5>&nbsp;
+                    </h5>
+                <div class="logo">
+                    <h1>
+                        引力中心实验室</h1>
+                </div>
+                <h3>&nbsp;</h3>
+                <div id="navigation">
+                    <asp:Literal ID="navigationMenu" runat="server"></asp:Literal>
+                    <%--<span class="search-box">
+                        <input type="text" class="input-text" />
+                        <input type="button" value="搜索" class="input-button" /></span>--%>
+                </div>
+            </div>
+        </div>
+        <div class="main-wrapper">
+            <asp:ContentPlaceHolder ID="cphMain" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="footer-border">
+            <div class="footer">
+            <p>
+                页面浏览量：<asp:Literal ID="ltlPv" runat="server"/>  <span id="QueryTime"></span></p>
+                <p>
+                    Copyright (C) 华中科技大学教育部重点实验室</p>
+                <p>
+                    地址 Add：中国·华中科技大学 邮编 P.C.：430074</p>
+                <p>
+                    鄂ICP备05000313号</p>
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

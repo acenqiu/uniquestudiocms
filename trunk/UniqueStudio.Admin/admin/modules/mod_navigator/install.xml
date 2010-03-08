@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<install>
+  <ModuleName>mod_navigator</ModuleName>
+  <DisplayName>导航栏</DisplayName>
+  <ModuleAuthor>UniqueStudio</ModuleAuthor>
+  <Description>与菜单编辑器配合，绑定某个菜单</Description>
+  <params>
+    <param name="count" type="text" value="1" label="Count" title="PARAMNUMBERITEMS" />
+  <param name="header_text" type="textarea" rows="3" cols="40"  value="1" label="Header Text" title="PARAMHEADERTEXT" />
+
+  <param name="tag_search" type="checkbox" value="0" label="Search By Tags" title="PARAMSEARCHBYTAG">
+    <option value="0" label="No"></option>
+    <option value="1" label="Yes"></option>
+  </param>
+
+  <param name="spacer" type="spacer"  label="" title="" />
+  <param name="tag_search" type="radio" value="0" label="Search By Tags" title="PARAMSEARCHBYTAG">
+    <option value="0" label="1"></option>
+    <option value="1" label="2"></option>
+  </param>
+
+  <param name="target" type="list"  value="1" label="Target" datasoure=""
+     dataTextField="" dataValueField="" title="PARAMTARGET">
+    <option value="0" label="Parent Window With Browser Navigation"></option>
+    <option value="1" label="New Window With Browser Navigation"></option>
+    <option value="2" label="New Window Without Browser Navigation"/>
+  </param>
+  </params>
+</install>

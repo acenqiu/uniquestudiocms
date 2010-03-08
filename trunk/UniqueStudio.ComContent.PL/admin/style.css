@@ -1,0 +1,176 @@
+﻿body
+{
+font-size:12px;
+font-family:Tohoma,宋体，Arial,Helvetica, sans-serif;
+background:#ffffff;
+
+
+}
+a,a:link,a:visited
+{
+  text-decoration:none;
+  color:#333333;
+}
+a:hover
+{
+text-decoration:underline;
+color:#003399;
+}
+.separator{
+	background:#eff2f4;
+}
+
+.postEditor p span
+{
+    display:block;
+    float:left;
+    width:100px;
+}
+.postEditor .submits input
+{
+}
+
+.panel
+{
+    border:solid 1px #93b9dc;
+    margin:0 auto 5px;
+}
+.panel_title
+{
+    background-color:#bfd3e6;
+    text-align:center;
+    padding:3px;
+}
+.panel_body
+{
+    padding:0px;
+	    margin:10px;
+    margin-top:0px;
+}
+.panel_table
+{
+	border:0px solid;
+	width:100%;
+	text-align:center;
+	cursor:default;
+	position:relative;
+
+	
+}
+.panel_table_head , .panel_table tbody tr:first-child
+{
+	background:#FFFF99;
+
+}
+.panel_table .row-hover
+{
+	color:#3366CC;
+}
+.panel_table .row-select
+{
+	 background:#FFFFCE;
+}
+.error, .success,.tip
+{
+    margin: 10px 0 10px 0;
+    padding: 12px;
+    color:#555;
+}
+.error
+{
+    border: solid 1px #c00;
+    background-color: #ffebe8;
+}
+.success
+{
+    border: solid 1px #ccccee;
+    background-color: #eef5ff;
+}
+.tip
+{
+	border: solid 1px #d3c403;
+	background-color: #fdf166;
+}
+.form-item
+{
+ padding:5px 5px;
+ position:relative;
+ height:auto;
+ 
+}
+
+.input-text
+{
+height:16px;
+}
+.input-button
+{
+color:#FFFFFF;
+}
+.form-item-label
+{
+
+text-align:right;
+
+width:100px;
+color:#333333;
+float:left;
+padding-right:1em;
+}
+.form-item-input
+{
+ 
+display:inline-table;
+width:800px;
+text-align:left;
+text-indent:1em;
+
+}
+input[type="text"],textarea,select
+{
+color:#996600;
+border:1px #0066FF solid;
+font-size:14px;
+padding:1px;
+
+}
+input[type="submit"]
+{
+	 color:#ffffff;
+
+ font-size:12px;
+ text-align:center;
+ padding:2px 6px;
+
+  background:#FF9900;
+  
+  border:1px #FFFF99 solid;
+  outline:solid 1px #666666;
+  margin-left:15px;
+  margin-top:10px;
+  margin-left:15px;
+  margin-top:10px;
+}
+hr
+{
+	color:#FFFF33;
+}
+.column-head
+{
+line-height:14px;
+background:url(img/column-header-icon.png) no-repeat;
+text-indent:20px;
+color:#136DBC;
+font-size:16px;
+ font-family:黑体,Arial, Helvetica, sans-serif;
+ border-bottom:dotted #FF9900 1px;
+ padding-bottom:5px;
+ position:relative;
+}
+.column-head  span a
+{
+position:absolute;
+left:72%;
+font-size:14px;
+color:#66CC00;
+}

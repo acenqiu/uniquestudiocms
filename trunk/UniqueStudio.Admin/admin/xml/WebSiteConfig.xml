@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <param name="WebName" type="text" value="基本物理量测量教育部重点实验室" label="网站名称" title="网站名称" />
+  <param name="BaseAddress" type="text" value="http://localhost:2800" label="网站网址" title="网站网址" />
+  <param name="EnableLoginByUserName" type="radio" value="true" label="后台验证方式" title="是否在后台显示当前时间">
+    <option value="true" label="使用邮箱或用户名登陆">
+    </option>
+    <option value="false" label="使用邮箱登陆">
+    </option>
+  </param>
+  <param name="EnableRegister" type="radio" value="false" label="开放注册" title="是否允许任何用户注册">
+    <option value="true" label="是">
+    </option>
+    <option value="false" label="否">
+    </option>
+  </param>
+  <param name="IsApprovedAfterRegister" type="radio" value="false" label="注册后默认处于" title="">
+    <option value="true" label="激活状态">
+    </option>
+    <option value="false" label="未激活状态">
+    </option>
+  </param>
+  <param name="IsDisplayTime" type="radio" value="false" label="是否在后台显示当前时间" title="是否在后台显示当前时间">
+    <option value="true" label="是">
+    </option>
+    <option value="false" label="否">
+    </option>
+  </param>
+  <param name="TimeFormatOfIndexPostList" type="text" value="yyyy-MM" label="首页文章列表时间格式" title="首页文章列表时间格式" />
+  <param name="PageSizeOfIndexPostList" type="text" value="10" label="首页文章列表显示数量" title="首页文章列表显示数量" />
+  <param name="TimeFormatOfSectionPostList" type="text" value="yyyy-MM-dd" label="子栏目文章列表时间格式" title="子栏目文章列表时间格式" />
+  <param name="PageSizeOfSectionPostList" type="text" value="20" label="子栏目文章列表显示数量" title="子栏目文章列表显示数量" />
+  <param name="NewImageThreshold" type="text" value="7" label="定义为新文章的天数" title="定义为新文章的天数" />
+  <param name="PostStatByYear" type="radio" value="false" label="统计文章数量的方式" title="统计文章数量的方式">
+    <option value="true" label="按年统计">
+    </option>
+    <option value="false" label="按月统计">
+    </option>
+  </param>
+  <param name="EnclosureExtension" type="text" value=".doc;.docx;.rar;.zip;.7z;.pdf;" label="附件类型" title="附件类型" />
+</config>

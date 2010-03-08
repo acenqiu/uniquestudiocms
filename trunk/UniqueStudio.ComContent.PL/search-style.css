@@ -1,0 +1,29 @@
+/* CSS Document */
+
+.search-result
+{
+  margin:20px;
+ 
+}
+.result-item
+{
+ padding:10px 0px;
+}
+.result-title a
+{
+ font-size:16px;
+ color:#0033CC;
+}
+.result-item strong
+{
+ color:#FF3300;
+}
+.result-extra-info span
+{
+ padding-right:10px;
+ color:#999999;
+}
+.result-extra-info a
+{
+ color:#339933;
+}
