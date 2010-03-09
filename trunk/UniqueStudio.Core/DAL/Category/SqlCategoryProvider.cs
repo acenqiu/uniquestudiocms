@@ -34,7 +34,7 @@ namespace UniqueStudio.DAL.Category
                                                         new SqlParameter("@CategoryName",category.CategoryName),
                                                         new  SqlParameter("@CategoryNiceName",category.CategoryNiceName),
                                                         new SqlParameter("@Description",category.Description),
-                                                        new SqlParameter("@SubOf",category.SubOf)};
+                                                        new SqlParameter("@SubOf",category.ParentCategoryId)};
             object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, CREATE_CATEGORY, parms);
             if (o != null && o != DBNull.Value)
             {
@@ -126,9 +126,9 @@ namespace UniqueStudio.DAL.Category
 
                         reader.Close();
                     }
-                    while (temp !=null && temp.SubOf !=0)
+                    while (temp !=null && temp.ParentCategoryId !=0)
                     {
-                        cmd.Parameters[0].Value = temp.SubOf;
+                        cmd.Parameters[0].Value = temp.ParentCategoryId;
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
@@ -182,7 +182,7 @@ namespace UniqueStudio.DAL.Category
                                                     new SqlParameter("@CategoryName",category.CategoryName),
                                                     new SqlParameter("@CategoryNiceName",category.CategoryNiceName),
                                                     new SqlParameter("@Description",category.Description),
-                                                    new SqlParameter("@SubOf",category.SubOf)};
+                                                    new SqlParameter("@SubOf",category.ParentCategoryId)};
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, UPDATE_CATEGORY, parms) > 0;
         }
 
@@ -196,7 +196,7 @@ namespace UniqueStudio.DAL.Category
             {
                 category.Description = reader["Description"].ToString();
             }
-            category.SubOf = (int)reader["SubOf"];
+            category.ParentCategoryId = (int)reader["SubOf"];
             return category;
         }
     }

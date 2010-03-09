@@ -24,8 +24,8 @@ namespace UniqueStudio.Common.Model
         /// <summary>
         /// 以类名、程序集初始化ClassInfo类的实例。
         /// </summary>
-        /// <param name="classPath"></param>
-        /// <param name="assembly"></param>
+        /// <param name="classPath">类名</param>
+        /// <param name="assembly">程序集</param>
         public ClassInfo(string classPath, string assembly)
         {
             this.classPath = classPath;

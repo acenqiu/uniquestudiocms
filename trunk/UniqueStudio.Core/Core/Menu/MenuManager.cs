@@ -97,16 +97,16 @@ namespace UniqueStudio.Core.Menu
             }
             foreach (MenuItemInfo item in menus)
             {
-                menus[Convert.ToInt16(idTable[item.SubOf])].ChildList.Add(item);
+                menus[Convert.ToInt16(idTable[item.ParentItemId])].ChildItems.Add(item);
             }
-            menus[0].ChildList.Remove(menus[0]);
+            menus[0].ChildItems.Remove(menus[0]);
             return head;
         }
         public string GetMenuHtml(MenuItemInfo head)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<ul>").Append("\r\n");
-            foreach (MenuItemInfo child in head.ChildList)
+            foreach (MenuItemInfo child in head.ChildItems)
             {
                 sb.Append(getHTML(child,new StringBuilder("menuPath=").Append(child.Id.ToString()).ToString())).Append("\r\n");
             }
@@ -117,12 +117,12 @@ namespace UniqueStudio.Core.Menu
         {
             StringBuilder sb = new StringBuilder();
 
-            if (node.ChildList.Count > 0)
+            if (node.ChildItems.Count > 0)
             {
                 sb.Append("<li onmouseover='show(this)' onmouseout='hide(this)' class='li-node'>").Append("\r\n");
                 sb.Append("<div class='candy-menu'>").Append("\r\n");
                 sb.Append("<ul>").Append("\r\n");
-                foreach (MenuItemInfo child in node.ChildList)
+                foreach (MenuItemInfo child in node.ChildItems)
                 {
                     sb.Append(getHTML(child,menuPath+","+child.Id)).Append("\r\n");
                 }

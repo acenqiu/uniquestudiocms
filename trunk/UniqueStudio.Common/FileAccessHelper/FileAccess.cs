@@ -5,16 +5,30 @@ using System.Text;
 
 namespace UniqueStudio.Common.FileAccessHelper
 {
+    /// <summary>
+    /// 提供文件访问的方法
+    /// </summary>
     public class FileAccess
     {
+        /// <summary>
+        /// 读取文件
+        /// </summary>
+        /// <param name="filePath">文件路径</param>
+        /// <returns>文件内容</returns>
         public static string ReadFile(string filePath)
         {
             return ReadFile(filePath, Encoding.Default);
         }
 
+        /// <summary>
+        /// 读取文件
+        /// </summary>
+        /// <param name="filePath">文件路径</param>
+        /// <param name="encoding">文件编码</param>
+        /// <returns>文件内容</returns>
         public static string ReadFile(string filePath, Encoding encoding)
         {
-            if (filePath.Trim().Length == 0)
+            if (string.IsNullOrEmpty(filePath))
             {
                 throw new ArgumentNullException("请指定文件完整路径。");
             }
@@ -37,22 +51,6 @@ namespace UniqueStudio.Common.FileAccessHelper
                 reader.Close();
             }
             return content;
-        }
-
-        public static void WriteFile(string fileFullPath, string fileContent)
-        {
-            //文件路径分解
-            throw new NotImplementedException();
-        }
-
-        public static void WriteFile(string fileDirectory, string fileName, string fileContent)
-        {
-            WriteFile(fileDirectory, fileName, fileContent, Encoding.UTF8);
-        }
-
-        public static void WriteFile(string fileDirectory, string fileName, string fileContent, Encoding encoding)
-        {
-            throw new NotImplementedException();
         }
     }
 }

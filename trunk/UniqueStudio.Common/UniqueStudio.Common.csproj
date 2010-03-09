@@ -29,8 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>..\Document\UniqueStudio.Common.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,7 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache\Cache.cs" />
+    <Compile Include="Caching\Cache.cs" />
     <Compile Include="Config\GlobalConfig.cs" />
     <Compile Include="Config\SecurityConfig.cs" />
     <Compile Include="Config\ServerConfig.cs" />
@@ -110,9 +109,7 @@
     <Compile Include="RESTful\RESTClient.cs" />
     <Compile Include="Security\MD5Helper.cs" />
     <Compile Include="Utility.cs" />
-    <Compile Include="XmlHelper\InsertType.cs" />
     <Compile Include="XmlHelper\XmlManager.cs" />
-    <Compile Include="XmlHelper\XmlParameter.cs" />
     <Compile Include="XmlPageParser\Controls\CheckBox.cs" />
     <Compile Include="XmlPageParser\Controls\Control.cs" />
     <Compile Include="XmlPageParser\Controls\ControlType.cs" />

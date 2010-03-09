@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UniqueStudio.Common.Exceptions
 {
+    /// <summary>
+    /// 插件安装异常
+    /// </summary>
     public class PlugInInstallException : ApplicationException
     {
         public PlugInInstallException()

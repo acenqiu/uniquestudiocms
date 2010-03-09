@@ -38,7 +38,7 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 以用户ID初始化<see cref="UserInfo"/>类的实例
+        /// 以用户ID初始化<see cref="UserInfo"/>类的实例。
         /// </summary>
         /// <param name="userId">用户ID</param>
         public UserInfo(Guid userId)

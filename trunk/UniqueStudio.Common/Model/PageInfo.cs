@@ -11,7 +11,7 @@ namespace UniqueStudio.Common.Model
     {
         private int id;
         private int siteId;
-        private string name;
+        private string pageName;
         private PageType pageType;
         private string url=string.Empty;
         private string urlRegex;
@@ -19,7 +19,7 @@ namespace UniqueStudio.Common.Model
         private string parameters=string.Empty;
         private string staticPagePath=string.Empty;
         private ProcessType processType;
-        private int subOf;
+        private int parentPageId;
         private int depth;
 
         /// <summary>
@@ -38,7 +38,6 @@ namespace UniqueStudio.Common.Model
             get { return id; }
             set { id = value; }
         }
-
         /// <summary>
         /// 网站ID
         /// </summary>
@@ -47,16 +46,14 @@ namespace UniqueStudio.Common.Model
             get { return siteId; }
             set { siteId = value; }
         }
-
         /// <summary>
         /// 页面名称
         /// </summary>
-        public string Name
+        public string PageName
         {
-            get { return name; }
-            set { name = value; }
+            get { return pageName; }
+            set { pageName = value; }
         }
-
         /// <summary>
         /// 页面类型
         /// </summary>
@@ -65,7 +62,6 @@ namespace UniqueStudio.Common.Model
             get { return pageType; }
             set { pageType = value; }
         }
-
         /// <summary>
         /// 访问该页面的URL
         /// </summary>
@@ -74,7 +70,6 @@ namespace UniqueStudio.Common.Model
             get { return url; }
             set { url = value; }
         }
-
         /// <summary>
         /// 用于Url重写的正则表达式形式
         /// </summary>
@@ -83,7 +78,6 @@ namespace UniqueStudio.Common.Model
             get { return urlRegex; }
             set { urlRegex = value; }
         }
-
         /// <summary>
         /// 实际页面路径
         /// </summary>
@@ -92,7 +86,6 @@ namespace UniqueStudio.Common.Model
             get { return pagePath; }
             set { pagePath = value; }
         }
-
         /// <summary>
         /// 页面调用参数
         /// </summary>
@@ -101,7 +94,6 @@ namespace UniqueStudio.Common.Model
             get { return parameters; }
             set { parameters = value; }
         }
-
         /// <summary>
         /// 静态页面存放路径
         /// </summary>
@@ -110,7 +102,6 @@ namespace UniqueStudio.Common.Model
             get { return staticPagePath; }
             set { staticPagePath = value; }
         }
-
         /// <summary>
         /// 页面处理方式
         /// </summary>
@@ -119,16 +110,14 @@ namespace UniqueStudio.Common.Model
             get { return processType; }
             set { processType = value; }
         }
-
         /// <summary>
-        /// 从属于
+        /// 父页面ID
         /// </summary>
-        public int SubOf
+        public int ParentPageId
         {
-            get { return subOf; }
-            set { subOf = value; }
+            get { return parentPageId; }
+            set { parentPageId = value; }
         }
-
         /// <summary>
         /// 页面层次
         /// </summary>

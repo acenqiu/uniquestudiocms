@@ -27,6 +27,10 @@ namespace UniqueStudio.Common.RESTful
                 parameters = value;
             }
         }
+
+        /// <summary>
+        /// 主机
+        /// </summary>
         public string Host
         {
             get { return host; }
@@ -34,7 +38,7 @@ namespace UniqueStudio.Common.RESTful
         }
 
         /// <summary>
-        /// 创建一个 RESTClient 类的实例。
+        /// 初始化<see cref="RESTClient"/>类的实例
         /// </summary>
         public RESTClient()
         {
@@ -42,10 +46,10 @@ namespace UniqueStudio.Common.RESTful
         }
 
         /// <summary>
-        /// 
+        /// 以参数、主机初始化<see cref="RESTClient"/>类的实例
         /// </summary>
-        /// <param name="parameters"></param>
-        /// <param name="host"></param>
+        /// <param name="parameters">参数</param>
+        /// <param name="host">主机</param>
         public RESTClient(IDictionary<string, string> parameters, string host)
         {
             this.parameters = parameters;
@@ -53,9 +57,9 @@ namespace UniqueStudio.Common.RESTful
         }
 
         /// <summary>
-        /// 获取响应的数据流。
+        /// 获取响应的数据流
         /// </summary>
-        /// <returns></returns>
+        /// <returns>响应的数据流</returns>
         public Stream GetResponseStream()
         {
             string query = CollectionUtil.ToQueryString(this.Parameters);
@@ -75,9 +79,9 @@ namespace UniqueStudio.Common.RESTful
         }
 
         /// <summary>
-        /// 获取响应的文本。
+        /// 获取响应的文本
         /// </summary>
-        /// <returns></returns>
+        /// <returns>响应的文本</returns>
         public string GetResponseText()
         {
             string text = string.Empty;

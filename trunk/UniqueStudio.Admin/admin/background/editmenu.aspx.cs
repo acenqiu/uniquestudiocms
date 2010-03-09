@@ -83,7 +83,7 @@ namespace UniqueStudio.Admin.admin.background
             {
                 item.Ordering = 0;
             }
-            item.SubOf = Convert.ToInt32(ddlItems.SelectedValue);
+            item.ParentItemId = Convert.ToInt32(ddlItems.SelectedValue);
 
             try
             {
