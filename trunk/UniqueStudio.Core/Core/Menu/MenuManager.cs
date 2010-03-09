@@ -108,12 +108,12 @@ namespace UniqueStudio.Core.Menu
             sb.Append("<ul>").Append("\r\n");
             foreach (MenuItemInfo child in head.ChildList)
             {
-                sb.Append(getHTML(child)).Append("\r\n");
+                sb.Append(getHTML(child,new StringBuilder("menuPath=").Append(child.Id.ToString()).ToString())).Append("\r\n");
             }
             sb.Append("</ul>").Append("\r\n");
             return sb.ToString();
         }
-        private string getHTML(MenuItemInfo node)
+        private string getHTML(MenuItemInfo node,string menuPath)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -124,7 +124,7 @@ namespace UniqueStudio.Core.Menu
                 sb.Append("<ul>").Append("\r\n");
                 foreach (MenuItemInfo child in node.ChildList)
                 {
-                    sb.Append(getHTML(child)).Append("\r\n");
+                    sb.Append(getHTML(child,menuPath+","+child.Id)).Append("\r\n");
                 }
                 sb.Append("</ul>").Append("\r\n");
                 sb.Append("</div>").Append("\r\n");
@@ -135,7 +135,16 @@ namespace UniqueStudio.Core.Menu
             }
             if ((node.Link != null) && (!node.Link.Equals(String.Empty)))
             {
-                sb.Append("<a href='").Append(node.Link).Append("'>").Append("\r\n");
+                sb.Append("<a href='").Append(node.Link);
+                if (node.Link.IndexOf("?") < 0)
+                {
+                    sb.Append("?");
+                }
+                else
+                {
+                    sb.Append("&");
+                }
+                sb.Append(menuPath).Append("'>").Append("\r\n");
                 sb.Append(node.ItemName).Append("\r\n");
                 sb.Append("</a>").Append("\r\n");
             }
