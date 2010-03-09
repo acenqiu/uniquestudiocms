@@ -4,6 +4,9 @@ using System.Text;
 
 namespace UniqueStudio.Common
 {
+    /// <summary>
+    /// 提供一些常用的方法
+    /// </summary>
     public class Utility
     {
         /// <summary>

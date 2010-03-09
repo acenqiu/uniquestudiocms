@@ -27,7 +27,7 @@ namespace UniqueStudio.DAL.SiteMap
         {
             SqlParameter[] parms = new SqlParameter[]{
                                                        new SqlParameter("@SiteID",page.SiteId),
-                                                       new SqlParameter("@Name",page.Name),
+                                                       new SqlParameter("@Name",page.PageName),
                                                        new SqlParameter("@PageType",Enum.GetName(typeof(PageType),page.PageType)),
                                                        new SqlParameter("@Url",page.Url),
                                                        new SqlParameter("@UrlRegex",page.UrlRegex),
@@ -35,7 +35,7 @@ namespace UniqueStudio.DAL.SiteMap
                                                        new SqlParameter("@Parameters",page.Parameters),
                                                        new SqlParameter("@StaticPagePath",page.StaticPagePath),
                                                        new SqlParameter("@ProcessType",Enum.GetName(typeof(ProcessType),page.ProcessType)),
-                                                       new SqlParameter("@SubOf",page.SubOf),
+                                                       new SqlParameter("@SubOf",page.ParentPageId),
                                                        new SqlParameter("@Depth",page.Depth)};
             object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, CREATE_PAGE, parms);
             if (o != null && o != DBNull.Value)
@@ -73,7 +73,7 @@ namespace UniqueStudio.DAL.SiteMap
             SqlParameter[] parms = new SqlParameter[]{
                                                        new SqlParameter("@ID",page.Id),
                                                        new SqlParameter("@SiteID",page.SiteId),
-                                                       new SqlParameter("@Name",page.Name),
+                                                       new SqlParameter("@Name",page.PageName),
                                                        new SqlParameter("@PageType",Enum.GetName(typeof(PageType),page.PageType)),
                                                        new SqlParameter("@Url",page.Url),
                                                        new SqlParameter("@UrlRegex",page.UrlRegex),
@@ -81,7 +81,7 @@ namespace UniqueStudio.DAL.SiteMap
                                                        new SqlParameter("@Parameters",page.Parameters),
                                                        new SqlParameter("@StaticPagePath",page.StaticPagePath),
                                                        new SqlParameter("@ProcessType",Enum.GetName(typeof(ProcessType),page.ProcessType)),
-                                                       new SqlParameter("@SubOf",page.SubOf),
+                                                       new SqlParameter("@SubOf",page.ParentPageId),
                                                        new SqlParameter("@Depth",page.Depth)};
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, UPDATE_PAGE, parms) > 0;
         }
@@ -91,7 +91,7 @@ namespace UniqueStudio.DAL.SiteMap
             PageInfo page = new PageInfo();
             page.Id = (int)reader["ID"];
             page.SiteId = (int)reader["SiteID"];
-            page.Name = reader["Name"].ToString();
+            page.PageName = reader["Name"].ToString();
             page.PageType = (PageType)Enum.Parse(typeof(PageType), reader["PageType"].ToString());
             page.Url = reader["Url"].ToString();
             page.UrlRegex = reader["UrlRegex"].ToString();
@@ -102,7 +102,7 @@ namespace UniqueStudio.DAL.SiteMap
             }
             page.StaticPagePath = reader["StaticPagePath"].ToString();
             page.ProcessType = (ProcessType)Enum.Parse(typeof(ProcessType), reader["ProcessType"].ToString());
-            page.SubOf = (int)reader["SubOf"];
+            page.ParentPageId = (int)reader["SubOf"];
             page.Depth = (int)reader["Depth"];
             return page;
         }

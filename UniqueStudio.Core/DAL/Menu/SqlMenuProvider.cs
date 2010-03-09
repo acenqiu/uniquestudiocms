@@ -32,7 +32,7 @@ namespace UniqueStudio.DAL.Menu
                                                         new SqlParameter("@Link",item.Link),
                                                         new SqlParameter("@Target",item.Target),
                                                         new SqlParameter("@Ordering",item.Ordering),
-                                                        new SqlParameter("@SubOf",item.SubOf)};
+                                                        new SqlParameter("@SubOf",item.ParentItemId)};
             object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, ADD_MENU_ITEM, parms);
             if (o != null && o != DBNull.Value)
             {
@@ -141,7 +141,7 @@ namespace UniqueStudio.DAL.Menu
             item.Target = reader["Target"].ToString();
             item.Depth = (int)reader["Depth"];
             item.Ordering = (int)reader["Ordering"];
-            item.SubOf = (int)reader["SubOf"];
+            item.ParentItemId = (int)reader["SubOf"];
             if (reader["ParentItemName"] != DBNull.Value)
             {
                 item.ParentItemName = reader["ParentItemName"].ToString();

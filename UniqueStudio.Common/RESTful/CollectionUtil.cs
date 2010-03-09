@@ -4,15 +4,15 @@ using System.Text;
 namespace UniqueStudio.Common.RESTful
 {
     /// <summary>
-    /// 集合辅助类。
+    /// 集合辅助类
     /// </summary>
     public static class CollectionUtil
     {
         /// <summary>
-        /// 将字符串字典里的数据转换成URL查询字符串格式。
+        /// 将字符串字典里的数据转换成URL查询字符串格式
         /// </summary>
-        /// <param name="dict">字符串字典。</param>
-        /// <returns></returns>
+        /// <param name="dict">字符串字典</param>
+        /// <returns>url查询字符串</returns>
         public static string ToQueryString(IDictionary<string, string> dict)
         {
             if (dict.Count == 0)
@@ -40,10 +40,11 @@ namespace UniqueStudio.Common.RESTful
         }
 
         /// <summary>
-        /// 
+        /// 按字符串字典里的数据转换为以字母升序且以键值对形式存储的字符串
         /// </summary>
-        /// <param name="dict"></param>
-        /// <returns></returns>
+        /// <remarks>格式为：key1=value1key2=value2</remarks>
+        /// <param name="dict">字符串字典</param>
+        /// <returns>对应字符串</returns>
         public static string ToSortedString(IDictionary<string, string> dict)
         {
             SortedDictionary<string, string> sortedDict = new SortedDictionary<string, string>(dict);
@@ -66,9 +67,9 @@ namespace UniqueStudio.Common.RESTful
         /// <summary>
         /// 将列表转换为逗号分隔的字符串。
         /// </summary>
-        /// <param name="collection">列表。</param>
-        /// <typeparam name="T">元素类型。</typeparam>
-        /// <returns></returns>
+        /// <param name="collection">列表</param>
+        /// <typeparam name="T">元素类型</typeparam>
+        /// <returns>逗号分隔的字符串</returns>
         public static string ToCommaString<T>(IList<T> collection)
         {
             if (collection.Count == 0)

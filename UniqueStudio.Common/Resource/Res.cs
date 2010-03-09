@@ -6,6 +6,10 @@ using System.Text;
 
 namespace UniqueStudio.Common.Resource
 {
+    /// <summary>
+    /// 系统资源
+    /// </summary>
+    /// <remarks>当前该类处于测试状态</remarks>
     public class Res
     {
         private static ResourceManager resourceManager;
@@ -24,6 +28,9 @@ namespace UniqueStudio.Common.Resource
             }
         }
 
+        /// <summary>
+        /// 分类
+        /// </summary>
         public static string Category
         {
             get

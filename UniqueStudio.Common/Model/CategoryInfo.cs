@@ -14,7 +14,7 @@ namespace UniqueStudio.Common.Model
         private string categoryName;
         private string categoryNiceName;
         private string description = string.Empty;
-        private int subOf = 0;
+        private int parentCategoryId = 0;
         private string parentCategoryName = string.Empty;
 
         private CategoryInfo parentCategory = null;
@@ -47,7 +47,7 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 对程序友好的分类名称（请使用英文或拼音）
+        /// 分类别名，对程序友好的分类名称（请使用英文或拼音）
         /// </summary>
         public string CategoryNiceName
         {
@@ -67,10 +67,10 @@ namespace UniqueStudio.Common.Model
         /// <summary>
         /// 父分类ID
         /// </summary>
-        public int SubOf
+        public int ParentCategoryId
         {
-            get { return subOf; }
-            set { subOf = value; }
+            get { return parentCategoryId; }
+            set { parentCategoryId = value; }
         }
 
         /// <summary>

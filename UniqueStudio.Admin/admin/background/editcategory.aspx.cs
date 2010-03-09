@@ -50,7 +50,7 @@ namespace UniqueStudio.Admin.admin.background
                     {
                         ddlCategories.Items.Add(new ListItem(item.CategoryName, item.CategoryId.ToString()));
                     }
-                    ddlCategories.SelectedValue = category.SubOf.ToString();
+                    ddlCategories.SelectedValue = category.ParentCategoryId.ToString();
                 }
                 else
                 {
@@ -66,7 +66,7 @@ namespace UniqueStudio.Admin.admin.background
             category.CategoryName = txtCategoryName.Text.Trim();
             category.CategoryNiceName = txtNiceName.Text.Trim();
             category.Description = txtDescription.Text.Trim();
-            category.SubOf = Convert.ToInt32(ddlCategories.SelectedValue);
+            category.ParentCategoryId = Convert.ToInt32(ddlCategories.SelectedValue);
 
             try
             {

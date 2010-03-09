@@ -6,6 +6,10 @@ using System.Text;
 
 namespace UniqueStudio.Common.Mailing
 {
+    /// <summary>
+    /// 邮件发送类
+    /// </summary>
+    /// <remarks>该类尚未实现功能</remarks>
     public class SMTP
     {
         public SMTP()

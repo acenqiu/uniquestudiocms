@@ -7,6 +7,7 @@ namespace UniqueStudio.Common.RESTful
     /// <summary>
     /// 哈希辅助类
     /// </summary>
+    /// <remarks>该类可能与<see cref="MD5Helper"/>类整合</remarks>
     public static class Hashing
     {
         /// <summary>

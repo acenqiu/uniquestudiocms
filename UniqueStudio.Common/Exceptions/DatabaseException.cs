@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UniqueStudio.Common.Exceptions
 {
+    /// <summary>
+    /// 数据库操作异常
+    /// </summary>
     public class DatabaseException:ApplicationException
     {
         public DatabaseException()

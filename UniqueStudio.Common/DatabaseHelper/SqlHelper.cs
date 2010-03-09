@@ -3,7 +3,6 @@
 // For more information please go to 
 // http://msdn.microsoft.com/library/en-us/dnbda/html/daab-rm.asp
 //===============================================================================
-
 using System;
 using System.Configuration;
 using System.Data;
@@ -12,7 +11,6 @@ using System.Collections;
 
 namespace UniqueStudio.Common.DatabaseHelper
 {
-
     /// <summary>
     /// The SqlHelper class is intended to encapsulate high performance, 
     /// scalable best practices for common uses of SqlClient.
@@ -37,7 +35,6 @@ namespace UniqueStudio.Common.DatabaseHelper
         /// <returns>an int representing the number of rows affected by the command</returns>
         public static int ExecuteNonQuery(string connectionString, CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-
             SqlCommand cmd = new SqlCommand();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -51,7 +48,6 @@ namespace UniqueStudio.Common.DatabaseHelper
 
         public static int ExecuteNonQuery(CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-
             SqlCommand cmd = new SqlCommand();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -78,7 +74,6 @@ namespace UniqueStudio.Common.DatabaseHelper
         /// <returns>an int representing the number of rows affected by the command</returns>
         public static int ExecuteNonQuery(SqlConnection connection, CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-
             SqlCommand cmd = new SqlCommand();
 
             PrepareCommand(cmd, connection, null, cmdType, cmdText, commandParameters);
@@ -243,7 +238,6 @@ namespace UniqueStudio.Common.DatabaseHelper
         /// <returns>An object that should be converted to the expected type using Convert.To{Type}</returns>
         public static object ExecuteScalar(SqlConnection connection, CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-
             SqlCommand cmd = new SqlCommand();
 
             PrepareCommand(cmd, connection, null, cmdType, cmdText, commandParameters);
@@ -308,7 +302,6 @@ namespace UniqueStudio.Common.DatabaseHelper
         /// <param name="cmdParms">SqlParameters to use in the command</param>
         public static void PrepareCommand(SqlCommand cmd, SqlConnection conn, SqlTransaction trans, CommandType cmdType, string cmdText, SqlParameter[] cmdParms)
         {
-
             if (conn.State != ConnectionState.Open)
                 conn.Open();
 

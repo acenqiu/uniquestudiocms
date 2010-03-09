@@ -54,7 +54,7 @@ namespace UniqueStudio.Core.Category
             {
                 throw new ArgumentException("分类别名只能由字母、下划线、数字构成");
             }
-            if (category.SubOf < 0)
+            if (category.ParentCategoryId < 0)
             {
                 throw new ArgumentException("父分类ID不能小于0");
             }
@@ -344,7 +344,7 @@ namespace UniqueStudio.Core.Category
             {
                 throw new ArgumentException("分类别名只能由字母、下划线、数字构成");
             }
-            if (category.SubOf < 0)
+            if (category.ParentCategoryId < 0)
             {
                 throw new ArgumentException("父分类ID不能小于0");
             }

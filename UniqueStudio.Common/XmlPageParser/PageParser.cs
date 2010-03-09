@@ -6,9 +6,13 @@ using System.Collections;
 
 namespace  UniqueStudio.Common.PageParser
 {
+    /// <summary>
+    /// 实现将特定格式的xml文档转换为html控件的方法
+    /// </summary>
     public class XmlPageParser
     {
-        public XmlTextReader reader = null;
+        private XmlTextReader reader = null;
+
         public string ProcessXML(XmlDocument doc)
         {
            StringBuilder str = new StringBuilder();

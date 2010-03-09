@@ -25,9 +25,9 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 以角色名初始化<see cref="RoleInfo"/>类的实例。
+        /// 以角色名称初始化<see cref="RoleInfo"/>类的实例。
         /// </summary>
-        /// <param name="roleName"></param>
+        /// <param name="roleName">角色名称</param>
         public RoleInfo(string roleName)
         {
             this.roleName = roleName;

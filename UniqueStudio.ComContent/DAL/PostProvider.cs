@@ -300,7 +300,7 @@ namespace UniqueStudio.ComContent.DAL
                                     cate.CategoryNiceName = (string)reader["CategoryNiceName"];
                                     if (reader["SubOF"] != DBNull.Value)
                                     {
-                                        cate.SubOf = Convert.ToInt32(reader["SubOf"]);
+                                        cate.ParentCategoryId = Convert.ToInt32(reader["SubOf"]);
                                     }
                                     if (reader["Description"] != DBNull.Value)
                                     {
@@ -462,7 +462,7 @@ namespace UniqueStudio.ComContent.DAL
                                                 cate.CategoryNiceName = (string)reader["CategoryNiceName"];
                                                 if (reader["SubOF"] != DBNull.Value)
                                                 {
-                                                    cate.SubOf = Convert.ToInt32(reader["SubOf"]);
+                                                    cate.ParentCategoryId = Convert.ToInt32(reader["SubOf"]);
                                                 }
                                                 if (reader["Description"] != DBNull.Value)
                                                 {
@@ -531,7 +531,7 @@ namespace UniqueStudio.ComContent.DAL
                                                 cate.CategoryNiceName = (string)reader["CategoryNiceName"];
                                                 if (reader["SubOF"] != DBNull.Value)
                                                 {
-                                                    cate.SubOf = Convert.ToInt32(reader["SubOf"]);
+                                                    cate.ParentCategoryId = Convert.ToInt32(reader["SubOf"]);
                                                 }
                                                 if (reader["Description"] != DBNull.Value)
                                                 {
@@ -630,7 +630,7 @@ namespace UniqueStudio.ComContent.DAL
                                                 cate.CategoryNiceName = (string)reader["CategoryNiceName"];
                                                 if (reader["SubOF"] != DBNull.Value)
                                                 {
-                                                    cate.SubOf = Convert.ToInt32(reader["SubOf"]);
+                                                    cate.ParentCategoryId = Convert.ToInt32(reader["SubOf"]);
                                                 }
                                                 if (reader["Description"] != DBNull.Value)
                                                 {
@@ -698,7 +698,7 @@ namespace UniqueStudio.ComContent.DAL
                                                 cate.CategoryNiceName = (string)reader["CategoryNiceName"];
                                                 if (reader["SubOF"] != DBNull.Value)
                                                 {
-                                                    cate.SubOf = Convert.ToInt32(reader["SubOf"]);
+                                                    cate.ParentCategoryId = Convert.ToInt32(reader["SubOf"]);
                                                 }
                                                 if (reader["Description"] != DBNull.Value)
                                                 {
