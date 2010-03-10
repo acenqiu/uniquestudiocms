@@ -13,6 +13,11 @@ namespace  UniqueStudio.Common.PageParser
     {
         private XmlTextReader reader = null;
 
+        /// <summary>
+        /// 处理xml文档，生成html控件代码
+        /// </summary>
+        /// <param name="doc">xml文档</param>
+        /// <returns>html控件代码</returns>
         public string ProcessXML(XmlDocument doc)
         {
            StringBuilder str = new StringBuilder();
@@ -42,10 +47,16 @@ namespace  UniqueStudio.Common.PageParser
           }
           return str.ToString();
         }
-        public String ProcessXML(string url)
+
+        /// <summary>
+        /// 处理xml文档，生成html控件代码
+        /// </summary>
+        /// <param name="fileName">xml文档路径</param>
+        /// <returns>html控件代码</returns>
+        public String ProcessXML(string fileName)
         {
 
-            reader = new XmlTextReader(url);
+            reader = new XmlTextReader(fileName);
             StringBuilder str = new StringBuilder();
             while (reader.Read())
             {
