@@ -236,9 +236,9 @@ namespace UniqueStudio.Core.Category
         }
 
         /// <summary>
-        /// 根据分类NiceName获取分类信息
+        /// 根据分类别名获取分类信息
         /// </summary>
-        /// <param name="catNiceName">分类NiceName</param>
+        /// <param name="catNiceName">分类别名</param>
         /// <returns>分类信息，获取失败返回空</returns>
         public CategoryInfo GetCategory(string catNiceName)
         {
@@ -262,6 +262,11 @@ namespace UniqueStudio.Core.Category
             }
         }
 
+        /// <summary>
+        /// 获取分类路径
+        /// </summary>
+        /// <param name="categoryId">叶节点分类ID</param>
+        /// <returns>分类路径根节点</returns>
         public CategoryInfo GetCategoryPath(int categoryId)
         {
             return provider.GetCategoryPath(categoryId);
@@ -291,9 +296,9 @@ namespace UniqueStudio.Core.Category
         }
 
         /// <summary>
-        /// 根据分类NiceName获取其子分类信息
+        /// 根据分类别名获取其子分类信息
         /// </summary>
-        /// <param name="catNiceName">分类NiceName</param>
+        /// <param name="catNiceName">分类别名</param>
         /// <returns>包含所有信息的分类集合</returns>
         public CategoryCollection GetChildCategories(string catNiceName)
         {

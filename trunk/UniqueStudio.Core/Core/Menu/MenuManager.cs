@@ -14,15 +14,29 @@ using UniqueStudio.DAL.IDAL;
 
 namespace UniqueStudio.Core.Menu
 {
+    /// <summary>
+    /// 提供菜单管理的方法
+    /// </summary>
     public class MenuManager
     {
         private static readonly IMenu provider = DALFactory.CreateMenu();
 
+        /// <summary>
+        /// 初始化<see cref="MenuManager"/>类的实例
+        /// </summary>
         public MenuManager()
         {
             //默认构造函数
         }
 
+        /// <summary>
+        /// 添加菜单项
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="item">菜单项信息</param>
+        /// <returns>如果添加成功，返回该菜单项信息，否则返回空</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有添加菜单项的权限时抛出该异常</exception>
         public MenuItemInfo AddMenuItem(UserInfo currentUser, MenuItemInfo item)
         {
             if (!PermissionManager.HasPermission(currentUser, "EditMenu"))
@@ -33,6 +47,14 @@ namespace UniqueStudio.Core.Menu
             return provider.AddMenuItem(item);
         }
 
+        /// <summary>
+        /// 创建菜单
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="menu">菜单信息</param>
+        /// <returns>如果添加成功，返回该菜单信息，否则返回空</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有创建菜单的权限时抛出该异常</exception>
         public MenuInfo CreateMenu(UserInfo currentUser, MenuInfo menu)
         {
             if (!PermissionManager.HasPermission(currentUser, "CreateMenu"))
@@ -43,6 +65,14 @@ namespace UniqueStudio.Core.Menu
             return provider.CreateMenu(menu);
         }
 
+        /// <summary>
+        /// 删除指定菜单
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="menuId">待删除菜单ID</param>
+        /// <returns>是否删除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有删除菜单的权限时抛出该异常</exception>
         public bool DeleteMenu(UserInfo currentUser, int menuId)
         {
             if (!PermissionManager.HasPermission(currentUser, "DeleteMenu"))
@@ -53,22 +83,50 @@ namespace UniqueStudio.Core.Menu
             return provider.DeleteMenu(menuId);
         }
 
+        /// <summary>
+        /// 获取指定菜单
+        /// </summary>
+        /// <remarks>包含所有菜单项</remarks>
+        /// <param name="menuId">菜单ID</param>
+        /// <returns>菜单信息</returns>
         public MenuInfo GetMenu(int menuId)
         {
             return provider.GetMenu(menuId);
         }
 
+        /// <summary>
+        /// 获取菜单列表
+        /// </summary>
+        /// <remarks>不含菜单项</remarks>
+        /// <returns>菜单的集合</returns>
         public MenuCollection GetAllMenus()
         {
             return provider.GetAllMenus();
         }
 
+        /// <summary>
+        /// 移除菜单项
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="itemId">菜单项ID</param>
+        /// <returns>是否删除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑菜单的权限时抛出该异常</exception>
         public bool RemoveMenuItem(UserInfo currentUser, int itemId)
         {
             //全局配置
             return RemoveMenuItem(currentUser, itemId, true);
         }
 
+        /// <summary>
+        /// 移除菜单项
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="itemId">菜单项ID</param>
+        /// <param name="isRemoveChildItems">是否同时移除其子菜单项</param>
+        /// <returns>是否删除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑菜单的权限时抛出该异常</exception>
         public bool RemoveMenuItem(UserInfo currentUser, int itemId, bool isRemoveChildItems)
         {
             if (!PermissionManager.HasPermission(currentUser, "EditMenu"))
@@ -79,41 +137,63 @@ namespace UniqueStudio.Core.Menu
             return provider.RemoveMenuItem(itemId, isRemoveChildItems);
         }
 
+        /// <summary>
+        /// 更新菜单信息
+        /// </summary>
+        /// <remarks>该方法是否包含更新菜单项功能待定！</remarks>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="menu">菜单信息</param>
+        /// <returns>是否更新成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑菜单的权限时抛出该异常</exception>
         public bool UpdateMenu(UserInfo currentUser, MenuInfo menu)
         {
             throw new NotImplementedException();
         }
 
-        public MenuItemInfo GetMenuTree(List<MenuItemInfo> menus)
+        /// <summary>
+        /// 获取菜单树形结构
+        /// </summary>
+        /// <remarks>该根节点为临时创建的节点</remarks>
+        /// <param name="menuItems">菜单项的集合</param>
+        /// <returns>菜单树形结构的根节点</returns>
+        public MenuItemInfo GetMenuTree(MenuItemCollection menuItems)
         {
             Hashtable idTable = new Hashtable();
             MenuItemInfo head = new MenuItemInfo();
             head.Depth = 0;
             head.Id = 0;
-            menus.Insert(0, head);
-            foreach (MenuItemInfo item in menus)
+            menuItems.Insert(0, head);
+            foreach (MenuItemInfo item in menuItems)
             {
-                idTable.Add(item.Id, menus.IndexOf(item));
+                idTable.Add(item.Id, menuItems.IndexOf(item));
             }
-            foreach (MenuItemInfo item in menus)
+            foreach (MenuItemInfo item in menuItems)
             {
-                menus[Convert.ToInt16(idTable[item.ParentItemId])].ChildItems.Add(item);
+                menuItems[Convert.ToInt16(idTable[item.ParentItemId])].ChildItems.Add(item);
             }
-            menus[0].ChildItems.Remove(menus[0]);
+            menuItems[0].ChildItems.Remove(menuItems[0]);
             return head;
         }
+
+        /// <summary>
+        /// 获取菜单html代码
+        /// </summary>
+        /// <param name="head">菜单树形结构的根节点</param>
+        /// <returns>菜单html代码</returns>
         public string GetMenuHtml(MenuItemInfo head)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<ul>").Append("\r\n");
             foreach (MenuItemInfo child in head.ChildItems)
             {
-                sb.Append(getHTML(child,new StringBuilder("menuPath=").Append(child.Id.ToString()).ToString())).Append("\r\n");
+                sb.Append(getHTML(child, new StringBuilder("menuPath=").Append(child.Id.ToString()).ToString())).Append("\r\n");
             }
             sb.Append("</ul>").Append("\r\n");
             return sb.ToString();
         }
-        private string getHTML(MenuItemInfo node,string menuPath)
+
+        private string getHTML(MenuItemInfo node, string menuPath)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -124,7 +204,7 @@ namespace UniqueStudio.Core.Menu
                 sb.Append("<ul>").Append("\r\n");
                 foreach (MenuItemInfo child in node.ChildItems)
                 {
-                    sb.Append(getHTML(child,menuPath+","+child.Id)).Append("\r\n");
+                    sb.Append(getHTML(child, menuPath + "," + child.Id)).Append("\r\n");
                 }
                 sb.Append("</ul>").Append("\r\n");
                 sb.Append("</div>").Append("\r\n");
