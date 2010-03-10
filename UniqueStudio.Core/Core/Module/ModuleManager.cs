@@ -31,7 +31,7 @@ namespace UniqueStudio.Core.Module
         }
 
         /// <summary>
-        /// 
+        /// 获取所有模块
         /// </summary>
         /// <returns></returns>
         public ModuleCollection GetAllModules()
