@@ -105,6 +105,50 @@ namespace UniqueStudio.Core.Menu
         }
 
         /// <summary>
+        /// 返回菜单链
+        /// </summary>
+        /// <param name="MenuItemId">该菜单链中任一菜单项的ID</param>
+        /// <returns>菜单链的根节点</returns>
+        public MenuItemInfo GetMenuChain(uint menuItemId)
+        {
+            try
+            {
+                MenuItemCollection collection = provider.GetMenuChain(menuItemId);
+                if (collection != null)
+                {
+                    MenuItemInfo head = GetMenuTree(collection);
+                    if (head.ChildItems.Count > 0)
+                    {
+                        return head.ChildItems[0];
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    throw new DatabaseException();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+        }
+
+        /// <summary>
+        /// 返回菜单链
+        /// </summary>
+        /// <param name="chainId">该菜单链的ID</param>
+        /// <returns>菜单链的根节点</returns>
+        public MenuItemInfo GetMenuChain(Guid chainId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// 移除菜单项
         /// </summary>
         /// <param name="currentUser">执行该方法的用户信息</param>
