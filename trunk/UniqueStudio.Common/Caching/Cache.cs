@@ -84,7 +84,7 @@ namespace UniqueStudio.Common.Caching
         }
 
         /// <summary>
-        /// 获取指定键的值
+        /// 返回指定键的值
         /// </summary>
         /// <param name="key">键</param>
         /// <returns>值；当缓存处于锁定状态时返回空</returns>

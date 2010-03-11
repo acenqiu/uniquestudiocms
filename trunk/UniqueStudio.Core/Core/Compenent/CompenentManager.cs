@@ -32,7 +32,7 @@ namespace UniqueStudio.Core.Compenent
         }
 
         /// <summary>
-        /// 获取所有组件的信息
+        /// 返回所有组件的信息
         /// </summary>
         /// <returns>包含所有信息的组件集合</returns>
         public CompenentCollection GetAllCompenents()
@@ -68,7 +68,7 @@ namespace UniqueStudio.Core.Compenent
         /// <remarks>路径暂时在页面端完成物理路径映射</remarks>
         /// <param name="currentUser">执行该方法的用户信息</param>
         /// <param name="installFilePath">组件安装文件完整路径</param>
-        /// <returns>如果安装成功则返回包含组件信息的实体，否则返回null或抛出异常</returns>
+        /// <returns>如果安装成功则返回组件信息，否则返回null</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
         /// 当用户没有安装组件的权限时抛出该异常</exception>
         /// <exception cref="UniqueStudio.Common.Exceptions.CompenentInstallException">

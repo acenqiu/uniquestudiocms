@@ -11,6 +11,9 @@ using UniqueStudio.DAL.IDAL;
 
 namespace UniqueStudio.DAL.SiteMap
 {
+    /// <summary>
+    /// 提供网站地图管理在Sql Server上的实现方法
+    /// </summary>
     internal class SqlSiteMapProvider : ISiteMap
     {
         private const string CREATE_PAGE = "CreatePage";
@@ -18,11 +21,19 @@ namespace UniqueStudio.DAL.SiteMap
         private const string GET_ALL_PAGES = "GetAllPages";
         private const string UPDATE_PAGE = "UpdatePage";
 
+        /// <summary>
+        /// 初始化<see cref="SqlSiteMapProvider"/>类的实例
+        /// </summary>
         public SqlSiteMapProvider()
         {
             //默认构造函数
         }
 
+        /// <summary>
+        /// 创建页面
+        /// </summary>
+        /// <param name="page">页面信息</param>
+        /// <returns>如果创建成功，返回页面信息，否则返回空</returns>
         public PageInfo CreatePage(PageInfo page)
         {
             SqlParameter[] parms = new SqlParameter[]{
@@ -49,12 +60,21 @@ namespace UniqueStudio.DAL.SiteMap
             }
         }
 
+        /// <summary>
+        /// 删除指定页面
+        /// </summary>
+        /// <param name="pageId">待删除页面ID</param>
+        /// <returns>是否删除成功</returns>
         public bool DeletePage(int pageId)
         {
             SqlParameter parm = new SqlParameter("@ID", pageId);
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, DELETE_PAGE, parm) > 0;
         }
 
+        /// <summary>
+        /// 返回所有页面
+        /// </summary>
+        /// <returns>页面的集合</returns>
         public PageCollection GetAllPages()
         {
             PageCollection collection = new PageCollection();
@@ -68,6 +88,11 @@ namespace UniqueStudio.DAL.SiteMap
             return collection;
         }
 
+        /// <summary>
+        /// 更新页面信息
+        /// </summary>
+        /// <param name="page">页面信息</param>
+        /// <returns>是否更新成功</returns>
         public bool UpdatePage(PageInfo page)
         {
             SqlParameter[] parms = new SqlParameter[]{

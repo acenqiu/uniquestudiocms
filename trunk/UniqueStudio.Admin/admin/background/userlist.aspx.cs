@@ -22,7 +22,7 @@ namespace UniqueStudio.Admin.admin.background
                 try
                 {
                     Core.Permission.RoleManager manager = new UniqueStudio.Core.Permission.RoleManager();
-                    cblRoles.DataSource = manager.GetAllRoles();
+                    cblRoles.DataSource = manager.GetAllRoles(currentUser);
                     cblRoles.DataTextField = "RoleName";
                     cblRoles.DataValueField = "RoleName";
                     cblRoles.DataBind();

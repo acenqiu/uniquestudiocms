@@ -28,7 +28,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Document\UniqueStudio.Admin.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -110,13 +111,6 @@
     </Compile>
     <Compile Include="admin\background\editmenu.aspx.designer.cs">
       <DependentUpon>editmenu.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="admin\background\editpermission.aspx.cs">
-      <DependentUpon>editpermission.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="admin\background\editpermission.aspx.designer.cs">
-      <DependentUpon>editpermission.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\background\editrole.aspx.cs">
       <DependentUpon>editrole.aspx</DependentUpon>
@@ -337,7 +331,6 @@
     <Content Include="admin\background\editcategory.aspx" />
     <Content Include="admin\background\editcontrol.aspx" />
     <Content Include="admin\background\editmenu.aspx" />
-    <Content Include="admin\background\editpermission.aspx" />
     <Content Include="admin\background\editrole.aspx" />
     <Content Include="admin\background\errorlog.aspx" />
     <Content Include="admin\background\file.aspx" />

@@ -10,17 +10,27 @@ using UniqueStudio.DAL.IDAL;
 
 namespace UniqueStudio.DAL.Module
 {
+    /// <summary>
+    /// 提供模块管理在Sql Server上的实现方法
+    /// </summary>
     internal class SqlModuleProvider : IModule
     {
         private const string CREATE_MODULE = "CreateModule";
         private const string GET_ALL_MODULES = "GetAllModules";
         private const string GET_MODULE_BY_ID = "GetModuleByID";
 
+        /// <summary>
+        /// 初始化<see cref="SqlModuleProvider"/>类的实例
+        /// </summary>
         public SqlModuleProvider()
         {
             //默认构造函数
         }
- 
+
+        /// <summary>
+        /// 返回所有模块
+        /// </summary>
+        /// <returns>模块的集合</returns>
         public ModuleCollection GetAllModules()
         {
             ModuleCollection collection = new ModuleCollection();
@@ -34,6 +44,11 @@ namespace UniqueStudio.DAL.Module
             return collection;
         }
 
+        /// <summary>
+        /// 返回指定模块
+        /// </summary>
+        /// <param name="moduleId">模块ID</param>
+        /// <returns>模块信息，如果获取失败，返回空</returns>
         public ModuleInfo GetModule(int moduleId)
         {
             SqlParameter parm = new SqlParameter("@ModuleID", moduleId);
@@ -52,6 +67,11 @@ namespace UniqueStudio.DAL.Module
             }
         }
 
+        /// <summary>
+        /// 创建模块
+        /// </summary>
+        /// <param name="module">模块信息</param>
+        /// <returns>如果创建成功，返回模块信息，否则返回空</returns>
         public ModuleInfo CreateModule(ModuleInfo module)
         {
             SqlParameter[] parms = new SqlParameter[]{

@@ -10,6 +10,9 @@ using UniqueStudio.DAL.IDAL;
 
 namespace UniqueStudio.DAL.PlugIn
 {
+    /// <summary>
+    /// 提供插件管理在Sql Server上的实现方法
+    /// </summary>
     internal class SqlPlugInProvider : IPlugIn
     {
         private const string CREATE_PLUGIN = "CreatePlugIn";
@@ -25,6 +28,11 @@ namespace UniqueStudio.DAL.PlugIn
             //默认构造函数
         }
 
+        /// <summary>
+        /// 创建插件
+        /// </summary>
+        /// <param name="plugIn">待安装插件信息</param>
+        /// <returns>如果安装成功返回插件信息，否则返回空</returns>
         public PlugInInfo CreatePlugIn(PlugInInfo plugIn)
         {
             SqlParameter[] parms = new SqlParameter[]{
@@ -51,11 +59,20 @@ namespace UniqueStudio.DAL.PlugIn
             }
         }
 
+        /// <summary>
+        /// 删除插件
+        /// </summary>
+        /// <param name="plugInId">待删除插件ID</param>
+        /// <returns>是否删除成功</returns>
         public bool DeletePlugIn(int plugInId)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 返回插件列表
+        /// </summary>
+        /// <returns>插件列表</returns>
         public PlugInCollection GetAllPlugIns()
         {
             PlugInCollection collection = new PlugInCollection();
@@ -69,6 +86,11 @@ namespace UniqueStudio.DAL.PlugIn
             return collection;
         }
 
+        /// <summary>
+        /// 返回插件列表
+        /// </summary>
+        /// <remarks>该方法只在程序系统启动时调用，用于完成插件的初始化工作</remarks>
+        /// <returns>类集合</returns>
         public ClassCollection GetAllPlugInsForInit()
         {
             ClassCollection collection = new ClassCollection();

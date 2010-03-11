@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
 using UniqueStudio.Core.PlugIn;
+using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 
 namespace UniqueStudio.Admin.admin.background
@@ -26,8 +27,9 @@ namespace UniqueStudio.Admin.admin.background
 
         private void GetData()
         {
+            UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
             PlugInManager manager = new PlugInManager();
-            PlugInCollection collection = manager.GetAllPlugIns();
+            PlugInCollection collection = manager.GetAllPlugIns(currentUser);
             rptList.DataSource = collection;
             rptList.DataBind();
         }

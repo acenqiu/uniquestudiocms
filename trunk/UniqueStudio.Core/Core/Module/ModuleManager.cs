@@ -31,14 +31,25 @@ namespace UniqueStudio.Core.Module
         }
 
         /// <summary>
-        /// 获取所有模块
+        /// 返回所有模块
         /// </summary>
-        /// <returns></returns>
-        public ModuleCollection GetAllModules()
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <returns>模块的集合</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有查看模块信息的权限时抛出该异常</exception>
+        public ModuleCollection GetAllModules(UserInfo currentUser)
         {
             return provider.GetAllModules();
         }
 
+        /// <summary>
+        /// 返回指定模块
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="moduleId">模块ID</param>
+        /// <returns>模块信息，如果获取失败，返回空</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有查看模块信息的权限时抛出该异常</exception>
         public ModuleInfo GetModule(UserInfo currentUser, int moduleId)
         {
             if (!PermissionManager.HasPermission(currentUser, "ViewModuleInfo"))
@@ -48,6 +59,14 @@ namespace UniqueStudio.Core.Module
             return provider.GetModule(moduleId);
         }
 
+        /// <summary>
+        /// 读取模块安装文件
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="installFilePath">安装文件路径</param>
+        /// <returns>模块信息</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有安装模块的权限时抛出该异常</exception>
         public ModuleInfo ReadInstallFile(UserInfo currentUser, string installFilePath)
         {
             XmlManager manager = new XmlManager();
@@ -56,11 +75,32 @@ namespace UniqueStudio.Core.Module
             return module;
         }
 
+        /// <summary>
+        /// 安装模块
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="installFilePath">安装文件路径</param>
+        /// <returns>如果安装成功则返回模块信息，否则返回null</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有安装模块的权限时抛出该异常</exception>
+        /// <exception cref="UniqueStudio.Common.Exceptions.ModuleInstallException">
+        /// 当用户安装失败时抛出该异常</exception>
         public ModuleInfo InstallModule(UserInfo currentUser, string installFilePath)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 安装模块
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="module">待安装模块信息</param>
+        /// <param name="installFilePath">安装文件路径</param>
+        /// <returns>如果安装成功则返回模块信息，否则返回null</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有安装模块的权限时抛出该异常</exception>
+        /// <exception cref="UniqueStudio.Common.Exceptions.ModuleInstallException">
+        /// 当用户安装失败时抛出该异常</exception>
         public ModuleInfo InstallModule(UserInfo currentUser, ModuleInfo module, string installFilePath)
         {
             if (!PermissionManager.HasPermission(currentUser,"InstallModule"))
@@ -75,12 +115,30 @@ namespace UniqueStudio.Core.Module
             return provider.CreateModule(module);
         }
 
-        public bool UninstallModule(ModuleInfo module)
+        /// <summary>
+        /// 卸载指定模块
+        /// </summary>
+        /// <remarks>可能在后续版本中修改该方法签名</remarks>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="module">待卸载模块信息</param>
+        /// <returns>是否卸载成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有卸载模块的权限时抛出该异常</exception>
+        public bool UninstallModule(UserInfo currentUser, ModuleInfo module)
         {
             throw new NotImplementedException();
         }
 
-        public bool UninstallModules(ModuleCollection modules)
+        /// <summary>
+        /// 卸载多个模块
+        /// </summary>
+        /// <remarks>可能在后续版本中修改该方法签名</remarks>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="modules">待卸载模块的集合</param>
+        /// <returns>是否卸载成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有卸载模块的权限时抛出该异常</exception>
+        public bool UninstallModules(UserInfo currentUser, ModuleCollection modules)
         {
             throw new NotImplementedException();
         }

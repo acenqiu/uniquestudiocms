@@ -33,7 +33,7 @@ namespace UniqueStudio.Core.Category
         /// 创建分类
         /// </summary>
         /// <remarks>
-        /// category参数必须包含分类名和分类别名，且分类别名仅由字母、下划线和数字构成。
+        /// <paramref name="category"/>必须包含分类名和分类别名，且分类别名仅由字母、下划线和数字构成。
         /// </remarks>
         /// <param name="currentUser">执行该方法的用户信息</param>
         /// <param name="category">分类信息</param>
@@ -196,7 +196,7 @@ namespace UniqueStudio.Core.Category
         }
 
         /// <summary>
-        /// 获取所有分类
+        /// 返回所有分类
         /// </summary>
         /// <returns>包含所有信息的分类集合，如果获取失败返回空</returns>
         public CategoryCollection GetAllCategories()
@@ -213,7 +213,7 @@ namespace UniqueStudio.Core.Category
         }
 
         /// <summary>
-        /// 根据分类ID获取分类信息
+        /// 根据分类ID返回分类信息
         /// </summary>
         /// <param name="categoryId">分类ID</param>
         /// <returns>分类信息，获取失败返回空</returns>
@@ -236,7 +236,7 @@ namespace UniqueStudio.Core.Category
         }
 
         /// <summary>
-        /// 根据分类别名获取分类信息
+        /// 根据分类别名返回分类信息
         /// </summary>
         /// <param name="catNiceName">分类别名</param>
         /// <returns>分类信息，获取失败返回空</returns>
@@ -263,7 +263,7 @@ namespace UniqueStudio.Core.Category
         }
 
         /// <summary>
-        /// 获取分类路径
+        /// 返回分类路径
         /// </summary>
         /// <param name="categoryId">叶节点分类ID</param>
         /// <returns>分类路径根节点</returns>
@@ -273,7 +273,7 @@ namespace UniqueStudio.Core.Category
         }
 
         /// <summary>
-        /// 根据分类ID获取其子分类信息
+        /// 根据分类ID返回其子分类信息
         /// </summary>
         /// <param name="categoryId">分类ID</param>
         /// <returns>包含所有信息的分类集合，获取失败返回空</returns>
@@ -296,7 +296,7 @@ namespace UniqueStudio.Core.Category
         }
 
         /// <summary>
-        /// 根据分类别名获取其子分类信息
+        /// 根据分类别名返回其子分类信息
         /// </summary>
         /// <param name="catNiceName">分类别名</param>
         /// <returns>包含所有信息的分类集合</returns>

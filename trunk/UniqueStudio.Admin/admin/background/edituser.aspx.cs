@@ -66,7 +66,7 @@ namespace UniqueStudio.Admin.admin.background
                 inRoles.Add(role.RoleName, true);
             }
 
-            RoleCollection roles = (new RoleManager()).GetAllRoles();
+            RoleCollection roles = (new RoleManager()).GetAllRoles(user);
             cblRoles.DataSource = roles;
             cblRoles.DataTextField = "RoleName";
             cblRoles.DataValueField = "RoleName";

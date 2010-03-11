@@ -11,16 +11,28 @@ using UniqueStudio.DAL.IDAL;
 
 namespace UniqueStudio.DAL.PageVisit
 {
+    /// <summary>
+    /// 提供页面访问管理在Sql Server上的实现方法
+    /// </summary>
     internal class SqlPageVisitProvider : IPageVisit
     {
         private static string ADD_PAGEVISIT = "AddPageVisit";
         private static string GET_PAGEVISIT_COUNT = "GetPvCount";
         private static string GET_PAGEVISIT_LIST = "GetPageVisitList";
 
+        /// <summary>
+        /// 初始化<see cref="SqlPageVisitProvider"/>类的实例
+        /// </summary>
         public SqlPageVisitProvider()
         {
+            //默认构造函数
         }
 
+        /// <summary>
+        /// 增加页面访问信息
+        /// </summary>
+        /// <param name="pv">页面访问信息</param>
+        /// <returns>是否增加成功</returns>
         public bool AddPageVisit(PageVisitInfo pv)
         {
             SqlParameter[] parms = new SqlParameter[]{
@@ -32,6 +44,10 @@ namespace UniqueStudio.DAL.PageVisit
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, ADD_PAGEVISIT, parms) > 0;
         }
 
+        /// <summary>
+        /// 返回页面访问总量
+        /// </summary>
+        /// <returns>页面访问总量</returns>
         public int GetPageVisitCount()
         {
             object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, GET_PAGEVISIT_COUNT, null);
@@ -45,6 +61,12 @@ namespace UniqueStudio.DAL.PageVisit
             }
         }
 
+        /// <summary>
+        /// 返回页面访问列表
+        /// </summary>
+        /// <param name="pageIndex">页索引</param>
+        /// <param name="pageSize">每页条目数</param>
+        /// <returns>页面访问列表</returns>
         public PageVisitCollection GetPageVisitList(int pageIndex, int pageSize)
         {
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))

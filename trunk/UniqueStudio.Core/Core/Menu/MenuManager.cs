@@ -95,7 +95,7 @@ namespace UniqueStudio.Core.Menu
         }
 
         /// <summary>
-        /// 获取菜单列表
+        /// 返回菜单列表
         /// </summary>
         /// <remarks>不含菜单项</remarks>
         /// <returns>菜单的集合</returns>
@@ -140,7 +140,6 @@ namespace UniqueStudio.Core.Menu
         /// <summary>
         /// 更新菜单信息
         /// </summary>
-        /// <remarks>该方法是否包含更新菜单项功能待定！</remarks>
         /// <param name="currentUser">执行该方法的用户信息</param>
         /// <param name="menu">菜单信息</param>
         /// <returns>是否更新成功</returns>
@@ -152,7 +151,7 @@ namespace UniqueStudio.Core.Menu
         }
 
         /// <summary>
-        /// 获取菜单树形结构
+        /// 返回菜单树形结构
         /// </summary>
         /// <remarks>该根节点为临时创建的节点</remarks>
         /// <param name="menuItems">菜单项的集合</param>
@@ -177,7 +176,7 @@ namespace UniqueStudio.Core.Menu
         }
 
         /// <summary>
-        /// 获取菜单html代码
+        /// 返回菜单html代码
         /// </summary>
         /// <param name="head">菜单树形结构的根节点</param>
         /// <returns>菜单html代码</returns>

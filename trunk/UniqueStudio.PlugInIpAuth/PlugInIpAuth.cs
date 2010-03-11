@@ -15,7 +15,7 @@ namespace UniqueStudio.PlugInIpAuth
             //UserManager.OnUserCreated += new UserManager.UserCreatedHandler(UserManager_OnUserCreated);
         }
 
-        void UserManager_OnUserCreated(object sende, UserArgs e)
+        void UserManager_OnUserCreated(object sende, UserEventArgs e)
         {
             //throw new NotImplementedException();
         }
