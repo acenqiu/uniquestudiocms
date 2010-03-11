@@ -29,6 +29,7 @@ namespace UniqueStudio.ComContent.Model
         private bool isPublished = false;
         private int count;
         private string settings;
+        private int postDisplay;
 
         private CategoryCollection categories;
 
@@ -196,6 +197,14 @@ namespace UniqueStudio.ComContent.Model
         {
             get { return categories; }
             set { categories = value; }
+        }
+        /// <summary>
+        /// 控制显示文章标题及其它信息(值为0显示所有信息，1不显示文章标题，2不显示其它信息，3只显示文章内容)
+        /// </summary>
+        public int PostDisplay
+        {
+            get { return postDisplay; }
+            set { postDisplay = value; }
         }
     }
 }

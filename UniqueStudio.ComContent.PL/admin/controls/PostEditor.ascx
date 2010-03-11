@@ -2,42 +2,38 @@
     Inherits="UniqueStudio.ComContent.PL.PostEditor" %>
 <%@ Register Src="Message.ascx" TagPrefix="US" TagName="Message" %>
 <%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>
-
 <script src="jquery.min.js" type="text/javascript"></script>
-
 <script type="text/javascript" src="ajaxupload.js"></script>
-
 <script type="text/javascript" language="javascript">
-$(document).ready(function(){
-  new AjaxUpload('button2', {
+    $(document).ready(function () {
+        new AjaxUpload('button2', {
             action: 'fileuploadhandler.ashx',
-			data : {
-				'key1' : "This data won't",
-				'key2' : "be send because",
-				'key3' : "we will overwrite it"
-			},
-			onSubmit : function(file , ext){
+            data: {
+                'key1': "This data won't",
+                'key2': "be send because",
+                'key3': "we will overwrite it"
+            },
+            onSubmit: function (file, ext) {
                 // Allow only images. You should add security check on the server-side.
-				if (ext && /^(jpg|png|jpeg|gif)$/.test(ext)){
-					/* Setting data */
-					this.setData({
-						'key': 'This string will be send with the file'
-					});					
-					$('#attachments .text').text('Uploading ' + file);	
-				} else {					
-					// extension is not allowed
-					$('#attachments .text').text('Error: only images are allowed');
-					// cancel upload
-					return false;				
-				}		
-			},
-			onComplete : function(file){
-				$('#attachments .text').text('Uploaded ' + file);				
-			}		
-		});
-		});
+                if (ext && /^(jpg|png|jpeg|gif)$/.test(ext)) {
+                    /* Setting data */
+                    this.setData({
+                        'key': 'This string will be send with the file'
+                    });
+                    $('#attachments .text').text('Uploading ' + file);
+                } else {
+                    // extension is not allowed
+                    $('#attachments .text').text('Error: only images are allowed');
+                    // cancel upload
+                    return false;
+                }
+            },
+            onComplete: function (file) {
+                $('#attachments .text').text('Uploaded ' + file);
+            }
+        });
+    });
 </script>
-
 <div class="postEditor">
     <US:Message ID="message" runat="server" />
     <asp:ValidationSummary ID="validationSummary" runat="server" ValidationGroup="post"
@@ -78,8 +74,9 @@ $(document).ready(function(){
             <span class="form-item-label">附件：</span> <span class="form-item-input">
                 <asp:Label runat="server" ID="filename" Visible="false"></asp:Label>
                 <asp:FileUpload runat="server" EnableViewState="false" ID="enclosure" /></span>
-            <a href="#" id="button2">Upload Image</a> 
-		<p class="text"></p>	
+            <a href="#" id="button2">Upload Image</a>
+            <p class="text">
+            </p>
             <%--<asp:Button ID="upfilebtn" runat="server" Text="附件上传" OnClick="upfilebtn_Click" />--%>
         </div>
         <div class="form-item" style="display: none">
@@ -101,6 +98,19 @@ $(document).ready(function(){
             <span class="form-item-label">添加时间：</span> <span class="form-item-input">
                 <asp:TextBox ID="txtAddDate" runat="server" Width="250px" /></span>
         </div>
+        <div class="form-item">
+          <span class="form-item-label"></span>
+            <span class="form-item-input">
+                <asp:CheckBox ID="tittleChecked" runat="server" Text="不显示标题" Checked="false" />
+            </span>
+        </div>
+         <div class="form-item">
+           <span class="form-item-label"></span>
+            <span class="form-item-input">
+                <asp:CheckBox runat="server" ID="otherChecked" Text="不显示作者、发表时间、阅读次数等信息" Checked="false" />
+            </span>
+        </div>
+        
         <div class="form-item" style="display: none">
             <span class="form-item-label">标签：</span> <span class="form-item-input">
                 <asp:TextBox ID="txtTags" runat="server" Width="250px" /></span>

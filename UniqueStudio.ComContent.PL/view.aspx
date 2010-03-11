@@ -18,7 +18,7 @@
         <div class="article">
             <h4 class="article-title">
                 <asp:Literal ID="ltlTitle" runat="server" /></h4>
-            <div class="detail">
+            <div class="detail" id="divDetail" runat="server">
                 <span class="article-author">作者：<asp:Literal ID="ltlAuthor" runat="server" /></span>
                 <span class="views">阅读次数：<asp:Literal ID="ltlCount" runat="server" /></span> <span
                     class="article-date">发表时间：<asp:Literal ID="ltlCreateDate" runat="server" /></span>

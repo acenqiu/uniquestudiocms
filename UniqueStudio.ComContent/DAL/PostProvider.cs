@@ -67,6 +67,7 @@ namespace UniqueStudio.ComContent.DAL
                                                     new SqlParameter("@Taxis",post.Taxis),
                                                     new SqlParameter("@Title",post.Title),
                                                     new SqlParameter("@SubTitle",post.SubTitle),
+                                                    new SqlParameter("PostDisplay",post.PostDisplay),
                                                     new SqlParameter("@Summary",post.Summary),
                                                     new SqlParameter("@Author",post.Author),
                                                     new SqlParameter("@IsRecommend",post.IsRecommend),
@@ -168,7 +169,9 @@ namespace UniqueStudio.ComContent.DAL
                                                     new SqlParameter("@IsHot",post.IsHot),
                                                     new SqlParameter("@IsTop",post.IsTop),
                                                     new SqlParameter("@IsAllowComment",post.IsAllowComment),
+                                                    new SqlParameter("@CreateDate",post.CreateDate),
                                                     new SqlParameter("@IsPublished",post.IsPublished),
+                                                    new SqlParameter("@PostDisplay",post.PostDisplay),
                                                     new SqlParameter("@Content",post.Content),
                                                     new SqlParameter("@Settings",post.Settings)};
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
@@ -281,6 +284,7 @@ namespace UniqueStudio.ComContent.DAL
                                     post.IsPublished = Convert.ToBoolean(reader["IsPublished"].ToString());
                                     post.Count = (int)reader["Count"];
                                     post.Content = (string)reader["Content"];
+                                    post.PostDisplay = Convert.ToInt32(reader["PostDisplay"]);
                                 }
                                 else
                                 {
@@ -324,7 +328,7 @@ namespace UniqueStudio.ComContent.DAL
         }
 
         /// <summary>
-        /// 
+        /// 获得文章标题
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
@@ -399,7 +403,16 @@ namespace UniqueStudio.ComContent.DAL
                 return -1;
             }
         }
-
+        /// <summary>
+        /// 根据用户权限获取文章
+        /// </summary>
+        /// <param name="pageIndex">页码，从1起始</param>
+        /// <param name="pageSize">每页条目数</param>
+        /// <param name="isIncludeSummary">是否获取文章摘要</param>
+        /// <param name="postListType">获取文章类型</param>
+        /// <param name="IsNeedCategoryInfo">是否需要分类信息</param>
+        /// <param name="userName">用户名</param>
+        /// <returns></returns>
         public PostCollection GetPostListByUserPermission(int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, bool IsNeedCategoryInfo, string userName)
         {
             PostCollection collection = new PostCollection(pageSize);
@@ -561,7 +574,7 @@ namespace UniqueStudio.ComContent.DAL
             }
             return collection;
         }
-       
+
         /// <summary>
         /// 返回文章列表
         /// </summary>
@@ -783,7 +796,14 @@ namespace UniqueStudio.ComContent.DAL
             }
             return collection;
         }
-
+        /// <summary>
+        /// 获得近期文章
+        /// </summary>
+        /// <param name="number">数量</param>
+        /// <param name="offset"></param>
+        /// <param name="isIncludeSummary"></param>
+        /// <param name="postListType"></param>
+        /// <returns></returns>
         public PostCollection GetRecentPosts(int number, int offset, bool isIncludeSummary, PostListType postListType)
         {
             PostCollection collection = new PostCollection(number);
@@ -821,7 +841,11 @@ namespace UniqueStudio.ComContent.DAL
             SqlParameter parm = new SqlParameter("@Uri", uri);
             SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, INC_POST_READ_COUNT, parm);
         }
-
+        /// <summary>
+        /// 通过作者搜索文章
+        /// </summary>
+        /// <param name="author">作者</param>
+        /// <returns>返回文章列表</returns>
         public PostCollection SearchPostsByAuthor(string author)
         {
             SqlParameter parm = new SqlParameter("@Author", author);
@@ -849,12 +873,17 @@ namespace UniqueStudio.ComContent.DAL
                     {
                         post.Summary = (string)reader["Summary"];
                     }
+                    post.PostDisplay = Convert.ToInt32(reader["PostDisplay"]);
                     collection.Add(post);
                 }
             }
             return collection;
         }
-
+        /// <summary>
+        /// 通过文章标题搜索文章
+        /// </summary>
+        /// <param name="title">文章标题</param>
+        /// <returns>返回文章列表</returns>
         public PostCollection SearchPostsByTitle(string title)
         {
             SqlParameter parm = new SqlParameter("@Title", title);
@@ -882,12 +911,18 @@ namespace UniqueStudio.ComContent.DAL
                     {
                         post.Summary = (string)reader["Summary"];
                     }
+                    post.PostDisplay = Convert.ToInt32(reader["PostDisplay"]);
                     collection.Add(post);
                 }
             }
             return collection;
         }
-
+        /// <summary>
+        /// 根据时间获取文章
+        /// </summary>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <returns>返回文章列表</returns>
         public PostCollection SearchPostsByTime(DateTime startTime, DateTime endTime)
         {
             SqlParameter[] parms = new SqlParameter[]{
@@ -917,6 +952,7 @@ namespace UniqueStudio.ComContent.DAL
                     {
                         post.Summary = (string)reader["Summary"];
                     }
+                    post.PostDisplay = Convert.ToInt32(reader["PostDisplay"]);
                     collection.Add(post);
                 }
             }
@@ -956,6 +992,7 @@ namespace UniqueStudio.ComContent.DAL
                 post.Summary = (string)reader["Summary"];
             }
             post.Count = (int)reader["Count"];
+            post.PostDisplay = Convert.ToInt32(reader["PostDisplay"]);
             if (reader["Settings"] != DBNull.Value)
             {
                 post.Settings = (string)reader["Settings"];

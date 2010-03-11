@@ -86,6 +86,21 @@ namespace UniqueStudio.ComContent.PL
                         fckContent.Value = post.Content;
                         fckSummary.Value = post.Summary;
                         txtAddDate.Text = post.CreateDate.ToString("yyyy-MM-dd HH:mm:ss");
+                        switch (post.PostDisplay)
+                        {
+                            case 1:
+                                tittleChecked.Checked = true;
+                                break;
+                            case 2:
+                                otherChecked.Checked = true;
+                                break;
+                            case 3:
+                                tittleChecked.Checked = true;
+                                otherChecked.Checked = true;
+                                break;
+                            default:
+                                break;
+                        }
                         foreach (CategoryInfo item in post.Categories)
                         {
                             foreach (ListItem ite in cblCategory.Items)
@@ -185,7 +200,20 @@ namespace UniqueStudio.ComContent.PL
                 post.IsTop = chbTop.Checked;
                 post.IsAllowComment = chbAllowComment.Checked;
                 post.Content = fckContent.Value;
-
+                //控制文章显示内容
+                //0正常显示
+                //1不显示标题
+                //2不显示时间等其它信息
+                //3只显示文章内容
+                post.PostDisplay = 0;
+                if (tittleChecked.Checked == true)
+                {
+                    post.PostDisplay += 1;
+                }
+                if (otherChecked.Checked == true)
+                {
+                    post.PostDisplay += 2;
+                }
                 CategoryManager cm = new CategoryManager();
                 CategoryCollection cates = new CategoryCollection();
                 bool IsSelected = false;
@@ -240,6 +268,21 @@ namespace UniqueStudio.ComContent.PL
                     post.IsTop = chbTop.Checked;
                     post.IsAllowComment = chbAllowComment.Checked;
                     post.Content = fckContent.Value;
+                    post.CreateDate = Convert.ToDateTime(txtAddDate.Text);
+                    //控制文章显示内容
+                    //0正常显示
+                    //1不显示标题
+                    //2不显示时间等其它信息
+                    //3只显示文章内容
+                    post.PostDisplay = 0;
+                    if (tittleChecked.Checked == true)
+                    {
+                        post.PostDisplay += 1;
+                    }
+                    if (otherChecked.Checked == true)
+                    {
+                        post.PostDisplay += 2;
+                    }
                     post.Settings = string.Empty;
                     if (filename.Visible == true)
                     {
@@ -386,6 +429,20 @@ namespace UniqueStudio.ComContent.PL
                 post.IsTop = chbTop.Checked;
                 post.IsAllowComment = chbAllowComment.Checked;
                 post.Content = fckContent.Value;
+                //控制文章显示内容
+                //0正常显示
+                //1不显示标题
+                //2不显示时间等其它信息
+                //3只显示文章内容
+                post.PostDisplay = 0;
+                if (tittleChecked.Checked == true)
+                {
+                    post.PostDisplay += 1;
+                }
+                if (otherChecked.Checked == true)
+                {
+                    post.PostDisplay += 2;
+                }
                 //post.CategoryId = Convert.ToInt32(ddlCategory.SelectedValue);
                 CategoryManager cm = new CategoryManager();
                 //string[] s = StringManager(cblCategory.SelectedValue);
@@ -447,6 +504,21 @@ namespace UniqueStudio.ComContent.PL
                     post.IsTop = chbTop.Checked;
                     post.IsAllowComment = chbAllowComment.Checked;
                     post.Content = fckContent.Value;
+                    post.CreateDate = Convert.ToDateTime(txtAddDate.Text);
+                    //控制文章显示内容
+                    //0正常显示
+                    //1不显示标题
+                    //2不显示时间等其它信息
+                    //3只显示文章内容
+                    post.PostDisplay = 0;
+                    if (tittleChecked.Checked == true)
+                    {
+                        post.PostDisplay += 1;
+                    }
+                    if (otherChecked.Checked == true)
+                    {
+                        post.PostDisplay += 2;
+                    }
                     //  post.CategoryId = Convert.ToInt32(ddlCategory.SelectedValue);
                     CategoryManager cm = new CategoryManager();
                     //string[] s = StringManager(cblCategory.SelectedValue);
