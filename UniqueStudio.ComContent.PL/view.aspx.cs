@@ -48,16 +48,21 @@ namespace UniqueStudio.ComContent.PL
                     ltlCreateDate.Text = post.CreateDate.ToString("yyyy-MM-dd");
                     ltlContent.Text = post.Content;
 
-                    //switch (post.PostDisplay)
-                    //{
-                    //    case 1://不显示标题
-                    //        visible = false;
-                    //        break;
-                    //    case 2://不显示时间作者等信息（在一个div里）
-                    //    case 3://标题及时间作者都不显示
-                    //    default:
-                    //        break;
-                    //}
+                    switch (post.PostDisplay)
+                    {
+                        case 1://不显示标题
+                            ltlTitle.Visible = false;
+                            break;
+                        case 2://不显示时间作者等信息（在一个div里）
+                            divDetail.Visible = false;
+                            break;
+                        case 3://标题及时间作者都不显示
+                            ltlTitle.Visible = false;
+                            divDetail.Visible = false;
+                            break;
+                        default:
+                            break;
+                    }
 
                     //设置附件
                     if (!string.IsNullOrEmpty(post.Settings))

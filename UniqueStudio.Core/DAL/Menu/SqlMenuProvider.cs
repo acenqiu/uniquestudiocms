@@ -20,6 +20,8 @@ namespace UniqueStudio.DAL.Menu
         private const string CREATE_MENU = "CreateMenu";
         private const string DELETE_MENU = "DeleteMenu";   //没有完成
         private const string GET_ALL_MENUS = "GetAllMenus";
+        private const string GET_MENU_CHAIN_BY_ITEMID = "GetMenuChainByItemId";
+        private const string GET_MENU_CHAIN_BY_CHAINID = "GetMenuChainByChainId";
         private const string GET_MENU = "GetMenu";
         private const string GET_MENU_ITEMS = "GetMenuItems";
 
@@ -143,6 +145,36 @@ namespace UniqueStudio.DAL.Menu
                 }
             }
             return collection;
+        }
+
+        /// <summary>
+        /// 返回菜单链
+        /// </summary>
+        /// <param name="MenuItemId">该菜单链中任一菜单项的ID</param>
+        /// <returns>菜单链中各菜单项的集合</returns>
+        public MenuItemCollection GetMenuChain(uint menuItemId)
+        {
+            MenuItemCollection collection = new MenuItemCollection();
+            SqlParameter parm = new SqlParameter("@ItemID", menuItemId);
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure,GET_MENU_CHAIN_BY_ITEMID,parm))
+            {
+                while (reader.Read())
+                {
+                    MenuItemInfo item = FillMenuItemInfo(reader);
+                    collection.Add(item);
+                }
+            }
+            return collection;
+        }
+
+        /// <summary>
+        /// 返回菜单链
+        /// </summary>
+        /// <param name="chainId">该菜单链的ID</param>
+        /// <returns>菜单链中各菜单项的集合</returns>
+        public MenuItemCollection GetMenuChain(Guid chainId)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
