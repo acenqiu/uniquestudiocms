@@ -14,25 +14,25 @@ using UniqueStudio.DAL.Permission;
 namespace UniqueStudio.Core.Permission
 {
     /// <summary>
-    /// 提供对角色进行管理的方法。
+    /// 提供角色管理的方法
     /// </summary>
     public class RoleManager
     {
         private static readonly IRole provider = DALFactory.CreateRole();
 
         /// <summary>
-        /// 判断某一特定的用户是否是某一特定角色中的成员。
+        /// 判断特定的用户是否是特定角色中的成员
         /// </summary>
-        /// <param name="user"></param>
-        /// <param name="role"></param>
-        /// <returns></returns>
+        /// <param name="user">用户信息</param>
+        /// <param name="roleName">角色名称</param>
+        /// <returns>是否是特定角色的成员</returns>
         public static bool IsUserInRole(UserInfo user, string roleName)
         {
             return provider.IsUserInRole(user, roleName);
         }
 
         /// <summary>
-        /// 初始化RoleManager类的实例。
+        /// 初始化<see cref="RoleManager"/>类的实例
         /// </summary>
         public RoleManager()
         {
@@ -40,65 +40,84 @@ namespace UniqueStudio.Core.Permission
         }
 
         /// <summary>
-        /// 将一组用户添加到某一角色中。
+        /// 将多个用户添加到某一角色中
         /// </summary>
-        /// <param name="users"></param>
-        /// <param name="role"></param>
-        /// <returns></returns>
-        public bool AddUsersToRole(UserCollection users, RoleInfo role)
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="users">用户列表</param>
+        /// <param name="role">角色列表</param>
+        /// <returns>是否添加成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public bool AddUsersToRole(UserInfo currentUser, UserCollection users, RoleInfo role)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// 将一组用户添加到一组角色中。 
+        /// 将一组用户添加到一组角色中
         /// </summary>
-        /// <param name="users"></param>
-        /// <param name="roles"></param>
-        /// <returns></returns>
-        public bool AddUsersToRoles(UserCollection users, RoleCollection roles)
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="users">用户列表</param>
+        /// <param name="roles">角色列表</param>
+        /// <returns>是否添加成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public bool AddUsersToRoles(UserInfo currentUser, UserCollection users, RoleCollection roles)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        ///  将某一用户添加到某一角色中。
+        ///  将某一用户添加到某一角色中
         /// </summary>
-        /// <param name="user"></param>
-        /// <param name="role"></param>
-        /// <returns></returns>
-        public bool AddUserToRole(UserInfo user, RoleInfo role)
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="user">用户信息</param>
+        /// <param name="role">角色信息</param>
+        /// <returns>是否添加成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public bool AddUserToRole(UserInfo currentUser, UserInfo user, RoleInfo role)
         {
             return provider.AddUserToRole(user, role);
         }
 
         /// <summary>
-        ///  将某一用户添加到一组角色中。
+        ///  将某一用户添加到一组角色中
         /// </summary>
-        /// <param name="user"></param>
-        /// <param name="roles"></param>
-        /// <returns></returns>
-        public bool AddUserToRoles(UserInfo user, RoleCollection roles)
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="user">用户信息</param>
+        /// <param name="roles">角色列表</param>
+        /// <returns>是否添加成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public bool AddUserToRoles(UserInfo currentUser, UserInfo user, RoleCollection roles)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// 创建新的角色。
+        /// 创建新的角色
         /// </summary>
-        /// <param name="role"></param>
-        /// <returns></returns>
-        public RoleInfo CreateRole(RoleInfo role)
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="role">角色信息</param>
+        /// <returns>如果添加成功，返回角色信息，否则返回空</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有创建角色的权限时抛出该异常</exception>
+        public RoleInfo CreateRole(UserInfo currentUser, RoleInfo role)
         {
             return provider.CreateRole(role);
         }
 
         /// <summary>
-        /// 添加一组角色
+        /// 创建多个角色
         /// </summary>
-        /// <param name="roles"></param>
-        /// <returns></returns>
-        public RoleCollection CreateRoles(RoleCollection roles)
+        /// <remarks>返回类型可能在后续版本中修改</remarks>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="roles">待创建角色列表</param>
+        /// <returns>是否创建成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public bool CreateRoles(UserInfo currentUser, RoleCollection roles)
         {
             throw new NotImplementedException();
         }
@@ -106,19 +125,31 @@ namespace UniqueStudio.Core.Permission
         /// <summary>
         /// 删除特定的角色。
         /// </summary>
-        /// <param name="roleId"></param>
-        /// <returns></returns>
-        public bool DeleteRole(int roleId)
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="roleId">待删除权限ID</param>
+        /// <returns>是否删除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public bool DeleteRole(UserInfo currentUser, int roleId)
         {
             return provider.DeleteRole(roleId);
         }
 
-        public bool DeleteRoles(int[] roleIds)
+        /// <summary>
+        /// 删除多个角色
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="roleIds">待删除角色的ID列表</param>
+        /// <returns>是否删除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public bool DeleteRoles(UserInfo currentUser, int[] roleIds)
         {
+            //TODO:重写
             List<int> errorList = new List<int>();
             for (int i=0;i<roleIds.Length;i++)
             {
-                if (!DeleteRole(roleIds[i]))
+                if (!DeleteRole(currentUser, roleIds[i]))
                 {
                     errorList.Add(roleIds[i]);
                 }
@@ -140,11 +171,14 @@ namespace UniqueStudio.Core.Permission
         }
 
         /// <summary>
-        ///
+        /// 返回指定角色下的用户列表
         /// </summary>
-        /// <param name="role"></param>
-        /// <returns></returns>
-        public UserCollection FindUsersInRole(RoleInfo role)
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="role">角色信息</param>
+        /// <returns>用户列表</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有查看角色信息的权限时抛出该异常</exception>
+        public UserCollection GetUsersInRole(UserInfo currentUser, RoleInfo role)
         {
             throw new NotImplementedException();
         }
@@ -152,76 +186,118 @@ namespace UniqueStudio.Core.Permission
         /// <summary>
         /// 返回所有角色的列表。
         /// </summary>
-        /// <returns></returns>
-        public RoleCollection GetAllRoles()
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <returns>角色列表</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有查看角色信息的权限时抛出该异常</exception>
+        public RoleCollection GetAllRoles(UserInfo currentUser)
         {
             return provider.GetAllRoles();
         }
 
-        public RoleInfo GetRoleInfo(int roleId)
+        /// <summary>
+        /// 获得指定角色的信息
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="roleId">角色ID</param>
+        /// <returns>角色信息</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public RoleInfo GetRoleInfo(UserInfo currentUser, int roleId)
         {
             return provider.GetRoleInfo(roleId);
         }
 
-        public RoleInfo GetRoleInfo(string roleName)
+        /// <summary>
+        /// 获得指定角色的信息
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="roleName">角色名称</param>
+        /// <returns>角色信息</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有查看角色信息的权限时抛出该异常</exception>
+        public RoleInfo GetRoleInfo(UserInfo currentUser, string roleName)
         {
             return provider.GetRoleInfo(roleName);
         }
 
         /// <summary>
-        /// 返回某一用户所属的所有角色的列表。
+        /// 返回某一用户所属的所有角色的列表
         /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        public RoleCollection GetRolesForUser(UserInfo user)
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="user">用户信息</param>
+        /// <returns>角色的集合</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有查看用户信息的权限时抛出该异常</exception>
+        public RoleCollection GetRolesForUser(UserInfo currentUser, UserInfo user)
         {
             return provider.GetRolesForUser(user);
         }
 
         /// <summary>
-        /// 从某一特定角色中移除某一特定的成员。
+        /// 从某一特定角色中移除某一特定的用户
         /// </summary>
-        /// <param name="user"></param>
-        /// <param name="role"></param>
-        /// <returns></returns>
-        public bool RemoveUserFromRole(UserInfo user, RoleInfo role)
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="user">用户信息</param>
+        /// <param name="role">角色信息</param>
+        /// <returns>是否移除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public bool RemoveUserFromRole(UserInfo currentUser, UserInfo user, RoleInfo role)
         {
             return provider.RemoveUserFromRole(user, role);
         }
 
         /// <summary>
-        /// 从一组角色中移除某一特定的成员。
+        /// 从一组角色中移除某一特定的用户
         /// </summary>
-        /// <param name="user"></param>
-        /// <param name="roles"></param>
-        /// <returns></returns>
-        public bool RemoveUserFromRoles(UserInfo user, RoleCollection roles)
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="user">用户信息</param>
+        /// <param name="roles">角色列表</param>
+        /// <returns>是否移除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public bool RemoveUserFromRoles(UserInfo currentUser, UserInfo user, RoleCollection roles)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// 从某一特定角色中移除一组成员。
+        /// 从某一特定角色中移除多个用户
         /// </summary>
-        /// <param name="users"></param>
-        /// <param name="role"></param>
-        /// <returns></returns>
-        public bool RemoveUsersFromRole(UserCollection users, RoleInfo role)
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="users">用户列表</param>
+        /// <param name="role">角色信息</param>
+        /// <returns>是否移除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public bool RemoveUsersFromRole(UserInfo currentUser, UserCollection users, RoleInfo role)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// 从一组角色中移除一组成员。
+        /// 从多个角色中移除多个用户
         /// </summary>
-        /// <param name="users"></param>
-        /// <param name="roles"></param>
-        /// <returns></returns>
-        public bool RemoveUsersFromRoles(UserCollection users, RoleCollection roles)
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="users">用户列表</param>
+        /// <param name="roles">角色列表</param>
+        /// <returns>是否移除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public bool RemoveUsersFromRoles(UserInfo currentUser, UserCollection users, RoleCollection roles)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 更新指定用户的角色信息
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="user">用户信息</param>
+        /// <returns>是否更新成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
         public bool UpdateRolesForUser(UserInfo currentUser, UserInfo user)
         {
             if (user == null || user.Roles==null)
@@ -229,9 +305,9 @@ namespace UniqueStudio.Core.Permission
                 throw new ArgumentNullException("user");
             }
 
-            if (!PermissionManager.HasPermission(currentUser, "EditUserRole"))
+            if (!PermissionManager.HasPermission(currentUser, "EditRole"))
             {
-                throw new InvalidPermissionException("当前用户不具有编辑用户权限的权限，请与管理员联系！");
+                throw new InvalidPermissionException("当前用户不具有编辑角色的权限，请与管理员联系！");
             }
 
             try
@@ -245,10 +321,10 @@ namespace UniqueStudio.Core.Permission
         }
 
         /// <summary>
-        /// 判断某一特定的角色是否存在。
+        /// 判断某一特定的角色是否存在
         /// </summary>
-        /// <param name="roleName"></param>
-        /// <returns></returns>
+        /// <param name="roleName">角色名称</param>
+        /// <returns>是否存在</returns>
         public bool IsRoleExists(string roleName)
         {
             return provider.IsRoleExists(roleName);

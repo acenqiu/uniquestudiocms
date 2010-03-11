@@ -57,7 +57,7 @@ namespace UniqueStudio.Common.RESTful
         }
 
         /// <summary>
-        /// 获取响应的数据流
+        /// 返回响应的数据流
         /// </summary>
         /// <returns>响应的数据流</returns>
         public Stream GetResponseStream()
@@ -79,7 +79,7 @@ namespace UniqueStudio.Common.RESTful
         }
 
         /// <summary>
-        /// 获取响应的文本
+        /// 返回响应的文本
         /// </summary>
         /// <returns>响应的文本</returns>
         public string GetResponseText()

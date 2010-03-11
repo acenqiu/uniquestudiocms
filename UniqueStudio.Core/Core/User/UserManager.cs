@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 
-using UniqueStudio.Core.Permission;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.ErrorLogging;
 using UniqueStudio.Common.Exceptions;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Security;
 using UniqueStudio.Common.XmlHelper;
+using UniqueStudio.Core.Permission;
 using UniqueStudio.DAL;
 using UniqueStudio.DAL.IDAL;
-using UniqueStudio.DAL.User;
 
 namespace UniqueStudio.Core.User
 {
@@ -21,13 +18,37 @@ namespace UniqueStudio.Core.User
     /// </summary>
     public class UserManager
     {
-        public delegate void UserCreatedHandler(object sender, UserArgs e);
-        public delegate void UserDeletedHandler(object sender, UserArgs e);
-        public delegate void UserAuthorizationHandler(object sender, UserArgs e);
+        /// <summary>
+        /// 表示将处理用户成功创建事件的方法
+        /// </summary>
+        /// <param name="sender">触发该事件的对象，总为空</param>
+        /// <param name="e">事件参数</param>
+        public delegate void UserCreatedEventHandler(object sender, UserEventArgs e);
+        /// <summary>
+        /// 表示将处理用户成功删除事件的方法
+        /// </summary>
+        /// <param name="sender">触发该事件的对象，总为空</param>
+        /// <param name="e">事件参数</param>
+        public delegate void UserDeletedEventHandler(object sender, UserEventArgs e);
+        /// <summary>
+        /// 表示将处理用户验证事件的方法
+        /// </summary>
+        /// <param name="sender">事件参数</param>
+        /// <param name="e">事件参数</param>
+        public delegate void UserAuthorizationEventHandler(object sender, UserEventArgs e);
 
-        public static event UserCreatedHandler OnUserCreated;
-        //public static event UserDeletedHandler OnUserDeleted;
-        //public static event UserAuthorizationHandler OnUserAuthorization;
+        /// <summary>
+        /// 当用户已成功创建时发生
+        /// </summary>
+        public static event UserCreatedEventHandler OnUserCreated;
+        /// <summary>
+        /// 当用户已成功删除时发生
+        /// </summary>
+        public static event UserDeletedEventHandler OnUserDeleted;
+        /// <summary>
+        /// 当进行用户验证时发生
+        /// </summary>
+        public static event UserAuthorizationEventHandler OnUserAuthorization;
 
         private static readonly IUser provider = DALFactory.CreateUser();
 
@@ -39,13 +60,13 @@ namespace UniqueStudio.Core.User
         private UserInfo currentUser = null;
 
         /// <summary>
-        /// 获取用户在线状态
+        /// 返回用户在线状态
         /// </summary>
         /// <param name="user">用户信息</param>
         /// <returns>是否在线</returns>
         public static bool IsUserOnline(UserInfo user)
         {
-            //还须修改(在使用数据库存储用户状态时使用)
+            //TODO:还须修改(在使用数据库存储用户状态时使用)
             return provider.IsUserOnline(user);
         }
 
@@ -243,7 +264,7 @@ namespace UniqueStudio.Core.User
                     {
                         try
                         {
-                            OnUserCreated(null, new UserArgs(user));
+                            OnUserCreated(null, new UserEventArgs(user));
                         }
                         catch (Exception ex)
                         {
@@ -267,7 +288,6 @@ namespace UniqueStudio.Core.User
         /// <param name="user">用户信息</param>
         /// <param name="newPassword">新密码</param>
         /// <returns>是否成功</returns>
-        /// <exception cref="System.Exception">各种异常用于提示错误原因。</exception>
         public bool ChangeUserPassword(UserInfo user, string newPassword)
         {
             if (user == null || string.IsNullOrEmpty(newPassword))
@@ -354,7 +374,6 @@ namespace UniqueStudio.Core.User
         /// <summary>
         /// 删除多个用户
         /// </summary>
-        /// <param name="currentUser">执行该方法的用户信息</param>
         /// <param name="userIds">待删除用户ID的集合</param>
         /// <returns>是否删除成功</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
@@ -395,7 +414,7 @@ namespace UniqueStudio.Core.User
         }
 
         /// <summary>
-        /// 获取用户列表
+        /// 返回用户列表
         /// </summary>
         /// <remarks>返回第一页，每页条目数为默认值</remarks>
         /// <returns>用户列表</returns>
@@ -411,7 +430,7 @@ namespace UniqueStudio.Core.User
         }
 
         /// <summary>
-        /// 获取用户列表
+        /// 返回用户列表
         /// </summary>
         /// <remarks>每页条目数为默认值</remarks>
         /// <param name="pageIndex">页索引（从1开始）</param>
@@ -428,7 +447,7 @@ namespace UniqueStudio.Core.User
         }
 
         /// <summary>
-        /// 获取用户列表
+        /// 返回用户列表
         /// </summary>
         /// <param name="pageIndex">页索引（从1开始）</param>
         /// <param name="pageSize">每页的条目数</param>
@@ -445,7 +464,7 @@ namespace UniqueStudio.Core.User
         }
 
         /// <summary>
-        /// 获取用户列表
+        /// 返回用户列表
         /// </summary>
         /// <remarks>返回第一页，每页条目数为默认值</remarks>
         /// <param name="currentUser">执行该方法的用户信息</param>
@@ -458,7 +477,7 @@ namespace UniqueStudio.Core.User
         }
 
         /// <summary>
-        /// 获取用户列表
+        /// 返回用户列表
         /// </summary>
         /// <remarks>每页条目数为默认值</remarks>
         /// <param name="currentUser">执行该方法的用户信息</param>
@@ -472,7 +491,7 @@ namespace UniqueStudio.Core.User
         }
 
         /// <summary>
-        /// 获取用户列表
+        /// 返回用户列表
         /// </summary>
         /// <param name="currentUser">执行该方法的用户信息</param>
         /// <param name="pageIndex">页索引（从1开始）</param>
@@ -504,7 +523,7 @@ namespace UniqueStudio.Core.User
         }
 
         /// <summary>
-        /// 获取指定用户的信息
+        /// 返回指定用户的信息
         /// </summary>
         /// <remarks>仅自身或具有查看用户信息的用户可以获取</remarks>
         /// <param name="userId">用户ID</param>
@@ -521,7 +540,7 @@ namespace UniqueStudio.Core.User
         }
 
         /// <summary>
-        /// 获取指定用户的信息
+        /// 返回指定用户的信息
         /// </summary>
         /// <remarks>仅自身或具有查看用户信息的用户可以获取</remarks>
         /// <param name="currentUser">执行该方法的用户信息</param>
@@ -563,7 +582,7 @@ namespace UniqueStudio.Core.User
         }
 
         /// <summary>
-        /// 获取用户的完整信息
+        /// 返回用户的完整信息
         /// </summary>
         /// <remarks>仅自身或具有查看用户信息的用户可以获取</remarks>
         /// <param name="userId">用户ID</param>
@@ -580,7 +599,7 @@ namespace UniqueStudio.Core.User
         }
 
         /// <summary>
-        /// 获取用户的完整信息
+        /// 返回用户的完整信息
         /// </summary>
         /// <remarks>仅自身或具有查看用户信息的用户可以获取</remarks>
         /// <param name="currentUser">执行该方法的用户信息</param>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using UniqueStudio.Core.Permission;
 using UniqueStudio.Common;
+using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 
 namespace UniqueStudio.Admin.admin.background
@@ -13,9 +14,11 @@ namespace UniqueStudio.Admin.admin.background
         {
             if (!IsPostBack)
             {
+                UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
+
                 GetData();
                 PermissionManager manager = new PermissionManager();
-                cblPermissions.DataSource = manager.GetAllPermissions();
+                cblPermissions.DataSource = manager.GetAllPermissions(currentUser);
                 cblPermissions.DataTextField = "PermissionName";
                 cblPermissions.DataValueField = "PermissionName";
                 cblPermissions.DataBind();
@@ -24,13 +27,15 @@ namespace UniqueStudio.Admin.admin.background
 
         private void GetData()
         {
+            UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
             RoleManager manager = new RoleManager();
-            rptList.DataSource = manager.GetAllRoles();
+            rptList.DataSource = manager.GetAllRoles(currentUser);
             rptList.DataBind();
         }
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
             RoleManager manager = new RoleManager();
             RoleInfo role = new RoleInfo();
             role.RoleName = txtRoleName.Text.Trim();
@@ -45,7 +50,7 @@ namespace UniqueStudio.Admin.admin.background
                 }
             }
 
-            role = manager.CreateRole(role);
+            role = manager.CreateRole(currentUser, role);
             if (role != null)
             {
                 message.SetSuccessMessage("角色创建成功");
@@ -61,6 +66,7 @@ namespace UniqueStudio.Admin.admin.background
 
         protected void btnExcute_Click(object sender, EventArgs e)
         {
+            UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
             RoleManager manager = new RoleManager();
             List<int> list = new List<int>();
             if (Request.Form["chkSelected"] != null)
@@ -80,7 +86,7 @@ namespace UniqueStudio.Admin.admin.background
             {
                 try
                 {
-                    if (manager.DeleteRoles(list.ToArray()))
+                    if (manager.DeleteRoles(currentUser, list.ToArray()))
                     {
                         message.SetSuccessMessage("指定角色已删除！");
                     }

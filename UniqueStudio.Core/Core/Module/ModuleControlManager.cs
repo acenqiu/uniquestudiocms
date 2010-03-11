@@ -30,33 +30,6 @@ namespace UniqueStudio.Core.Module
         }
 
         /// <summary>
-        /// 获取所有控件
-        /// </summary>
-        /// <returns>控件的集合</returns>
-        public ModuleControlCollection GetAllModuleControls()
-        {
-            return provider.GetAllModuleControls();
-        }
-
-        /// <summary>
-        /// 获取指定控件
-        /// </summary>
-        /// <param name="currentUser">执行该方法的用户信息</param>
-        /// <param name="controlId">待获取控件ID</param>
-        /// <returns>控件信息，如果不存在返回空</returns>
-        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
-        /// 当用户没有查看控件信息的权限时抛出该异常</exception>
-        public ModuleControlInfo GetModuleControl(UserInfo currentUser, string controlId)
-        {
-            if (!PermissionManager.HasPermission(currentUser, "ViewModuleControl"))
-            {
-                throw new InvalidPermissionException("");
-            }
-
-            return provider.GetModuleControl(controlId);
-        }
-
-        /// <summary>
         /// 创建控件
         /// </summary>
         /// <param name="currentUser">执行该方法的用户信息</param>
@@ -95,6 +68,59 @@ namespace UniqueStudio.Core.Module
         public bool CreateModuleControls(UserInfo currentUser,ModuleControlCollection moduleControls)
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 删除指定控件
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="moduleControlId">待删除控件ID</param>
+        /// <returns>是否删除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有删除控件的权限时抛出该异常</exception>
+        public bool DeleteModuleControl(UserInfo currentUser, int moduleControlId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 删除多个控件
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="moduleControlIds">待删除控件的ID的集合</param>
+        /// <returns>是否删除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有删除控件的权限时抛出该异常</exception>
+        public bool DeleteModuleControls(UserInfo currentUser, int[] moduleControlIds)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 返回所有控件
+        /// </summary>
+        /// <returns>控件的集合</returns>
+        public ModuleControlCollection GetAllModuleControls()
+        {
+            return provider.GetAllModuleControls();
+        }
+
+        /// <summary>
+        /// 返回指定控件
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="controlId">待获取控件ID</param>
+        /// <returns>控件信息，如果不存在返回空</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有查看控件信息的权限时抛出该异常</exception>
+        public ModuleControlInfo GetModuleControl(UserInfo currentUser, string controlId)
+        {
+            if (!PermissionManager.HasPermission(currentUser, "ViewModuleControl"))
+            {
+                throw new InvalidPermissionException("");
+            }
+
+            return provider.GetModuleControl(controlId);
         }
 
         /// <summary>
@@ -138,32 +164,6 @@ namespace UniqueStudio.Core.Module
             }
 
             return provider.UpdateControlParameters(controlId, parameters);
-        }
-
-        /// <summary>
-        /// 删除指定控件
-        /// </summary>
-        /// <param name="currentUser">执行该方法的用户信息</param>
-        /// <param name="moduleControlId">待删除控件ID</param>
-        /// <returns>是否删除成功</returns>
-        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
-        /// 当用户没有删除控件的权限时抛出该异常</exception>
-        public bool DeleteModuleControl(UserInfo currentUser, int moduleControlId)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 删除多个控件
-        /// </summary>
-        /// <param name="currentUser">执行该方法的用户信息</param>
-        /// <param name="moduleControlIds">待删除控件的ID的集合</param>
-        /// <returns>是否删除成功</returns>
-        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
-        /// 当用户没有删除控件的权限时抛出该异常</exception>
-        public bool DeleteModuleControls(UserInfo currentUser, int[] moduleControlIds)
-        {
-            throw new NotImplementedException();
         }
     }
 }

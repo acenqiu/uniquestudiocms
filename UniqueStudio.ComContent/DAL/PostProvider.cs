@@ -233,7 +233,7 @@ namespace UniqueStudio.ComContent.DAL
         }
 
         /// <summary>
-        /// 获取指定文章
+        /// 返回指定文章
         /// </summary>
         /// <param name="uri">文章Uri</param>
         /// <returns><see cref="PostInfo"/></returns>
@@ -563,11 +563,11 @@ namespace UniqueStudio.ComContent.DAL
         }
        
         /// <summary>
-        /// 获取文章列表
+        /// 返回文章列表
         /// </summary>
         /// <param name="pageIndex">页码，从1起始</param>
         /// <param name="pageSize">每页条目数</param>
-        /// <param name="isIncludeSummary">是否获取文章摘要</param>
+        /// <param name="isIncludeSummary">是否返回文章摘要</param>
         /// <returns>文章列表</returns>
         public PostCollection GetPostList(int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, bool IsNeedCategoryInfo)
         {
@@ -730,12 +730,12 @@ namespace UniqueStudio.ComContent.DAL
         }
 
         /// <summary>
-        /// 根据分类ID获取文章
+        /// 根据分类ID返回文章
         /// </summary>
         /// <param name="pageIndex">页码，从1起始</param>
         /// <param name="pageSize">每页条目数</param>
-        /// <param name="isIncludeSummary">是否获取文章摘要</param>
-        /// <param name="postListType">获取文章类型，是否发表</param>
+        /// <param name="isIncludeSummary">是否返回文章摘要</param>
+        /// <param name="postListType">返回文章类型，是否发表</param>
         /// <param name="categoryId">分类ID</param>
         /// <returns>文章列表</returns>
         public PostCollection GetPostListByCatId(int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, int categoryId)

@@ -16,7 +16,7 @@ namespace UniqueStudio.Common.Config
         protected string path = null;
 
         /// <summary>
-        /// 获取xml格式的配置文件
+        /// 返回xml格式的配置文件
         /// </summary>
         /// <returns></returns>
         public XmlDocument GetXmlConfig()

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 
@@ -12,10 +9,18 @@ using UniqueStudio.Core.SiteMap;
 namespace UniqueStudio.HttpControlLayer
 {
     /// <summary>
-    /// 
+    /// 动态页面解析工厂类
     /// </summary>
     public class DynamicPageHandlerFactory : IHttpHandlerFactory
     {
+        /// <summary>
+        /// 返回一个单独的方法，可调用该方法来顺序调用指定事件的所有处理程序
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="requestType"></param>
+        /// <param name="url"></param>
+        /// <param name="pathTranslated"></param>
+        /// <returns></returns>
         public IHttpHandler GetHandler(HttpContext context, string requestType, string url, string pathTranslated)
         {
             if (!GlobalConfig.EnableUrlRewrite)
@@ -60,6 +65,10 @@ namespace UniqueStudio.HttpControlLayer
             return PageParser.GetCompiledPageInstance(url, filePath, context);
         }
 
+        /// <summary>
+        /// 使工厂可以重用现有的处理程序实例
+        /// </summary>
+        /// <param name="handler">要重用的 IHttpHandler 对象</param>
         public virtual void ReleaseHandler(IHttpHandler handler)
         {
         }

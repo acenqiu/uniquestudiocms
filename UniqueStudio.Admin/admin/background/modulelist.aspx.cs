@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
 using UniqueStudio.Core.Module;
+using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 
 namespace UniqueStudio.Admin.admin.background
@@ -26,8 +27,9 @@ namespace UniqueStudio.Admin.admin.background
 
         private void GetData()
         {
+            UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
             ModuleManager manager = new ModuleManager();
-            rptList.DataSource = manager.GetAllModules();
+            rptList.DataSource = manager.GetAllModules(currentUser);
             rptList.DataBind();
         }
     }

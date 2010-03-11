@@ -21,8 +21,9 @@ namespace UniqueStudio.Admin.admin.background
         {
             if (!IsPostBack)
             {
+                UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
                 ModuleManager manager = new ModuleManager();
-                ddlModules.DataSource = manager.GetAllModules();
+                ddlModules.DataSource = manager.GetAllModules(currentUser);
                 ddlModules.DataTextField = "ModuleName";
                 ddlModules.DataValueField = "ModuleId";
                 ddlModules.DataBind();

@@ -10,6 +10,9 @@ using UniqueStudio.DAL.IDAL;
 
 namespace UniqueStudio.DAL.Module
 {
+    /// <summary>
+    /// 提供模块控件管理在Sql Server上的实现方法
+    /// </summary>
     internal class SqlModuleControlProvider : IModuleControl
     {
         private const string CREATE_MODULE_CONTROL = "CreateModuleControl";
@@ -17,11 +20,19 @@ namespace UniqueStudio.DAL.Module
         private const string GET_MODULE_CONTROL = "GetModuleControl";
         private const string UPDATE_CONTROL_PARAMETERS = "UpdateControlParameters";
 
+        /// <summary>
+        /// 初始化<see cref="SqlModuleControlProvider"/>类的实例
+        /// </summary>
         public SqlModuleControlProvider()
         {
             //默认构造函数
         }
 
+        /// <summary>
+        /// 创建控件
+        /// </summary>
+        /// <param name="moduleControl">控件信息</param>
+        /// <returns>如果创建成功，返回控件信息，否则返回空</returns>
         public ModuleControlInfo CreateModuleControl(ModuleControlInfo moduleControl)
         {
             SqlParameter[] parms = new SqlParameter[]{
@@ -40,6 +51,10 @@ namespace UniqueStudio.DAL.Module
             }
         }
 
+        /// <summary>
+        /// 返回所有控件
+        /// </summary>
+        /// <returns>控件的集合</returns>
         public ModuleControlCollection GetAllModuleControls()
         {
             ModuleControlCollection collection = new ModuleControlCollection();
@@ -54,6 +69,11 @@ namespace UniqueStudio.DAL.Module
             return collection;
         }
 
+        /// <summary>
+        /// 返回指定控件
+        /// </summary>
+        /// <param name="controlId">待获取控件ID</param>
+        /// <returns>控件信息，如果不存在返回空</returns>
         public ModuleControlInfo GetModuleControl(string controlId)
         {
             SqlParameter parm = new SqlParameter("@ControlID", controlId);
@@ -70,6 +90,13 @@ namespace UniqueStudio.DAL.Module
             }
         }
 
+        /// <summary>
+        /// 更新控件配置信息
+        /// </summary>
+        /// <remarks>该方法可能在后续版本中与UpdateModuleControl方法合并</remarks>
+        /// <param name="controlId">待更新控件ID</param>
+        /// <param name="parameters">控件配置信息（xml格式）</param>
+        /// <returns>是否更新成功</returns>
         public bool UpdateControlParameters(string controlId, string parameters)
         {
             SqlParameter[] parms = new SqlParameter[]{

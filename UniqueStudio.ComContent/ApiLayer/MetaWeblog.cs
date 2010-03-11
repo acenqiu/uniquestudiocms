@@ -12,13 +12,15 @@ namespace UniqueStudio.ComContent.ApiLayer
 {
     public class MetaWeblog : XmlRpcService, IMetaWeblog
     {
+        private PostManager postManager;
+        private PostInfo postInfo;
+        private UserInfo userInfo;
+        private CategoryManager cm;
+
         public MetaWeblog()
         {
         }
-        PostManager postManager;
-        PostInfo postInfo;
-        UserInfo userInfo;
-        CategoryManager cm;
+
         private UserInfo ValidateUser(string username, string password)
         {
             UserManager um = new UserManager();

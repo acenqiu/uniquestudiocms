@@ -97,7 +97,7 @@ namespace UniqueStudio.Common.ErrorLogging
         }
 
         /// <summary>
-        /// 获取所有错误日志
+        /// 返回所有错误日志
         /// </summary>
         /// <returns>错误日志的集合</returns>
         public static ErrorCollection GetAllErrors()

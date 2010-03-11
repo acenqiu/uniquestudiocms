@@ -140,7 +140,7 @@ namespace UniqueStudio.ComContent.BLL
         }
 
         /// <summary>
-        /// 获取指定文章
+        /// 返回指定文章
         /// </summary>
         /// <param name="uri">文章Uri</param>
         /// <returns><see cref="PostInfo"/></returns>
@@ -169,7 +169,7 @@ namespace UniqueStudio.ComContent.BLL
         }
 
         /// <summary>
-        /// 获取文章列表
+        /// 返回文章列表
         /// </summary>
         /// <param name="quantity">返回的最新文章数</param>
         /// <returns></returns>
@@ -179,11 +179,11 @@ namespace UniqueStudio.ComContent.BLL
         }
 
         /// <summary>
-        /// 获取文章列表
+        /// 返回文章列表
         /// </summary>
         /// <param name="pageIndex">页码，从1起始</param>
         /// <param name="pageSize">每页条目数</param>
-        /// <param name="isIncludeSummary">是否获取文章摘要</param>
+        /// <param name="isIncludeSummary">是否返回文章摘要</param>
         /// <param name="postListType"></param>
         /// <returns>文章列表</returns>
         public PostCollection GetPostList(int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, bool IsNeedCategoryInfo, UserInfo user)
@@ -222,11 +222,11 @@ namespace UniqueStudio.ComContent.BLL
         }
 
         /// <summary>
-        /// 获取文章列表
+        /// 返回文章列表
         /// </summary>
         /// <param name="pageIndex">页码，从1起始</param>
         /// <param name="pageSize">每页条目数</param>
-        /// <param name="isIncludeSummary">是否获取文章摘要</param>
+        /// <param name="isIncludeSummary">是否返回文章摘要</param>
         /// <param name="postListType"></param>
         /// <param name="date"></param>
         /// <returns>文章列表</returns>
@@ -237,11 +237,11 @@ namespace UniqueStudio.ComContent.BLL
         }
 
         /// <summary>
-        /// 获取文章列表
+        /// 返回文章列表
         /// </summary>
         /// <param name="pageIndex">页码，从1起始</param>
         /// <param name="pageSize">每页条目数</param>
-        /// <param name="isIncludeSummary">是否获取文章摘要</param>
+        /// <param name="isIncludeSummary">是否返回文章摘要</param>
         /// <param name="postListType"></param>
         /// <param name="year">年</param>
         /// <returns>文章列表</returns>
@@ -251,11 +251,11 @@ namespace UniqueStudio.ComContent.BLL
         }
 
         /// <summary>
-        /// 获取文章列表
+        /// 返回文章列表
         /// </summary>
         /// <param name="pageIndex">页码，从1起始</param>
         /// <param name="pageSize">每页条目数</param>
-        /// <param name="isIncludeSummary">是否获取文章摘要</param>
+        /// <param name="isIncludeSummary">是否返回文章摘要</param>
         /// <param name="postListType"></param>
         /// <param name="year">年</param>
         /// <param name="month">月</param>
@@ -266,11 +266,11 @@ namespace UniqueStudio.ComContent.BLL
         }
 
         /// <summary>
-        /// 获取文章列表
+        /// 返回文章列表
         /// </summary>
         /// <param name="pageIndex">页码，从1起始</param>
         /// <param name="pageSize">每页条目数</param>
-        /// <param name="isIncludeSummary">是否获取文章摘要</param>
+        /// <param name="isIncludeSummary">是否返回文章摘要</param>
         /// <param name="postListType"></param>
         /// <param name="year">年</param>
         /// <param name="month">月</param>
@@ -282,11 +282,11 @@ namespace UniqueStudio.ComContent.BLL
         }
 
         /// <summary>
-        ///  获取文章列表
+        ///  返回文章列表
         /// </summary>
         /// <param name="pageIndex">页码，从1起始</param>
         /// <param name="pageSize">每页条目数</param>
-        /// <param name="isIncludeSummary">是否获取文章摘要</param>
+        /// <param name="isIncludeSummary">是否返回文章摘要</param>
         /// <param name="postListType"></param>
         /// <param name="startDate">起始时间</param>
         /// <param name="endDate">结束时间</param>

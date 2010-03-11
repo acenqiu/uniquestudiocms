@@ -11,6 +11,9 @@ using UniqueStudio.Common.DatabaseHelper;
 
 namespace UniqueStudio.DAL.Permission
 {
+    /// <summary>
+    /// 提供角色管理在Sql Server上的实现方法
+    /// </summary>
     internal class SqlRoleProvider : IRole
     {
         private const string ADD_USER_TO_ROLE = "AddUserToRole";
@@ -26,20 +29,42 @@ namespace UniqueStudio.DAL.Permission
         private const string REMOVE_USER_FROM_ROLE = "RemoveUserFromRole";
         private const string IS_ROLE_EXISTS = "IsRoleExists";
 
+        /// <summary>
+        /// 初始化<see cref="SqlRoleProvider"/>类的实例
+        /// </summary>
         public SqlRoleProvider()
         {
+            //默认构造函数
         }
 
+        /// <summary>
+        /// 将多个用户添加到某一角色中
+        /// </summary>
+        /// <param name="users">用户列表</param>
+        /// <param name="role">角色列表</param>
+        /// <returns>是否添加成功</returns>
         public bool AddUsersToRole(UserCollection users, RoleInfo role)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 将一组用户添加到一组角色中
+        /// </summary>
+        /// <param name="users">用户列表</param>
+        /// <param name="roles">角色列表</param>
+        /// <returns>是否添加成功</returns>
         public bool AddUsersToRoles(UserCollection users, RoleCollection roles)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        ///  将某一用户添加到某一角色中
+        /// </summary>
+        /// <param name="user">用户信息</param>
+        /// <param name="role">角色信息</param>
+        /// <returns>是否添加成功</returns>
         public bool AddUserToRole(UserInfo user, RoleInfo role)
         {
             SqlParameter[] parms = new SqlParameter[]{
@@ -48,6 +73,12 @@ namespace UniqueStudio.DAL.Permission
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, ADD_USER_TO_ROLE, parms) > 0;
         }
 
+        /// <summary>
+        ///  将某一用户添加到一组角色中
+        /// </summary>
+        /// <param name="user">用户信息</param>
+        /// <param name="roles">角色列表</param>
+        /// <returns>是否添加成功</returns>
         public bool AddUserToRoles(UserInfo user, RoleCollection roles)
         {
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
@@ -86,6 +117,11 @@ namespace UniqueStudio.DAL.Permission
             }
         }
 
+        /// <summary>
+        /// 创建新的角色
+        /// </summary>
+        /// <param name="role">角色信息</param>
+        /// <returns>如果添加成功，返回角色信息，否则返回空</returns>
         public RoleInfo CreateRole(RoleInfo role)
         {
             SqlParameter[] parms = new SqlParameter[]{
@@ -115,6 +151,12 @@ namespace UniqueStudio.DAL.Permission
             }
         }
 
+        /// <summary>
+        /// 创建多个角色
+        /// </summary>
+        /// <remarks>返回类型可能在后续版本中修改</remarks>
+        /// <param name="roles">待创建角色列表</param>
+        /// <returns>是否创建成功</returns>
         public bool CreateRoles(RoleCollection roles)
         {
             bool succeed = true;
@@ -155,12 +197,22 @@ namespace UniqueStudio.DAL.Permission
             return succeed;
         }
 
+        /// <summary>
+        /// 删除特定的角色。
+        /// </summary>
+        /// <param name="roleId">待删除权限ID</param>
+        /// <returns>是否删除成功</returns>
         public bool DeleteRole(int roleId)
         {
             SqlParameter parm = new SqlParameter("@ID", roleId);
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, DELETE_ROLE, parm) > 0;
         }
 
+        /// <summary>
+        /// 返回指定角色下的用户列表
+        /// </summary>
+        /// <param name="role">角色信息</param>
+        /// <returns>用户列表</returns>
         public UserCollection GetUsersInRole(RoleInfo role)
         {
             SqlParameter parm = new SqlParameter("@RoleName", role.RoleName);
@@ -181,9 +233,9 @@ namespace UniqueStudio.DAL.Permission
         }
 
         /// <summary>
-        /// 
+        /// 返回所有角色的列表。
         /// </summary>
-        /// <returns></returns>
+        /// <returns>角色列表</returns>
         public RoleCollection GetAllRoles()
         {
             RoleCollection collection = new RoleCollection();
@@ -197,12 +249,22 @@ namespace UniqueStudio.DAL.Permission
             return collection;
         }
 
+        /// <summary>
+        /// 获得指定角色的信息
+        /// </summary>
+        /// <param name="roleId">角色ID</param>
+        /// <returns>角色信息</returns>
         public RoleInfo GetRoleInfo(int roleId)
         {
             SqlParameter parm = new SqlParameter("@RoleID", roleId);
             return GetRoleInfo(parm, GET_ROLE_BY_ID);
         }
 
+        /// <summary>
+        /// 获得指定角色的信息
+        /// </summary>
+        /// <param name="roleName">角色名称</param>
+        /// <returns>角色信息</returns>
         public RoleInfo GetRoleInfo(string roleName)
         {
             SqlParameter parm = new SqlParameter("@RoleName", roleName);
@@ -230,6 +292,11 @@ namespace UniqueStudio.DAL.Permission
             }
         }
 
+        /// <summary>
+        /// 返回某一用户所属的所有角色的列表
+        /// </summary>
+        /// <param name="user">用户信息</param>
+        /// <returns>角色的集合</returns>
         public RoleCollection GetRolesForUser(UserInfo user)
         {
             SqlParameter parm = new SqlParameter("@UserID", user.UserId);
@@ -244,6 +311,12 @@ namespace UniqueStudio.DAL.Permission
             return collection;
         }
 
+        /// <summary>
+        /// 判断特定的用户是否是特定角色中的成员
+        /// </summary>
+        /// <param name="user">用户信息</param>
+        /// <param name="roleName">角色名称</param>
+        /// <returns>是否是特定角色的成员</returns>
         public bool IsUserInRole(UserInfo user, string roleName)
         {
             SqlParameter[] parms = new SqlParameter[]{
@@ -260,6 +333,12 @@ namespace UniqueStudio.DAL.Permission
             }
         }
 
+        /// <summary>
+        /// 从某一特定角色中移除某一特定的用户
+        /// </summary>
+        /// <param name="user">用户信息</param>
+        /// <param name="role">角色信息</param>
+        /// <returns>是否移除成功</returns>
         public bool RemoveUserFromRole(UserInfo user, RoleInfo role)
         {
             SqlParameter[] parms = new SqlParameter[]{
@@ -268,21 +347,44 @@ namespace UniqueStudio.DAL.Permission
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, REMOVE_USER_FROM_ROLE, parms) > 0;
         }
 
+        /// <summary>
+        /// 从一组角色中移除某一特定的用户
+        /// </summary>
+        /// <param name="user">用户信息</param>
+        /// <param name="roles">角色列表</param>
+        /// <returns>是否移除成功</returns>
         public bool RemoveUserFromRoles(UserInfo user, RoleCollection roles)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 从某一特定角色中移除多个用户
+        /// </summary>
+        /// <param name="users">用户列表</param>
+        /// <param name="role">角色信息</param>
+        /// <returns>是否移除成功</returns>
         public bool RemoveUsersFromRole(UserCollection users, RoleInfo role)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 从多个角色中移除多个用户
+        /// </summary>
+        /// <param name="users">用户列表</param>
+        /// <param name="roles">角色列表</param>
+        /// <returns>是否移除成功</returns>
         public bool RemoveUsersFromRoles(UserCollection users, RoleCollection roles)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 更新指定用户的角色信息
+        /// </summary>
+        /// <param name="user">用户信息</param>
+        /// <returns>是否更新成功</returns>
         public bool UpdateRolesForUser(UserInfo user)
         {
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
@@ -325,6 +427,11 @@ namespace UniqueStudio.DAL.Permission
             }
         }
 
+        /// <summary>
+        /// 判断某一特定的角色是否存在
+        /// </summary>
+        /// <param name="roleName">角色名称</param>
+        /// <returns>是否存在</returns>
         public bool IsRoleExists(string roleName)
         {
             SqlParameter parm = new SqlParameter("@RoleName", roleName);

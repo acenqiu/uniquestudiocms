@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
-using UniqueStudio.Core.PageVisit;
-using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Core.PageVisit;
 
 namespace UniqueStudio.HttpControlLayer
 {
-    public class HttpPageVisitModule:IHttpModule
+    public class HttpPageVisitModule : IHttpModule
     {
         private static PageVisitManager manager = new PageVisitManager();
         private static Regex r = new Regex("/admin/.*");

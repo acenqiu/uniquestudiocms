@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
 using UniqueStudio.Core.Permission;
+using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 
 namespace UniqueStudio.Admin.admin.background
@@ -37,8 +38,9 @@ namespace UniqueStudio.Admin.admin.background
             }
             if (!IsPostBack)
             {
+                UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
                 RoleManager manager = new RoleManager();
-                RoleInfo role = manager.GetRoleInfo(roleId);
+                RoleInfo role = manager.GetRoleInfo(currentUser, roleId);
 
                 ltlRoleName.Text = role.RoleName;
                 txtRoleName.Text = role.RoleName;
@@ -47,27 +49,6 @@ namespace UniqueStudio.Admin.admin.background
                 PermissionManager permissionManager = new PermissionManager();
                 rptPermissions.DataSource = role.Permissions;
                 rptPermissions.DataBind();
-
-                //for (int i = 0; i < rptPermissions.Items.Count; i++)
-                //{
-                //    CheckBox chk = (CheckBox)rptPermissions.Items[i].Controls[0];
-                //    TextBox txt = (TextBox)rptPermissions.Items[i].Controls[1];
-
-                //    if (role.Permissions != null && txt != null)
-                //    {
-                //        foreach (PermissionInfo permission in role.Permissions)
-                //        {
-                //            if (txt.Text == permission.PermissionName)
-                //            {
-                //                if (chk != null)
-                //                {
-                //                    chk.Checked = true;
-                //                    break;
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
 
                 rptUsers.DataSource = role.Users;
                 rptUsers.DataBind();

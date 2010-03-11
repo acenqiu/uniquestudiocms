@@ -10,15 +10,27 @@ using UniqueStudio.DAL.IDAL;
 
 namespace UniqueStudio.DAL.Compenent
 {
+    /// <summary>
+    /// 提供组件管理在Sql Server上的实现方法
+    /// </summary>
     internal class SqlCompenentProvider : ICompenent
     {
         private const string CREATE_COMPENENT = "CreateCompenent";
         private const string GET_ALL_COMPENENTS = "GetAllCompenents";
 
+        /// <summary>
+        /// 初始化<see cref="SqlCompenentProvider"/>类的实例
+        /// </summary>
         public SqlCompenentProvider()
         {
         }
 
+        /// <summary>
+        /// 创建组件
+        /// </summary>
+        /// <remarks>在数据库中插入组件记录</remarks>
+        /// <param name="compenent">组件信息</param>
+        /// <returns>如果创建成功，返回组件信息，否则返回空</returns>
         public CompenentInfo CreateCompenent(CompenentInfo compenent)
         {
             SqlParameter[] parms = new SqlParameter[]{
@@ -39,6 +51,10 @@ namespace UniqueStudio.DAL.Compenent
             }
         }
 
+        /// <summary>
+        /// 返回所有组件的信息
+        /// </summary>
+        /// <returns>包含所有信息的组件集合</returns>
         public CompenentCollection GetAllCompenents()
         {
             CompenentCollection collection = new CompenentCollection();
@@ -52,6 +68,12 @@ namespace UniqueStudio.DAL.Compenent
             return collection;
         }
 
+        /// <summary>
+        /// 删除组件
+        /// </summary> 
+        /// <remarks>在数据库中删除组件信息</remarks>
+        /// <param name="compenentId">待删除组件ID</param>
+        /// <returns>是否删除成功</returns>
         public bool DeleteCompenent(int compenentId)
         {
             throw new NotImplementedException();
