@@ -109,7 +109,7 @@ namespace UniqueStudio.Core.Menu
         /// </summary>
         /// <param name="MenuItemId">该菜单链中任一菜单项的ID</param>
         /// <returns>菜单链的根节点</returns>
-        public MenuItemInfo GetMenuChain(uint menuItemId)
+        public MenuItemInfo GetMenuChain(int menuItemId)
         {
             try
             {
@@ -230,13 +230,13 @@ namespace UniqueStudio.Core.Menu
             sb.Append("<ul>").Append("\r\n");
             foreach (MenuItemInfo child in head.ChildItems)
             {
-                sb.Append(getHTML(child, new StringBuilder("menuPath=").Append(child.Id.ToString()).ToString())).Append("\r\n");
+                sb.Append(GetHtml(child, new StringBuilder("menuPath=").Append(child.Id.ToString()).ToString())).Append("\r\n");
             }
             sb.Append("</ul>").Append("\r\n");
             return sb.ToString();
         }
 
-        private string getHTML(MenuItemInfo node, string menuPath)
+        private string GetHtml(MenuItemInfo node, string menuPath)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -247,7 +247,7 @@ namespace UniqueStudio.Core.Menu
                 sb.Append("<ul>").Append("\r\n");
                 foreach (MenuItemInfo child in node.ChildItems)
                 {
-                    sb.Append(getHTML(child, menuPath + "," + child.Id)).Append("\r\n");
+                    sb.Append(GetHtml(child, menuPath + "," + child.Id)).Append("\r\n");
                 }
                 sb.Append("</ul>").Append("\r\n");
                 sb.Append("</div>").Append("\r\n");
@@ -256,7 +256,8 @@ namespace UniqueStudio.Core.Menu
             {
                 sb.Append("<li>").Append("\r\n");
             }
-            if ((node.Link != null) && (!node.Link.Equals(String.Empty)))
+
+            if (!string.IsNullOrEmpty(node.Link))
             {
                 sb.Append("<a href='").Append(node.Link);
                 if (node.Link.IndexOf("?") < 0)

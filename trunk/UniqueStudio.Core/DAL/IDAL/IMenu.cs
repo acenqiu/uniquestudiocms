@@ -52,7 +52,7 @@ namespace UniqueStudio.DAL.IDAL
         /// </summary>
         /// <param name="MenuItemId">该菜单链中任一菜单项的ID</param>
         /// <returns>菜单链中各菜单项的集合</returns>
-        MenuItemCollection GetMenuChain(uint menuItemId);
+        MenuItemCollection GetMenuChain(int menuItemId);
 
         /// <summary>
         /// 返回菜单链

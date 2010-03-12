@@ -336,4 +336,115 @@
     <Time>2010-03-06T01:51:11.4533354+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.ArgumentException</ExceptionType>
+    <ErrorMessage>The parameter data type of UInt32 is invalid.</ErrorMessage>
+    <RepresentationString>System.ArgumentException: The parameter data type of UInt32 is invalid.
+   at System.Data.SqlClient.MetaType.GetMetaTypeFromValue(Type dataType, Object value, Boolean inferLen)
+   at System.Data.SqlClient.SqlParameter.GetMetaTypeOnly()
+   at System.Data.SqlClient.SqlParameter.Validate(Int32 index, Boolean isCommandProc)
+   at System.Data.SqlClient.SqlCommand.SetUpRPCParameters(_SqlRPC rpc, Int32 startCount, Boolean inSchema, SqlParameterCollection parameters)
+   at System.Data.SqlClient.SqlCommand.BuildRPC(Boolean inSchema, SqlParameterCollection parameters, _SqlRPC&amp; rpc)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at UniqueStudio.Common.DatabaseHelper.SqlHelper.ExecuteReader(CommandType cmdType, String cmdText, SqlParameter[] commandParameters) in E:\Projects\CMS\Source\CMS\UniqueStudio.Common\DatabaseHelper\SqlHelper.cs:line 163
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.GetMenuChain(UInt32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 159
+   at UniqueStudio.Core.Menu.MenuManager.GetMenuChain(UInt32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Menu\MenuManager.cs:line 116</RepresentationString>
+    <Time>2010-03-11T22:31:08.4197666+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>ParentItemName</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: ParentItemName
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.FillMenuItemInfo(SqlDataReader reader) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 224
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 163
+   at UniqueStudio.Core.Menu.MenuManager.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Menu\MenuManager.cs:line 116</RepresentationString>
+    <Time>2010-03-11T22:38:22.8496146+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>ParentItemName</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: ParentItemName
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.FillMenuItemInfo(SqlDataReader reader) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 224
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 163
+   at UniqueStudio.Core.Menu.MenuManager.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Menu\MenuManager.cs:line 116</RepresentationString>
+    <Time>2010-03-11T22:38:49.2381239+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>ParentItemName</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: ParentItemName
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.FillMenuItemInfo(SqlDataReader reader) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 224
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 163
+   at UniqueStudio.Core.Menu.MenuManager.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Menu\MenuManager.cs:line 116</RepresentationString>
+    <Time>2010-03-11T22:38:53.3293579+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>ParentItemName</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: ParentItemName
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.FillMenuItemInfo(SqlDataReader reader) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 224
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 163
+   at UniqueStudio.Core.Menu.MenuManager.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Menu\MenuManager.cs:line 116</RepresentationString>
+    <Time>2010-03-11T22:39:16.2806706+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>ParentItemName</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: ParentItemName
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.FillMenuItemInfo(SqlDataReader reader) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 224
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 163
+   at UniqueStudio.Core.Menu.MenuManager.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Menu\MenuManager.cs:line 116</RepresentationString>
+    <Time>2010-03-11T22:40:10.7037835+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>ParentItemName</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: ParentItemName
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.FillMenuItemInfo(SqlDataReader reader) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 224
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 163
+   at UniqueStudio.Core.Menu.MenuManager.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Menu\MenuManager.cs:line 116</RepresentationString>
+    <Time>2010-03-12T18:21:48.2831189+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>ParentItemName</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: ParentItemName
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.FillMenuItemInfo(SqlDataReader reader) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 224
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 163
+   at UniqueStudio.Core.Menu.MenuManager.GetMenuChain(Int32 menuItemId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Menu\MenuManager.cs:line 116</RepresentationString>
+    <Time>2010-03-12T18:22:03.1899715+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>
