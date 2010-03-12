@@ -152,7 +152,7 @@ namespace UniqueStudio.DAL.Menu
         /// </summary>
         /// <param name="MenuItemId">该菜单链中任一菜单项的ID</param>
         /// <returns>菜单链中各菜单项的集合</returns>
-        public MenuItemCollection GetMenuChain(uint menuItemId)
+        public MenuItemCollection GetMenuChain(int menuItemId)
         {
             MenuItemCollection collection = new MenuItemCollection();
             SqlParameter parm = new SqlParameter("@ItemID", menuItemId);
