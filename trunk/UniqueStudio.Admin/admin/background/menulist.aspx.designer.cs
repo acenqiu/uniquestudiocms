@@ -23,6 +23,15 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::UniqueStudio.Admin.admin.controls.Message message;
         
         /// <summary>
+        /// validationSummary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary validationSummary;
+        
+        /// <summary>
         /// txtMenuName control.
         /// </summary>
         /// <remarks>
@@ -30,6 +39,15 @@ namespace UniqueStudio.Admin.admin.background {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMenuName;
+        
+        /// <summary>
+        /// requireMenuName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator requireMenuName;
         
         /// <summary>
         /// txtDescription control.

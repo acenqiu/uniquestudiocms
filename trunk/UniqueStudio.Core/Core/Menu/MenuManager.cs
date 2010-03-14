@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -9,6 +10,7 @@ using UniqueStudio.Common.Config;
 using UniqueStudio.Common.ErrorLogging;
 using UniqueStudio.Common.Exceptions;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 using UniqueStudio.DAL;
 using UniqueStudio.DAL.IDAL;
 
@@ -21,12 +23,40 @@ namespace UniqueStudio.Core.Menu
     {
         private static readonly IMenu provider = DALFactory.CreateMenu();
 
+        private UserInfo currentUser;
+
         /// <summary>
         /// 初始化<see cref="MenuManager"/>类的实例
         /// </summary>
         public MenuManager()
         {
             //默认构造函数
+        }
+
+        /// <summary>
+        /// 以当前用户信息初始化<see cref="MenuManager"/>类的实例
+        /// </summary>
+        /// <param name="currentUser">当前用户信息</param>
+        public MenuManager(UserInfo currentUser)
+        {
+            Validator.CheckNull(currentUser, "currentUser");
+            this.currentUser = currentUser;
+        }
+
+        /// <summary>
+        /// 添加菜单项
+        /// </summary>
+        /// <param name="item">菜单项信息</param>
+        /// <returns>如果添加成功，返回该菜单项信息，否则返回空</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有添加菜单项的权限时抛出该异常</exception>
+        public MenuItemInfo AddMenuItem(MenuItemInfo item)
+        {
+            if (currentUser == null)
+            {
+                throw new Exception("请使用MenuManager(UserInfo)实例化该类。");
+            }
+            return AddMenuItem(currentUser, item);
         }
 
         /// <summary>
@@ -39,12 +69,55 @@ namespace UniqueStudio.Core.Menu
         /// 当用户没有添加菜单项的权限时抛出该异常</exception>
         public MenuItemInfo AddMenuItem(UserInfo currentUser, MenuItemInfo item)
         {
-            if (!PermissionManager.HasPermission(currentUser, "EditMenu"))
+            Validator.CheckNull(item, "item");
+            Validator.CheckStringNull(item.ItemName, "item");
+            Validator.CheckNotPositive(item.MenuId, "item");
+            Validator.CheckNegative(item.ParentItemId, "item");
+            if (item.Ordering < 0)
             {
-                throw new InvalidPermissionException("");
+                item.Ordering = 0;
+            }
+            PermissionManager.CheckPermission(currentUser, "EditMenu", "编辑菜单");
+
+            if (IsMenuItemExist(item.MenuId, item.ItemName))
+            {
+                throw new Exception("该菜单项名称已经存在，请重新设置！");
             }
 
-            return provider.AddMenuItem(item);
+            try
+            {
+                return provider.AddMenuItem(item);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 创建菜单
+        /// </summary>
+        /// <param name="menu">菜单信息</param>
+        /// <returns>如果添加成功，返回该菜单信息，否则返回空</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有创建菜单的权限时抛出该异常</exception>
+        /// <exception cref="UniqueStudio.Common.Exceptions.DatabaseException">
+        /// 当数据库出现错误时抛出该异常</exception>
+        /// <exception cref="UniqueStudio.Common.Exceptions.UnhandledException">
+        /// 当遇到未知异常时抛出该异常</exception>
+        public MenuInfo CreateMenu(MenuInfo menu)
+        {
+            if (currentUser == null)
+            {
+                throw new Exception("请使用MenuManager(UserInfo)实例化该类。");
+            }
+            return CreateMenu(currentUser, menu);
         }
 
         /// <summary>
@@ -55,14 +128,56 @@ namespace UniqueStudio.Core.Menu
         /// <returns>如果添加成功，返回该菜单信息，否则返回空</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
         /// 当用户没有创建菜单的权限时抛出该异常</exception>
+        /// <exception cref="UniqueStudio.Common.Exceptions.DatabaseException">
+        /// 当数据库出现错误时抛出该异常</exception>
+        /// <exception cref="UniqueStudio.Common.Exceptions.UnhandledException">
+        /// 当遇到未知异常时抛出该异常</exception>
         public MenuInfo CreateMenu(UserInfo currentUser, MenuInfo menu)
         {
-            if (!PermissionManager.HasPermission(currentUser, "CreateMenu"))
+            Validator.CheckNull(menu, "menu");
+            Validator.CheckStringNull(menu.MenuName, "menu");
+            Validator.CheckNotPositive(menu.SiteId, "menu.SiteId");
+            if (menu.Description == null)
             {
-                throw new InvalidPermissionException("");
+                menu.Description = string.Empty;
+            }
+            PermissionManager.CheckPermission(currentUser, "CreateMenu", "创建菜单");
+
+            if (IsMenuExist(menu.SiteId, menu.MenuName))
+            {
+                throw new Exception("该菜单名已经存在，请重新设置！");
             }
 
-            return provider.CreateMenu(menu);
+            try
+            {
+                return provider.CreateMenu(menu);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 删除指定菜单
+        /// </summary>
+        /// <param name="menuId">待删除菜单ID</param>
+        /// <returns>是否删除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有删除菜单的权限时抛出该异常</exception>
+        public bool DeleteMenu(int menuId)
+        {
+            if (currentUser == null)
+            {
+                throw new Exception("请使用MenuManager(UserInfo)实例化该类。");
+            }
+            return DeleteMenu(currentUser, menuId);
         }
 
         /// <summary>
@@ -75,12 +190,71 @@ namespace UniqueStudio.Core.Menu
         /// 当用户没有删除菜单的权限时抛出该异常</exception>
         public bool DeleteMenu(UserInfo currentUser, int menuId)
         {
-            if (!PermissionManager.HasPermission(currentUser, "DeleteMenu"))
-            {
-                throw new InvalidPermissionException("");
-            }
+            Validator.CheckNotPositive(menuId, "menuId");
+            PermissionManager.CheckPermission(currentUser, "DeleteMenu", "删除菜单");
 
-            return provider.DeleteMenu(menuId);
+            try
+            {
+                return provider.DeleteMenu(menuId);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 删除多个菜单
+        /// </summary>
+        /// <param name="menuIds">待删除菜单ID的集合</param>
+        /// <returns>是否删除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有删除菜单的权限时抛出该异常</exception>
+        public bool DeleteMenus(int[] menuIds)
+        {
+            if (currentUser == null)
+            {
+                throw new Exception("请使用MenuManager(UserInfo)实例化该类。");
+            }
+            return DeleteMenus(menuIds);
+        }
+
+        /// <summary>
+        /// 删除多个菜单
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="menuIds">待删除菜单ID的集合</param>
+        /// <returns>是否删除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有删除菜单的权限时抛出该异常</exception>
+        public bool DeleteMenus(UserInfo currentUser, int[] menuIds)
+        {
+            foreach (int menuId in menuIds)
+            {
+                Validator.CheckNotPositive(menuId, "menuIds");
+            }
+            PermissionManager.CheckPermission(currentUser, "DeleteMenu", "删除菜单");
+
+            try
+            {
+                return provider.DeleteMenus(menuIds);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
         }
 
         /// <summary>
@@ -91,7 +265,21 @@ namespace UniqueStudio.Core.Menu
         /// <returns>菜单信息</returns>
         public MenuInfo GetMenu(int menuId)
         {
-            return provider.GetMenu(menuId);
+            Validator.CheckNotPositive(menuId, "menuId");
+            try
+            {
+                return provider.GetMenu(menuId);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
         }
 
         /// <summary>
@@ -101,7 +289,20 @@ namespace UniqueStudio.Core.Menu
         /// <returns>菜单的集合</returns>
         public MenuCollection GetAllMenus()
         {
-            return provider.GetAllMenus();
+            try
+            {
+                return provider.GetAllMenus();
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
         }
 
         /// <summary>
@@ -111,6 +312,8 @@ namespace UniqueStudio.Core.Menu
         /// <returns>菜单链的根节点</returns>
         public MenuItemInfo GetMenuChain(int menuItemId)
         {
+            Validator.CheckNotPositive(menuItemId, "menuItemId");
+
             try
             {
                 MenuItemCollection collection = provider.GetMenuChain(menuItemId);
@@ -128,13 +331,18 @@ namespace UniqueStudio.Core.Menu
                 }
                 else
                 {
-                    throw new DatabaseException();
+                    return null;
                 }
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
             }
             catch (Exception ex)
             {
                 ErrorLogger.LogError(ex);
-                throw new DatabaseException();
+                throw new UnhandledException();
             }
         }
 
@@ -145,7 +353,108 @@ namespace UniqueStudio.Core.Menu
         /// <returns>菜单链的根节点</returns>
         public MenuItemInfo GetMenuChain(Guid chainId)
         {
-            throw new NotImplementedException();
+            Validator.CheckGuid(chainId, "chainId");
+
+            try
+            {
+                MenuItemCollection collection = provider.GetMenuChain(chainId);
+                if (collection != null)
+                {
+                    MenuItemInfo head = GetMenuTree(collection);
+                    if (head.ChildItems.Count > 0)
+                    {
+                        return head.ChildItems[0];
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 返回指定菜单是否存在
+        /// </summary>
+        /// <param name="siteId">网站ID</param>
+        /// <param name="menuName">菜单名称</param>
+        /// <returns>是否存在</returns>
+        public bool IsMenuExist(int siteId, string menuName)
+        {
+            Validator.CheckNotPositive(siteId, "siteId");
+            Validator.CheckStringNull(menuName, "menuName");
+
+            try
+            {
+                return provider.IsMenuExist(siteId, menuName);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 返回指定菜单项是否存在
+        /// </summary>
+        /// <param name="menuId">菜单ID</param>
+        /// <param name="menuItemName">菜单项名称</param>
+        /// <returns>是否存在</returns>
+        public bool IsMenuItemExist(int menuId, string menuItemName)
+        {
+            Validator.CheckNotPositive(menuId, "menuId");
+            Validator.CheckStringNull(menuItemName, "menuItemName");
+
+            try
+            {
+                return provider.IsMenuItemExist(menuId, menuItemName);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 移除菜单项
+        /// </summary>
+        /// <param name="itemId">菜单项ID</param>
+        /// <returns>是否删除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑菜单的权限时抛出该异常</exception>
+        public bool RemoveMenuItem(int itemId)
+        {
+            if (currentUser == null)
+            {
+                throw new Exception("请使用MenuManager(UserInfo)实例化该类。");
+            }
+            return RemoveMenuItem(currentUser, itemId);
         }
 
         /// <summary>
@@ -153,37 +462,133 @@ namespace UniqueStudio.Core.Menu
         /// </summary>
         /// <param name="currentUser">执行该方法的用户信息</param>
         /// <param name="itemId">菜单项ID</param>
-        /// <returns>是否删除成功</returns>
+        /// <returns>是否移除成功</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
         /// 当用户没有编辑菜单的权限时抛出该异常</exception>
         public bool RemoveMenuItem(UserInfo currentUser, int itemId)
         {
             //全局配置
-            return RemoveMenuItem(currentUser, itemId, true);
+            return RemoveMenuItem(currentUser, itemId, false);
         }
 
         /// <summary>
         /// 移除菜单项
         /// </summary>
+        /// <remarks>参数<paramref name="isRemoveChildItems"/>暂不可用，当前行为为不处理</remarks>
+        /// <param name="itemId">菜单项ID</param>
+        /// <param name="isRemoveChildItems">是否同时移除其子菜单项</param>
+        /// <returns>是否移除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑菜单的权限时抛出该异常</exception>
+        public bool RemoveMenuItem(int itemId, bool isRemoveChildItems)
+        {
+            if (currentUser == null)
+            {
+                throw new Exception("请使用MenuManager(UserInfo)实例化该类。");
+            }
+            return RemoveMenuItem(currentUser, itemId, isRemoveChildItems);
+        }
+
+        /// <summary>
+        /// 移除菜单项
+        /// </summary>
+        /// <remarks>参数<paramref name="isRemoveChildItems"/>暂不可用，当前行为为不处理</remarks>
         /// <param name="currentUser">执行该方法的用户信息</param>
         /// <param name="itemId">菜单项ID</param>
         /// <param name="isRemoveChildItems">是否同时移除其子菜单项</param>
-        /// <returns>是否删除成功</returns>
+        /// <returns>是否移除成功</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
         /// 当用户没有编辑菜单的权限时抛出该异常</exception>
         public bool RemoveMenuItem(UserInfo currentUser, int itemId, bool isRemoveChildItems)
         {
-            if (!PermissionManager.HasPermission(currentUser, "EditMenu"))
-            {
-                throw new InvalidPermissionException("");
-            }
+            Validator.CheckNotPositive(itemId, "itemId");
+            PermissionManager.CheckPermission(currentUser, "EditMenu", "编辑菜单");
 
-            return provider.RemoveMenuItem(itemId, isRemoveChildItems);
+            try
+            {
+                return provider.RemoveMenuItem(itemId, isRemoveChildItems);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 移除多个菜单项
+        /// </summary>
+        /// <param name="itemIds">菜单项ID的集合</param>
+        /// <returns>是否移除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑菜单的权限时抛出该异常</exception>
+        public bool RemoveMenuItems(int[] itemIds)
+        {
+            if (currentUser == null)
+            {
+                throw new Exception("请使用MenuManager(UserInfo)实例化该类。");
+            }
+            return RemoveMenuItems(currentUser, itemIds);
+        }
+
+        /// <summary>
+        /// 移除多个菜单项
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="itemIds">菜单项ID的集合</param>
+        /// <returns>是否移除成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑菜单的权限时抛出该异常</exception>
+        public bool RemoveMenuItems(UserInfo currentUser, int[] itemIds)
+        {
+            foreach (int itemId in itemIds)
+            {
+                Validator.CheckNotPositive(itemId, "itemIds");
+            }
+            PermissionManager.CheckPermission(currentUser, "EditMenu", "编辑菜单");
+            
+            try
+            {
+                return provider.RemoveMenuItems(itemIds);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
         }
 
         /// <summary>
         /// 更新菜单信息
         /// </summary>
+        /// <remarks>该方法仅更新菜单的名称及说明，不更新菜单项</remarks>
+        /// <param name="menu">菜单信息</param>
+        /// <returns>是否更新成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑菜单的权限时抛出该异常</exception>
+        public bool UpdateMenu(MenuInfo menu)
+        {
+            if (currentUser == null)
+            {
+                throw new Exception("请使用MenuManager(UserInfo)实例化该类。");
+            }
+            return UpdateMenu(currentUser, menu);
+        }
+
+        /// <summary>
+        /// 更新菜单信息
+        /// </summary>
+        /// <remarks>该方法仅更新菜单的名称及说明，不更新菜单项</remarks>
         /// <param name="currentUser">执行该方法的用户信息</param>
         /// <param name="menu">菜单信息</param>
         /// <returns>是否更新成功</returns>
@@ -191,7 +596,93 @@ namespace UniqueStudio.Core.Menu
         /// 当用户没有编辑菜单的权限时抛出该异常</exception>
         public bool UpdateMenu(UserInfo currentUser, MenuInfo menu)
         {
-            throw new NotImplementedException();
+            Validator.CheckNull(menu, "menu");
+            Validator.CheckNotPositive(menu.MenuId, "menu");
+            Validator.CheckStringNull(menu.MenuName, "menu");
+            if (menu.Description == null)
+            {
+                menu.Description = string.Empty;
+            }
+            PermissionManager.CheckPermission(currentUser, "EditMenu", "编辑菜单");
+
+            if (IsMenuExist(menu.SiteId, menu.MenuName))
+            {
+                throw new Exception("该菜单名已经存在，请重新设置！");
+            }
+
+            try
+            {
+                return provider.UpdateMenu(menu);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 更新菜单项信息
+        /// </summary>
+        /// <param name="item">菜单信息</param>
+        /// <returns>是否更新成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑菜单的权限时抛出该异常</exception>
+        public bool UpdateMenuItem(MenuItemInfo item)
+        {
+            if (currentUser == null)
+            {
+                throw new Exception("请使用MenuManager(UserInfo)实例化该类。");
+            }
+            return UpdateMenuItem(currentUser, item);
+        }
+
+        /// <summary>
+        /// 更新菜单项信息
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息</param>
+        /// <param name="item">菜单信息</param>
+        /// <returns>是否更新成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑菜单的权限时抛出该异常</exception>
+        public bool UpdateMenuItem(UserInfo currentUser, MenuItemInfo item)
+        {
+            Validator.CheckNull(item, "item");
+            Validator.CheckStringNull(item.ItemName, "item");
+            Validator.CheckNotPositive(item.Id, "item");
+            Validator.CheckNotPositive(item.MenuId, "item");
+            Validator.CheckNegative(item.ParentItemId, "item");
+            if (item.Ordering < 0)
+            {
+                item.Ordering = 0;
+            }
+
+            PermissionManager.CheckPermission(currentUser, "EditMenu", "编辑菜单");
+
+            if (IsMenuItemExist(item.MenuId, item.ItemName))
+            {
+                throw new Exception("该菜单项名称已经存在，请重新设置！");
+            }
+
+            try
+            {
+                return provider.UpdateMenuItem(item);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
         }
 
         /// <summary>
@@ -202,6 +693,8 @@ namespace UniqueStudio.Core.Menu
         /// <returns>菜单树形结构的根节点</returns>
         public MenuItemInfo GetMenuTree(MenuItemCollection menuItems)
         {
+            Validator.CheckNull(menuItems, "menuItems");
+
             Hashtable idTable = new Hashtable();
             MenuItemInfo head = new MenuItemInfo();
             head.Depth = 0;
@@ -222,10 +715,13 @@ namespace UniqueStudio.Core.Menu
         /// <summary>
         /// 返回菜单html代码
         /// </summary>
+        /// <remarks>该方法可能在后续版本中移除</remarks>
         /// <param name="head">菜单树形结构的根节点</param>
         /// <returns>菜单html代码</returns>
         public string GetMenuHtml(MenuItemInfo head)
         {
+            Validator.CheckNull(head, "head");
+
             StringBuilder sb = new StringBuilder();
             sb.Append("<ul>").Append("\r\n");
             foreach (MenuItemInfo child in head.ChildItems)

@@ -7,6 +7,7 @@ using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.XmlHelper;
 using UniqueStudio.Core.Category;
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComContent.PL
 {
@@ -31,7 +32,7 @@ namespace UniqueStudio.ComContent.PL
         {
             if (!IsPostBack)
             {
-                long uri = Common.Utility.LongParse(Request.QueryString["uri"], 0);
+                long uri = Converter.LongParse(Request.QueryString["uri"], 0);
                 if (uri == 0)
                 {
                     Response.Redirect(WebSiteConfig.BaseAddress + "/404.aspx");
@@ -80,7 +81,7 @@ namespace UniqueStudio.ComContent.PL
 
                     CategoryCollection categories = post.Categories;
 
-                    int categoryId = Common.Utility.IntParse(Request.QueryString["catId"], 0);
+                    int categoryId = Converter.IntParse(Request.QueryString["catId"], 0);
                     if (categoryId == 0 && categories.Count > 0)
                     {
                         categoryId = categories[0].CategoryId;

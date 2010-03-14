@@ -24,7 +24,7 @@ namespace UniqueStudio.Admin.admin
                         if (Request.Cookies[GlobalConfig.COOKIE][GlobalConfig.COOKIE_AUTOLOGIN] == "true")
                         {
                             UserLogin(Request.Cookies[GlobalConfig.COOKIE][GlobalConfig.COOKIE_EMAIL],
-                                            Request.Cookies[GlobalConfig.COOKIE][GlobalConfig.COOKIE_PASSWORD], false);
+                                            Request.Cookies[GlobalConfig.COOKIE][GlobalConfig.COOKIE_PASSWORD], true);
                         }
                         txtAccount.Text = Request.Cookies[GlobalConfig.COOKIE][GlobalConfig.COOKIE_EMAIL];
                     }
@@ -53,7 +53,7 @@ namespace UniqueStudio.Admin.admin
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            UserLogin(txtAccount.Text.Trim(), txtPassword.Text.Trim(), true);
+            UserLogin(txtAccount.Text.Trim(), txtPassword.Text.Trim(), false);
         }
 
         private void UserLogin(string account, string password, bool isAutoLogin)
@@ -64,6 +64,7 @@ namespace UniqueStudio.Admin.admin
                 if (this.Session["CheckCode"] == null || ((string)this.Session["CheckCode"]).ToLower() != txtCheckCode.Text.ToLower())
                 {
                     message.SetErrorMessage("验证码错误，请刷新后重试！");
+                    txtCheckCode.Text = "";
                     return;
                 }
             }
@@ -74,7 +75,7 @@ namespace UniqueStudio.Admin.admin
                 UserInfo user = manager.UserAuthorization(account, password);
                 if (user != null)
                 {
-                    if (isAutoLogin)
+                    if (!isAutoLogin)
                     {
                         if (chbAutoLogin.Checked)
                         {

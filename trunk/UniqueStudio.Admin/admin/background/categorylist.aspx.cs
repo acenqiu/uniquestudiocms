@@ -7,6 +7,7 @@ using UniqueStudio.Core.Category;
 using UniqueStudio.Common;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.Admin.admin.background
 {
@@ -86,7 +87,7 @@ namespace UniqueStudio.Admin.admin.background
                 string[] ids = Request.Form["chkSelected"].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < ids.Length; i++)
                 {
-                    list.Add(Utility.IntParse(ids[i], 0));
+                    list.Add(Converter.IntParse(ids[i], 0));
                 }
             }
             else

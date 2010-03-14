@@ -67,7 +67,13 @@
     <Compile Include="Exceptions\DatabaseException.cs" />
     <Compile Include="Exceptions\InvalidPermissionException.cs" />
     <Compile Include="Exceptions\ModeluInstallException.cs" />
+    <Compile Include="Exceptions\NegativeNumberException.cs" />
+    <Compile Include="Exceptions\NotPositiveNumberException.cs" />
     <Compile Include="Exceptions\PlugInInstallException.cs" />
+    <Compile Include="Exceptions\UnhandledException.cs" />
+    <Compile Include="Exceptions\UserDoesNotApprovedException.cs" />
+    <Compile Include="Exceptions\UserDoesNotOnlineException.cs" />
+    <Compile Include="Exceptions\UserLockedOutException.cs" />
     <Compile Include="FileAccessHelper\FileAccess.cs" />
     <Compile Include="Mailing\SMTP.cs" />
     <Compile Include="Model\CacheItemInfo.cs" />
@@ -109,7 +115,9 @@
     <Compile Include="RESTful\Hashing.cs" />
     <Compile Include="RESTful\RESTClient.cs" />
     <Compile Include="Security\MD5Helper.cs" />
-    <Compile Include="Utility.cs" />
+    <Compile Include="Utilities\Converter.cs" />
+    <Compile Include="Utilities\RegularExpressions.cs" />
+    <Compile Include="Utilities\Validator.cs" />
     <Compile Include="XmlHelper\XmlManager.cs" />
     <Compile Include="XmlPageParser\Controls\CheckBox.cs" />
     <Compile Include="XmlPageParser\Controls\Control.cs" />

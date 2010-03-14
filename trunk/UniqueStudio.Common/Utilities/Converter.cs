@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace UniqueStudio.Common
+namespace UniqueStudio.Common.Utilities
 {
     /// <summary>
-    /// 提供一些常用的方法
+    /// 提供基本类型间转换的方法
     /// </summary>
-    public class Utility
+    public class Converter
     {
         /// <summary>
         /// 字符串转换为Bool

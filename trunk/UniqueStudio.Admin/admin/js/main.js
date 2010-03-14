@@ -1,4 +1,7 @@
-﻿function changestate(sender)
+﻿var preLi=null;
+var preRow=null;
+
+function changestate(sender)
 {
     if (sender.className=="menu-activeted")
     {
@@ -9,13 +12,13 @@
         sender.className="menu-activeted";
     }
 }
-var preLi=null;
-var preRow=null;
+
 function addFunction()
 {
-  addLiAction();
-  addTrFunction();
+    addLiAction();
+    addTrFunction();
 }
+
 function addTrAction()
 {
  var tableRow=document.getElementsByTagName("tr");
@@ -84,14 +87,10 @@ function addLiAction()
          li.attachEvent("onclick",clickMenu);
          }
       }
-     // 
-
     }
-   
 }
 function clickMenu(e)
 {
-
   var li;
   if (e.currentTarget)
     {
@@ -136,18 +135,39 @@ function selectall(sender,controls)
           selectRow(c[i]);
     }   
 }
-
+function selectChildren(sender)
+{
+    var a = document.getElementById("chkSelectChildren");
+    if (a==null || !a.checked)
+    {
+        return;
+    }
+    if (sender!=null)
+    {
+        var c = document.getElementsByName(sender.value);
+        for (var i=0;i<c.length;i++)
+        {
+            var t = document.getElementById(c[i].value);
+            if (t!=null)
+            {
+                t.checked=sender.checked;
+                selectRow(t);
+                selectChildren(t);
+            }
+        }
+    } 
+}
 function selectRow(checkBox)
 {
-var row=checkBox.parentNode.parentNode;
-if (checkBox.checked)
-{
-   row.className="row-select";
-}
-else
-{
-  row.className=""; 
-}
+    var row=checkBox.parentNode.parentNode;
+    if (checkBox.checked)
+    {
+        row.className="row-select";
+    }
+    else
+    {
+        row.className=""; 
+    }
 }
 function selectcheck(controls)
 {

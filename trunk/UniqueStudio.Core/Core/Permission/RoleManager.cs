@@ -7,6 +7,7 @@ using UniqueStudio.Common.Config;
 using UniqueStudio.Common.ErrorLogging;
 using UniqueStudio.Common.Exceptions;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 using UniqueStudio.DAL;
 using UniqueStudio.DAL.IDAL;
 using UniqueStudio.DAL.Permission;
@@ -20,6 +21,8 @@ namespace UniqueStudio.Core.Permission
     {
         private static readonly IRole provider = DALFactory.CreateRole();
 
+        private UserInfo currentUser;
+
         /// <summary>
         /// 判断特定的用户是否是特定角色中的成员
         /// </summary>
@@ -28,7 +31,18 @@ namespace UniqueStudio.Core.Permission
         /// <returns>是否是特定角色的成员</returns>
         public static bool IsUserInRole(UserInfo user, string roleName)
         {
-            return provider.IsUserInRole(user, roleName);
+            Validator.CheckNull(user, "user");
+            Validator.CheckStringNull(roleName, "roleName");
+
+            try
+            {
+                return provider.IsUserInRole(user, roleName);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
         }
 
         /// <summary>
@@ -37,6 +51,34 @@ namespace UniqueStudio.Core.Permission
         public RoleManager()
         {
             //默认构造函数
+        }
+
+        /// <summary>
+        /// 以当前用户初始化<see cref="RoleManager"/>类的实例
+        /// </summary>
+        /// <param name="currentUser">当前用户</param>
+        public RoleManager(UserInfo currentUser)
+        {
+            Validator.CheckNull(currentUser, "currentUser");
+
+            this.currentUser = currentUser;
+        }
+
+        /// <summary>
+        /// 将多个用户添加到某一角色中
+        /// </summary>
+        /// <param name="users">用户列表</param>
+        /// <param name="role">角色列表</param>
+        /// <returns>是否添加成功</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有编辑角色的权限时抛出该异常</exception>
+        public bool AddUsersToRole(UserCollection users, RoleInfo role)
+        {
+            if (currentUser == null)
+            {
+                throw new Exception("请使用RoleManager(UserInfo)实例化该类。");
+            }
+            return AddUsersToRole(currentUser, users, role);
         }
 
         /// <summary>

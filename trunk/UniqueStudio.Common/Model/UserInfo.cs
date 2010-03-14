@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Security.Principal;
 
 namespace UniqueStudio.Common.Model
 {
@@ -8,8 +9,42 @@ namespace UniqueStudio.Common.Model
     /// 表示用户的实体类。
     /// </summary>
     [Serializable]
-    public class UserInfo
+    public class UserInfo : IPrincipal
     {
+        #region IPrincipal Members
+
+        private IIdentity identity;
+
+        /// <summary>
+        /// 获取用户的身份信息
+        /// </summary>
+        public IIdentity Identity
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(userId.ToString()))
+                {
+                    identity = new GenericIdentity(userId.ToString());   
+                }
+                return (IIdentity)identity;
+            }
+        }
+
+        /// <summary>
+        /// 当前用户是否处于指定角色
+        /// </summary>
+        /// <remarks>
+        /// 该方法没有实现。
+        /// 请调用<seealso cref="UniqueStudio.Core.RoleManager"/>类的IsUserInRole方法。</remarks>
+        /// <param name="role">角色名</param>
+        /// <returns>是否处于指定角色</returns>
+        public bool IsInRole(string role)
+        {
+            throw new NotImplementedException("请调用UniqueStudio.Core.RoleManager类的IsUserInRole方法。");
+        }
+
+        #endregion
+
         private Guid userId;
         private string email;
         private string userName;

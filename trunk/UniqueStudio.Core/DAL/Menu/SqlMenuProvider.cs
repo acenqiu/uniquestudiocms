@@ -24,6 +24,11 @@ namespace UniqueStudio.DAL.Menu
         private const string GET_MENU_CHAIN_BY_CHAINID = "GetMenuChainByChainId";
         private const string GET_MENU = "GetMenu";
         private const string GET_MENU_ITEMS = "GetMenuItems";
+        private const string IS_MENU_EXIST = "IsMenuExist";
+        private const string IS_MENU_ITEM_EXIST = "IsMenuItemExist";
+        private const string REMOVE_MENU_ITEM = "RemoveMenuItem";
+        private const string UPDATE_MENU = "UpdateMenu";
+        private const string UPDATE_MENU_ITEM = "UpdateMenuItem";
 
         /// <summary>
         /// 初始化<see cref="SqlMenuProvider"/>类的实例
@@ -93,6 +98,44 @@ namespace UniqueStudio.DAL.Menu
         }
 
         /// <summary>
+        /// 删除多个菜单
+        /// </summary>
+        /// <param name="menuIds">待删除菜单ID的集合</param>
+        /// <returns>是否删除成功</returns>
+        public bool DeleteMenus(int[] menuIds)
+        {
+            using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(DELETE_MENU, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@MenuID", SqlDbType.Int);
+
+                    conn.Open();
+                    using (SqlTransaction trans = conn.BeginTransaction())
+                    {
+                        cmd.Transaction = trans;
+                        try
+                        {
+                            foreach (int menuId in menuIds)
+                            {
+                                cmd.Parameters[0].Value = menuId;
+                                cmd.ExecuteNonQuery();
+                            }
+                            trans.Commit();
+                            return true;
+                        }
+                        catch
+                        {
+                            trans.Rollback();
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// 获取指定菜单
         /// </summary>
         /// <remarks>包含所有菜单项</remarks>
@@ -104,7 +147,7 @@ namespace UniqueStudio.DAL.Menu
             SqlParameter parm = new SqlParameter("@MenuID", menuId);
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
             {
-                using (SqlDataReader reader = SqlHelper.ExecuteReader(conn,CommandType.StoredProcedure, GET_MENU, parm))
+                using (SqlDataReader reader = SqlHelper.ExecuteReader(conn, CommandType.StoredProcedure, GET_MENU, parm))
                 {
                     if (reader.Read())
                     {
@@ -156,7 +199,7 @@ namespace UniqueStudio.DAL.Menu
         {
             MenuItemCollection collection = new MenuItemCollection();
             SqlParameter parm = new SqlParameter("@ItemID", menuItemId);
-            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure,GET_MENU_CHAIN_BY_ITEMID,parm))
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_MENU_CHAIN_BY_ITEMID, parm))
             {
                 while (reader.Read())
                 {
@@ -174,7 +217,61 @@ namespace UniqueStudio.DAL.Menu
         /// <returns>菜单链中各菜单项的集合</returns>
         public MenuItemCollection GetMenuChain(Guid chainId)
         {
-            throw new NotImplementedException();
+            MenuItemCollection collection = new MenuItemCollection();
+            SqlParameter parm = new SqlParameter("@ChainID", chainId);
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_MENU_CHAIN_BY_CHAINID, parm))
+            {
+                while (reader.Read())
+                {
+                    MenuItemInfo item = FillMenuItemInfo(reader);
+                    collection.Add(item);
+                }
+            }
+            return collection;
+        }
+
+        /// <summary>
+        /// 返回指定菜单是否存在
+        /// </summary>
+        /// <param name="siteId">网站ID</param>
+        /// <param name="menuName">菜单名称</param>
+        /// <returns>是否存在</returns>
+        public bool IsMenuExist(int siteId, string menuName)
+        {
+            SqlParameter[] parms = new SqlParameter[]{
+                                                    new SqlParameter("@SiteID",siteId),
+                                                    new SqlParameter("@MenuName",menuName)};
+            object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, IS_MENU_EXIST, parms);
+            if (o != null && o != DBNull.Value)
+            {
+                return Convert.ToBoolean((int)o);
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+
+        /// <summary>
+        /// 返回指定菜单项是否存在
+        /// </summary>
+        /// <param name="menuId">菜单ID</param>
+        /// <param name="menuItemName">菜单项名称</param>
+        /// <returns>是否存在</returns>
+        public bool IsMenuItemExist(int menuId, string menuItemName)
+        {
+            SqlParameter[] parms = new SqlParameter[]{
+                                                    new SqlParameter("@MenuID",menuId),
+                                                    new SqlParameter("@ItemName",menuItemName)};
+            object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, IS_MENU_ITEM_EXIST, parms);
+            if (o != null && o != DBNull.Value)
+            {
+                return Convert.ToBoolean((int)o);
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         /// <summary>
@@ -182,10 +279,49 @@ namespace UniqueStudio.DAL.Menu
         /// </summary>
         /// <param name="itemId">菜单项ID</param>
         /// <param name="isRemoveChildItems">是否同时移除其子菜单项</param>
-        /// <returns>是否删除成功</returns>
+        /// <returns>是否移除成功</returns>
         public bool RemoveMenuItem(int itemId, bool isRemoveChildItems)
         {
-            throw new NotImplementedException();
+            SqlParameter parm = new SqlParameter("@ItemID", itemId);
+            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, REMOVE_MENU_ITEM, parm) > 0;
+        }
+
+        /// <summary>
+        /// 移除多个菜单项
+        /// </summary>
+        /// <param name="itemIds">菜单项ID的集合</param>
+        /// <returns>是否移除成功</returns>
+        public bool RemoveMenuItems(int[] itemIds)
+        {
+            using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(REMOVE_MENU_ITEM, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@ItemID", SqlDbType.Int);
+
+                    conn.Open();
+                    using (SqlTransaction trans = conn.BeginTransaction())
+                    {
+                        cmd.Transaction = trans;
+                        try
+                        {
+                            foreach (int itemId in itemIds)
+                            {
+                                cmd.Parameters[0].Value = itemId;
+                                cmd.ExecuteNonQuery();
+                            }
+                            trans.Commit();
+                            return true;
+                        }
+                        catch
+                        {
+                            trans.Rollback();
+                            return false;
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -198,7 +334,28 @@ namespace UniqueStudio.DAL.Menu
         /// <returns>是否更新成功</returns>
         public bool UpdateMenu(MenuInfo menu)
         {
-            throw new NotImplementedException();
+            SqlParameter[] parms = new SqlParameter[]{
+                                                    new SqlParameter("@MenuID",menu.MenuId),
+                                                    new SqlParameter("@MenuName",menu.MenuName),
+                                                    new SqlParameter("@Description",menu.Description)};
+            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, UPDATE_MENU, parms) > 0;
+        }
+
+        /// <summary>
+        /// 更新菜单项信息
+        /// </summary>
+        /// <param name="item">菜单信息</param>
+        /// <returns>是否更新成功</returns>
+        public bool UpdateMenuItem(MenuItemInfo item)
+        {
+            SqlParameter[] parms = new SqlParameter[]{
+                                                        new SqlParameter("@ItemID",item.Id),
+                                                        new SqlParameter("@ItemName",item.ItemName),
+                                                        new SqlParameter("@Link",item.Link),
+                                                        new SqlParameter("@Target",item.Target),
+                                                        new SqlParameter("@Ordering",item.Ordering),
+                                                        new SqlParameter("@SubOf",item.ParentItemId)};
+            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, UPDATE_MENU_ITEM, parms) > 0;
         }
 
         private MenuInfo FillMenuInfo(SqlDataReader reader)

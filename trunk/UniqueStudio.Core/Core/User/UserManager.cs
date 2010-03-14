@@ -6,6 +6,7 @@ using UniqueStudio.Common.ErrorLogging;
 using UniqueStudio.Common.Exceptions;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Security;
+using UniqueStudio.Common.Utilities;
 using UniqueStudio.Common.XmlHelper;
 using UniqueStudio.Core.Permission;
 using UniqueStudio.DAL;
@@ -24,12 +25,14 @@ namespace UniqueStudio.Core.User
         /// <param name="sender">触发该事件的对象，总为空</param>
         /// <param name="e">事件参数</param>
         public delegate void UserCreatedEventHandler(object sender, UserEventArgs e);
+
         /// <summary>
         /// 表示将处理用户成功删除事件的方法
         /// </summary>
         /// <param name="sender">触发该事件的对象，总为空</param>
         /// <param name="e">事件参数</param>
         public delegate void UserDeletedEventHandler(object sender, UserEventArgs e);
+
         /// <summary>
         /// 表示将处理用户验证事件的方法
         /// </summary>
@@ -53,21 +56,22 @@ namespace UniqueStudio.Core.User
         private static readonly IUser provider = DALFactory.CreateUser();
 
         //具体规则有待商榷
-        private static Regex rEmail = new Regex(@"^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$");
         private static Regex rUserName = new Regex(".{1,20}");
-        private static Regex rPassword = new Regex("[^ ]{1,40}");
+        private static Regex rPassword = new Regex("[^ ]{4,40}");
 
         private UserInfo currentUser = null;
 
         /// <summary>
         /// 返回用户在线状态
         /// </summary>
+        /// <remarks>当用户登录信息没有存储在数据库中时始终返回真。</remarks>
         /// <param name="user">用户信息</param>
         /// <returns>是否在线</returns>
         public static bool IsUserOnline(UserInfo user)
         {
             //TODO:还须修改(在使用数据库存储用户状态时使用)
-            return provider.IsUserOnline(user);
+            //return provider.IsUserOnline(user);
+            return true;
         }
 
         /// <summary>
@@ -84,12 +88,15 @@ namespace UniqueStudio.Core.User
         /// <param name="currentUser">当前登录用户</param>
         public UserManager(UserInfo currentUser)
         {
+            Validator.CheckNull(currentUser, "currentUser");
+
             this.currentUser = currentUser;
         }
 
         /// <summary>
         /// 激活指定用户
         /// </summary>
+        /// <remarks>需使用UserManager(UserInfo)实例化该类。</remarks>
         /// <param name="userId">待激活用户ID</param>
         /// <returns>是否激活成功</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
@@ -113,10 +120,10 @@ namespace UniqueStudio.Core.User
         /// 当用户没有激活用户的权限时抛出该异常</exception>
         public bool ApproveUser(UserInfo currentUser, Guid userId)
         {
-            if (!PermissionManager.HasPermission(currentUser, "ApproveUser"))
-            {
-                throw new InvalidPermissionException("该用户无激活用户的权限，请与管理员联系！");
-            }
+            Validator.CheckGuid(userId, "userId");
+
+            PermissionManager.CheckPermission(currentUser, "ApproveUser", "激活用户");
+
             try
             {
                 return provider.ApproveUser(userId);
@@ -131,6 +138,7 @@ namespace UniqueStudio.Core.User
         /// <summary>
         /// 激活多个用户
         /// </summary>
+        /// <remarks>需使用UserManager(UserInfo)实例化该类。</remarks>
         /// <param name="userIds">待激活用户ID的集合</param>
         /// <returns>是否激活成功</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
@@ -154,10 +162,13 @@ namespace UniqueStudio.Core.User
         /// 当用户没有激活用户的权限时抛出该异常</exception>
         public bool ApproveUsers(UserInfo currentUser, Guid[] userIds)
         {
-            if (!PermissionManager.HasPermission(currentUser, "ApproveUser"))
+            foreach (Guid userId in userIds)
             {
-                throw new InvalidPermissionException("该用户无激活用户的权限，请与管理员联系！");
+                Validator.CheckGuid(userId, "userIds");
             }
+
+            PermissionManager.CheckPermission(currentUser, "ApproveUser", "激活用户");
+
             try
             {
                 return provider.ApproveUsers(userIds);
@@ -172,6 +183,7 @@ namespace UniqueStudio.Core.User
         /// <summary>
         /// 创建用户
         /// </summary>
+        /// <remarks>需使用UserManager(UserInfo)实例化该类。</remarks>
         /// <param name="user">待创建用户的信息</param>
         /// <returns>如果创建成功，返回该用户信息，否则返回空</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
@@ -197,23 +209,15 @@ namespace UniqueStudio.Core.User
         public UserInfo CreateUser(UserInfo currentUser, UserInfo user)
         {
             //参数检测
-            if (user == null)
-            {
-                throw new ArgumentNullException("user");
-            }
-            if (string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.UserName) || string.IsNullOrEmpty(user.Password))
-            {
-                throw new ArgumentException("邮箱、用户名、密码必须设置！", "user");
-            }
-            if (!rEmail.IsMatch(user.Email))
-            {
-                throw new ArgumentException("邮箱格式不正确！");
-            }
+            Validator.CheckStringNull(user.UserName, "user");
+            Validator.CheckStringNull(user.Password, "user");
+            Validator.CheckEmail(user.Email, "user");
+
             if (!rUserName.IsMatch(user.UserName))
             {
                 throw new ArgumentException("用户名格式不正确！");
             }
-            if (rEmail.IsMatch(user.UserName))
+            if (Validator.CheckEmail(user.UserName))
             {
                 throw new ArgumentException("请不要将用户名设置成邮箱格式！");
             }
@@ -236,10 +240,7 @@ namespace UniqueStudio.Core.User
             }
             else
             {
-                if (!PermissionManager.HasPermission(currentUser, "CreateUser"))
-                {
-                    throw new InvalidPermissionException("该用户无创建用户的权限，请与管理员联系！");
-                }
+                PermissionManager.CheckPermission(currentUser, "CreateUser", "创建用户");
                 user.IsApproved = true;
             }
 
@@ -290,12 +291,21 @@ namespace UniqueStudio.Core.User
         /// <returns>是否成功</returns>
         public bool ChangeUserPassword(UserInfo user, string newPassword)
         {
-            if (user == null || string.IsNullOrEmpty(newPassword))
+            Validator.CheckNull(user, "user");
+            Validator.CheckGuid(user.UserId, "user");
+            Validator.CheckStringNull(newPassword, "newPassword");
+
+            UserInfo temp = null;
+            try
             {
-                throw new ArgumentNullException();
+                temp = UserAuthorization(user.Email, user.Password);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
             }
 
-            UserInfo temp = UserAuthorization(user.Email, user.Password);
             if (temp != null)
             {
                 if (temp.UserId != user.UserId)
@@ -308,7 +318,7 @@ namespace UniqueStudio.Core.User
                 {
                     if (GlobalConfig.DefaultPasswordEncryption == PasswordEncryptionType.Hashed)
                     {
-                        newPassword = MD5Helper.MD5Encrypt(user.Password); 
+                        newPassword = MD5Helper.MD5Encrypt(user.Password);
                     }
                     return provider.ChangeUserPassword(user, newPassword, GlobalConfig.DefaultPasswordEncryption);
                 }
@@ -320,7 +330,7 @@ namespace UniqueStudio.Core.User
             }
             else
             {
-                throw new Exception("用户名或密码错误！");
+                throw new Exception("账号或密码错误！");
             }
         }
 
@@ -350,15 +360,9 @@ namespace UniqueStudio.Core.User
         /// 当用户没有删除用户的权限时抛出该异常</exception>
         public bool DeleteUser(UserInfo currentUser, Guid userId)
         {
-            if (userId == new Guid())
-            {
-                throw new ArgumentException("用户ID错误");
-            }
+            Validator.CheckGuid(userId, "userId");
 
-            if (!PermissionManager.HasPermission(currentUser, "DeleteUser"))
-            {
-                throw new InvalidPermissionException("当前用户没有删除用户的权限，请与管理员联系！");
-            }
+            PermissionManager.CheckPermission(currentUser, "DeleteUser", "删除用户");
 
             try
             {
@@ -397,10 +401,12 @@ namespace UniqueStudio.Core.User
         /// 当用户没有查看用户列表的权限时抛出该异常</exception>
         public bool DeleteUsers(UserInfo currentUser, Guid[] userIds)
         {
-            if (!PermissionManager.HasPermission(currentUser, "DeleteUser"))
+            foreach (Guid userId in userIds)
             {
-                throw new InvalidPermissionException("当前用户没有删除用户的权限，请与管理员联系！");
+                Validator.CheckGuid(userId, "userIds");
             }
+
+            PermissionManager.CheckPermission(currentUser, "DeleteUser", "删除用户");
 
             try
             {
@@ -506,10 +512,7 @@ namespace UniqueStudio.Core.User
                 throw new ArgumentException("页面及每个页面的条数不能小于1。");
             }
 
-            if (!PermissionManager.HasPermission(currentUser, "ViewUserInfo"))
-            {
-                throw new InvalidPermissionException("当前用户没有查看用户信息的权限，请与管理员联系！");
-            }
+            PermissionManager.CheckPermission(currentUser, "ViewUserInfo", "查看用户信息");
 
             try
             {
@@ -550,9 +553,10 @@ namespace UniqueStudio.Core.User
         /// 当用户没有查看用户列表的权限时抛出该异常</exception>
         public UserInfo GetUserInfo(UserInfo currentUser, Guid userId)
         {
+            Validator.CheckGuid(userId, "userId");
             if (currentUser == null || (currentUser.UserId != userId && !PermissionManager.HasPermission(currentUser, "ViewUserInfo")))
             {
-                throw new InvalidPermissionException("当前用户没有查看用户信息的权限，请与管理员联系！");
+                throw new InvalidPermissionException("查看用户信息");
             }
 
             try
@@ -609,9 +613,11 @@ namespace UniqueStudio.Core.User
         /// 当用户没有查看用户列表的权限时抛出该异常</exception>
         public UserInfo GetEntireUserInfo(UserInfo currentUser, Guid userId)
         {
+            Validator.CheckGuid(userId, "userId");
+
             if (currentUser == null || (currentUser.UserId != userId && !PermissionManager.HasPermission(currentUser, "ViewUserInfo")))
             {
-                throw new InvalidPermissionException("当前用户没有查看用户信息的权限，请与管理员联系！");
+                throw new InvalidPermissionException("查看用户信息");
             }
 
             try
@@ -651,10 +657,9 @@ namespace UniqueStudio.Core.User
         /// 当用户没有锁定用户的权限时抛出该异常</exception>
         public bool LockUser(UserInfo currentUser, Guid userId)
         {
-            if (!PermissionManager.HasPermission(currentUser, "LockUser"))
-            {
-                throw new InvalidPermissionException("该用户无锁定用户的权限，请与管理员联系！");
-            }
+            Validator.CheckGuid(userId, "userId");
+            PermissionManager.CheckPermission(currentUser, "LockUser", "锁定用户");
+
             try
             {
                 return provider.LockUser(userId);
@@ -692,10 +697,12 @@ namespace UniqueStudio.Core.User
         /// 当用户没有锁定用户的权限时抛出该异常</exception>
         public bool LockUsers(UserInfo currentUser, Guid[] userIds)
         {
-            if (!PermissionManager.HasPermission(currentUser, "LockUser"))
+            foreach (Guid userId in userIds)
             {
-                throw new InvalidPermissionException("该用户无锁定用户的权限，请与管理员联系！");
+                Validator.CheckGuid(userId, "userIds");
             }
+            PermissionManager.CheckPermission(currentUser, "LockUser", "锁定用户");
+
             try
             {
                 return provider.LockUsers(userIds);
@@ -733,10 +740,9 @@ namespace UniqueStudio.Core.User
         /// 当用户没有解锁用户的权限时抛出该异常</exception>
         public bool UnLockUser(UserInfo currentUser, Guid userId)
         {
-            if (!PermissionManager.HasPermission(currentUser, "UnLockUser"))
-            {
-                throw new InvalidPermissionException("该用户无解锁用户的权限，请与管理员联系！");
-            }
+            Validator.CheckGuid(userId, "userId");
+            PermissionManager.CheckPermission(currentUser, "UnLockUser", "解锁用户");
+
             try
             {
                 return provider.UnLockUser(userId);
@@ -774,10 +780,12 @@ namespace UniqueStudio.Core.User
         /// 当用户没有解锁用户的权限时抛出该异常</exception>
         public bool UnLockUsers(UserInfo currentUser, Guid[] userIds)
         {
-            if (!PermissionManager.HasPermission(currentUser, "UnLockUser"))
+            foreach (Guid userId in userIds)
             {
-                throw new InvalidPermissionException("该用户无解锁用户的权限，请与管理员联系！");
+                Validator.CheckGuid(userId, "userIds");
             }
+            PermissionManager.CheckPermission(currentUser, "UnLockUser", "解锁用户");
+
             try
             {
                 return provider.UnLockUsers(userIds);
@@ -796,10 +804,8 @@ namespace UniqueStudio.Core.User
         /// <returns>是否更新成功</returns>
         public bool UpdateUserExInfo(UserInfo user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException();
-            }
+            Validator.CheckNull(user, "user");
+            Validator.CheckGuid(user.UserId, "user");
 
             //TODO:更多验证规则
 
@@ -810,7 +816,15 @@ namespace UniqueStudio.Core.User
             else
             {
                 XmlManager manager = new XmlManager();
-                user.ExInfoXml = manager.ConvertToXml(user.ExInfo, typeof(UserExInfo)).OuterXml;
+                try
+                {
+                    user.ExInfoXml = manager.ConvertToXml(user.ExInfo, typeof(UserExInfo)).OuterXml;
+                }
+                catch (Exception ex)
+                {
+                    ErrorLogger.LogError(ex);
+                    throw new UnhandledException();
+                }
                 user.ExInfo = null;
             }
 
@@ -832,12 +846,15 @@ namespace UniqueStudio.Core.User
         /// <param name="account">账号</param>
         /// <param name="password">密码</param>
         /// <returns>如果验证通过，返回用户信息，否则返回空</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.UserDoesNotApprovedException">
+        /// 当用户未激活时抛出该异常</exception>
+        /// <exception cref="UniqueStudio.Common.Exceptions.UserLockedOutException">
+        /// 当用户被锁定时抛出该异常</exception>
         public UserInfo UserAuthorization(string account, string password)
         {
-            if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(password))
-            {
-                throw new ArgumentNullException();
-            }
+            Validator.CheckStringNull(account, "account");
+            Validator.CheckStringNull(account, "password");
+
             if (!rPassword.IsMatch(password))
             {
                 throw new ArgumentException("密码格式错误！");
@@ -846,7 +863,7 @@ namespace UniqueStudio.Core.User
             UserInfo user = null;
             try
             {
-                if (rEmail.IsMatch(account))
+                if (Validator.CheckEmail(account))
                 {
                     user = provider.ValidUser(account, ValidationType.Email);
                 }
@@ -871,13 +888,13 @@ namespace UniqueStudio.Core.User
                 {
                     if (!user.IsApproved)
                     {
-                        throw new Exception("该用户没有激活");
+                        throw new UserDoesNotApprovedException();
                     }
                     if (user.IsLockedOut)
                     {
-                        throw new Exception("该用户处于锁定状态");
+                        throw new UserLockedOutException();
                     }
-                    return provider.GetUserInfo(user.UserId,false);
+                    return provider.GetUserInfo(user.UserId, false);
                 }
                 else
                 {

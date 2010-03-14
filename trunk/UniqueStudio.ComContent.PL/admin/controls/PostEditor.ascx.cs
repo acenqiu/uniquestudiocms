@@ -12,6 +12,7 @@ using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
+using UniqueStudio.Common.Utilities;
 using UniqueStudio.Common.XmlHelper;
 
 namespace UniqueStudio.ComContent.PL
@@ -192,7 +193,7 @@ namespace UniqueStudio.ComContent.PL
                 }
                 post.Title = txtTitle.Text;
                 post.AddUserName = user.UserName;
-                post.CreateDate = Common.Utility.DatetimeParse(txtAddDate.Text, DateTime.Now);
+                post.CreateDate = Converter.DatetimeParse(txtAddDate.Text, DateTime.Now);
                 post.SubTitle = txtSubTitle.Text;
                 post.Author = txtAuthor.Text;
                 post.IsRecommend = chbRecommend.Checked;

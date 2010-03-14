@@ -9,6 +9,7 @@ using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComContent.PL
 {
@@ -21,7 +22,7 @@ namespace UniqueStudio.ComContent.PL
         {
             if (!IsPostBack)
             {
-                int pageIndex = Utility.IntParse(Request.QueryString["page"], 1);
+                int pageIndex = Converter.IntParse(Request.QueryString["page"], 1);
                 UserInfo user = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
                 bll = new PostManager();
                 PostCollection collection = bll.GetPostList(pageIndex, 10, false, postListType, true, user);

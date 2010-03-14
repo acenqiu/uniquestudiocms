@@ -6,6 +6,7 @@ using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComContent.PL
 {
@@ -32,9 +33,9 @@ namespace UniqueStudio.ComContent.PL
         {
             if (!IsPostBack)
             {
-                CategoryId = Utility.IntParse(Request.QueryString["catId"], 1);
-                int pageIndex = Utility.IntParse(Request.QueryString["page"], 1);
-                int pageSize = Utility.IntParse(Request.QueryString["size"], WebSiteConfig.PageSizeOfSectionPostList);
+                CategoryId = Converter.IntParse(Request.QueryString["catId"], 1);
+                int pageIndex = Converter.IntParse(Request.QueryString["page"], 1);
+                int pageSize = Converter.IntParse(Request.QueryString["size"], WebSiteConfig.PageSizeOfSectionPostList);
 
 
                 CategoryManager catManager = new CategoryManager();

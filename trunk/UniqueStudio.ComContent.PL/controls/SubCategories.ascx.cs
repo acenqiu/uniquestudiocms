@@ -14,6 +14,7 @@ using UniqueStudio.Core.Category;
 using UniqueStudio.Core.Menu;
 using UniqueStudio.Common;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComContent.PL.controls
 {
@@ -33,7 +34,7 @@ namespace UniqueStudio.ComContent.PL.controls
                 string[] menuIds = Request.QueryString["menuPath"].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 if (menuIds.Length > 0)
                 {
-                    int itemId = Utility.IntParse(menuIds[0], 0);
+                    int itemId = Converter.IntParse(menuIds[0], 0);
                     if (itemId != 0)
                     {
                         MenuManager manager = new MenuManager();
