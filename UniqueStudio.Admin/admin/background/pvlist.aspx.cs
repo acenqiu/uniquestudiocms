@@ -14,6 +14,7 @@ using System.Web.UI.WebControls.WebParts;
 using UniqueStudio.Core.PageVisit;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.Admin.admin.background
 {
@@ -23,7 +24,7 @@ namespace UniqueStudio.Admin.admin.background
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            pageIndex = Common.Utility.IntParse(Request.QueryString["page"], 1);
+            pageIndex = Converter.IntParse(Request.QueryString["page"], 1);
             if (!IsPostBack)
             {
                 GetData();

@@ -27,6 +27,14 @@ namespace UniqueStudio.DAL.IDAL
         bool DeleteCategory(int categoryId, bool isDeleteChildCategories);
 
         /// <summary>
+        /// 删除多个分类
+        /// </summary>
+        /// <param name="categoryIds">待删除分类ID的集合</param>
+        /// <param name="isDeleteChildCategories">是否删除子分类</param>
+        /// <returns>是否删除成功</returns>
+        bool DeleteCategories(int[] categoryIds, bool isDeleteChildCategories);
+
+        /// <summary>
         /// 返回所有分类
         /// </summary>
         /// <returns>包含所有信息的分类集合，如果获取失败返回空</returns>

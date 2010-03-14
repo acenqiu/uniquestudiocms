@@ -4,8 +4,10 @@ using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Exceptions;
 using UniqueStudio.Common.ErrorLogging;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 using UniqueStudio.DAL;
 using UniqueStudio.DAL.IDAL;
+using UniqueStudio.Core.User;
 
 namespace UniqueStudio.Core.Permission
 {
@@ -25,38 +27,85 @@ namespace UniqueStudio.Core.Permission
         }
 
         /// <summary>
+        /// 检测指定用户是否拥有特定权限
+        /// </summary>
+        /// <remarks>该方法在没有权限时直接抛出异常</remarks>
+        /// <param name="user">用户信息</param>
+        /// <param name="permissionName">权限名称</param>
+        /// <param name="permissionDescription">权限说明（建议使用中文，可空）</param>
+        /// <exception cref="UniqueStudio.Common.Exceptions.DatabaseException">
+        /// 当数据库出现错误时抛出该异常</exception>
+        /// <exception cref="UniqueStudio.Common.Exceptions.UserDoesNotOnlineException">
+        /// 当用户不处于在线状态时抛出该异常</exception>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户不具有指定权限时抛出该异常</exception>
+        public static void CheckPermission(UserInfo user, string permissionName, string permissionDescription)
+        {
+            if (!GlobalConfig.EnablePermissionCheck)
+            {
+                return;
+            }
+
+            Validator.CheckNull(user, "user");
+            Validator.CheckStringNull(permissionName, "permissionName");
+            Validator.CheckGuid(user.UserId, "user");
+
+            //用户登录状态确认
+            if (!UserManager.IsUserOnline(user))
+            {
+                throw new UserDoesNotOnlineException();
+            }
+
+            //权限检验
+            bool hasPermission;
+            try
+            {
+                hasPermission = provider.HasPermission(user, permissionName);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+
+            if (!hasPermission)
+            {
+                if (string.IsNullOrEmpty(permissionDescription))
+                {
+                    throw new InvalidPermissionException(permissionName);
+                }
+                else
+                {
+                    throw new InvalidPermissionException(permissionName, permissionDescription);
+                }
+            }
+        }
+
+        /// <summary>
         /// 返回指定用户是否拥有特定权限
         /// </summary>
         /// <remarks>当前版本需提供用户ID，在后续版本中还要求提供用户SessionID</remarks>
         /// <param name="user">用户信息</param>
         /// <param name="permissionName">权限名称</param>
         /// <returns>是否拥有指定权限</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.DatabaseException">
+        /// 当数据库出现错误时抛出该异常</exception>
         public static bool HasPermission(UserInfo user, string permissionName)
         {
-            if (!GlobalConfig.EnablePermissionCheck)
+            try
             {
+                CheckPermission(user, permissionName, null);
                 return true;
             }
-
-            if (user == null || string.IsNullOrEmpty(permissionName))
+            catch (DatabaseException ex)
+            {
+                //如果是数据库异常，则抛出
+                throw;
+            }
+            catch
             {
                 return false;
             }
-            if (user.UserId == new Guid())
-            {
-                return false;
-            }
-
-
-            //用户登录状态确认
-            //if (!UserManager.IsUserOnline(user))
-            //{
-            //    //最好能区分是没有登录还是没有权限。。
-            //    return false;
-            //}
-
-            //权限检验
-            return provider.HasPermission(user, permissionName);
         }
 
         /// <summary>
@@ -124,10 +173,7 @@ namespace UniqueStudio.Core.Permission
         /// 当用户没有查看权限信息的权限时抛出该异常</exception>
         public PermissionCollection GetAllPermissions(UserInfo currentUser)
         {
-            if (!HasPermission(currentUser, "ViewPermissionInfo"))
-            {
-                throw new InvalidPermissionException("当前用户没有查看权限信息的权限，请与管理员联系！");
-            }
+            CheckPermission(currentUser, "ViewPermissionInfo", "查看权限信息");
 
             try
             {

@@ -5,6 +5,7 @@ using UniqueStudio.Core.User;
 using UniqueStudio.Common;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.Admin.admin.background
 {
@@ -160,8 +161,8 @@ namespace UniqueStudio.Admin.admin.background
         {
             UserManager manager = new UserManager(currentUser);
 
-            pageIndex = Utility.IntParse(Request.QueryString["page"], 1);
-            pageSize = Utility.IntParse(Request.QueryString["number"], 10);
+            pageIndex = Converter.IntParse(Request.QueryString["page"], 1);
+            pageSize = Converter.IntParse(Request.QueryString["number"], 10);
 
             try
             {

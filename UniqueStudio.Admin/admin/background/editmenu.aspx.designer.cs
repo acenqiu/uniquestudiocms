@@ -23,6 +23,24 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::UniqueStudio.Admin.admin.controls.Message message;
         
         /// <summary>
+        /// validationSummary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary validationSummary;
+        
+        /// <summary>
+        /// validationSummary1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary validationSummary1;
+        
+        /// <summary>
         /// txtMenuName control.
         /// </summary>
         /// <remarks>
@@ -30,6 +48,15 @@ namespace UniqueStudio.Admin.admin.background {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMenuName;
+        
+        /// <summary>
+        /// requireMenuName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator requireMenuName;
         
         /// <summary>
         /// txtDescription control.
@@ -41,6 +68,15 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
         
         /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
+        
+        /// <summary>
         /// txtItemName control.
         /// </summary>
         /// <remarks>
@@ -48,6 +84,15 @@ namespace UniqueStudio.Admin.admin.background {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtItemName;
+        
+        /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
         /// txtLink control.
@@ -102,5 +147,23 @@ namespace UniqueStudio.Admin.admin.background {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptList;
+        
+        /// <summary>
+        /// ddlOperation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlOperation;
+        
+        /// <summary>
+        /// btnExcute control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExcute;
     }
 }

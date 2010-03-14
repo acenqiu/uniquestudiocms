@@ -11,9 +11,10 @@ namespace UniqueStudio.Common.Model
     public class MenuInfo
     {
         private int menuId;
+        private int siteId = 1;
         private string menuName;
-        private string description=string.Empty;
-        private MenuItemCollection items= null;
+        private string description = string.Empty;
+        private MenuItemCollection items = null;
 
         /// <summary>
         /// 初始化<see cref="MenuInfo"/>类的实例
@@ -41,6 +42,14 @@ namespace UniqueStudio.Common.Model
         {
             get { return menuId; }
             set { menuId = value; }
+        }
+        /// <summary>
+        /// 网站ID
+        /// </summary>
+        public int SiteId
+        {
+            get { return siteId; }
+            set { siteId = value; }
         }
         /// <summary>
         /// 菜单名称

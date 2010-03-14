@@ -30,6 +30,7 @@ namespace UniqueStudio.HttpControlLayer
                 {
                     if (context.Session[GlobalConfig.SESSION_USER] == null)
                     {
+                        
                         context.Response.Redirect("~/admin/login.aspx?ret=" + HttpUtility.UrlEncode(context.Request.RawUrl));
                     }
                 }

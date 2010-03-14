@@ -40,7 +40,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionlessForm.cs" />
+    <Compile Include="BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UniqueStudio.Common\UniqueStudio.Common.csproj">
+      <Project>{B9EC7556-3B7A-4357-920B-94EE1313FF95}</Project>
+      <Name>UniqueStudio.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

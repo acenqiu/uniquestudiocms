@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComContent.PL
 {
@@ -50,8 +51,8 @@ namespace UniqueStudio.ComContent.PL
                     }
                     else if (Request.QueryString["start"] != null && Request.QueryString["end"] != null)
                     {
-                        DateTime startTime = Common.Utility.DatetimeParse(Request.QueryString["start"], new DateTime());
-                        DateTime endTime = Common.Utility.DatetimeParse(Request.QueryString["end"], new DateTime());
+                        DateTime startTime = Converter.DatetimeParse(Request.QueryString["start"], new DateTime());
+                        DateTime endTime = Converter.DatetimeParse(Request.QueryString["end"], new DateTime());
                         collection = manager.SearchPostsByTime(startTime, endTime);
                     }
                     else

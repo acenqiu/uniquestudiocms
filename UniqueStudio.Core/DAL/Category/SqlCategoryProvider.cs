@@ -71,6 +71,46 @@ namespace UniqueStudio.DAL.Category
         }
 
         /// <summary>
+        /// 删除多个分类
+        /// </summary>
+        /// <param name="categoryIds">待删除分类ID的集合</param>
+        /// <param name="isDeleteChildCategories">是否删除子分类</param>
+        /// <returns>是否删除成功</returns>
+        public bool DeleteCategories(int[] categoryIds, bool isDeleteChildCategories)
+        {
+            using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(DELETE_CATEGORY, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@CategoryID", SqlDbType.Int);
+                    cmd.Parameters.AddWithValue("@IsDeleteChildCategories", isDeleteChildCategories);
+
+                    conn.Open();
+                    using (SqlTransaction trans = conn.BeginTransaction())
+                    {
+                        cmd.Transaction = trans;
+                        try
+                        {
+                            foreach (int categoryId in categoryIds)
+                            {
+                                cmd.Parameters["@CategoryID"].Value = categoryId;
+                                cmd.ExecuteNonQuery();
+                            }
+                            trans.Commit();
+                            return true;
+                        }
+                        catch
+                        {
+                            trans.Rollback();
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// 返回所有分类
         /// </summary>
         /// <returns>包含所有信息的分类集合，如果获取失败返回空</returns>
@@ -141,10 +181,10 @@ namespace UniqueStudio.DAL.Category
             CategoryInfo category = null;
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
             {
-                using (SqlCommand cmd = new SqlCommand(GET_CATEGORY_BY_ID,conn))
+                using (SqlCommand cmd = new SqlCommand(GET_CATEGORY_BY_ID, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@CategoryID",SqlDbType.Int);
+                    cmd.Parameters.Add("@CategoryID", SqlDbType.Int);
                     conn.Open();
 
                     CategoryInfo temp = null;
@@ -159,7 +199,7 @@ namespace UniqueStudio.DAL.Category
 
                         reader.Close();
                     }
-                    while (temp !=null && temp.ParentCategoryId !=0)
+                    while (temp != null && temp.ParentCategoryId != 0)
                     {
                         cmd.Parameters[0].Value = temp.ParentCategoryId;
                         using (SqlDataReader reader = cmd.ExecuteReader())
