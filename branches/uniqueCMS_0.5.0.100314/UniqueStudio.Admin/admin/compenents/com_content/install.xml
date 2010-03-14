@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<install type="compenent">
+  <CompenentName>com_Content</CompenentName>
+  <DisplayName>文章组件</DisplayName>
+  <CompenentAuthor>UniqueStudio</CompenentAuthor>
+  <Description></Description>
+  <AdminPages>
+    <Page title="发表">addpost.aspx</Page>
+    <Page title="管理">postlist.aspx</Page>
+  </AdminPages>
+  <Permissions>
+    <Permission name="AddPost" description="发表文章" />
+    <Permission name="DeletePost" description="删除文章" />
+    <Permission name="EditPost" description="编辑文章" />
+  </Permissions>
+  <Roles>
+    <Role name="作者" description="" >
+      <Permission>AddPost</Permission>
+      <Permission>EditPost</Permission>
+    </Role>
+    <Role name="编辑" description="">
+      <Permission>AddPost</Permission>
+      <Permission>DeletePost</Permission>
+      <Permission>EditPost</Permission>
+    </Role>
+  </Roles>
+</install>

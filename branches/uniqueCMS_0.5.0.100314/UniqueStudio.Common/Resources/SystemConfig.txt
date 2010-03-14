@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+	<website>
+		<params>
+			<param name="" type="list" default="1" label="" description="">
+				<option value="0"></option>
+			</param>
+			<param name="@spacer" type="spacer" default="" label="" description="" />
+			<param name="" type="text" default="" label="" description="" />
+		</params>
+		<params group="advanced">
+		</params>
+	</website>
+	<server>
+		<params>
+			<param name="" type="list" default="1" label="" description="">
+				<option value="0"></option>
+			</param>
+			<param name="@spacer" type="spacer" default="" label="" description="" />
+			<param name="" type="text" default="" label="" description="" />
+		</params>
+		<params group="advanced">
+		</params>
+	</server>
+	<security>
+		<params>
+			<param name="" type="list" default="1" label="" description="">
+				<option value="0"></option>
+			</param>
+			<param name="@spacer" type="spacer" default="" label="" description="" />
+			<param name="" type="text" default="" label="" description="" />
+		</params>
+		<params group="advanced">
+		</params>
+	</security>
+</config>

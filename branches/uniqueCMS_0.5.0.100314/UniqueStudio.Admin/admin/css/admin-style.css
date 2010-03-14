@@ -1,0 +1,173 @@
+/* CSS Document */
+.log-in-wrapper
+{
+	background: #163D7A;
+	height: 400px;
+	width: 100%;
+}
+.log-in-main
+{
+	background: #012C41;
+	border: 2px #FFFFFF solid;
+	width: 400px;
+	margin: auto;
+	padding: 20px;
+	text-align: center;
+}
+.log-in-main h4
+{
+	color: #FFFF66;
+	font-size: 20px;
+}
+
+.form-item
+{
+	padding: 20px 5px;
+	position: relative;
+}
+.form-item-label
+{
+	color: #FFFFFF;
+	text-align: right;
+	position: absolute;
+	left: 0%;
+	width: 30%;
+}
+.form-item-input
+{
+	position: absolute;
+	width: 50%;
+	left: 31%;
+	text-align: left;
+}
+.form-item-input .input-text
+{
+	width: 190px;
+	height: 16px;
+}
+.input-button
+{
+	color: #FFFFFF;
+}
+.main-wrapper
+{
+	background: #E8EBEE;
+}
+.slider
+{
+	border: 0px;
+	background: #f0f0f0;
+	width: 95%;
+	height: 100%;
+}
+.main-content
+{
+	width: 75%;
+	padding-top: 20px;
+	margin: 0 10px;
+}
+
+.candy-menu
+{
+	display: none;
+}
+.column-head
+{
+	text-align: left;
+	font-weight: bold;
+	font-size: 18px;
+}
+.admin-navigation ul
+{
+	text-align: center;
+	margin: 0px 0;
+	padding: 0px;
+	color: #3E5297;
+	font-weight: bold;
+}
+.admin-navigation ul li
+{
+	list-style: none;
+	background: #F3F2F1;
+	border: 1px #999999 solid;
+	margin: 2px 0;
+	padding-top: 8px;
+	font-size: 16px;
+	cursor: pointer;
+}
+.admin-navigation ul li a
+{
+	color: #3E5297;
+}
+
+.admin-navigation .candy-menu ul li, .admin-navigation .candy-menu ul
+{
+	background: #ffffff;
+	border: 0px;
+	color: #0099FF;
+	font-size: 14px;
+	padding: 2px;
+}
+.admin-navigation .menu-activeted
+{
+	background: #616174;
+	color: #FFFFFF;
+}
+.admin-navigation .menu-activeted .candy-menu
+{
+	display: block;
+}
+.admin-navigation .menu-activeted .menu-activeted
+{
+	background: #FDFDA6;
+}
+.main-content
+{
+	text-align: center;
+	color: #666666;
+	background: #E8EBEE;
+}
+.main-content .form-item-label
+{
+	text-align: right;
+	position: absolute;
+	left: -4px;
+	width: 20%;
+	color: #666666;
+}
+.main-content .form-item-input
+{
+	position: absolute;
+	width: 79%;
+	left: 20%;
+	text-align: left;
+	text-indent: 1em;
+}
+input
+{
+	color: #996600;
+	border: 1px #0066FF solid;
+	font-size: 14px;
+	padding: 5px;
+}
+.error, .success, .tip
+{
+	margin: 10px 0 10px 0;
+	padding: 12px;
+	color: #555;
+}
+.error
+{
+	border: solid 1px #c00;
+	background-color: #ffebe8;
+}
+.success
+{
+	border: solid 1px #ccccee;
+	background-color: #eef5ff;
+}
+.tip
+{
+	border: solid 1px #d3c403;
+	background-color: #fdf166;
+}

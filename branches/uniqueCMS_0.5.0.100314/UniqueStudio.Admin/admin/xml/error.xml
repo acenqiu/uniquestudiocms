@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfErrorInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ErrorInfo>
+    <ExceptionType>System.ArgumentException</ExceptionType>
+    <ErrorMessage>The parameter data type of UInt32 is invalid.</ErrorMessage>
+    <RepresentationString>System.ArgumentException: The parameter data type of UInt32 is invalid.
+   at System.Data.SqlClient.MetaType.GetMetaTypeFromValue(Type dataType, Object value, Boolean inferLen)
+   at System.Data.SqlClient.SqlParameter.GetMetaTypeOnly()
+   at System.Data.SqlClient.SqlParameter.Validate(Int32 index, Boolean isCommandProc)
+   at System.Data.SqlClient.SqlCommand.SetUpRPCParameters(_SqlRPC rpc, Int32 startCount, Boolean inSchema, SqlParameterCollection parameters)
+   at System.Data.SqlClient.SqlCommand.BuildRPC(Boolean inSchema, SqlParameterCollection parameters, _SqlRPC&amp; rpc)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at UniqueStudio.Common.DatabaseHelper.SqlHelper.ExecuteScalar(CommandType cmdType, String cmdText, SqlParameter[] commandParameters) in E:\Projects\CMS\Source\CMS\UniqueStudio.Common\DatabaseHelper\SqlHelper.cs:line 220
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.IsMenuExist(UInt32 siteId, String menuName) in e:\projects\cms\source\cms\uniquestudio.core\dal\menu\sqlmenuprovider.cs:line 192
+   at UniqueStudio.Core.Menu.MenuManager.IsMenuExist(UInt32 siteId, String menuName) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Menu\MenuManager.cs:line 223</RepresentationString>
+    <Time>2010-03-14T15:37:26.9973961+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.InvalidCastException</ExceptionType>
+    <ErrorMessage>Specified cast is not valid.</ErrorMessage>
+    <RepresentationString>System.InvalidCastException: Specified cast is not valid.
+   at UniqueStudio.DAL.Menu.SqlMenuProvider.CreateMenu(MenuInfo menu) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Menu\SqlMenuProvider.cs:line 76
+   at UniqueStudio.Core.Menu.MenuManager.CreateMenu(UserInfo currentUser, MenuInfo menu) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Menu\MenuManager.cs:line 114</RepresentationString>
+    <Time>2010-03-14T15:46:48.1824941+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+</ArrayOfErrorInfo>

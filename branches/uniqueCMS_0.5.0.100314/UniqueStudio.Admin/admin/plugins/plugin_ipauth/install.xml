@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<install type="plugIn">
+  <PlugInName>plugIn_ipauth</PlugInName>
+  <DisplayName>IP验证</DisplayName>
+  <PlugInAuthor>acen</PlugInAuthor>
+  <Description>
+  </Description>
+  <ClassPath>UniqueStudio.PlugInIpAuth.PlugInIpAuth</ClassPath>
+  <Assembly>UniqueStudio.PlugInIpAuth</Assembly>
+  <params>
+    <param name="" type="list" default="1" label="" description="">
+      <option value="0"></option>
+    </param>
+    <param name="@spacer" type="spacer" default="" label="" description="" />
+    <param name="" type="text" default="" label="" description="" />
+  </params>
+  <params group="advanced">
+  </params>
+</install>

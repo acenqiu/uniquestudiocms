@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B9EC7556-3B7A-4357-920B-94EE1313FF95}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniqueStudio.Common</RootNamespace>
+    <AssemblyName>UniqueStudio.Common</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\PermissionInfo.cs" />
+    <Compile Include="Model\RoleInfo.cs" />
+    <Compile Include="Model\RoleCollection.cs" />
+    <Compile Include="Model\UserInfo.cs" />
+    <Compile Include="Model\UserCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Caching\Cache.cs" />
+    <Compile Include="Config\GlobalConfig.cs" />
+    <Compile Include="Config\SecurityConfig.cs" />
+    <Compile Include="Config\ServerConfig.cs" />
+    <Compile Include="Config\SystemConfig.cs" />
+    <Compile Include="Config\WebSiteConfig.cs" />
+    <Compile Include="DatabaseHelper\SqlHelper.cs" />
+    <Compile Include="ErrorLogging\ErrorLogger.cs" />
+    <Compile Include="Exceptions\CompenentInstallException.cs" />
+    <Compile Include="Exceptions\CompenentUninstallException.cs" />
+    <Compile Include="Exceptions\DatabaseException.cs" />
+    <Compile Include="Exceptions\InvalidPermissionException.cs" />
+    <Compile Include="Exceptions\ModeluInstallException.cs" />
+    <Compile Include="Exceptions\NegativeNumberException.cs" />
+    <Compile Include="Exceptions\NotPositiveNumberException.cs" />
+    <Compile Include="Exceptions\PlugInInstallException.cs" />
+    <Compile Include="Exceptions\UnhandledException.cs" />
+    <Compile Include="Exceptions\UserDoesNotApprovedException.cs" />
+    <Compile Include="Exceptions\UserDoesNotOnlineException.cs" />
+    <Compile Include="Exceptions\UserLockedOutException.cs" />
+    <Compile Include="FileAccessHelper\FileAccess.cs" />
+    <Compile Include="Mailing\SMTP.cs" />
+    <Compile Include="Model\CacheItemInfo.cs" />
+    <Compile Include="Model\CategoryCollection.cs" />
+    <Compile Include="Model\CategoryInfo.cs" />
+    <Compile Include="Model\ClassCollection.cs" />
+    <Compile Include="Model\ClassInfo.cs" />
+    <Compile Include="Model\CompenentCollection.cs" />
+    <Compile Include="Model\CompenentInfo.cs" />
+    <Compile Include="Model\Enum\PageType.cs" />
+    <Compile Include="Model\Enum\PasswordEncryptionType.cs" />
+    <Compile Include="Model\Enum\ProcessType.cs" />
+    <Compile Include="Model\Enum\ValidationType.cs" />
+    <Compile Include="Model\ErrorInfo.cs" />
+    <Compile Include="Model\ErrorCollection.cs" />
+    <Compile Include="Model\MenuCollection.cs" />
+    <Compile Include="Model\MenuInfo.cs" />
+    <Compile Include="Model\MenuItemCollection.cs" />
+    <Compile Include="Model\MenuItemInfo.cs" />
+    <Compile Include="Model\ModuleCollection.cs" />
+    <Compile Include="Model\ModuleControlCollection.cs" />
+    <Compile Include="Model\ModuleControlInfo.cs" />
+    <Compile Include="Model\ModuleInfo.cs" />
+    <Compile Include="Model\PageCollection.cs" />
+    <Compile Include="Model\PageInfo.cs" />
+    <Compile Include="Model\PageVisitCollection.cs" />
+    <Compile Include="Model\PageVisitInfo.cs" />
+    <Compile Include="Model\PermissionCollection.cs" />
+    <Compile Include="Model\PlugInCollection.cs" />
+    <Compile Include="Model\PlugInInfo.cs" />
+    <Compile Include="Model\UserExInfo.cs" />
+    <Compile Include="Resource\Res.cs" />
+    <Compile Include="Resource\Zh-cn.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Zh-cn.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RESTful\CollectionUtil.cs" />
+    <Compile Include="RESTful\Hashing.cs" />
+    <Compile Include="RESTful\RESTClient.cs" />
+    <Compile Include="Security\MD5Helper.cs" />
+    <Compile Include="Utilities\Converter.cs" />
+    <Compile Include="Utilities\RegularExpressions.cs" />
+    <Compile Include="Utilities\Validator.cs" />
+    <Compile Include="XmlHelper\XmlManager.cs" />
+    <Compile Include="XmlPageParser\Controls\CheckBox.cs" />
+    <Compile Include="XmlPageParser\Controls\Control.cs" />
+    <Compile Include="XmlPageParser\Controls\ControlType.cs" />
+    <Compile Include="XmlPageParser\Controls\Radio.cs" />
+    <Compile Include="XmlPageParser\Controls\Rich.cs" />
+    <Compile Include="XmlPageParser\Controls\SelectList.cs" />
+    <Compile Include="XmlPageParser\Controls\Spacer.cs" />
+    <Compile Include="XmlPageParser\Controls\Text.cs" />
+    <Compile Include="XmlPageParser\Controls\TextArea.cs" />
+    <Compile Include="XmlPageParser\PageParser.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resource\Zh-cn.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Zh-cn.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SystemConfig.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
