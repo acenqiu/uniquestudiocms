@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-
-using UniqueStudio.Core.Permission;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：显示权限列表。
+// 完成日期：2010年03月17日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Core.Permission;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class permissionlist : System.Web.UI.Page
+    public partial class permissionlist : Controls.BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,13 +27,12 @@ namespace UniqueStudio.Admin.admin.background
             try
             {
                 PermissionManager manager = new PermissionManager();
-                UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
-                rptList.DataSource = manager.GetAllPermissions(currentUser);
+                rptList.DataSource = manager.GetAllPermissions(CurrentUser);
                 rptList.DataBind();
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage(ex.Message);
+                message.SetErrorMessage("数据读取失败："+ex.Message);
             }
         }
     }

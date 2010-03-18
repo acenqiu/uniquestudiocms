@@ -23,7 +23,9 @@ namespace UniqueStudio.DAL.User
         private const string DELETE_USER = "DeleteUser";
         private const string GET_USERINFO = "GetUserInfo";
         private const string GET_USER_LIST = "GetUserList";
+        private const string IS_EMAIL_EXISTS = "IsEmailExists";
         private const string IS_USER_ONLINE = "IsUserOnline";
+        private const string IS_USERNAME_EXISTS = "IsUserNameExists";
         private const string LOCK_USER = "LockUser";
         private const string UNLOCK_USER = "UnLockUser";
         private const string UPDATE_USER_EXINFO = "UpdateUserExInfo";
@@ -109,43 +111,56 @@ namespace UniqueStudio.DAL.User
                     cmd.Parameters.AddWithValue("@IsApproved", user.IsApproved);
 
                     conn.Open();
-                    using (SqlTransaction trans = conn.BeginTransaction())
+                    try
                     {
-                        cmd.Transaction = trans;
-                        try
+                        object o = cmd.ExecuteScalar();
+                        if (o != null && o != DBNull.Value)
                         {
-                            object o = cmd.ExecuteScalar();
-                            if (o != null && o != DBNull.Value)
-                            {
-                                user.UserId = new Guid(o.ToString());
-                                user.Password = string.Empty;
+                            user.UserId = new Guid(o.ToString());
+                            user.Password = string.Empty;
 
-                                if (user.Roles != null)
-                                {
-                                    Permission.SqlRoleProvider roleProvider = new Permission.SqlRoleProvider();
-                                    if (!roleProvider.AddUserToRoles(user, user.Roles))
-                                    {
-                                        //添加到角色失败，回滚
-                                        trans.Rollback();
-                                        return null;
-                                    }
-                                }
-                                trans.Commit();
-                                return user;
-                            }
-                            else
+                            if (user.Roles != null)
                             {
-                                //用户添加失败，回滚
-                                trans.Rollback();
-                                return null;
+                                Permission.SqlRoleProvider roleProvider = new Permission.SqlRoleProvider();
+                                int[] roleIds = new int[user.Roles.Count];
+                                for (int i = 0; i < user.Roles.Count; i++)
+                                {
+                                    roleIds[i] = user.Roles[i].RoleId;
+                                }
+                                if (!roleProvider.AddUserToRoles(conn, user.UserId, roleIds))
+                                {
+                                    //添加到角色失败，回滚
+                                    DeleteUser(conn, user.UserId);
+                                    if (conn.State != ConnectionState.Closed)
+                                    {
+                                        conn.Close();
+                                    }
+                                    return null;
+                                }
                             }
+                            if (conn.State != ConnectionState.Closed)
+                            {
+                                conn.Close();
+                            }
+                            return user;
                         }
-                        catch
+                        else
                         {
-                            //出现异常，回滚
-                            trans.Rollback();
+                            if (conn.State != ConnectionState.Closed)
+                            {
+                                conn.Close();
+                            }
                             return null;
                         }
+                    }
+                    catch
+                    {
+                        DeleteUser(conn, user.UserId);
+                        if (conn.State != ConnectionState.Closed)
+                        {
+                            conn.Close();
+                        }
+                        return null;
                     }
                 }
             }
@@ -183,14 +198,26 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 删除指定用户
+        /// 删除指定用户。
         /// </summary>
-        /// <param name="userId">用户ID</param>
-        /// <returns>是否删除成功</returns>
+        /// <param name="userId">用户ID。</param>
+        /// <returns>是否删除成功。</returns>
         public bool DeleteUser(Guid userId)
         {
             SqlParameter parm = new SqlParameter("@UserID", userId);
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, DELETE_USER, parm) > 0;
+        }
+
+        /// <summary>
+        /// 删除指定用户。
+        /// </summary>
+        /// <param name="conn">数据库连接。</param>
+        /// <param name="userId">用户ID。</param>
+        /// <returns>是否删除成功。</returns>
+        public bool DeleteUser(SqlConnection conn, Guid userId)
+        {
+            SqlParameter parm = new SqlParameter("@UserID", userId);
+            return SqlHelper.ExecuteNonQuery(conn, CommandType.StoredProcedure, DELETE_USER, parm) > 0;
         }
 
         /// <summary>
@@ -319,20 +346,69 @@ namespace UniqueStudio.DAL.User
         /// <returns>用户信息</returns>
         public UserInfo GetEntireUserInfo(Guid userId)
         {
-            UserInfo user = null;
-            SqlParameter[] parms = new SqlParameter[]{
-                                                        new SqlParameter("@UserID", userId),
-                                                        new SqlParameter("@IncludeExInfo",false)};
-            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_USERINFO, parms))
+            using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
             {
-                if (reader.Read())
+                using (SqlCommand cmd = new SqlCommand(GET_USERINFO, conn))
                 {
-                    user = FillUserInfo(reader);
-                    user.Roles = (new Permission.SqlRoleProvider()).GetRolesForUser(user);
-                    user.Permissions = (new Permission.SqlPermissionProvider()).GetPermissionsForUser(user);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@UserID", userId);
+                    cmd.Parameters.AddWithValue("@IncludeExInfo", false);
+
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        if (reader.Read())
+                        {
+                            UserInfo user = FillUserInfo(reader);
+                            user.Roles = (new Permission.SqlRoleProvider()).GetRolesForUser(conn, userId);
+                            user.Permissions = (new Permission.SqlPermissionProvider()).GetPermissionsForUser(conn, userId);
+                            return user;
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
                 }
             }
-            return user;
+        }
+
+        /// <summary>
+        /// 判断某一特定的邮箱是否存在。
+        /// </summary>
+        /// <param name="email">邮箱。</param>
+        /// <returns>是否存在。</returns>
+        public bool IsEmailExists(string email)
+        {
+            SqlParameter parm = new SqlParameter("@Email",email);
+            object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, IS_EMAIL_EXISTS, parm);
+            if (o != null && o != DBNull.Value)
+            {
+                return Convert.ToBoolean((int)o);
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+
+        /// <summary>
+        /// 判断某一特定的用户名是否存在。
+        /// </summary>
+        /// <param name="userName">用户名。</param>
+        /// <returns>是否存在。</returns>
+        public bool IsUserNameExists(string userName)
+        {
+            SqlParameter parm = new SqlParameter("@UserName", userName);
+            object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, IS_USERNAME_EXISTS, parm);
+            if (o != null && o != DBNull.Value)
+            {
+                return Convert.ToBoolean((int)o);
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         /// <summary>
@@ -471,9 +547,9 @@ namespace UniqueStudio.DAL.User
         /// <param name="account">账号</param>
         /// <param name="type">验证类型</param>
         /// <returns>用户信息</returns>
-        public UserInfo ValidUser(string account,ValidationType type)
+        public UserInfo ValidUser(string account, ValidationType type)
         {
-            SqlParameter parm=null;
+            SqlParameter parm = null;
             string cmdText = null;
             if (type == ValidationType.Email)
             {

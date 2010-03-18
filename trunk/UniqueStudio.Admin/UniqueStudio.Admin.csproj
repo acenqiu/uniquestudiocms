@@ -91,6 +91,20 @@
     <Compile Include="admin\background\controllist.aspx.designer.cs">
       <DependentUpon>controllist.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\background\createrole.aspx.cs">
+      <DependentUpon>createrole.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\background\createrole.aspx.designer.cs">
+      <DependentUpon>createrole.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\background\createuser.aspx.cs">
+      <DependentUpon>createuser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\background\createuser.aspx.designer.cs">
+      <DependentUpon>createuser.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\background\editcategory.aspx.cs">
       <DependentUpon>editcategory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -195,6 +209,20 @@
     </Compile>
     <Compile Include="admin\background\pvlist.aspx.designer.cs">
       <DependentUpon>pvlist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\background\securityconfig.aspx.cs">
+      <DependentUpon>securityconfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\background\securityconfig.aspx.designer.cs">
+      <DependentUpon>securityconfig.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\background\serverconfig.aspx.cs">
+      <DependentUpon>serverconfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\background\serverconfig.aspx.designer.cs">
+      <DependentUpon>serverconfig.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\background\userinfo.aspx.cs">
       <DependentUpon>userinfo.aspx</DependentUpon>
@@ -318,8 +346,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\background\createrole.aspx" />
+    <Content Include="admin\background\createuser.aspx" />
     <Content Include="admin\background\edituser.aspx" />
     <Content Include="admin\background\feedback.aspx" />
+    <Content Include="admin\background\securityconfig.aspx" />
+    <Content Include="admin\background\serverconfig.aspx" />
     <Content Include="admin\controls\pagination.ascx" />
     <Content Include="admin\css\admin-style.css" />
     <Content Include="admin\css\admin.css" />
@@ -663,6 +695,8 @@
     <Content Include="admin\editor\fckeditor\fckeditor.js" />
     <Content Include="admin\editor\fckeditor\fckstyles.xml" />
     <Content Include="admin\editor\fckeditor\fcktemplates.xml" />
+    <Content Include="admin\xml\SecurityConfig.xml" />
+    <Content Include="admin\xml\serverconfig.xml" />
     <Content Include="GetCheckCode.aspx" />
     <Content Include="admin\images\bg.png" />
     <Content Include="admin\images\column-header-icon.png" />
@@ -726,7 +760,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>33527</DevelopmentServerPort>
+          <DevelopmentServerPort>50635</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

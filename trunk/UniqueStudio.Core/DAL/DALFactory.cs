@@ -113,6 +113,16 @@ namespace UniqueStudio.DAL
         }
 
         /// <summary>
+        /// 创建网站管理提供类的实例
+        /// </summary>
+        /// <returns>网站管理提供类接口</returns>
+        internal static ISite CreateSite()
+        {
+            string className = string.Format("{0}.Site.{1}SiteProvider", basePath, databasePreFix);
+            return (ISite)Assembly.GetExecutingAssembly().CreateInstance(className);
+        }
+
+        /// <summary>
         /// 创建网站地图管理提供类的实例
         /// </summary>
         /// <returns>网站地图管理提供类接口</returns>

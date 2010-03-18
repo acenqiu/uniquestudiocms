@@ -49,6 +49,7 @@
     <Compile Include="Core\PlugIn\IPlugIn.cs" />
     <Compile Include="Core\PlugIn\PlugInManager.cs" />
     <Compile Include="Core\SiteMap\SiteMapManager.cs" />
+    <Compile Include="Core\Site\SiteManager.cs" />
     <Compile Include="Core\User\UserArgs.cs" />
     <Compile Include="Core\User\UserManager.cs" />
     <Compile Include="DAL\Category\SqlCategoryProvider.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="DAL\IDAL\IPermission.cs" />
     <Compile Include="DAL\IDAL\IPlugIn.cs" />
     <Compile Include="DAL\IDAL\IRole.cs" />
+    <Compile Include="DAL\IDAL\ISite.cs" />
     <Compile Include="DAL\IDAL\ISiteMap.cs" />
     <Compile Include="DAL\IDAL\IUser.cs" />
     <Compile Include="DAL\Menu\SqlMenuProvider.cs" />
@@ -75,6 +77,7 @@
     <Compile Include="DAL\Permission\SqlRoleProvider.cs" />
     <Compile Include="DAL\PlugIn\SqlPlugInProvider.cs" />
     <Compile Include="DAL\SiteMap\SqlSiteMapProvider.cs" />
+    <Compile Include="DAL\Site\SqlSiteProvider.cs" />
     <Compile Include="DAL\Uri\ResourceType.cs" />
     <Compile Include="DAL\Uri\UriProvider.cs" />
     <Compile Include="DAL\User\SqlUserProvider.cs" />

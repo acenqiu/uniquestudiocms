@@ -2,6 +2,7 @@
 
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.Admin.admin
 {
@@ -15,7 +16,7 @@ namespace UniqueStudio.Admin.admin
                 if (user != null)
                 {
                     ltlUserName.Text = user.UserName;
-                    ltlEnableTime.Visible = WebSiteConfig.IsDisplayTime;
+                    ltlEnableTime.Visible = SiteManager.Config(1).IsDisplayTime;
                 }
             }
         }

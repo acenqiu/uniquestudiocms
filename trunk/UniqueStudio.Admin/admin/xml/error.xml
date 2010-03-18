@@ -28,4 +28,148 @@
     <Time>2010-03-14T15:46:48.1824941+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>SiteName</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: SiteName
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.FillRoleInfo(SqlDataReader reader) in e:\projects\cms\source\cms\uniquestudio.core\dal\permission\sqlroleprovider.cs:line 464
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.GetRolesForUser(UserInfo user) in e:\projects\cms\source\cms\uniquestudio.core\dal\permission\sqlroleprovider.cs:line 310
+   at UniqueStudio.DAL.User.SqlUserProvider.GetEntireUserInfo(Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\User\SqlUserProvider.cs:line 332
+   at UniqueStudio.Core.User.UserManager.GetEntireUserInfo(UserInfo currentUser, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 625</RepresentationString>
+    <Time>2010-03-16T16:21:44.65775+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>SiteName</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: SiteName
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.FillRoleInfo(SqlDataReader reader) in e:\projects\cms\source\cms\uniquestudio.core\dal\permission\sqlroleprovider.cs:line 464
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.GetRolesForUser(UserInfo user) in e:\projects\cms\source\cms\uniquestudio.core\dal\permission\sqlroleprovider.cs:line 310
+   at UniqueStudio.DAL.User.SqlUserProvider.GetEntireUserInfo(Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\User\SqlUserProvider.cs:line 332
+   at UniqueStudio.Core.User.UserManager.GetEntireUserInfo(UserInfo currentUser, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 625</RepresentationString>
+    <Time>2010-03-16T16:33:09.3849142+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>SiteName</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: SiteName
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.FillRoleInfo(SqlDataReader reader) in e:\projects\cms\source\cms\uniquestudio.core\dal\permission\sqlroleprovider.cs:line 464
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.GetRolesForUser(UserInfo user) in e:\projects\cms\source\cms\uniquestudio.core\dal\permission\sqlroleprovider.cs:line 310
+   at UniqueStudio.DAL.User.SqlUserProvider.GetEntireUserInfo(Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\User\SqlUserProvider.cs:line 332
+   at UniqueStudio.Core.User.UserManager.GetEntireUserInfo(UserInfo currentUser, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 625</RepresentationString>
+    <Time>2010-03-16T16:33:18.6704453+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>SiteName</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: SiteName
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.FillRoleInfo(SqlDataReader reader) in e:\projects\cms\source\cms\uniquestudio.core\dal\permission\sqlroleprovider.cs:line 464
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.GetRolesForUser(UserInfo user) in e:\projects\cms\source\cms\uniquestudio.core\dal\permission\sqlroleprovider.cs:line 310
+   at UniqueStudio.DAL.User.SqlUserProvider.GetEntireUserInfo(Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\User\SqlUserProvider.cs:line 332
+   at UniqueStudio.Core.User.UserManager.GetEntireUserInfo(UserInfo currentUser, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 625</RepresentationString>
+    <Time>2010-03-16T16:33:32.3052251+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>SiteName</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: SiteName
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.FillRoleInfo(SqlDataReader reader) in e:\projects\cms\source\cms\uniquestudio.core\dal\permission\sqlroleprovider.cs:line 464
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.GetRolesForUser(UserInfo user) in e:\projects\cms\source\cms\uniquestudio.core\dal\permission\sqlroleprovider.cs:line 310
+   at UniqueStudio.DAL.User.SqlUserProvider.GetEntireUserInfo(Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\User\SqlUserProvider.cs:line 332
+   at UniqueStudio.Core.User.UserManager.GetEntireUserInfo(UserInfo currentUser, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 625</RepresentationString>
+    <Time>2010-03-16T16:33:59.8768021+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Procedure or function 'IsUserInRole' expects parameter '@RoleID', which was not supplied.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Procedure or function 'IsUserInRole' expects parameter '@RoleID', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteScalar()
+   at UniqueStudio.Common.DatabaseHelper.SqlHelper.ExecuteScalar(CommandType cmdType, String cmdText, SqlParameter[] commandParameters) in E:\Projects\CMS\Source\CMS\UniqueStudio.Common\DatabaseHelper\SqlHelper.cs:line 220
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.IsUserInRole(UserInfo user, String roleName) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Permission\SqlRoleProvider.cs:line 327
+   at UniqueStudio.Core.Permission.RoleManager.IsUserInRole(UserInfo user, String roleName) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Permission\RoleManager.cs:line 41</RepresentationString>
+    <Time>2010-03-16T18:16:16.7368104+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.InvalidOperationException</ExceptionType>
+    <ErrorMessage>There is already an open DataReader associated with this Command which must be closed first.</ErrorMessage>
+    <RepresentationString>System.InvalidOperationException: There is already an open DataReader associated with this Command which must be closed first.
+   at System.Data.SqlClient.SqlInternalConnectionTds.ValidateConnectionForExecute(SqlCommand command)
+   at System.Data.SqlClient.SqlConnection.ValidateConnectionForExecute(String method, SqlCommand command)
+   at System.Data.SqlClient.SqlCommand.ValidateCommand(String method, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at UniqueStudio.DAL.Permission.SqlPermissionProvider.GetPermissionsForRole(SqlConnection conn, Int32 roleId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Permission\SqlPermissionProvider.cs:line 387
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.GetRoleInfo(SqlParameter parm, String cmdText) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Permission\SqlRoleProvider.cs:line 473
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.GetRoleInfo(Int32 roleId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Permission\SqlRoleProvider.cs:line 449
+   at UniqueStudio.Core.Permission.RoleManager.GetRoleInfo(UserInfo currentUser, Int32 roleId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Permission\RoleManager.cs:line 612</RepresentationString>
+    <Time>2010-03-17T19:34:13.4085642+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.InvalidOperationException</ExceptionType>
+    <ErrorMessage>There is already an open DataReader associated with this Command which must be closed first.</ErrorMessage>
+    <RepresentationString>System.InvalidOperationException: There is already an open DataReader associated with this Command which must be closed first.
+   at System.Data.SqlClient.SqlInternalConnectionTds.ValidateConnectionForExecute(SqlCommand command)
+   at System.Data.SqlClient.SqlConnection.ValidateConnectionForExecute(String method, SqlCommand command)
+   at System.Data.SqlClient.SqlCommand.ValidateCommand(String method, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.GetRolesForUser(SqlConnection conn, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Permission\SqlRoleProvider.cs:line 542
+   at UniqueStudio.DAL.User.SqlUserProvider.GetEntireUserInfo(Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\User\SqlUserProvider.cs:line 341
+   at UniqueStudio.Core.User.UserManager.GetEntireUserInfo(UserInfo currentUser, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 625</RepresentationString>
+    <Time>2010-03-17T20:37:26.0084885+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.InvalidOperationException</ExceptionType>
+    <ErrorMessage>There is already an open DataReader associated with this Command which must be closed first.</ErrorMessage>
+    <RepresentationString>System.InvalidOperationException: There is already an open DataReader associated with this Command which must be closed first.
+   at System.Data.SqlClient.SqlInternalConnectionTds.ValidateConnectionForExecute(SqlCommand command)
+   at System.Data.SqlClient.SqlConnection.ValidateConnectionForExecute(String method, SqlCommand command)
+   at System.Data.SqlClient.SqlCommand.ValidateCommand(String method, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at UniqueStudio.DAL.Permission.SqlPermissionProvider.GetPermissionsForRole(SqlConnection conn, Int32 roleId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Permission\SqlPermissionProvider.cs:line 387
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.GetRoleInfo(SqlParameter parm, String cmdText) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Permission\SqlRoleProvider.cs:line 491
+   at UniqueStudio.DAL.Permission.SqlRoleProvider.GetRoleInfo(Int32 roleId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Permission\SqlRoleProvider.cs:line 467
+   at UniqueStudio.Core.Permission.RoleManager.GetRoleInfo(UserInfo currentUser, Int32 roleId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Permission\RoleManager.cs:line 626</RepresentationString>
+    <Time>2010-03-17T20:41:26.2602302+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>

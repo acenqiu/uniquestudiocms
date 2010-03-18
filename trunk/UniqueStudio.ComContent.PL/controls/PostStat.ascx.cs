@@ -12,6 +12,7 @@ using System.Web.UI.WebControls.WebParts;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common.Config;
+using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.ComContent.PL.controls
 {
@@ -24,8 +25,8 @@ namespace UniqueStudio.ComContent.PL.controls
                 PostManager manager = new PostManager();
                 try
                 {
-                    PostStatCollection collection = manager.GetPostStat(WebSiteConfig.PostStatByYear);
-                    if (WebSiteConfig.PostStatByYear)
+                    PostStatCollection collection = manager.GetPostStat(SiteManager.Config(1).PostStatByYear);
+                    if (SiteManager.Config(1).PostStatByYear)
                     {
                         rptStatByYear.DataSource = collection;
                         rptStatByYear.DataBind();

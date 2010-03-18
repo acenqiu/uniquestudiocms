@@ -127,7 +127,7 @@ namespace UniqueStudio.Core.Category
         /// 当用户没有删除分类的权限时抛出该异常</exception>
         public bool DeleteCategory(UserInfo currentUser, int categoryId)
         {
-            return DeleteCategory(currentUser, categoryId, WebSiteConfig.IsDeleteChildCategories);
+            return DeleteCategory(currentUser, categoryId, false);
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace UniqueStudio.Core.Category
         /// 当用户没有删除分类的权限时抛出该异常</exception>
         public bool DeleteCategories(UserInfo currentUser, int[] categoryIds)
         {
-            return DeleteCategories(currentUser, categoryIds, WebSiteConfig.IsDeleteChildCategories);
+            return DeleteCategories(currentUser, categoryIds, false);
         }
 
         /// <summary>

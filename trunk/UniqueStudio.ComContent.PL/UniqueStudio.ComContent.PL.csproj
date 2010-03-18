@@ -179,13 +179,6 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="temp.aspx.cs">
-      <DependentUpon>temp.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="temp.aspx.designer.cs">
-      <DependentUpon>temp.aspx</DependentUpon>
-    </Compile>
     <Compile Include="usupload.aspx.cs">
       <DependentUpon>usupload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -658,7 +651,6 @@
     <Content Include="MetaWeblogAPI.ashx" />
     <Content Include="search-style.css" />
     <Content Include="Search.aspx" />
-    <Content Include="temp.aspx" />
     <Content Include="usupload.aspx" />
     <Content Include="viewer.swf" />
     <Content Include="xml\viewerData.xml" />
@@ -681,7 +673,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>33529</DevelopmentServerPort>
+          <DevelopmentServerPort>45331</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

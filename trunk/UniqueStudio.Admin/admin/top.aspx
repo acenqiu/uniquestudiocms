@@ -39,10 +39,10 @@
 <body>
     <div class="header">
         <div class="logo">
-            <h1><%= WebSiteConfig.WebName%></h1>
+            <h1>&nbsp;<%--<%= WebSiteConfig.WebName%>--%></h1>
         </div>
         <span style="text-align:left;color:White;font-weight:bold;padding-left:20px;">
-            <a href='<%= WebSiteConfig.BaseAddress %>' target="_parent" >←返回首页</a>
+            &nbsp;<%--<a href='<%= WebSiteConfig.BaseAddress %>' target="_parent" >←返回首页</a>--%>
          </span>
         <span style="text-align: right; color: White; font-weight: bold; float:right;padding-right:20px;">
             <h7>

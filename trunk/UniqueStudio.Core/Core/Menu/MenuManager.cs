@@ -222,7 +222,7 @@ namespace UniqueStudio.Core.Menu
             {
                 throw new Exception("请使用MenuManager(UserInfo)实例化该类。");
             }
-            return DeleteMenus(menuIds);
+            return DeleteMenus(currentUser, menuIds);
         }
 
         /// <summary>

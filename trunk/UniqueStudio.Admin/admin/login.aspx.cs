@@ -29,12 +29,12 @@ namespace UniqueStudio.Admin.admin
                         txtAccount.Text = Request.Cookies[GlobalConfig.COOKIE][GlobalConfig.COOKIE_EMAIL];
                     }
 
-                    revEmail.Enabled = !WebSiteConfig.EnableLoginByUserName;
-                    btnRediretToRegister.Visible = WebSiteConfig.EnableRegister;
+                    revEmail.Enabled = !SecurityConfig.EnableLoginByUserName;
+                    btnRediretToRegister.Visible = SecurityConfig.EnableRegister;
                 }
                 else if (Request.QueryString["action"] == "register")
                 {
-                    if (!WebSiteConfig.EnableRegister)
+                    if (!SecurityConfig.EnableRegister)
                     {
                         Response.Redirect("login.aspx?msgtype=e&msg=" + HttpUtility.UrlEncode("管理员禁用了注册功能！"));
                     }

@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 
 using UniqueStudio.Core.Category;
 using UniqueStudio.Core.User;
+using UniqueStudio.Core.Site;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 using UniqueStudio.ComContent.BLL;
@@ -161,7 +162,7 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    if (WebSiteConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+                    if (SiteManager.Config(1).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
                     {
                         //显示扩展名不正确信息
                         Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
@@ -297,7 +298,7 @@ namespace UniqueStudio.ComContent.PL
                             Enclosure attachement = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), null);
                             if (!(attachement.Tittle == enclosure.FileName))
                             {
-                                if (WebSiteConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+                                if (SiteManager.Config(1).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
                                 {
                                     //显示扩展名不正确信息
                                     Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
@@ -392,7 +393,7 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    if (WebSiteConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+                    if (SiteManager.Config(1).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
                     {
                         //显示扩展名不正确信息
                         Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
@@ -542,7 +543,7 @@ namespace UniqueStudio.ComContent.PL
                             Enclosure attachement = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), "");
                             if (!(attachement.Tittle == enclosure.FileName))
                             {
-                                if (WebSiteConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+                                if (SiteManager.Config(1).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
                                 {
                                     //显示扩展名不正确信息
                                     Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");

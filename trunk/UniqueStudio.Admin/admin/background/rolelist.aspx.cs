@@ -1,4 +1,11 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：显示角色列表。
+// 完成日期：2010年03月17日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Collections.Generic;
 
 using UniqueStudio.Core.Permission;
@@ -9,65 +16,32 @@ using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class rolelist : System.Web.UI.Page
+    public partial class rolelist : Controls.BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
-
                 GetData();
-                PermissionManager manager = new PermissionManager();
-                cblPermissions.DataSource = manager.GetAllPermissions(currentUser);
-                cblPermissions.DataTextField = "PermissionName";
-                cblPermissions.DataValueField = "PermissionName";
-                cblPermissions.DataBind();
             }
         }
 
         private void GetData()
         {
-            UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
-            RoleManager manager = new RoleManager();
-            rptList.DataSource = manager.GetAllRoles(currentUser);
-            rptList.DataBind();
-        }
-
-        protected void btnCreate_Click(object sender, EventArgs e)
-        {
-            UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
-            RoleManager manager = new RoleManager();
-            RoleInfo role = new RoleInfo();
-            role.RoleName = txtRoleName.Text.Trim();
-            role.Description = txtDescription.Text.Trim();
-            role.Permissions = new PermissionCollection();
-
-            for (int i = 0; i < cblPermissions.Items.Count; i++)
+            try
             {
-                if (cblPermissions.Items[i].Selected)
-                {
-                    role.Permissions.Add(new PermissionInfo(cblPermissions.Items[i].Value));
-                }
+                RoleManager manager = new RoleManager();
+                rptList.DataSource = manager.GetAllRoles(CurrentUser);
+                rptList.DataBind();
             }
-
-            role = manager.CreateRole(currentUser, role);
-            if (role != null)
+            catch (Exception ex)
             {
-                message.SetSuccessMessage("角色创建成功");
-                GetData();
-                txtRoleName.Text = "";
-                txtDescription.Text = "";
-            }
-            else
-            {
-                message.SetErrorMessage("角色创建失败");
+                message.SetErrorMessage("数据读取失败：" + ex.Message);
             }
         }
 
         protected void btnExcute_Click(object sender, EventArgs e)
         {
-            UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
             RoleManager manager = new RoleManager();
             List<int> list = new List<int>();
             if (Request.Form["chkSelected"] != null)
@@ -87,16 +61,20 @@ namespace UniqueStudio.Admin.admin.background
             {
                 try
                 {
-                    if (manager.DeleteRoles(currentUser, list.ToArray()))
+                    if (manager.DeleteRoles(CurrentUser, list.ToArray()))
                     {
                         message.SetSuccessMessage("指定角色已删除！");
+                        GetData();
+                    }
+                    else
+                    {
+                        message.SetErrorMessage("指定角色删除失败！");
                     }
                 }
                 catch (Exception ex)
                 {
-                    message.SetErrorMessage(ex.Message);
+                    message.SetErrorMessage("指定角色删除失败：" + ex.Message);
                 }
-                GetData();
             }
         }
     }
