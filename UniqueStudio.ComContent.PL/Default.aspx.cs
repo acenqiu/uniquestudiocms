@@ -9,6 +9,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
+using UniqueStudio.Core.Site;
+
 namespace UniqueStudio.ComContent.PL
 {
     public partial class Default : System.Web.UI.Page
@@ -32,7 +34,7 @@ namespace UniqueStudio.ComContent.PL
         {
             if (!IsPostBack)
             {
-                Page.Header.Title = Common.Config.WebSiteConfig.WebName;
+                Page.Header.Title = SiteManager.Config(1).WebName;
             }
         }
 

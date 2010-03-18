@@ -25,30 +25,27 @@ namespace UniqueStudio.Common.Config
         }
 
         //Boolean
-        private static bool isDeleteChildCategories = false;
-        private static bool isDisplayTime = true;
-        private static bool enableLoginByUserName = true;
-        private static bool enableRegister = false;
-        private static bool isApprovedAfterRegister = false;
-        private static bool postStatByYear = false;
+        private bool isDeleteChildCategories = false;
+        private bool isDisplayTime = true;
+        private bool postStatByYear = false;
 
         //string
-        private static string baseAddress = string.Empty;
-        private static string webName = string.Empty;
-        private static string timeFormatOfIndexPostList = "yyyy-MM-dd";
-        private static string timeFormatOfSectionPostList = "yyyy-MM-dd";
-        private static string enclosureExtension = ".doc;.docx;.rar;.zip;.7z";
+        private string baseAddress = string.Empty;
+        private string webName = string.Empty;
+        private string timeFormatOfIndexPostList = "yyyy-MM-dd";
+        private string timeFormatOfSectionPostList = "yyyy-MM-dd";
+        private string enclosureExtension = ".doc;.docx;.rar;.zip;.7z";
 
         //int
-        private static int pageSizeOfIndexPostList = 9;
-        private static int pageSizeOfSectionPostList = 20;
-        private static int newImageThreshold = 7;
+        private int pageSizeOfIndexPostList = 9;
+        private int pageSizeOfSectionPostList = 20;
+        private int newImageThreshold = 7;
 
         //Boolean
         /// <summary>
         /// 是否删除分类的同时删除其子分类
         /// </summary>
-        public static bool IsDeleteChildCategories
+        public bool IsDeleteChildCategories
         {
             get { return isDeleteChildCategories; }
             set { isDeleteChildCategories = value; }
@@ -57,40 +54,16 @@ namespace UniqueStudio.Common.Config
         /// 是否在后台显示时间
         /// </summary>
         /// <remarks>可能在后续版本中移除</remarks>
-        public static bool IsDisplayTime
+        public bool IsDisplayTime
         {
             get { return isDisplayTime; }
             set { isDisplayTime = value; }
         }
         /// <summary>
-        /// 是否启用用户名方式登录
-        /// </summary>
-        public static bool EnableLoginByUserName
-        {
-            get { return enableLoginByUserName; }
-            set { enableLoginByUserName = value; }
-        }
-        /// <summary>
-        /// 是否开放注册
-        /// </summary>
-        public static bool EnableRegister
-        {
-            get { return enableRegister; }
-            set { enableRegister = value; }
-        }
-        /// <summary>
-        /// 外部注册后是否处于激活状态
-        /// </summary>
-        public static bool IsApprovedAfterRegister
-        {
-            get { return isApprovedAfterRegister; }
-            set { isApprovedAfterRegister = value; }
-        }
-        /// <summary>
         /// 是否根据年统计文章数量
         /// </summary>
         /// <remarks>可能在后续版本中修改</remarks>
-        public static bool PostStatByYear
+        public bool PostStatByYear
         {
             get { return postStatByYear; }
             set { postStatByYear = value; }
@@ -100,7 +73,7 @@ namespace UniqueStudio.Common.Config
         /// <summary>
         /// 网站首页地址
         /// </summary>
-        public static string BaseAddress
+        public string BaseAddress
         {
             get { return baseAddress; }
             set { baseAddress = value; }
@@ -108,7 +81,7 @@ namespace UniqueStudio.Common.Config
         /// <summary>
         /// 网站名称
         /// </summary>
-        public static string WebName
+        public string WebName
         {
             get { return webName; }
             set { webName = value; }
@@ -117,7 +90,7 @@ namespace UniqueStudio.Common.Config
         /// 首页文章列表时间显示格式
         /// </summary>
         /// <remarks>可能在后续版本中移除</remarks>
-        public static string TimeFormatOfIndexPostList
+        public string TimeFormatOfIndexPostList
         {
             get { return timeFormatOfIndexPostList; }
             set { timeFormatOfIndexPostList = value; }
@@ -126,7 +99,7 @@ namespace UniqueStudio.Common.Config
         /// 子页面文章列表时间显示格式
         /// </summary>
         /// <remarks>可能在后续版本中移除</remarks>
-        public static string TimeFormatOfSectionPostList
+        public string TimeFormatOfSectionPostList
         {
             get { return timeFormatOfSectionPostList; }
             set { timeFormatOfSectionPostList = value; }
@@ -135,7 +108,7 @@ namespace UniqueStudio.Common.Config
         /// 允许上传的附件扩展名
         /// </summary>
         /// <remarks>将在后续版本中转移</remarks>
-        public static string EnclosureExtension
+        public string EnclosureExtension
         {
             get { return enclosureExtension; }
             set { enclosureExtension = value; }
@@ -145,7 +118,7 @@ namespace UniqueStudio.Common.Config
         /// <summary>
         /// 首页文章列表显示数量
         /// </summary>
-        public static int PageSizeOfIndexPostList
+        public int PageSizeOfIndexPostList
         {
             get { return pageSizeOfIndexPostList; }
             set { pageSizeOfIndexPostList = value; }
@@ -153,7 +126,7 @@ namespace UniqueStudio.Common.Config
         /// <summary>
         /// 子页面文章列表显示数量
         /// </summary>
-        public static int PageSizeOfSectionPostList
+        public int PageSizeOfSectionPostList
         {
             get { return pageSizeOfSectionPostList; }
             set { pageSizeOfSectionPostList = value; }
@@ -161,7 +134,7 @@ namespace UniqueStudio.Common.Config
         /// <summary>
         /// 定义为新文章的天数
         /// </summary>
-        public static int NewImageThreshold
+        public int NewImageThreshold
         {
             get { return newImageThreshold; }
             set { newImageThreshold = value; }

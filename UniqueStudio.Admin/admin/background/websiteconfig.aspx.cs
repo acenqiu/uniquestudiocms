@@ -1,25 +1,18 @@
 ﻿using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
 using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
 
-using UniqueStudio.Common.Config;
+using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class websiteconfig : System.Web.UI.Page
+    public partial class websiteconfig : Controls.BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                config.ConfigDocument = (new WebSiteConfig()).GetXmlConfig().OuterXml;
+                int siteId = 1;
+                config.ConfigDocument = (new SiteManager()).LoadConfig(siteId);
             }
         }
 
@@ -27,8 +20,16 @@ namespace UniqueStudio.Admin.admin.background
         {
             try
             {
-                (new WebSiteConfig()).SaveXmlConfig(config.GetConfigString());
-                Response.Redirect("websiteconfig.aspx?msg="+HttpUtility.UrlEncode("网站配置保存成功！"));
+                int siteId = 1;
+                string content = config.GetConfigString();
+                if ((new SiteManager()).SaveConfig(CurrentUser, siteId, content))
+                {
+                    Response.Redirect("websiteconfig.aspx?msg=" + HttpUtility.UrlEncode("网站配置保存成功！"));
+                }
+                else
+                {
+                    message.SetErrorMessage("配置信息保存失败！");
+                }
             }
             catch (Exception ex)
             {

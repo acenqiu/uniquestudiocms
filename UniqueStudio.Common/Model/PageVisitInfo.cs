@@ -5,11 +5,12 @@ using System.Text;
 namespace UniqueStudio.Common.Model
 {
     /// <summary>
-    /// 表示页面访问的实体类
+    /// 表示页面访问的实体类。
     /// </summary>
     public class PageVisitInfo
     {
         private int id;
+        private int siteId;
         private string rawUrl;
         private string userHostAddress;
         private string userHostName;
@@ -18,14 +19,14 @@ namespace UniqueStudio.Common.Model
         private DateTime time;
 
         /// <summary>
-        /// 初始化<see cref="PageVisitInfo"/>类的实例
+        /// 初始化<see cref="PageVisitInfo"/>类的实例。
         /// </summary>
         public PageVisitInfo()
         {
         }
 
         /// <summary>
-        /// 初始化<see cref="PageVisitInfo"/>类的实例
+        /// 初始化<see cref="PageVisitInfo"/>类的实例。
         /// </summary>
         /// <param name="rawUrl">原始URL</param>
         /// <param name="userHostAddress">用户主机IP地址</param>
@@ -42,7 +43,7 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 初始化<see cref="PageVisitInfo"/>类的实例
+        /// 初始化<see cref="PageVisitInfo"/>类的实例。
         /// </summary>
         /// <param name="rawUrl">原始URL</param>
         /// <param name="userHostAddress">用户主机IP地址</param>
@@ -57,7 +58,7 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 初始化<see cref="PageVisitInfo"/>类的实例
+        /// 初始化<see cref="PageVisitInfo"/>类的实例。
         /// </summary>
         /// <param name="id">页面访问ID</param>
         /// <param name="rawUrl">原始URL</param>
@@ -80,6 +81,14 @@ namespace UniqueStudio.Common.Model
         {
             get { return id; }
             set { id = value; }
+        }
+        /// <summary>
+        /// 网站ID
+        /// </summary>
+        public int SiteId
+        {
+            get { return siteId; }
+            set { siteId = value; }
         }
         /// <summary>
         /// 原始URL

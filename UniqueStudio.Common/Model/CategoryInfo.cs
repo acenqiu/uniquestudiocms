@@ -11,6 +11,7 @@ namespace UniqueStudio.Common.Model
     public class CategoryInfo
     {
         private int categoryId = 0;
+        private int siteId = 1;
         private string categoryName;
         private string categoryNiceName;
         private string description = string.Empty;
@@ -36,7 +37,14 @@ namespace UniqueStudio.Common.Model
             get { return categoryId; }
             set { categoryId = value; }
         }
-
+        /// <summary>
+        /// 网站ID
+        /// </summary>
+        public int SiteId
+        {
+            get { return siteId; }
+            set { siteId = value; }
+        }
         /// <summary>
         /// 分类名称
         /// </summary>
@@ -45,7 +53,6 @@ namespace UniqueStudio.Common.Model
             get { return categoryName; }
             set { categoryName = value; }
         }
-
         /// <summary>
         /// 分类别名，对程序友好的分类名称（请使用英文或拼音）
         /// </summary>
@@ -54,7 +61,6 @@ namespace UniqueStudio.Common.Model
             get { return categoryNiceName; }
             set { categoryNiceName = value; }
         }
-
         /// <summary>
         /// 说明
         /// </summary>
@@ -63,7 +69,6 @@ namespace UniqueStudio.Common.Model
             get { return description; }
             set { description = value; }
         }
-
         /// <summary>
         /// 父分类ID
         /// </summary>
@@ -72,7 +77,6 @@ namespace UniqueStudio.Common.Model
             get { return parentCategoryId; }
             set { parentCategoryId = value; }
         }
-
         /// <summary>
         /// 父分类名
         /// </summary>
@@ -81,7 +85,6 @@ namespace UniqueStudio.Common.Model
             get { return parentCategoryName; }
             set { parentCategoryName = value; }
         }
-
         /// <summary>
         /// 父分类信息
         /// </summary>
@@ -90,7 +93,6 @@ namespace UniqueStudio.Common.Model
             get { return parentCategory; }
             set { parentCategory = value; }
         }
-
         /// <summary>
         /// 子分类信息
         /// </summary>

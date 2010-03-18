@@ -20,9 +20,6 @@ namespace UniqueStudio.Admin
             //配置信息初始化 
             GlobalConfig.BasePhysicalPath = Server.MapPath("~/");
 
-            WebSiteConfig config = new WebSiteConfig();
-            config.LoadConfig();
-
             PlugInManager manager = new PlugInManager();
             ClassCollection collection = manager.GetAllPlugInsForInit();
             if (collection != null)

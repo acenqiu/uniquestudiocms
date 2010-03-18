@@ -104,6 +104,8 @@
     <Compile Include="Model\PermissionCollection.cs" />
     <Compile Include="Model\PlugInCollection.cs" />
     <Compile Include="Model\PlugInInfo.cs" />
+    <Compile Include="Model\SiteCollection.cs" />
+    <Compile Include="Model\SiteInfo.cs" />
     <Compile Include="Model\UserExInfo.cs" />
     <Compile Include="Resource\Res.cs" />
     <Compile Include="Resource\Zh-cn.Designer.cs">
@@ -117,6 +119,7 @@
     <Compile Include="Security\MD5Helper.cs" />
     <Compile Include="Utilities\Converter.cs" />
     <Compile Include="Utilities\RegularExpressions.cs" />
+    <Compile Include="Utilities\UrlHelper.cs" />
     <Compile Include="Utilities\Validator.cs" />
     <Compile Include="XmlHelper\XmlManager.cs" />
     <Compile Include="XmlPageParser\Controls\CheckBox.cs" />

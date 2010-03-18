@@ -23,13 +23,13 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::UniqueStudio.Admin.admin.controls.Message message;
         
         /// <summary>
-        /// ltlRoleName control.
+        /// validationSummary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlRoleName;
+        protected global::System.Web.UI.WebControls.ValidationSummary validationSummary;
         
         /// <summary>
         /// txtRoleName control.
@@ -41,6 +41,15 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::System.Web.UI.WebControls.TextBox txtRoleName;
         
         /// <summary>
+        /// require1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator require1;
+        
+        /// <summary>
         /// txtDescription control.
         /// </summary>
         /// <remarks>
@@ -50,6 +59,15 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
         
         /// <summary>
+        /// ddlSites control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSites;
+        
+        /// <summary>
         /// rptPermissions control.
         /// </summary>
         /// <remarks>
@@ -57,15 +75,6 @@ namespace UniqueStudio.Admin.admin.background {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptPermissions;
-        
-        /// <summary>
-        /// rptUsers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptUsers;
         
         /// <summary>
         /// btnSave control.
@@ -84,5 +93,14 @@ namespace UniqueStudio.Admin.admin.background {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
+        
+        /// <summary>
+        /// rptUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptUsers;
     }
 }

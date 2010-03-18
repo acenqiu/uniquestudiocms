@@ -101,6 +101,20 @@ namespace UniqueStudio.DAL.IDAL
         UserInfo GetEntireUserInfo(Guid userId);
 
         /// <summary>
+        /// 判断某一特定的邮箱是否存在。
+        /// </summary>
+        /// <param name="email">邮箱。</param>
+        /// <returns>是否存在。</returns>
+        bool IsEmailExists(string email);
+
+        /// <summary>
+        /// 判断某一特定的用户名是否存在。
+        /// </summary>
+        /// <param name="userName">用户名。</param>
+        /// <returns>是否存在。</returns>
+        bool IsUserNameExists(string userName);
+
+        /// <summary>
         /// 锁定指定用户
         /// </summary>
         /// <param name="userId">待锁定用户ID</param>

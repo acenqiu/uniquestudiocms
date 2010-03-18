@@ -6,6 +6,7 @@ using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
 using UniqueStudio.Core.Menu;
+using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.Admin.admin.background
 {
@@ -49,7 +50,7 @@ namespace UniqueStudio.Admin.admin.background
                 txtMenuName.Text = menu.MenuName;
                 txtDescription.Text = menu.Description;
 
-                txtLink.Text = WebSiteConfig.BaseAddress;
+                txtLink.Text = SiteManager.Config(1).BaseAddress;
 
                 ddlItems.Items.Clear();
                 ddlItems.Items.Add(new ListItem("无", "0"));

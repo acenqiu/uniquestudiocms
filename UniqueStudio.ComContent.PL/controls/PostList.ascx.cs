@@ -1,6 +1,7 @@
 ﻿using System;
 
 using UniqueStudio.Core.Category;
+using UniqueStudio.Core.Site;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 using UniqueStudio.ComContent.BLL;
@@ -11,7 +12,7 @@ namespace UniqueStudio.ComContent.PL.controls
     public partial class PostList : System.Web.UI.UserControl
     {
         private int categoryId;
-        private int number = WebSiteConfig.PageSizeOfIndexPostList;
+        private int number = SiteManager.Config(1).PageSizeOfIndexPostList;
         private int maxTitleLength = 15;
 
         public int CategoryId

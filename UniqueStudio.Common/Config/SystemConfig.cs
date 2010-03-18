@@ -32,6 +32,22 @@ namespace UniqueStudio.Common.Config
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(GlobalConfig.BasePhysicalPath + path);
+            LoadConfig(doc);
+        }
+
+        /// <summary>
+        /// 从XML文件中载入配置信息
+        /// </summary>
+        /// <param name="content">xml格式配置文件内容</param>
+        public void LoadConfig(string content)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(content);
+            LoadConfig(doc);
+        }
+
+        private void LoadConfig(XmlDocument doc)
+        {
             XmlNodeList nodes = doc.SelectNodes("//param");
             foreach (XmlNode node in nodes)
             {

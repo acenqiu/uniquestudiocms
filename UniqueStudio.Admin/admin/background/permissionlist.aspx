@@ -1,14 +1,8 @@
-﻿<%@ Page MasterPageFile="~/admin/background/background.Master" Language="C#" AutoEventWireup="true"
+﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true"
     CodeBehind="permissionlist.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.permissionlist" %>
 
-<%@ Register Src="~/admin/controls/Message.ascx" TagPrefix="US" TagName="Message" %>
+<%@ Register Src="../controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 <asp:Content ID="cntBody" ContentPlaceHolderID="cphBody" runat="server">
-    <%--<div class="panel">
-        <div class="panel_title">
-            筛选</div>
-        <div class="panel_body">
-        </div>
-    </div>--%>
     <div class="tip">
         <p>
             在此显示本系统中存在的所有权限，一些关键性的操作将受到权限的控制。</p>

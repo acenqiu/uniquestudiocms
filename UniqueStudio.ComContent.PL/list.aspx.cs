@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using UniqueStudio.Core.Category;
+using UniqueStudio.Core.Site;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common;
@@ -35,7 +36,7 @@ namespace UniqueStudio.ComContent.PL
             {
                 CategoryId = Converter.IntParse(Request.QueryString["catId"], 1);
                 int pageIndex = Converter.IntParse(Request.QueryString["page"], 1);
-                int pageSize = Converter.IntParse(Request.QueryString["size"], WebSiteConfig.PageSizeOfSectionPostList);
+                int pageSize = Converter.IntParse(Request.QueryString["size"], SiteManager.Config(1).PageSizeOfSectionPostList);
 
 
                 CategoryManager catManager = new CategoryManager();
@@ -43,7 +44,7 @@ namespace UniqueStudio.ComContent.PL
                 if (category != null)
                 {
                     //设置网页标题
-                    Page.Header.Title = category.CategoryName + " - " + WebSiteConfig.WebName;
+                    Page.Header.Title = category.CategoryName + " - " + SiteManager.Config(1).WebName;
 
                     categories.CategoryId = category.CategoryId;
 
@@ -57,7 +58,7 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    Response.Redirect(WebSiteConfig.BaseAddress + "/404.aspx");
+                    Response.Redirect(SiteManager.Config(1).BaseAddress + "/404.aspx");
                 }
 
                 PostManager postManager = new PostManager();

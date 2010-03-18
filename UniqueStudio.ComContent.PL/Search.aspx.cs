@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common.Utilities;
+using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.ComContent.PL
 {
@@ -24,7 +25,7 @@ namespace UniqueStudio.ComContent.PL
         {
             if (!IsPostBack)
             {
-                Header.Title = "搜索 - " + Common.Config.WebSiteConfig.WebName;
+                Header.Title = "搜索 - " + SiteManager.Config(1).WebName;
 
                 PostCollection collection = null;
                 PostManager manager = new PostManager();

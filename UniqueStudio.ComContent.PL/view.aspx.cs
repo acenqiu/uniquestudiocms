@@ -7,6 +7,7 @@ using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.XmlHelper;
 using UniqueStudio.Core.Category;
+using UniqueStudio.Core.Site;
 using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComContent.PL
@@ -35,14 +36,14 @@ namespace UniqueStudio.ComContent.PL
                 long uri = Converter.LongParse(Request.QueryString["uri"], 0);
                 if (uri == 0)
                 {
-                    Response.Redirect(WebSiteConfig.BaseAddress + "/404.aspx");
+                    Response.Redirect(SiteManager.Config(1).BaseAddress + "/404.aspx");
                 }
 
                 PostManager postManager = new PostManager();
                 PostInfo post = postManager.GetPost(uri);
                 if (post != null)
                 {
-                    Page.Header.Title = post.Title + " - " + Common.Config.WebSiteConfig.WebName;
+                    Page.Header.Title = post.Title + " - " + SiteManager.Config(1).WebName;
                     ltlTitle.Text = post.Title;
                     ltlAuthor.Text = post.Author.Length == 0 ? "匿名" : post.Author;
                     ltlCount.Text = post.Count.ToString();
@@ -74,7 +75,7 @@ namespace UniqueStudio.ComContent.PL
                         if (enclosure != null)
                         {
                             ltlAttachmentExt.Text = enclosure.Type.Substring(1);
-                            ltlAttachmentLink.Text = WebSiteConfig.BaseAddress + enclosure.Url;
+                            ltlAttachmentLink.Text = SiteManager.Config(1).BaseAddress + enclosure.Url;
                             ltlAttachmentTitle.Text = enclosure.Tittle;
                         }
                     }
@@ -113,7 +114,7 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    Response.Redirect(WebSiteConfig.BaseAddress + "/404.aspx");
+                    Response.Redirect(SiteManager.Config(1).BaseAddress + "/404.aspx");
                 }
             }
         }

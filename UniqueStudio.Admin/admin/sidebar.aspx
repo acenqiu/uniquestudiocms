@@ -69,7 +69,9 @@
                 <li onclick="javascript:changestate(this)"><span>权限管理</span><span class="collapse-icon"></span>
                     <div class="candy-menu">
                         <ul>
+                            <li><a href="background/createuser.aspx" target="right">创建用户</a></li>
                             <li><a href="background/userlist.aspx" target="right">用户列表</a></li>
+                            <li><a href="background/createrole.aspx" target="right">创建角色</a></li>
                             <li><a href="background/rolelist.aspx" target="right">角色列表</a></li>
                             <li><a href="background/permissionlist.aspx" target="right">权限列表</a></li>
                         </ul>
@@ -80,8 +82,8 @@
                     <div class="candy-menu">
                         <ul>
                             <li><a href="background/websiteconfig.aspx" target="right">网站设置</a></li>
-                            <li><a href="background/" target="right">服务器设置</a></li>
-                            <li><a href="background/" target="right">安全设置</a></li>
+                            <li><a href="background/serverconfig.aspx" target="right">服务器设置</a></li>
+                            <li><a href="background/securityconfig.aspx" target="right">安全设置</a></li>
                         </ul>
                     </div>
                 </li>

@@ -1,9 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="UniqueStudio.Admin.admin._default" %>
-<%@ Import Namespace="UniqueStudio.Common.Config" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>后台管理 - <%= WebSiteConfig.WebName %></title>
+    <title>后台管理 - UniqueCMS</title>
 </head>
 <frameset id="mainframes" framespacing="0" border="false" rows="100,*,30" frameborder="0"
     scrolling="yes">

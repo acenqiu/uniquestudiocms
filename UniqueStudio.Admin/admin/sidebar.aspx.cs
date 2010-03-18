@@ -15,17 +15,13 @@ using UniqueStudio.Common.Model;
 
 namespace UniqueStudio.Admin.admin
 {
-    public partial class sidebar : System.Web.UI.Page
+    public partial class sidebar : Controls.BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                UserInfo user = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
-                if (user != null)
-                {
-                    ltlAdvancedMenus.Visible = RoleManager.IsUserInRole(user, "超级管理员");
-                }
+                ltlAdvancedMenus.Visible = RoleManager.IsUserInRole(CurrentUser.UserId, "超级管理员");
             }
         }
     }
