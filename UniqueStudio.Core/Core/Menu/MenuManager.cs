@@ -703,6 +703,7 @@ namespace UniqueStudio.Core.Menu
             foreach (MenuItemInfo item in menuItems)
             {
                 idTable.Add(item.Id, menuItems.IndexOf(item));
+                item.ChildItems = new MenuItemCollection();
             }
             foreach (MenuItemInfo item in menuItems)
             {

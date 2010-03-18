@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：表示菜单项的实体类。
+// 完成日期：2010年03月18日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 
 namespace UniqueStudio.Common.Model
 {
     /// <summary>
-    /// 表示菜单项的实体类
+    /// 表示菜单项的实体类。
     /// </summary>
     [Serializable]
     public class MenuItemInfo
@@ -22,16 +27,15 @@ namespace UniqueStudio.Common.Model
         private MenuItemCollection childItems;
 
         /// <summary>
-        /// 初始化<see cref="MenuItemInfo"/>类的实例
+        /// 初始化<see cref="MenuItemInfo"/>类的实例。
         /// </summary>
         public MenuItemInfo()
         {
-            //TODO:去除声明时初始化
-            childItems = new MenuItemCollection();
+            //默认构造函数
         }
 
         /// <summary>
-        /// 菜单项ID
+        /// 菜单项ID。
         /// </summary>
         public int Id
         {
@@ -39,7 +43,7 @@ namespace UniqueStudio.Common.Model
             set { id = value; }
         }
         /// <summary>
-        /// 菜单ID
+        /// 菜单ID。
         /// </summary>
         public int MenuId
         {
@@ -47,7 +51,7 @@ namespace UniqueStudio.Common.Model
             set { menuId = value; }
         }
         /// <summary>
-        /// 菜单项名称
+        /// 菜单项名称。
         /// </summary>
         public string ItemName
         {
@@ -55,16 +59,16 @@ namespace UniqueStudio.Common.Model
             set { itemName = value; }
         }
         /// <summary>
-        /// 菜单项链接
+        /// 菜单项链接。
         /// </summary>
-        /// <remarks>当该项为空时表示该项菜单无链接</remarks>
+        /// <remarks>当该项为空时表示该项菜单无链接。</remarks>
         public string Link
         {
             get { return link; }
             set { link = value; }
         }
         /// <summary>
-        /// 链接目标
+        /// 链接目标。
         /// </summary>
         public string Target
         {
@@ -72,7 +76,7 @@ namespace UniqueStudio.Common.Model
             set { target = value; }
         }
         /// <summary>
-        /// 菜单项层次
+        /// 菜单项层次。
         /// </summary>
         public int Depth
         {
@@ -80,7 +84,7 @@ namespace UniqueStudio.Common.Model
             set { depth = value; }
         }
         /// <summary>
-        /// 菜单项顺序
+        /// 菜单项顺序。
         /// </summary>
         public int Ordering
         {
@@ -88,7 +92,7 @@ namespace UniqueStudio.Common.Model
             set { ordering = value; }
         }
         /// <summary>
-        /// 父菜单项ID
+        /// 父菜单项ID。
         /// </summary>
         public int ParentItemId
         {
@@ -96,16 +100,16 @@ namespace UniqueStudio.Common.Model
             set { parentItemId = value; }
         }
         /// <summary>
-        /// 父菜单项名称
+        /// 父菜单项名称。
         /// </summary>
-        /// <remarks>该项可能没有赋值</remarks>
+        /// <remarks>该项可能没有赋值。</remarks>
         public string ParentItemName
         {
             get { return parentItemName; }
             set { parentItemName = value; }
         }
         /// <summary>
-        /// 子菜单项
+        /// 子菜单项。
         /// </summary>
         public MenuItemCollection ChildItems
         {

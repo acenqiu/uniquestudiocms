@@ -1,11 +1,16 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：页面访问的集合。
+// 完成日期：2010年03月18日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
 using System.Collections.Generic;
-using System.Text;
 
 namespace UniqueStudio.Common.Model
 {
     /// <summary>
-    /// 页面访问的集合
+    /// 页面访问的集合。
     /// </summary>
     public class PageVisitCollection : List<PageVisitInfo>
     {
@@ -14,7 +19,7 @@ namespace UniqueStudio.Common.Model
         private int pageSize;
 
         /// <summary>
-        /// 初始化<see cref="PageVisitCollection"/>类的实例
+        /// 初始化<see cref="PageVisitCollection"/>类的实例。
         /// </summary>
         public PageVisitCollection()
             : base()
@@ -22,16 +27,16 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 以集合容量初始化<see cref="PageVisitCollection"/>类的实例
+        /// 以集合容量初始化<see cref="PageVisitCollection"/>类的实例。
         /// </summary>
-        /// <param name="capacity">集合容量</param>
+        /// <param name="capacity">集合容量。</param>
         public PageVisitCollection(int capacity)
             : base(capacity)
         {
         }
 
         /// <summary>
-        /// 页面访问总量
+        /// 页面访问总量。
         /// </summary>
         public int Amount
         {
@@ -39,16 +44,16 @@ namespace UniqueStudio.Common.Model
             set { amount = value; }
         }
         /// <summary>
-        /// 页索引
+        /// 页索引。
         /// </summary>
-        /// <remarks>仅表示在查询时的页索引</remarks>
+        /// <remarks>仅表示在查询时的页索引。</remarks>
         public int PageIndex
         {
             get { return pageIndex; }
             set { pageIndex = value; }
         }
         /// <summary>
-        /// 单页条目数
+        /// 单页条目数。
         /// </summary>
         public int PageSize
         {
@@ -56,9 +61,9 @@ namespace UniqueStudio.Common.Model
             set { pageSize = value; }
         }
         /// <summary>
-        /// 页总数
+        /// 页总数。
         /// </summary>
-        /// <remarks>仅表示在查询时的页总数</remarks>
+        /// <remarks>仅表示在查询时的页总数。</remarks>
         public int PageCount
         {
             get { return (amount - 1) / pageSize + 1; }
