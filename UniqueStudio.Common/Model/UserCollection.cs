@@ -1,11 +1,16 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：用户的集合。
+// 完成日期：2010年03月18日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
 using System.Collections.Generic;
-using System.Text;
 
 namespace UniqueStudio.Common.Model
 {
     /// <summary>
-    /// 用户的集合
+    /// 用户的集合。
     /// </summary>
     public class UserCollection:List<UserInfo>
     {
@@ -14,7 +19,7 @@ namespace UniqueStudio.Common.Model
         private int pageSize;
 
         /// <summary>
-        /// 初始化<see cref="UserCollection"/>类的实例
+        /// 初始化<see cref="UserCollection"/>类的实例。
         /// </summary>
         public UserCollection()
             :base()
@@ -22,7 +27,7 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 以集合容量初始化<see cref="UserCollection"/>类的实例
+        /// 以集合容量初始化<see cref="UserCollection"/>类的实例。
         /// </summary>
         /// <param name="capacity"></param>
         public UserCollection(int capacity)
@@ -31,7 +36,7 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 用户总数
+        /// 用户总数。
         /// </summary>
         public int Amount
         {
@@ -39,7 +44,7 @@ namespace UniqueStudio.Common.Model
             set { amount = value; }
         }
         /// <summary>
-        /// 页索引
+        /// 页索引。
         /// </summary>
         public int PageIndex
         {
@@ -47,7 +52,7 @@ namespace UniqueStudio.Common.Model
             set { pageIndex = value; }
         }
         /// <summary>
-        /// 单页条目数
+        /// 单页条目数。
         /// </summary>
         public int PageSize
         {
@@ -55,7 +60,7 @@ namespace UniqueStudio.Common.Model
             set { pageSize = value; }
         }
         /// <summary>
-        /// 页总数
+        /// 页总数。
         /// </summary>
         public int PageCount
         {

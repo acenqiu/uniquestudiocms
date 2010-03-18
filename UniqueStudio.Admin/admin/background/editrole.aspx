@@ -3,6 +3,7 @@
 <asp:Content ID="cntBody" ContentPlaceHolderID="cphBody" runat="server">
     <div class="tip">
         <p>在此您可以查看角色的详细信息，并且可以为其重新分配权限，以及管理其中用户。</p>
+        <p>注：超级管理员具有所有权限，在权限列表中并不会选中其权限。</p>
     </div>   
      <US:Message ID="message" runat="server" />
      <asp:ValidationSummary ID="validationSummary" CssClass="error" ValidationGroup="update"
