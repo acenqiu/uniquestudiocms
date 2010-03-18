@@ -1,4 +1,11 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：用户列表。
+// 完成日期：2010年03月18日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Collections.Generic;
 
 using UniqueStudio.Common.Model;
@@ -37,7 +44,7 @@ namespace UniqueStudio.Admin.admin.background
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage(ex.Message);
+                message.SetErrorMessage("数据获取失败：" + ex.Message);
             }
         }
 
@@ -55,9 +62,9 @@ namespace UniqueStudio.Admin.admin.background
                         list.Add(new Guid(ids[i]));
                     }
                 }
-                catch (FormatException ex)
+                catch (FormatException)
                 {
-                    message.SetErrorMessage("用户ID格式错误");
+                    message.SetErrorMessage("用户ID格式错误！");
                     return;
                 }
             }
@@ -78,7 +85,7 @@ namespace UniqueStudio.Admin.admin.background
                         }
                         else
                         {
-                            message.SetErrorMessage("所选用户删除失败，请重试！");
+                            message.SetErrorMessage("所选用户删除失败！");
                         }
                         break;
                     case "approve":
@@ -89,7 +96,7 @@ namespace UniqueStudio.Admin.admin.background
                         }
                         else
                         {
-                            message.SetErrorMessage("所选用户激活失败，请重试！");
+                            message.SetErrorMessage("所选用户激活失败！");
                         }
                         break;
                     case "lock":
@@ -100,7 +107,7 @@ namespace UniqueStudio.Admin.admin.background
                         }
                         else
                         {
-                            message.SetErrorMessage("所选用户锁定失败，请重试！");
+                            message.SetErrorMessage("所选用户锁定失败！");
                         }
                         break;
                     case "unlock":
@@ -111,14 +118,14 @@ namespace UniqueStudio.Admin.admin.background
                         }
                         else
                         {
-                            message.SetErrorMessage("所选用户解锁失败，请重试！");
+                            message.SetErrorMessage("所选用户解锁失败！");
                         }
                         break;
                 }
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage(ex.Message);
+                message.SetErrorMessage("所执行的批量操作失败：" + ex.Message);
             }
         }
     }

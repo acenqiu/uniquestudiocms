@@ -4,6 +4,12 @@
 // 完成日期：2010年03月16日
 // 版本：v1.0 alpha
 // 作者：邱江毅
+//
+// 修改记录1：
+// 修改日期：2010年03月18日
+// 版本号：v1.0 alpha
+// 修改人：邱江毅
+// 修改内容：+)void AddUsersToRoles(SqlConnection conn, SqlCommand cmd, Guid[] userIds, int[] roleIds);
 //=================================================================
 using System;
 using System.Data;
@@ -34,7 +40,7 @@ namespace UniqueStudio.DAL.Permission
         private const string IS_USER_IN_ROLE = "IsUserInRole";
         private const string REMOVE_USER_FROM_ROLE = "RemoveUserFromRole";
         private const string UPDATE_ROLE = "UpdateRole";
-        
+
         /// <summary>
         /// 初始化<see cref="SqlRoleProvider"/>类的实例。
         /// </summary>
@@ -147,11 +153,9 @@ namespace UniqueStudio.DAL.Permission
         /// <returns>是否添加成功。</returns>
         public bool AddUsersToRoles(SqlConnection conn, Guid[] userIds, int[] roleIds)
         {
-            using (SqlCommand cmd = new SqlCommand(ADD_USER_TO_ROLE, conn))
+            using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier);
-                cmd.Parameters.Add("@RoleID", SqlDbType.Int);
+                cmd.Connection = conn;
 
                 if (conn.State != ConnectionState.Open)
                 {
@@ -163,15 +167,7 @@ namespace UniqueStudio.DAL.Permission
                     cmd.Transaction = trans;
                     try
                     {
-                        foreach (Guid userId in userIds)
-                        {
-                            foreach (int roleId in roleIds)
-                            {
-                                cmd.Parameters[0].Value = userId;
-                                cmd.Parameters[1].Value = roleId;
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
+                        AddUsersToRoles(conn, cmd, userIds, roleIds);
                         trans.Commit();
                         return true;
                     }
@@ -180,6 +176,37 @@ namespace UniqueStudio.DAL.Permission
                         trans.Rollback();
                         return false;
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 将一组用户添加到一组角色中。
+        /// </summary>
+        /// <param name="conn">数据库连接。</param>
+        /// <param name="cmd">数据库命令。</param>
+        /// <param name="userIds">用户ID的集合。</param>
+        /// <param name="roleIds">角色ID的集合。</param>
+        public void AddUsersToRoles(SqlConnection conn, SqlCommand cmd, Guid[] userIds, int[] roleIds)
+        {
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+
+            cmd.CommandText = ADD_USER_TO_ROLE;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
+            cmd.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier);
+            cmd.Parameters.Add("@RoleID", SqlDbType.Int);
+
+            foreach (Guid userId in userIds)
+            {
+                foreach (int roleId in roleIds)
+                {
+                    cmd.Parameters[0].Value = userId;
+                    cmd.Parameters[1].Value = roleId;
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

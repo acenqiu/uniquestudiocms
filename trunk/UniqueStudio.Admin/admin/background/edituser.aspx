@@ -1,11 +1,12 @@
-﻿<%@ Page MasterPageFile="~/admin/background/background.Master" Language="C#" AutoEventWireup="true"
+﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true"
     CodeBehind="edituser.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.edituser" %>
 
-<%@ Register Src="~/admin/controls/Message.ascx" TagPrefix="US" TagName="Message" %>
+<%@ Register Src="../controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 <asp:Content ID="cntBody" ContentPlaceHolderID="cphBody" runat="server">
     <div class="tip">
         <p>
             在该页面您可以为所选用户重新分配角色。</p>
+        <p>注：如果该用户具有”超级管理员“的角色，将具有所有权限，并且不会在权限列表中列出。</p>
     </div>
     <US:Message ID="message" runat="server" />
     <div class="panel">
@@ -29,20 +30,25 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:CheckBox ID="chbIsApproved" Text="是否已激活" Enabled="false" runat="server" />
+                        <asp:CheckBox ID="chkIsApproved" Text="是否已激活" Enabled="false" runat="server" />
                     </td>
                     <td>
-                        <asp:CheckBox ID="chbIsLockedOut" Text="是否锁定" Enabled="false" runat="server" />
+                        <asp:CheckBox ID="chkIsLockedOut" Text="是否锁定" Enabled="false" runat="server" />
                     </td>
                     <td>
-                        <asp:CheckBox ID="chbIsOnline" Text="是否在线" Enabled="false" runat="server" />
+                        <asp:CheckBox ID="chkIsOnline" Text="是否在线" Enabled="false" runat="server" />
                     </td>
                     <td>
                     </td>
                 </tr>
              </table>
-               <br />
-                        所属角色：
+             <asp:Button ID="btnLock" runat="server" Text="锁定" onclick="btnLock_Click" />   
+          </div>
+          </div>
+          
+          <div class="panel">
+                <div class="panel_title">所属角色</div>
+                    <div class="panel_body">   
                         <asp:Repeater ID="rptRoles" runat="server">
                             <HeaderTemplate>
                                 <table class="panel_table">
@@ -64,18 +70,16 @@
                             <ItemTemplate>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" name='chkSelected_r' <asp:Literal ID="ltlSelected" runat="server"/> onchange='selectRow(this)' value='<%# Eval("ID") %>' />
+                                        <input type="checkbox" name='chkSelected_r' <asp:Literal ID="ltlSelected" runat="server"/> onchange='selectRow(this)' value='<%# Eval("RoleID") %>' />
                                     </td>
                                     <td>
-                                        <a href='editrole.aspx?roleId=<%# Eval("ID") %>&ret=<%= HttpUtility.UrlEncode(Request.Url.Query) %>'
-                                            title="单击编辑该角色">
-                                            <%# Eval("RoleName") %></a>
+                                            <%# Eval("RoleName") %>
                                     </td>
                                     <td>
                                         <%# Eval("Description") %>
                                     </td>
                                     <td>
-                                        <%# Eval("SiteName") %>
+                                        <%# Eval("SiteName").ToString().Length>0 ? Eval("SiteName") : "所有网站" %>
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -83,9 +87,13 @@
                                 </table>
                             </FooterTemplate>
                         </asp:Repeater>
-                    
-                       <br />
-                        具有的权限：<br />
+                <asp:Button ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" />
+                <asp:Button ID="btnCancel" runat="server" Text="返回" OnClick="btnCancel_Click" />
+             </div>
+        </div>
+        <div class="panel">
+            <div class="panel_title">具有的权限</div>
+                <div class="panel_body">
                         <asp:Repeater ID="rptPermissions" runat="server">
                             <HeaderTemplate>
                                 <table class="panel_table">
@@ -118,9 +126,6 @@
                                 </table>
                             </FooterTemplate>
                         </asp:Repeater>
-                    
-            <asp:Button ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" />
-            <asp:Button ID="btnCancel" runat="server" Text="返回" OnClick="btnCancel_Click" />
+            </div>
         </div>
-    </div>
 </asp:Content>

@@ -1,18 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：提供用户管理在Sql Server上的实现方法。
+// 完成日期：2010年03月18日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
-using UniqueStudio.DAL.IDAL;
-using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.DatabaseHelper;
+using UniqueStudio.Common.Model;
+using UniqueStudio.DAL.IDAL;
+using UniqueStudio.DAL.Permission;
 
 namespace UniqueStudio.DAL.User
 {
     /// <summary>
-    /// 提供用户管理在Sql Server上的实现方法
+    /// 提供用户管理在Sql Server上的实现方法。
     /// </summary>
     internal class SqlUserProvider : IUser
     {
@@ -34,7 +40,7 @@ namespace UniqueStudio.DAL.User
         private const string VALID_USER_BY_USERNAME = "ValidUserByUserName";
 
         /// <summary>
-        /// 初始化<see cref="SqlUserProvider"/>类的实例
+        /// 初始化<see cref="SqlUserProvider"/>类的实例。
         /// </summary>
         public SqlUserProvider()
         {
@@ -42,10 +48,10 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 激活指定用户
+        /// 激活指定用户。
         /// </summary>
-        /// <param name="userId">用户ID</param>
-        /// <returns>是否激活成功</returns>
+        /// <param name="userId">用户ID。</param>
+        /// <returns>是否激活成功。</returns>
         public bool ApproveUser(Guid userId)
         {
             SqlParameter parm = new SqlParameter("@UserID", userId);
@@ -53,10 +59,10 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 激活多个用户
+        /// 激活多个用户。
         /// </summary>
-        /// <param name="userIds">用户ID的集合</param>
-        /// <returns>是否激活成功</returns>
+        /// <param name="userIds">用户ID的集合。</param>
+        /// <returns>是否激活成功。</returns>
         public bool ApproveUsers(Guid[] userIds)
         {
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
@@ -91,10 +97,10 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 创建用户
+        /// 创建用户。
         /// </summary>
-        /// <param name="user">用户信息</param>
-        /// <returns>如果创建成功，返回用户信息，否则返回空</returns>
+        /// <param name="user">用户信息。</param>
+        /// <returns>如果创建成功，返回用户信息，否则返回空。</returns>
         public UserInfo CreateUser(UserInfo user)
         {
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
@@ -111,70 +117,57 @@ namespace UniqueStudio.DAL.User
                     cmd.Parameters.AddWithValue("@IsApproved", user.IsApproved);
 
                     conn.Open();
-                    try
-                    {
-                        object o = cmd.ExecuteScalar();
-                        if (o != null && o != DBNull.Value)
-                        {
-                            user.UserId = new Guid(o.ToString());
-                            user.Password = string.Empty;
 
-                            if (user.Roles != null)
-                            {
-                                Permission.SqlRoleProvider roleProvider = new Permission.SqlRoleProvider();
-                                int[] roleIds = new int[user.Roles.Count];
-                                for (int i = 0; i < user.Roles.Count; i++)
-                                {
-                                    roleIds[i] = user.Roles[i].RoleId;
-                                }
-                                if (!roleProvider.AddUserToRoles(conn, user.UserId, roleIds))
-                                {
-                                    //添加到角色失败，回滚
-                                    DeleteUser(conn, user.UserId);
-                                    if (conn.State != ConnectionState.Closed)
-                                    {
-                                        conn.Close();
-                                    }
-                                    return null;
-                                }
-                            }
-                            if (conn.State != ConnectionState.Closed)
-                            {
-                                conn.Close();
-                            }
-                            return user;
-                        }
-                        else
+                    using (SqlTransaction trans = conn.BeginTransaction())
+                    {
+                        cmd.Transaction = trans;
+                        try
                         {
-                            if (conn.State != ConnectionState.Closed)
+                            //插入用户信息
+                            object o = cmd.ExecuteScalar();
+                            if (o == null || o == DBNull.Value)
                             {
-                                conn.Close();
+                                trans.Rollback();
+                                return null;
                             }
+                            else
+                            {
+                                user.UserId = new Guid(o.ToString());
+                                user.Password = string.Empty;
+
+                                //添加角色
+                                if (user.Roles != null)
+                                {
+                                    int[] roleIds = new int[user.Roles.Count];
+                                    for (int i = 0; i < user.Roles.Count; i++)
+                                    {
+                                        roleIds[i] = user.Roles[i].RoleId;
+                                    }
+                                    (new SqlRoleProvider()).AddUsersToRoles(conn, cmd, new Guid[] { user.UserId }, roleIds);
+                                }
+                                trans.Commit();
+                                return user;
+                            }
+                        }
+                        catch
+                        {
+                            trans.Rollback();
                             return null;
                         }
-                    }
-                    catch
-                    {
-                        DeleteUser(conn, user.UserId);
-                        if (conn.State != ConnectionState.Closed)
-                        {
-                            conn.Close();
-                        }
-                        return null;
-                    }
+                    }//end of transaction
                 }
             }
         }
 
         /// <summary>
-        /// 修改用户密码
+        /// 修改用户密码。
         /// </summary>
-        /// <remarks>只能修改自己的密码。用户信息需提供用户ID，邮箱及密码。</remarks>
-        /// <param name="user">用户信息</param>
-        /// <param name="newPassword">新密码</param>
-        /// <param name="newPasswordEncryption">密码加密方式</param>
-        /// <returns>是否成功</returns>
-        public bool ChangeUserPassword(UserInfo user, string newPassword, PasswordEncryptionType newPasswordEncryption)
+        /// <param name="user">用户信息。</param>
+        /// <param name="newPassword">新密码。</param>
+        /// <param name="newPasswordEncryption">密码加密方式。</param>
+        /// <returns>是否成功。</returns>
+        public bool ChangeUserPassword(UserInfo user, string newPassword, 
+                                                                        PasswordEncryptionType newPasswordEncryption)
         {
             SqlParameter[] parms = new SqlParameter[]{
                                                         new SqlParameter("@UserID",user.UserId),
@@ -184,10 +177,10 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 修改用户密码提示问题及答案
+        /// 修改用户密码提示问题及答案。
         /// </summary>
-        /// <param name="user">用户信息</param>
-        /// <returns>是否修改成功</returns>
+        /// <param name="user">用户信息。</param>
+        /// <returns>是否修改成功。</returns>
         public bool ChangeUserPasswordQuestionAndAnswer(UserInfo user)
         {
             SqlParameter[] parms = new SqlParameter[] {
@@ -200,7 +193,7 @@ namespace UniqueStudio.DAL.User
         /// <summary>
         /// 删除指定用户。
         /// </summary>
-        /// <param name="userId">用户ID。</param>
+        /// <param name="userId">待删除用户ID。</param>
         /// <returns>是否删除成功。</returns>
         public bool DeleteUser(Guid userId)
         {
@@ -212,7 +205,7 @@ namespace UniqueStudio.DAL.User
         /// 删除指定用户。
         /// </summary>
         /// <param name="conn">数据库连接。</param>
-        /// <param name="userId">用户ID。</param>
+        /// <param name="userId">待删除用户ID。</param>
         /// <returns>是否删除成功。</returns>
         public bool DeleteUser(SqlConnection conn, Guid userId)
         {
@@ -221,10 +214,10 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 删除多个用户
+        /// 删除多个用户。
         /// </summary>
-        /// <param name="userIds">用户ID的集合</param>
-        /// <returns>是否删除成功</returns>
+        /// <param name="userIds">待删除用户ID的集合。</param>
+        /// <returns>是否删除成功。</returns>
         public bool DeleteUsers(Guid[] userIds)
         {
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
@@ -259,11 +252,11 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 返回用户列表
+        /// 返回用户列表。
         /// </summary>
-        /// <param name="pageIndex">页索引（从1开始）</param>
-        /// <param name="pageSize">每页的条目数</param>
-        /// <returns>用户列表</returns>
+        /// <param name="pageIndex">页索引（从1开始）。</param>
+        /// <param name="pageSize">每页的条目数。</param>
+        /// <returns>用户列表。</returns>
         public UserCollection GetUserList(int pageIndex, int pageSize)
         {
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
@@ -299,15 +292,15 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 返回指定用户的信息
+        /// 返回指定用户的信息。
         /// </summary>
         /// <remarks>
         /// 仅包含基本信息，不含角色、权限信息。
         /// 建议在用户修改自身信息时调用。
         /// </remarks>
-        /// <param name="userId">用户ID</param>
-        /// <param name="includeExInfo">是否包含用户扩展信息</param>
-        /// <returns>用户信息</returns>
+        /// <param name="userId">用户ID。</param>
+        /// <param name="includeExInfo">是否包含用户扩展信息。</param>
+        /// <returns>用户信息。</returns>
         public UserInfo GetUserInfo(Guid userId, bool includeExInfo)
         {
             UserInfo user = null;
@@ -336,14 +329,14 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 返回用户的完整信息
+        /// 返回用户的完整信息。
         /// </summary>
         /// <remarks>
         /// 该方法在GetUserInfo（不含附加信息）的基础上增加角色、权限信息。
         /// 建议在管理员管理用户时使用。
         /// </remarks>
-        /// <param name="userId">用户ID</param>
-        /// <returns>用户信息</returns>
+        /// <param name="userId">用户ID。</param>
+        /// <returns>用户信息。</returns>
         public UserInfo GetEntireUserInfo(Guid userId)
         {
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
@@ -355,20 +348,21 @@ namespace UniqueStudio.DAL.User
                     cmd.Parameters.AddWithValue("@IncludeExInfo", false);
 
                     conn.Open();
+                    UserInfo user = null;
                     using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         if (reader.Read())
                         {
-                            UserInfo user = FillUserInfo(reader);
-                            user.Roles = (new Permission.SqlRoleProvider()).GetRolesForUser(conn, userId);
-                            user.Permissions = (new Permission.SqlPermissionProvider()).GetPermissionsForUser(conn, userId);
-                            return user;
+                            user = FillUserInfo(reader);
                         }
-                        else
-                        {
-                            return null;
-                        }
+                        reader.Close();
                     }
+                    if (user != null)
+                    {
+                        user.Roles = (new Permission.SqlRoleProvider()).GetRolesForUser(conn, userId);
+                        user.Permissions = (new Permission.SqlPermissionProvider()).GetPermissionsForUser(conn, userId);
+                    }
+                    return user;
                 }
             }
         }
@@ -380,7 +374,7 @@ namespace UniqueStudio.DAL.User
         /// <returns>是否存在。</returns>
         public bool IsEmailExists(string email)
         {
-            SqlParameter parm = new SqlParameter("@Email",email);
+            SqlParameter parm = new SqlParameter("@Email", email);
             object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, IS_EMAIL_EXISTS, parm);
             if (o != null && o != DBNull.Value)
             {
@@ -412,17 +406,18 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 判断用户是否处于在线状态
+        /// 判断用户是否处于在线状态。
         /// </summary>
-        /// <param name="user">用户信息</param>
-        /// <returns>是否在线</returns>
+        /// <remarks>该方法暂不可用。</remarks>
+        /// <param name="user">用户信息。</param>
+        /// <returns>是否在线。</returns>
         public bool IsUserOnline(UserInfo user)
         {
             SqlParameter parm = new SqlParameter("@UserID", user.UserId);
             object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, IS_USER_ONLINE, parm);
             if (o != null && o != DBNull.Value)
             {
-                return Convert.ToInt32(o) == 1;
+                return Convert.ToBoolean((int)o);
             }
             else
             {
@@ -431,10 +426,10 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 锁定指定用户
+        /// 锁定指定用户。
         /// </summary>
-        /// <param name="userId">待锁定用户ID</param>
-        /// <returns>是否锁定成功</returns>
+        /// <param name="userId">待锁定用户ID。</param>
+        /// <returns>是否锁定成功。</returns>
         public bool LockUser(Guid userId)
         {
             SqlParameter parm = new SqlParameter("@UserID", userId);
@@ -442,10 +437,10 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 锁定多个用户
+        /// 锁定多个用户。
         /// </summary>
-        /// <param name="userIds">待锁定用户ID的集合</param>
-        /// <returns>是否锁定成功</returns>
+        /// <param name="userIds">待锁定用户ID的集合。</param>
+        /// <returns>是否锁定成功。</returns>
         public bool LockUsers(Guid[] userIds)
         {
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
@@ -480,10 +475,10 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 解锁指定用户
+        /// 解锁指定用户。
         /// </summary>
-        /// <param name="userId">待解锁用户ID</param>
-        /// <returns>是否解锁成功</returns>
+        /// <param name="userId">待解锁用户ID。</param>
+        /// <returns>是否解锁成功。</returns>
         public bool UnLockUser(Guid userId)
         {
             SqlParameter parm = new SqlParameter("@UserID", userId);
@@ -491,10 +486,10 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 解锁多个用户
+        /// 解锁多个用户。
         /// </summary>
-        /// <param name="userIds">待解锁用户ID的集合</param>
-        /// <returns>是否解锁成功</returns>
+        /// <param name="userIds">待解锁用户ID的集合。</param>
+        /// <returns>是否解锁成功。</returns>
         public bool UnLockUsers(Guid[] userIds)
         {
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
@@ -529,10 +524,10 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 更新用户附加信息
+        /// 更新用户附加信息。
         /// </summary>
-        /// <param name="user">用户信息</param>
-        /// <returns>是否更新成功</returns>
+        /// <param name="user">用户信息。</param>
+        /// <returns>是否更新成功。</returns>
         public bool UpdateUserExInfo(UserInfo user)
         {
             SqlParameter[] parms = new SqlParameter[]{
@@ -542,11 +537,11 @@ namespace UniqueStudio.DAL.User
         }
 
         /// <summary>
-        /// 用户验证
+        /// 用户验证。
         /// </summary>
-        /// <param name="account">账号</param>
-        /// <param name="type">验证类型</param>
-        /// <returns>用户信息</returns>
+        /// <param name="account">账号。</param>
+        /// <param name="type">验证类型。</param>
+        /// <returns>用户信息。</returns>
         public UserInfo ValidUser(string account, ValidationType type)
         {
             SqlParameter parm = null;

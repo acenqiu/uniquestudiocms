@@ -59,31 +59,40 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::System.Web.UI.WebControls.Literal ltlLastActivityDate;
         
         /// <summary>
-        /// chbIsApproved control.
+        /// chkIsApproved control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chbIsApproved;
+        protected global::System.Web.UI.WebControls.CheckBox chkIsApproved;
         
         /// <summary>
-        /// chbIsLockedOut control.
+        /// chkIsLockedOut control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chbIsLockedOut;
+        protected global::System.Web.UI.WebControls.CheckBox chkIsLockedOut;
         
         /// <summary>
-        /// chbIsOnline control.
+        /// chkIsOnline control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chbIsOnline;
+        protected global::System.Web.UI.WebControls.CheckBox chkIsOnline;
+        
+        /// <summary>
+        /// btnLock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnLock;
         
         /// <summary>
         /// rptRoles control.
@@ -93,15 +102,6 @@ namespace UniqueStudio.Admin.admin.background {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptRoles;
-        
-        /// <summary>
-        /// rptPermissions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptPermissions;
         
         /// <summary>
         /// btnSave control.
@@ -120,5 +120,14 @@ namespace UniqueStudio.Admin.admin.background {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
+        
+        /// <summary>
+        /// rptPermissions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptPermissions;
     }
 }
