@@ -1,6 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：表示页面访问的实体类。
+// 完成日期：2010年03月18日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 
 namespace UniqueStudio.Common.Model
 {
@@ -23,16 +28,17 @@ namespace UniqueStudio.Common.Model
         /// </summary>
         public PageVisitInfo()
         {
+            //默认
         }
 
         /// <summary>
         /// 初始化<see cref="PageVisitInfo"/>类的实例。
         /// </summary>
-        /// <param name="rawUrl">原始URL</param>
-        /// <param name="userHostAddress">用户主机IP地址</param>
-        /// <param name="userHostName">用户主机名</param>
-        /// <param name="userAgent">用户代理</param>
-        /// <param name="urlReferrer">前一页面地址</param>
+        /// <param name="rawUrl">原始URL。</param>
+        /// <param name="userHostAddress">用户主机IP地址。</param>
+        /// <param name="userHostName">用户主机名。</param>
+        /// <param name="userAgent">用户代理。</param>
+        /// <param name="urlReferrer">前一页面地址。</param>
         public PageVisitInfo(string rawUrl, string userHostAddress, string userHostName, string userAgent, string urlReferrer)
         {
             this.rawUrl = rawUrl;
@@ -45,12 +51,12 @@ namespace UniqueStudio.Common.Model
         /// <summary>
         /// 初始化<see cref="PageVisitInfo"/>类的实例。
         /// </summary>
-        /// <param name="rawUrl">原始URL</param>
-        /// <param name="userHostAddress">用户主机IP地址</param>
-        /// <param name="userHostName">用户主机名</param>
-        /// <param name="userAgent">用户代理</param>
-        /// <param name="urlReferrer">前一页面地址</param>
-        /// <param name="time">访问时间</param>
+        /// <param name="rawUrl">原始URL。</param>
+        /// <param name="userHostAddress">用户主机IP地址。</param>
+        /// <param name="userHostName">用户主机名。</param>
+        /// <param name="userAgent">用户代理。</param>
+        /// <param name="urlReferrer">前一页面地址。</param>
+        /// <param name="time">访问时间。</param>
         public PageVisitInfo(string rawUrl, string userHostAddress, string userHostName, string userAgent,string urlReferrer,DateTime time)
             :this(rawUrl,userHostAddress,userHostName,userAgent,urlReferrer)
         {
@@ -60,13 +66,13 @@ namespace UniqueStudio.Common.Model
         /// <summary>
         /// 初始化<see cref="PageVisitInfo"/>类的实例。
         /// </summary>
-        /// <param name="id">页面访问ID</param>
-        /// <param name="rawUrl">原始URL</param>
-        /// <param name="userHostAddress">用户主机IP地址</param>
-        /// <param name="userHostName">用户主机名</param>
-        /// <param name="userAgent">用户代理</param>
-        /// <param name="urlReferrer">前一页面地址</param>
-        /// <param name="time">访问时间</param>
+        /// <param name="id">页面访问ID。</param>
+        /// <param name="rawUrl">原始URL。</param>
+        /// <param name="userHostAddress">用户主机IP地址。</param>
+        /// <param name="userHostName">用户主机名。</param>
+        /// <param name="userAgent">用户代理。</param>
+        /// <param name="urlReferrer">前一页面地址。</param>
+        /// <param name="time">访问时间。</param>
         public PageVisitInfo(int id,string rawUrl, string userHostAddress, string userHostName, string userAgent,string urlReferrer, DateTime time)
             :this(rawUrl,userHostAddress,userHostName,userAgent,urlReferrer)
         {
@@ -75,7 +81,7 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 页面访问ID
+        /// 页面访问ID。
         /// </summary>
         public int Id
         {
@@ -83,7 +89,7 @@ namespace UniqueStudio.Common.Model
             set { id = value; }
         }
         /// <summary>
-        /// 网站ID
+        /// 网站ID。
         /// </summary>
         public int SiteId
         {
@@ -91,7 +97,7 @@ namespace UniqueStudio.Common.Model
             set { siteId = value; }
         }
         /// <summary>
-        /// 原始URL
+        /// 原始URL。
         /// </summary>
         public string RawUrl
         {
@@ -99,7 +105,7 @@ namespace UniqueStudio.Common.Model
             set { rawUrl = value; }
         }
         /// <summary>
-        /// 用户主机IP地址
+        /// 用户主机IP地址。
         /// </summary>
         public string UserHostAddress
         {
@@ -107,7 +113,7 @@ namespace UniqueStudio.Common.Model
             set { userHostAddress = value; }
         }
         /// <summary>
-        /// 用户主机名
+        /// 用户主机名。
         /// </summary>
         public string UserHostName
         {
@@ -115,7 +121,7 @@ namespace UniqueStudio.Common.Model
             set { userHostName = value; }
         }
         /// <summary>
-        /// 用户代理
+        /// 用户代理。
         /// </summary>
         public string UserAgent
         {
@@ -123,7 +129,7 @@ namespace UniqueStudio.Common.Model
             set { userAgent = value; }
         }
         /// <summary>
-        /// 前一页面地址
+        /// 前一页面地址。
         /// </summary>
         public string UrlReferrer
         {
@@ -131,13 +137,12 @@ namespace UniqueStudio.Common.Model
             set { urlReferrer = value; }
         }
         /// <summary>
-        /// 访问时间
+        /// 访问时间。
         /// </summary>
         public DateTime Time
         {
             get { return time; }
             set { time = value; }
         }
-       
     }
 }

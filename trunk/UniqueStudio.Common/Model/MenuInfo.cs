@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：表示菜单的实体类。
+// 完成日期：2010年03月18日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 
 namespace UniqueStudio.Common.Model
 {
     /// <summary>
-    /// 表示菜单的实体类
+    /// 表示菜单的实体类。
     /// </summary>
     [Serializable]
     public class MenuInfo
@@ -17,7 +22,7 @@ namespace UniqueStudio.Common.Model
         private MenuItemCollection items = null;
 
         /// <summary>
-        /// 初始化<see cref="MenuInfo"/>类的实例
+        /// 初始化<see cref="MenuInfo"/>类的实例。
         /// </summary>
         public MenuInfo()
         {
@@ -25,10 +30,10 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 以菜单名称、说明初始化<see cref="MenuCollection"/>类的实例
+        /// 以菜单名称、说明初始化<see cref="MenuCollection"/>类的实例。
         /// </summary>
-        /// <param name="menuName">菜单名称</param>
-        /// <param name="description">菜单说明</param>
+        /// <param name="menuName">菜单名称。</param>
+        /// <param name="description">菜单说明。</param>
         public MenuInfo(string menuName, string description)
         {
             this.menuName = menuName;
@@ -36,7 +41,7 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 菜单ID
+        /// 菜单ID。
         /// </summary>
         public int MenuId
         {
@@ -44,7 +49,7 @@ namespace UniqueStudio.Common.Model
             set { menuId = value; }
         }
         /// <summary>
-        /// 网站ID
+        /// 网站ID。
         /// </summary>
         public int SiteId
         {
@@ -52,7 +57,7 @@ namespace UniqueStudio.Common.Model
             set { siteId = value; }
         }
         /// <summary>
-        /// 菜单名称
+        /// 菜单名称。
         /// </summary>
         public string MenuName
         {
@@ -60,7 +65,7 @@ namespace UniqueStudio.Common.Model
             set { menuName = value; }
         }
         /// <summary>
-        /// 菜单说明
+        /// 菜单说明。
         /// </summary>
         public string Description
         {
@@ -68,7 +73,7 @@ namespace UniqueStudio.Common.Model
             set { description = value; }
         }
         /// <summary>
-        /// 菜单项的集合
+        /// 菜单项的集合。
         /// </summary>
         public MenuItemCollection Items
         {

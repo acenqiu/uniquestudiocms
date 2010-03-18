@@ -1,6 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：表示一个分类的实体类。
+// 完成日期：2010年03月18日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 
 namespace UniqueStudio.Common.Model
 {
@@ -30,7 +35,7 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 分类ID
+        /// 分类ID。
         /// </summary>
         public int CategoryId
         {
@@ -38,7 +43,7 @@ namespace UniqueStudio.Common.Model
             set { categoryId = value; }
         }
         /// <summary>
-        /// 网站ID
+        /// 网站ID。
         /// </summary>
         public int SiteId
         {
@@ -46,7 +51,7 @@ namespace UniqueStudio.Common.Model
             set { siteId = value; }
         }
         /// <summary>
-        /// 分类名称
+        /// 分类名称。
         /// </summary>
         public string CategoryName
         {
@@ -54,7 +59,7 @@ namespace UniqueStudio.Common.Model
             set { categoryName = value; }
         }
         /// <summary>
-        /// 分类别名，对程序友好的分类名称（请使用英文或拼音）
+        /// 分类别名，对程序友好的分类名称（请使用英文或拼音）。
         /// </summary>
         public string CategoryNiceName
         {
@@ -62,7 +67,7 @@ namespace UniqueStudio.Common.Model
             set { categoryNiceName = value; }
         }
         /// <summary>
-        /// 说明
+        /// 说明。
         /// </summary>
         public string Description
         {
@@ -70,7 +75,7 @@ namespace UniqueStudio.Common.Model
             set { description = value; }
         }
         /// <summary>
-        /// 父分类ID
+        /// 父分类ID。
         /// </summary>
         public int ParentCategoryId
         {
@@ -78,7 +83,7 @@ namespace UniqueStudio.Common.Model
             set { parentCategoryId = value; }
         }
         /// <summary>
-        /// 父分类名
+        /// 父分类名。
         /// </summary>
         public string ParentCategoryName
         {
@@ -86,7 +91,7 @@ namespace UniqueStudio.Common.Model
             set { parentCategoryName = value; }
         }
         /// <summary>
-        /// 父分类信息
+        /// 父分类信息。
         /// </summary>
         public CategoryInfo ParentCategory
         {
@@ -94,7 +99,7 @@ namespace UniqueStudio.Common.Model
             set { parentCategory = value; }
         }
         /// <summary>
-        /// 子分类信息
+        /// 子分类信息。
         /// </summary>
         public CategoryInfo ChildCategory
         {
