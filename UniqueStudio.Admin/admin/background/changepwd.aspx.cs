@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：修改用户密码页面。
+// 完成日期：2010年03月19日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 
-using UniqueStudio.Core.User;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Core.User;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class changepwd : System.Web.UI.Page
+    public partial class changepwd : Controls.BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,9 +22,11 @@ namespace UniqueStudio.Admin.admin.background
 
         protected void btnOk_Click(object sender, EventArgs e)
         {
-            UserInfo user = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
+            UserInfo user = new UserInfo();
+            user.UserId = CurrentUser.UserId;
             user.Email = txtEmail.Text.Trim();
             user.Password = txtOldPassword.Text.Trim();
+
             try
             {
                 if ((new UserManager()).ChangeUserPassword(user, txtNewPassword.Text.Trim()))
@@ -42,7 +42,7 @@ namespace UniqueStudio.Admin.admin.background
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage(ex.Message);
+                message.SetErrorMessage("密码更新失败：" + ex.Message);
             }
         }
     }

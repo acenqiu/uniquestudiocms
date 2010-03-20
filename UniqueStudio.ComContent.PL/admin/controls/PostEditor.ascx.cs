@@ -43,6 +43,7 @@ namespace UniqueStudio.ComContent.PL
         private PostManager bll = new PostManager();
         private XmlManager xm = new XmlManager();
         private long uri;
+        private int siteId;
         private EditorMode mode;
 
         public long Uri
@@ -58,10 +59,11 @@ namespace UniqueStudio.ComContent.PL
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            siteId = Converter.IntParse(Request.QueryString["siteId"],1);
             if (!IsPostBack)
             {
                 CategoryManager manager = new CategoryManager();
-                CategoryCollection categories = manager.GetAllCategories();
+                CategoryCollection categories = manager.GetAllCategories(siteId);
                 cblCategory.DataSource = categories;
                 cblCategory.DataTextField = "CategoryName";
                 cblCategory.DataValueField = "CategoryID";

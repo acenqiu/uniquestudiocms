@@ -113,6 +113,15 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::System.Web.UI.WebControls.Repeater rptList;
         
         /// <summary>
+        /// chkSelectChildren control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSelectChildren;
+        
+        /// <summary>
         /// ddlOperation control.
         /// </summary>
         /// <remarks>

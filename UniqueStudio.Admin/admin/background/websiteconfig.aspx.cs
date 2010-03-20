@@ -11,8 +11,7 @@ namespace UniqueStudio.Admin.admin.background
         {
             if (!IsPostBack)
             {
-                int siteId = 1;
-                config.ConfigDocument = (new SiteManager()).LoadConfig(siteId);
+                config.ConfigDocument = (new SiteManager()).LoadConfig(SiteId);
             }
         }
 
@@ -20,11 +19,10 @@ namespace UniqueStudio.Admin.admin.background
         {
             try
             {
-                int siteId = 1;
                 string content = config.GetConfigString();
-                if ((new SiteManager()).SaveConfig(CurrentUser, siteId, content))
+                if ((new SiteManager()).SaveConfig(CurrentUser, SiteId, content))
                 {
-                    Response.Redirect("websiteconfig.aspx?msg=" + HttpUtility.UrlEncode("网站配置保存成功！"));
+                    Response.Redirect("websiteconfig.aspx?msg=" + HttpUtility.UrlEncode("网站配置保存成功！")+"&siteId="+SiteId);
                 }
                 else
                 {

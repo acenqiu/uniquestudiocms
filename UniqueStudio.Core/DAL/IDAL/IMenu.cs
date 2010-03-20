@@ -51,8 +51,9 @@ namespace UniqueStudio.DAL.IDAL
         /// 返回菜单列表
         /// </summary>
         /// <remarks>不含菜单项</remarks>
+        /// <param name="siteId">网站ID。</param>
         /// <returns>菜单的集合</returns>
-        MenuCollection GetAllMenus();
+        MenuCollection GetAllMenus(int siteId);
 
         /// <summary>
         /// 返回菜单链

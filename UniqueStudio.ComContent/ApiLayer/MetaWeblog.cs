@@ -55,7 +55,7 @@ namespace UniqueStudio.ComContent.ApiLayer
                 CategoryCollection cates = new CategoryCollection();
                 for (int i = 0; i < post.categories.Length; i++)
                 {
-                    cates.Add(cm.GetCategory(post.categories[i]));
+                    //cates.Add(cm.GetCategory(post.categories[i]));
                 }
                 postInfo.Categories = cates;
                 postInfo.Content = post.description;
@@ -100,7 +100,7 @@ namespace UniqueStudio.ComContent.ApiLayer
                 CategoryCollection cates = new CategoryCollection();
                 for (int i = 0; i < post.categories.Length; i++)
                 {
-                    cates.Add(cm.GetCategory(post.categories[i]));
+                    //cates.Add(cm.GetCategory(post.categories[i]));
                 }
                 postInfo.Categories = cates;
                 postInfo.Content = post.description;

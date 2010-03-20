@@ -1,47 +1,54 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：编辑分类页面。
+// 完成日期：2010年03月19日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Web;
 using System.Web.UI.WebControls;
 
-using UniqueStudio.Core.Category;
-using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
+using UniqueStudio.Core.Category;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class editcategory : System.Web.UI.Page
+    public partial class editcategory : Controls.BasePage
     {
-        private CategoryManager manager = new CategoryManager();
         private int categoryId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["catId"] != null)
+            categoryId = Converter.IntParse(Request.QueryString["catId"], 0);
+            if (categoryId == 0)
             {
-                if (!int.TryParse(Request.QueryString["catId"], out categoryId))
-                {
-                    Response.Redirect("categorylist.aspx");
-                }
-            }
-            else
-            {
-                Response.Redirect("categorylist.aspx");
+                Response.Redirect("categorylist.aspx?siteId=" + SiteId);
             }
 
             if (!IsPostBack)
             {
+                GetData();
+            }
+        }
+
+        private void GetData()
+        {
+            try
+            {
+                CategoryManager manager = new CategoryManager();
                 CategoryInfo category = manager.GetCategory(categoryId);
                 if (category == null)
                 {
-                    Response.Redirect("categorylist.aspx");
+                    message.SetErrorMessage("数据获取失败：该分类不存在！");
+                    return;
                 }
-                else
-                {
-                    txtCategoryName.Text = category.CategoryName;
-                    txtNiceName.Text = category.CategoryNiceName;
-                    txtDescription.Text = category.Description;
-                }
+                txtCategoryName.Text = category.CategoryName;
+                txtNiceName.Text = category.CategoryNiceName;
+                txtDescription.Text = category.Description;
 
-                CategoryCollection collection = manager.GetAllCategories();
+                CategoryCollection collection = manager.GetAllCategories(category.SiteId);
                 if (collection != null)
                 {
                     ddlCategories.Items.Clear();
@@ -54,8 +61,12 @@ namespace UniqueStudio.Admin.admin.background
                 }
                 else
                 {
-                    message.SetErrorMessage("分类列表读取失败，可能是数据库连接出现异常，请查看系统日志。");
+                    message.SetErrorMessage("数据读取失败！");
                 }
+            }
+            catch (Exception ex)
+            {
+                message.SetErrorMessage("数据读取失败：" + ex.Message);
             }
         }
 
@@ -66,28 +77,33 @@ namespace UniqueStudio.Admin.admin.background
             category.CategoryName = txtCategoryName.Text.Trim();
             category.CategoryNiceName = txtNiceName.Text.Trim();
             category.Description = txtDescription.Text.Trim();
-            category.ParentCategoryId = Convert.ToInt32(ddlCategories.SelectedValue);
+            category.ParentCategoryId = Converter.IntParse(ddlCategories.SelectedValue, -1);
+            if (category.ParentCategoryId == -1)
+            {
+                message.SetErrorMessage("分类更新失败：父分类ID转换失败！");
+                return;
+            }
 
             try
             {
-                if (manager.UpdateCategory((UserInfo)this.Session[GlobalConfig.SESSION_USER], category))
+                if ((new CategoryManager()).UpdateCategory(CurrentUser, category))
                 {
-                    Response.Redirect("categorylist.aspx?msg=" + HttpUtility.UrlEncode("分类更新成功"));
+                    Response.Redirect("categorylist.aspx?msg=" + HttpUtility.UrlEncode("分类更新成功！") + "&siteId=" + SiteId);
                 }
                 else
                 {
-                    message.SetErrorMessage("分类更新失败，请重试！");
+                    message.SetErrorMessage("分类更新失败！");
                 }
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage(ex.Message);
+                message.SetErrorMessage("分类更新失败：" + ex.Message);
             }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("categorylist.aspx");
+            Response.Redirect("categorylist.aspx?siteId=" + SiteId);
         }
     }
 }

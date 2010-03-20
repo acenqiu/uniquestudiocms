@@ -6,18 +6,21 @@ using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.Admin.admin
 {
-    public partial class top : System.Web.UI.Page
+    public partial class top : Controls.BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                UserInfo user = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
-                if (user != null)
+                if (CurrentUser != null)
                 {
-                    ltlUserName.Text = user.UserName;
+                    ltlUserName.Text = CurrentUser.UserName;
+                    //修改
                     ltlEnableTime.Visible = SiteManager.Config(1).IsDisplayTime;
                 }
+
+                rptSiteList.DataSource = (new SiteManager()).GetAllSites();
+                rptSiteList.DataBind();
             }
         }
     }

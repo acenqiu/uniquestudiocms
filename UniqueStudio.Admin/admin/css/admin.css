@@ -50,6 +50,14 @@ a:hover
 	text-align: right;
 	margin: -5px 20px 10px 0px;
 }
+.header .nav
+{
+	list-style:none;
+}
+.header .nav li
+{
+	float:left;
+}
 .candy-menu
 {
 	display: none;

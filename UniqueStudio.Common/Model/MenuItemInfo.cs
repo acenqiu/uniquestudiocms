@@ -18,7 +18,7 @@ namespace UniqueStudio.Common.Model
         private int id;
         private int menuId;
         private string itemName;
-        private string link = null;
+        private string link = string.Empty;
         private string target = string.Empty;
         private int depth;
         private int ordering = 0;

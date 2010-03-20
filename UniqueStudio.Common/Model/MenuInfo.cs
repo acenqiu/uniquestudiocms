@@ -16,7 +16,7 @@ namespace UniqueStudio.Common.Model
     public class MenuInfo
     {
         private int menuId;
-        private int siteId = 1;
+        private int siteId;
         private string menuName;
         private string description = string.Empty;
         private MenuItemCollection items = null;

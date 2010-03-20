@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：菜单列表。
+// 完成日期：2010年03月16日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
 
-using UniqueStudio.Core.Menu;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
+using UniqueStudio.Core.Menu;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class menulist : UniqueStudio.Controls.BasePage
+    public partial class menulist : Controls.BasePage
     {
-        private MenuManager manager = new MenuManager();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -33,24 +29,25 @@ namespace UniqueStudio.Admin.admin.background
         {
             try
             {
-                rptList.DataSource = manager.GetAllMenus();
+                rptList.DataSource = (new MenuManager()).GetAllMenus(SiteId);
                 rptList.DataBind();
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage(ex.Message);
+                message.SetErrorMessage("数据获取失败：" + ex.Message);
             }
         }
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             MenuInfo menu = new MenuInfo();
+            menu.SiteId = SiteId;
             menu.MenuName = txtMenuName.Text.Trim();
             menu.Description = txtDescription.Text.Trim();
 
             try
             {
-                menu = manager.CreateMenu((UserInfo)this.Session[GlobalConfig.SESSION_USER], menu);
+                menu = (new MenuManager()).CreateMenu(CurrentUser, menu);
                 if (menu != null)
                 {
                     message.SetSuccessMessage("菜单创建成功！");
@@ -63,7 +60,7 @@ namespace UniqueStudio.Admin.admin.background
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage(ex.Message);
+                message.SetErrorMessage("菜单创建失败：" + ex.Message);
             }
         }
 
@@ -99,7 +96,7 @@ namespace UniqueStudio.Admin.admin.background
                 }
                 catch (Exception ex)
                 {
-                    message.SetErrorMessage(ex.Message);
+                    message.SetErrorMessage("所选菜单删除失败：" + ex.Message);
                 }
                 GetData();
             }

@@ -206,4 +206,13 @@
     <Time>2010-03-18T16:29:54.770106+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.ArgumentException</ExceptionType>
+    <ErrorMessage>密码格式错误！</ErrorMessage>
+    <RepresentationString>System.ArgumentException: 密码格式错误！
+   at UniqueStudio.Core.User.UserManager.UserAuthorization(String account, String password) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 1008
+   at UniqueStudio.Core.User.UserManager.ChangeUserPassword(UserInfo user, String newPassword) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 332</RepresentationString>
+    <Time>2010-03-19T21:06:53.1920382+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>

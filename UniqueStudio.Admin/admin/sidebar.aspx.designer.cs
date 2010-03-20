@@ -14,12 +14,21 @@ namespace UniqueStudio.Admin.admin {
     public partial class sidebar {
         
         /// <summary>
-        /// ltlAdvancedMenus control.
+        /// pnlSite control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlAdvancedMenus;
+        protected global::System.Web.UI.WebControls.Panel pnlSite;
+        
+        /// <summary>
+        /// pnlSystem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlSystem;
     }
 }
