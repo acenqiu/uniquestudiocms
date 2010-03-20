@@ -74,8 +74,6 @@ function addLiAction()
     for (i=0;i<links.length;i++)
     {  
       var li=links[i].parentNode;
-     //li.onclick=clickMenu;
-     // li.attachEvent("onclick",clickMenu);
      if (document.addEventListener)
      {
       li.addEventListener("click",clickMenu,true);
@@ -135,9 +133,9 @@ function selectall(sender,controls)
           selectRow(c[i]);
     }   
 }
-function selectChildren(sender)
+function selectChildren(sender,chkSelectChildren)
 {
-    var a = document.getElementById("chkSelectChildren");
+    var a = document.getElementById(chkSelectChildren);
     if (a==null || !a.checked)
     {
         return;
@@ -152,7 +150,7 @@ function selectChildren(sender)
             {
                 t.checked=sender.checked;
                 selectRow(t);
-                selectChildren(t);
+                selectChildren(t,chkSelectChildren);
             }
         }
     } 

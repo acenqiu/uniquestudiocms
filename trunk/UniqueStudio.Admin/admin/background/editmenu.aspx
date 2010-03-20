@@ -1,6 +1,6 @@
-﻿<%@ Page MasterPageFile="~/admin/background/background.Master" Language="C#" AutoEventWireup="true" CodeBehind="editmenu.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.editmenu" %>
+﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true" CodeBehind="editmenu.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.editmenu" %>
 
-<%@ Register Src="~/admin/controls/Message.ascx" TagPrefix="US" TagName="Message" %>
+<%@ Register Src="../controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 <asp:Content ID="cntBody" ContentPlaceHolderID="cphBody" runat="server">
     <US:Message ID="message" runat="server" />
     <asp:ValidationSummary ID="validationSummary" CssClass="error" ValidationGroup="modify"
@@ -12,10 +12,10 @@
             编辑菜单</div>
         <div class="panel_body">
             <p>
-                菜单名称：<asp:TextBox ID="txtMenuName" runat="server"></asp:TextBox>
+                菜单名称：<asp:TextBox ID="txtMenuName" runat="server"/>
                 <asp:RequiredFieldValidator ID="requireMenuName" runat="server" ControlToValidate="txtMenuName"
                             ValidationGroup="modify" Display="None" ErrorMessage="请输入菜单名称" />
-                说明：<asp:TextBox ID="txtDescription" runat="server"></asp:TextBox></p>
+                说明：<asp:TextBox ID="txtDescription" runat="server"/></p>
             <asp:Button ID="btnSave" runat="server" ValidationGroup="modify" Text="保存" 
                             onclick="btnSave_Click" />
         </div>
@@ -65,7 +65,7 @@
                 <ItemTemplate>
                     <tr>
                         <td>
-                            <input type="checkbox" id='chk_<%# Eval("Id") %>' name='chkSelected' onchange='selectRow(this);selectChildren(this)' value='<%# Eval("Id") %>' />
+                            <input type="checkbox" id='chk_<%# Eval("Id") %>' name='chkSelected' onchange="selectRow(this);selectChildren(this,'<%= chkSelectChildren.ClientID %>')" value='<%# Eval("Id") %>' />
                             <input type="hidden" name='<%# Eval("ParentItemId") %>' value='chk_<%# Eval("Id") %>' />
                         </td>
                         <td>
@@ -94,7 +94,7 @@
                 </FooterTemplate>
             </asp:Repeater>
             <div>
-                <input type="checkbox" id="chkSelectChildren" checked="checked" />同时选中子菜单
+                <asp:CheckBox ID="chkSelectChildren" runat="server" Checked="true" />同时选中子菜单
                 批量操作：<asp:DropDownList ID="ddlOperation" runat="server">
                     <asp:ListItem Value="delete" Text="删除"></asp:ListItem>
                 </asp:DropDownList>

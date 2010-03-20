@@ -1,8 +1,11 @@
-﻿<%@ Page MasterPageFile="~/admin/background/background.Master" Language="C#" AutoEventWireup="true"
+﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true"
     CodeBehind="categorylist.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.categorylist" %>
 
-<%@ Register Src="~/admin/controls/Message.ascx" TagPrefix="US" TagName="Message" %>
+<%@ Register Src="../controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 <asp:Content ID="cntBody" ContentPlaceHolderID="cphBody" runat="server">
+     <div class="tip">
+        <p>同一个网站下请不要使用相同的分类别名。</p>
+     </div>
     <US:Message ID="message" runat="server" />
     <asp:ValidationSummary ID="validationSummary" CssClass="error" ValidationGroup="create"
         runat="server" DisplayMode="List" ForeColor="#333333" />
@@ -22,7 +25,8 @@
                     ErrorMessage="别名格式错误，请使用字母、数字或下划线" />
                     隶属于：
             <asp:DropDownList ID="ddlCategories" runat="server">
-            </asp:DropDownList></p>
+            </asp:DropDownList>
+            </p>
             <p>
                 说明：<asp:TextBox ID="txtDescription" Width="400px" runat="server" />
             </p>
@@ -46,13 +50,10 @@
                             <td width="10px">
                                 <input type="checkbox" onchange="selectall(this,'chkSelected')" id="chkSelectAll" />
                             </td>
-                            <td width="20px">
-                                ID
-                            </td>
-                            <td width="100px">
+                            <td width="200px">
                                 分类名称
                             </td>
-                            <td>
+                            <td width="200px">
                                 别名
                             </td>
                             <td>
@@ -66,13 +67,11 @@
                 <ItemTemplate>
                     <tr>
                         <td>
-                            <input name='chkSelected' value='<%# Eval("CategoryId")%>' type="checkbox" />
+                            <input type="checkbox" id='chk_<%# Eval("CategoryId") %>' name='chkSelected' onchange="selectRow(this);selectChildren(this,'<%= chkSelectChildren.ClientID %>')" value='<%# Eval("CategoryId") %>' />
+                            <input type="hidden" name='<%# Eval("ParentCategoryId") %>' value='chk_<%# Eval("CategoryId") %>' />
                         </td>
                         <td>
-                            <%# Eval("CategoryId")%>
-                        </td>
-                        <td>
-                            <a href='editcategory.aspx?catId=<%# Eval("CategoryId")%>' title='编辑分类 <%# Eval("CategoryName") %>'>
+                            <a href='editcategory.aspx?siteId=<%= SiteId %>&catId=<%# Eval("CategoryId")%>' title='编辑分类 <%# Eval("CategoryName") %>'>
                                 <%# Eval("CategoryName") %></a>
                         </td>
                         <td>
@@ -91,6 +90,7 @@
                 </FooterTemplate>
             </asp:Repeater>
             <div>
+                <asp:CheckBox ID="chkSelectChildren" runat="server" Checked="true" />同时选中子分类
                 批量操作：<asp:DropDownList ID="ddlOperation" runat="server">
                     <asp:ListItem Value="delete" Text="删除" />
                 </asp:DropDownList>

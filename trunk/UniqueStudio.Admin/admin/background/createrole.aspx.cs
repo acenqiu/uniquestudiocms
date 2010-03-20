@@ -27,11 +27,14 @@ namespace UniqueStudio.Admin.admin.background
                     rptPermissions.DataBind();
 
                     SiteCollection sites = (new SiteManager()).GetAllSites();
-                    ddlSites.Items.Clear();
-                    ddlSites.Items.Add(new ListItem("所有网站", "0"));
-                    foreach (SiteInfo site in sites)
+                    if (sites != null)
                     {
-                        ddlSites.Items.Add(new ListItem(site.SiteName, site.SiteId.ToString()));
+                        ddlSites.Items.Clear();
+                        ddlSites.Items.Add(new ListItem("所有网站", "0"));
+                        foreach (SiteInfo site in sites)
+                        {
+                            ddlSites.Items.Add(new ListItem(site.SiteName, site.SiteId.ToString()));
+                        }
                     }
                 }
                 catch (Exception ex)

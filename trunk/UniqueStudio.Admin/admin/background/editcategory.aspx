@@ -1,7 +1,7 @@
-﻿<%@ Page MasterPageFile="~/admin/background/background.Master" Language="C#" AutoEventWireup="true"
+﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true"
     CodeBehind="editcategory.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.editcategory" %>
 
-<%@ Register Src="~/admin/controls/Message.ascx" TagPrefix="US" TagName="Message" %>
+<%@ Register Src="../controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 <asp:Content ID="cntBody" ContentPlaceHolderID="cphBody" runat="server">
     <US:Message ID="message" runat="server" />
     <asp:ValidationSummary ID="validationSummary" CssClass="error" ValidationGroup="update"

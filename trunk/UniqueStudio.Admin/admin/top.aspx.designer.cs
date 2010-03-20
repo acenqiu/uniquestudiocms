@@ -32,6 +32,15 @@ namespace UniqueStudio.Admin.admin {
         protected global::System.Web.UI.WebControls.Literal ltlEnableTime;
         
         /// <summary>
+        /// rptSiteList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptSiteList;
+        
+        /// <summary>
         /// ltlUserName control.
         /// </summary>
         /// <remarks>

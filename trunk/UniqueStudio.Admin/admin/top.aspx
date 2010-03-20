@@ -39,11 +39,21 @@
 <body>
     <div class="header">
         <div class="logo">
-            <h1>&nbsp;<%--<%= WebSiteConfig.WebName%>--%></h1>
+            <h1>&nbsp;</h1>
         </div>
-        <span style="text-align:left;color:White;font-weight:bold;padding-left:20px;">
-            &nbsp;<%--<a href='<%= WebSiteConfig.BaseAddress %>' target="_parent" >←返回首页</a>--%>
-         </span>
+        <div style="text-align:left;color:White;font-weight:bold;padding-left:20px;">
+            <ul class="nav">
+                <asp:Repeater ID="rptSiteList" runat="server">
+                    <ItemTemplate>
+                        <li><a href='sidebar.aspx?siteId=<%# Eval("SiteID") %>' target='left' >
+                                    <%# Eval("SiteName") %></a></li>
+                    </ItemTemplate>
+                </asp:Repeater>
+                <li><a href='sidebar.aspx' target='left'>系统管理</a></li>
+                <li>用户信息</li>
+                <li><a href="background/feedback.aspx" target="right">反馈信息</a></li>
+            </ul>
+         </div>
         <span style="text-align: right; color: White; font-weight: bold; float:right;padding-right:20px;">
             <h7>
             <asp:Literal ID="ltlUserName" runat="server" />,

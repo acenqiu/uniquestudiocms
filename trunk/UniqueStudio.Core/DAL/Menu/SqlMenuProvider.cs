@@ -72,6 +72,7 @@ namespace UniqueStudio.DAL.Menu
         public MenuInfo CreateMenu(MenuInfo menu)
         {
             SqlParameter[] parms = new SqlParameter[]{
+                                                        new SqlParameter("@SiteID",menu.SiteId),
                                                         new SqlParameter("@MenuName",menu.MenuName),
                                                         new SqlParameter("@Description",menu.Description)};
             object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, CREATE_MENU, parms);
@@ -176,11 +177,13 @@ namespace UniqueStudio.DAL.Menu
         /// 返回菜单列表
         /// </summary>
         /// <remarks>不含菜单项</remarks>
+        /// <param name="siteId">网站ID。</param>
         /// <returns>菜单的集合</returns>
-        public MenuCollection GetAllMenus()
+        public MenuCollection GetAllMenus(int siteId)
         {
             MenuCollection collection = new MenuCollection();
-            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_ALL_MENUS, null))
+            SqlParameter parm = new SqlParameter("@SiteID", siteId);
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_ALL_MENUS, parm))
             {
                 while (reader.Read())
                 {

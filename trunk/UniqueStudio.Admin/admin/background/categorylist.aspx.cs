@@ -1,20 +1,22 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：创建分类及分类列表页面。
+// 完成日期：2010年03月19日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Collections.Generic;
-using System.Web;
 using System.Web.UI.WebControls;
 
-using UniqueStudio.Core.Category;
-using UniqueStudio.Common;
-using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
+using UniqueStudio.Core.Category;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class categorylist : System.Web.UI.Page
+    public partial class categorylist : Controls.BasePage
     {
-        CategoryManager manager = new CategoryManager();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -25,56 +27,59 @@ namespace UniqueStudio.Admin.admin.background
 
         private void GetData()
         {
-            CategoryCollection collection = manager.GetAllCategories();
-            if (collection != null)
+            try
             {
-                ddlCategories.Items.Clear();
-                ddlCategories.Items.Add(new ListItem("无", "0"));
-                foreach (CategoryInfo category in collection)
+                CategoryCollection collection = (new CategoryManager()).GetAllCategories(SiteId);
+                if (collection != null)
                 {
-                    ddlCategories.Items.Add(new ListItem(category.CategoryName, category.CategoryId.ToString()));
-                }
+                    ddlCategories.Items.Clear();
+                    ddlCategories.Items.Add(new ListItem("无", "0"));
+                    foreach (CategoryInfo category in collection)
+                    {
+                        ddlCategories.Items.Add(new ListItem(category.CategoryName, category.CategoryId.ToString()));
+                    }
 
-                rptList.DataSource = collection;
-                rptList.DataBind();
+                    rptList.DataSource = collection;
+                    rptList.DataBind();
+                }
+                else
+                {
+                    message.SetErrorMessage("数据读取失败！");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                message.SetErrorMessage("分类列表读取失败，可能是数据库连接出现异常，请查看系统日志。");
+                message.SetErrorMessage("数据读取失败：" + ex.Message);
             }
         }
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             CategoryInfo category = new CategoryInfo();
+            category.SiteId = SiteId;
             category.CategoryName = txtCategoryName.Text.Trim();
             category.CategoryNiceName = txtNiceName.Text.Trim();
             category.Description = txtDescription.Text.Trim();
-            category.ParentCategoryId = Convert.ToInt32(ddlCategories.SelectedValue);
-
-            UserInfo currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
+            category.ParentCategoryId = Converter.IntParse(ddlCategories.SelectedValue, 0);
 
             try
             {
-                category = manager.CreateCategory(currentUser, category);
+                if ((new CategoryManager()).CreateCategory(CurrentUser, category) != null)
+                {
+                    message.SetSuccessMessage("分类创建成功！");
+                    GetData();
+                    txtCategoryName.Text = "";
+                    txtNiceName.Text = "";
+                    txtDescription.Text = "";
+                }
+                else
+                {
+                    message.SetErrorMessage("分类创建失败！");
+                }
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage(ex.Message);
-                return;
-            }
-
-            if (category != null)
-            {
-                message.SetSuccessMessage("分类创建成功！");
-                GetData();
-                txtCategoryName.Text = "";
-                txtNiceName.Text = "";
-                txtDescription.Text = "";
-            }
-            else
-            {
-                message.SetErrorMessage("分类创建失败！");
+                message.SetErrorMessage("分类创建失败：" + ex.Message);
             }
         }
 
@@ -99,7 +104,7 @@ namespace UniqueStudio.Admin.admin.background
             {
                 try
                 {
-                    if (manager.DeleteCategories((UserInfo)this.Session[GlobalConfig.SESSION_USER], list.ToArray()))
+                    if (manager.DeleteCategories(CurrentUser, list.ToArray(), false))
                     {
                         message.SetSuccessMessage("所选分类已删除！");
                     }
@@ -110,7 +115,7 @@ namespace UniqueStudio.Admin.admin.background
                 }
                 catch (Exception ex)
                 {
-                    message.SetErrorMessage(ex.Message);
+                    message.SetErrorMessage("所选分类删除失败：" + ex.Message);
                 }
                 GetData();
             }

@@ -1,7 +1,7 @@
-﻿<%@ Page MasterPageFile="~/admin/background/background.Master" Language="C#" AutoEventWireup="true"
+﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true"
     CodeBehind="menulist.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.menulist" %>
 
-<%@ Register Src="~/admin/controls/Message.ascx" TagPrefix="US" TagName="Message" %>
+<%@ Register Src="../controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 <asp:Content ID="cntBody" ContentPlaceHolderID="cphBody" runat="server">
     <US:Message ID="message" runat="server" />
     <asp:ValidationSummary ID="validationSummary" CssClass="error" ValidationGroup="create"
@@ -30,7 +30,7 @@
                             <td width="10px">
                                 <input type="checkbox" onchange="selectall(this,'chkSelected')" id="chkSelectAll" />
                             </td>
-                            <td>
+                            <td width="200px">
                                 菜单名称
                             </td>
                             <td>
@@ -44,7 +44,7 @@
                             <input type="checkbox" name='chkSelected' onchange='selectRow(this)' value='<%# Eval("MenuId") %>' />
                         </td>
                         <td>
-                            <a href='editmenu.aspx?menuId=<%# Eval("MenuId") %>' title="单击编辑该菜单">
+                            <a href='editmenu.aspx?siteId=<%=SiteId %>&menuId=<%# Eval("MenuId") %>' title="单击编辑该菜单">
                                 <%# Eval("MenuName") %></a>
                         </td>
                         <td>

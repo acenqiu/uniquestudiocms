@@ -325,22 +325,12 @@ namespace UniqueStudio.Core.User
             Validator.CheckEmail(user.Email, "user.Email");
             Validator.CheckStringNull(user.Password, "user.Password");
             Validator.CheckStringNull(newPassword, "newPassword");
+            if (!rPassword.IsMatch(newPassword))
+            {
+                throw new ArgumentException("密码格式不正确！");
+            }
 
-            UserInfo temp = null;
-            try
-            {
-                temp = UserAuthorization(user.Email, user.Password);
-            }
-            catch (DbException ex)
-            {
-                ErrorLogger.LogError(ex);
-                throw new DatabaseException();
-            }
-            catch (Exception ex)
-            {
-                ErrorLogger.LogError(ex);
-                throw new UnhandledException();
-            }
+            UserInfo temp = UserAuthorization(user.Email, user.Password);
 
             if (temp != null)
             {
@@ -354,7 +344,7 @@ namespace UniqueStudio.Core.User
                 {
                     if (GlobalConfig.DefaultPasswordEncryption == PasswordEncryptionType.Hashed)
                     {
-                        newPassword = MD5Helper.MD5Encrypt(user.Password);
+                        newPassword = MD5Helper.MD5Encrypt(newPassword);
                     }
                     return provider.ChangeUserPassword(user, newPassword, GlobalConfig.DefaultPasswordEncryption);
                 }
