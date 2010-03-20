@@ -126,6 +126,13 @@
     <Compile Include="admin\background\editmenu.aspx.designer.cs">
       <DependentUpon>editmenu.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\background\editmenuitem.aspx.cs">
+      <DependentUpon>editmenuitem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\background\editmenuitem.aspx.designer.cs">
+      <DependentUpon>editmenuitem.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\background\editrole.aspx.cs">
       <DependentUpon>editrole.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -348,6 +355,7 @@
   <ItemGroup>
     <Content Include="admin\background\createrole.aspx" />
     <Content Include="admin\background\createuser.aspx" />
+    <Content Include="admin\background\editmenuitem.aspx" />
     <Content Include="admin\background\edituser.aspx" />
     <Content Include="admin\background\feedback.aspx" />
     <Content Include="admin\background\securityconfig.aspx" />
@@ -760,7 +768,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>61322</DevelopmentServerPort>
+          <DevelopmentServerPort>3196</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

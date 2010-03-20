@@ -1,5 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：提供菜单管理的方法。
+// 完成日期：2010年03月20日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 
@@ -76,10 +83,11 @@ namespace UniqueStudio.Core.Menu
             }
             PermissionManager.CheckPermission(currentUser, "EditMenu", "编辑菜单");
 
-            if (IsMenuItemExist(item.MenuId, item.ItemName))
-            {
-                throw new Exception("该菜单项名称已经存在，请重新设置！");
-            }
+            //不需要如此严格地限定菜单项名称
+            //if (IsMenuItemExist(item.MenuId, item.ItemName))
+            //{
+            //    throw new Exception("该菜单项名称已经存在，请重新设置！");
+            //}
 
             try
             {
@@ -379,6 +387,55 @@ namespace UniqueStudio.Core.Menu
         }
 
         /// <summary>
+        /// 返回指定菜单项信息。
+        /// </summary>
+        /// <param name="itemId">菜单项ID。</param>
+        /// <returns>菜单项信息。</returns>
+        public MenuItemInfo GetMenuItem(int itemId)
+        {
+            Validator.CheckNotPositive(itemId, "itemId");
+            try
+            {
+                return provider.GetMenuItem(itemId);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 返回指定菜单的所有菜单项。
+        /// </summary>
+        /// <param name="menuId">菜单ID。</param>
+        /// <returns>菜单项的集合。</returns>
+        public MenuItemCollection GetMenuItems(int menuId)
+        {
+            Validator.CheckNotPositive(menuId, "menuId");
+
+            try
+            {
+                return provider.GetMenuItems(menuId);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
         /// 返回指定菜单是否存在。
         /// </summary>
         /// <param name="siteId">网站ID。</param>
@@ -563,16 +620,17 @@ namespace UniqueStudio.Core.Menu
         /// </summary>
         /// <remarks>该方法仅更新菜单的名称及说明，不更新菜单项。</remarks>
         /// <param name="menu">菜单信息。</param>
+        /// <param name="oldMenuName">原始菜单名。</param>
         /// <returns>是否更新成功。</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
         /// 当用户没有编辑菜单的权限时抛出该异常。</exception>
-        public bool UpdateMenu(MenuInfo menu)
+        public bool UpdateMenu(MenuInfo menu, string oldMenuName)
         {
             if (currentUser == null)
             {
                 throw new Exception("请使用MenuManager(UserInfo)实例化该类。");
             }
-            return UpdateMenu(currentUser, menu);
+            return UpdateMenu(currentUser, menu, oldMenuName);
         }
 
         /// <summary>
@@ -581,10 +639,11 @@ namespace UniqueStudio.Core.Menu
         /// <remarks>该方法仅更新菜单的名称及说明，不更新菜单项。</remarks>
         /// <param name="currentUser">执行该方法的用户信息。</param>
         /// <param name="menu">菜单信息。</param>
+        /// <param name="oldMenuName">原始菜单名。</param>
         /// <returns>是否更新成功。</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
         /// 当用户没有编辑菜单的权限时抛出该异常。</exception>
-        public bool UpdateMenu(UserInfo currentUser, MenuInfo menu)
+        public bool UpdateMenu(UserInfo currentUser, MenuInfo menu, string oldMenuName)
         {
             Validator.CheckNull(menu, "menu");
             Validator.CheckNotPositive(menu.MenuId, "menu.MenuId");
@@ -595,7 +654,7 @@ namespace UniqueStudio.Core.Menu
             }
             PermissionManager.CheckPermission(currentUser, "EditMenu", "编辑菜单");
 
-            if (IsMenuExist(menu.SiteId, menu.MenuName))
+            if (menu.MenuName != oldMenuName && IsMenuExist(menu.SiteId, menu.MenuName))
             {
                 throw new Exception("该菜单名已经存在，请重新设置！");
             }
@@ -661,10 +720,10 @@ namespace UniqueStudio.Core.Menu
 
             PermissionManager.CheckPermission(currentUser, "EditMenu", "编辑菜单");
 
-            if (IsMenuItemExist(item.MenuId, item.ItemName))
-            {
-                throw new Exception("该菜单项名称已经存在，请重新设置！");
-            }
+            //if (IsMenuItemExist(item.MenuId, item.ItemName))
+            //{
+            //    throw new Exception("该菜单项名称已经存在，请重新设置！");
+            //}
 
             try
             {
@@ -683,39 +742,40 @@ namespace UniqueStudio.Core.Menu
         }
 
         /// <summary>
-        /// 返回菜单树形结构
+        /// 返回菜单树形结构。
         /// </summary>
-        /// <remarks>该根节点为临时创建的节点</remarks>
-        /// <param name="menuItems">菜单项的集合</param>
-        /// <returns>菜单树形结构的根节点</returns>
+        /// <remarks>该根节点为临时创建的节点。</remarks>
+        /// <param name="menuItems">菜单项的集合。</param>
+        /// <returns>菜单树形结构的根节点。</returns>
         public MenuItemInfo GetMenuTree(MenuItemCollection menuItems)
         {
             Validator.CheckNull(menuItems, "menuItems");
 
-            Hashtable idTable = new Hashtable();
+            Dictionary<int, int> dicIds = new Dictionary<int, int>();
+
             MenuItemInfo head = new MenuItemInfo();
             head.Depth = 0;
             head.Id = 0;
             menuItems.Insert(0, head);
-            foreach (MenuItemInfo item in menuItems)
+            for (int i = 0; i < menuItems.Count; i++)
             {
-                idTable.Add(item.Id, menuItems.IndexOf(item));
-                item.ChildItems = new MenuItemCollection();
+                dicIds.Add(menuItems[i].Id, i);
+                menuItems[i].ChildItems = new MenuItemCollection();
             }
             foreach (MenuItemInfo item in menuItems)
             {
-                menuItems[Convert.ToInt16(idTable[item.ParentItemId])].ChildItems.Add(item);
+                menuItems[dicIds[item.ParentItemId]].ChildItems.Add(item);
             }
             menuItems[0].ChildItems.Remove(menuItems[0]);
             return head;
         }
 
         /// <summary>
-        /// 返回菜单html代码
+        /// 返回菜单html代码。
         /// </summary>
-        /// <remarks>该方法可能在后续版本中移除</remarks>
-        /// <param name="head">菜单树形结构的根节点</param>
-        /// <returns>菜单html代码</returns>
+        /// <remarks>该方法将在后续版本中移除！</remarks>
+        /// <param name="head">菜单树形结构的根节点。</param>
+        /// <returns>菜单html代码。</returns>
         public string GetMenuHtml(MenuItemInfo head)
         {
             Validator.CheckNull(head, "head");

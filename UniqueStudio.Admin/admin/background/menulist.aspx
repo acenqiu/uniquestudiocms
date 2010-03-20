@@ -60,7 +60,8 @@
                 批量操作：<asp:DropDownList ID="ddlOperation" runat="server">
                     <asp:ListItem Value="delete" Text="删除"></asp:ListItem>
                 </asp:DropDownList>
-                <asp:Button ID="btnExcute" runat="server" Text="执行" OnClientClick="return selectcheck('chkSelected');" OnClick="btnExcute_Click" />
+                <asp:Button ID="btnExcute" runat="server" Text="执行" OnClick="btnExcute_Click"
+                        OnClientClick="if (selectcheck('chkSelected')) return confirm('您确定执行你所选的操作吗？');"  />
             </div>
         </div>
     </div>

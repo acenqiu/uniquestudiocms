@@ -1,8 +1,14 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：编辑菜单页面。
+// 完成日期：2010年03月20日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
-using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
 using UniqueStudio.Core.Menu;
@@ -20,7 +26,7 @@ namespace UniqueStudio.Admin.admin.background
             menuId = Converter.IntParse(Request.QueryString["menuId"], 0);
             if (menuId == 0)
             {
-                Response.Redirect("menulist.aspx");
+                Response.Redirect("menulist.aspx?siteId=" + SiteId);
             }
 
             if (!IsPostBack)
@@ -38,20 +44,26 @@ namespace UniqueStudio.Admin.admin.background
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage(ex.Message);
+                message.SetErrorMessage("数据读取失败：" + ex.Message);
             }
 
             if (menu == null)
             {
-                message.SetErrorMessage("指定的菜单不存在！");
+                message.SetErrorMessage("数据读取失败：指定的菜单不存在！");
             }
             else
             {
+                //菜单
                 txtMenuName.Text = menu.MenuName;
+                hfOldMenuName.Value = menu.MenuName;
                 txtDescription.Text = menu.Description;
 
-                txtLink.Text = SiteManager.Config(1).BaseAddress;
-
+                //菜单项
+                txtLink.Text = SiteManager.Config(SiteId).BaseAddress;
+                txtItemName.Text = string.Empty;
+                txtDescription.Text = string.Empty;
+                txtTarget.Text = string.Empty;
+                txtOrdering.Text = string.Empty;
                 ddlItems.Items.Clear();
                 ddlItems.Items.Add(new ListItem("无", "0"));
                 foreach (MenuItemInfo item in menu.Items)
@@ -61,6 +73,31 @@ namespace UniqueStudio.Admin.admin.background
 
                 rptList.DataSource = menu.Items;
                 rptList.DataBind();
+            }
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            MenuInfo menu = new MenuInfo();
+            menu.MenuId = menuId;
+            menu.SiteId = SiteId; //用于验证菜单名是否重复
+            menu.MenuName = txtMenuName.Text.Trim();
+            menu.Description = txtDescription.Text.Trim();
+
+            try
+            {
+                if ((new MenuManager()).UpdateMenu(CurrentUser, menu, hfOldMenuName.Value))
+                {
+                    message.SetSuccessMessage("菜单修改成功！");
+                }
+                else
+                {
+                    message.SetErrorMessage("菜单修改失败！");
+                }
+            }
+            catch (Exception ex)
+            {
+                message.SetErrorMessage("菜单修改失败：" + ex.Message);
             }
         }
 
@@ -81,10 +118,6 @@ namespace UniqueStudio.Admin.admin.background
                 {
                     message.SetSuccessMessage("菜单项添加成功！");
                     GetData();
-                    txtItemName.Text = "";
-                    txtDescription.Text = "";
-                    txtTarget.Text = "";
-                    txtOrdering.Text = "";
                 }
                 else
                 {
@@ -93,31 +126,7 @@ namespace UniqueStudio.Admin.admin.background
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage(ex.Message);
-            }
-        }
-
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            MenuInfo menu = new MenuInfo();
-            menu.MenuId = menuId;
-            menu.MenuName = txtMenuName.Text.Trim();
-            menu.Description = txtDescription.Text.Trim();
-
-            try
-            {
-                if ((new MenuManager()).UpdateMenu(CurrentUser, menu))
-                {
-                    message.SetSuccessMessage("菜单修改成功！");
-                }
-                else
-                {
-                    message.SetErrorMessage("菜单修改失败！");
-                }
-            }
-            catch (Exception ex)
-            {
-                message.SetErrorMessage(ex.Message);
+                message.SetErrorMessage("菜单项添加失败：" + ex.Message);
             }
         }
 
@@ -153,7 +162,7 @@ namespace UniqueStudio.Admin.admin.background
                 }
                 catch (Exception ex)
                 {
-                    message.SetErrorMessage(ex.Message);
+                    message.SetErrorMessage("所选菜单项删除失败：" + ex.Message);
                 }
                 GetData();
             }
