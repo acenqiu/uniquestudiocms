@@ -26,10 +26,6 @@ namespace UniqueStudio.Common.Config
         /// </summary>
         public static bool EnableUrlRewrite = false;
         /// <summary>
-        /// 是否启用权限检查
-        /// </summary>
-        public static bool EnablePermissionCheck = true;
-        /// <summary>
         /// 网站根目录物理路径
         /// </summary>
         public static string BasePhysicalPath = string.Empty;
@@ -43,6 +39,7 @@ namespace UniqueStudio.Common.Config
         public const string COOKIE_EMAIL = "UAccount";
         public const string COOKIE_PASSWORD = "UPassword";
         public const string COOKIE_AUTOLOGIN = "AutoLogin";
+        public const string COOKIE_SITEID = "SiteId";
 
         //Session键
         public const string SESSION_USER = "User";

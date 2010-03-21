@@ -11,10 +11,16 @@ namespace UniqueStudio.ComContent.PL.controls
 {
     public partial class PostList : System.Web.UI.UserControl
     {
+        private int siteId;
         private int categoryId;
-        private int number = SiteManager.Config(1).PageSizeOfIndexPostList;
+        private int number = 0;
         private int maxTitleLength = 15;
 
+        public int SiteId
+        {
+            get { return siteId; }
+            set { siteId = value; }
+        }
         public int CategoryId
         {
             get { return categoryId; }
@@ -22,7 +28,14 @@ namespace UniqueStudio.ComContent.PL.controls
         }
         public int Number
         {
-            get { return number; }
+            get 
+            {
+                if (number == 0)
+                {
+                    number = SiteManager.Config(siteId).PageSizeOfIndexPostList;
+                }
+                return number; 
+            }
             set { number = value; }
         }
         public int MaxTitleLength
@@ -41,7 +54,7 @@ namespace UniqueStudio.ComContent.PL.controls
                 {
                     ltlCategoryName.Text = category.CategoryName;
                     PostManager manager = new PostManager();
-                    PostCollection posts = manager.GetPostListByCatId(1, number, false,
+                    PostCollection posts = manager.GetPostListByCatId(siteId, 1, number, false,
                                                             PostListType.PublishedOnly, categoryId);
                     rptList.DataSource = posts;
                     rptList.DataBind();

@@ -3,27 +3,32 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.IO;
+
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.XmlHelper;
 using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common.Model;
-
 
 namespace UniqueStudio.ComContent.BLL
 {
     public class PictureNewsManager
     {
         private static string itemPrototype = "<item title=\"{0}\" img=\"{1}\" url=\"{2}\" target='_blank' />";
+        private static string XML_PATH = Path.Combine(GlobalConfig.BasePhysicalPath, @"xml\viewerData.xml");
+        private static string XML_ROOT = "<?xml version=\"1.0\" encoding=\"utf-8\"?><ArrayOfErrorInfo xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"></ArrayOfErrorInfo>";
+
         public static int CATEGOEY_ID = 3;
+
         public static void UpdatePictureNews(string url)
         {
-
             WriteXMLContent(url, GetXMLContent());
         }
+
         public static void UpdatePictureNews()
         {
             UpdatePictureNews(XML_PATH);
         }
+
         public static string GetXMLContent()
         {
             StringBuilder sb = new StringBuilder();
@@ -31,7 +36,7 @@ namespace UniqueStudio.ComContent.BLL
             sb.Append("<viewer interval='4000' isRandom='1'>").Append("\r\n");
             PostManager postManager = new PostManager();
 
-            List<PostInfo> postList = postManager.GetPostListByCatId(1, 3, false, PostListType.Both, CATEGOEY_ID);
+            List<PostInfo> postList = postManager.GetPostListByCatId(1, 1, 3, false, PostListType.PublishedOnly, CATEGOEY_ID);
 
 
             foreach (PostInfo post in postList)
@@ -45,14 +50,12 @@ namespace UniqueStudio.ComContent.BLL
             sb.Append("</viewer>").Append("\r\n");
             return sb.ToString();
         }
+
         public static void WriteXMLContent(string url, string content)
         {
             XmlManager manager = new XmlManager();
             manager.SaveXml(url, content);
-
         }
-        private static string XML_PATH = Path.Combine(GlobalConfig.BasePhysicalPath, @"xml\viewerData.xml");
-        private static string XML_ROOT = "<?xml version=\"1.0\" encoding=\"utf-8\"?><ArrayOfErrorInfo xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"></ArrayOfErrorInfo>";
 
         public static void LogError(Exception e)
         {

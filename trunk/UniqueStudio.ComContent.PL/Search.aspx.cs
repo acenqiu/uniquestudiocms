@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
 using System.Text.RegularExpressions;
+using System.Web;
 
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
@@ -17,7 +9,7 @@ using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.ComContent.PL
 {
-    public partial class Search : System.Web.UI.Page
+    public partial class Search : Controls.BasePage
     {
         private const string ErrorMessage = "<div class=\"error\">{0}</div>";
 
@@ -25,7 +17,7 @@ namespace UniqueStudio.ComContent.PL
         {
             if (!IsPostBack)
             {
-                Header.Title = "搜索 - " + SiteManager.Config(1).WebName;
+                Header.Title = "搜索 - " + SiteManager.Config(SiteId).WebName;
 
                 PostCollection collection = null;
                 PostManager manager = new PostManager();
@@ -35,7 +27,7 @@ namespace UniqueStudio.ComContent.PL
                     if (Request.QueryString["title"] != null)
                     {
                         key = HttpUtility.UrlDecode(Request.QueryString["title"]);
-                        collection = manager.SearchPostsByTitle(key);
+                        collection = manager.SearchPostsByTitle(SiteId, key);
                         if (collection != null)
                         {
                             Regex r = new Regex("(?<v>" + key + ")");
@@ -48,13 +40,13 @@ namespace UniqueStudio.ComContent.PL
                     else if (Request.QueryString["author"] != null)
                     {
                         key = HttpUtility.UrlDecode(Request.QueryString["author"]);
-                        collection = manager.SearchPostsByAuthor(key);
+                        collection = manager.SearchPostsByAuthor(SiteId, key);
                     }
                     else if (Request.QueryString["start"] != null && Request.QueryString["end"] != null)
                     {
                         DateTime startTime = Converter.DatetimeParse(Request.QueryString["start"], new DateTime());
                         DateTime endTime = Converter.DatetimeParse(Request.QueryString["end"], new DateTime());
-                        collection = manager.SearchPostsByTime(startTime, endTime);
+                        collection = manager.SearchPostsByTime(SiteId, startTime, endTime);
                     }
                     else
                     {

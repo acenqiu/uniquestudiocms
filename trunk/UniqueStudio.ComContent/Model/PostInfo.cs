@@ -10,7 +10,8 @@ namespace UniqueStudio.ComContent.Model
     [Serializable]
     public class PostInfo
     {
-        private Int64 uri = 0;
+        private long uri = 0;
+        private int siteId;
         private string addUserName = string.Empty;
         private string lastEditUserName = string.Empty;
         private DateTime createDate;
@@ -44,10 +45,18 @@ namespace UniqueStudio.ComContent.Model
         /// <summary>
         /// 唯一标示uri
         /// </summary>
-        public Int64 Uri
+        public long Uri
         {
             get { return uri; }
             set { uri = value; }
+        }
+        /// <summary>
+        /// 网站ID。
+        /// </summary>
+        public int SiteId
+        {
+            get { return siteId; }
+            set { siteId = value; }
         }
         /// <summary>
         /// 文章发布作者

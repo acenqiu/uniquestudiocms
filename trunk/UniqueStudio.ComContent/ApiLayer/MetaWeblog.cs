@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using CookComputing.XmlRpc;
-using UniqueStudio.Core.User;
-using UniqueStudio.Common;
+
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
+using UniqueStudio.Common.Exceptions;
+using UniqueStudio.Common.ErrorLogging;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 using UniqueStudio.Core.Category;
+using UniqueStudio.Core.User;
+
 namespace UniqueStudio.ComContent.ApiLayer
 {
     public class MetaWeblog : XmlRpcService, IMetaWeblog
@@ -143,7 +145,7 @@ namespace UniqueStudio.ComContent.ApiLayer
                 postInfo = new PostInfo();
                 try
                 {
-                    postInfo = postManager.GetPost(Convert.ToInt64(postid));
+                    postInfo = postManager.GetPost(userInfo, Convert.ToInt64(postid));
                 }
                 catch
                 {
@@ -198,7 +200,8 @@ namespace UniqueStudio.ComContent.ApiLayer
                 //TODO:offset and PostListType
                 try
                 {
-                    PostCollection postCollection = postManager.GetRecentPosts(numberOfPosts, 0, true, PostListType.PublishedOnly);
+                    int siteId = Converter.IntParse(blogid, 0);
+                    PostCollection postCollection = postManager.GetRecentPosts(siteId, numberOfPosts, 0, true, PostListType.PublishedOnly);
                     for (int i = 0; i < numberOfPosts; i++)
                     {
                         string[] cates = new string[postCollection[i].Categories.Count];

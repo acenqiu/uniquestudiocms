@@ -11,7 +11,7 @@ using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComContent.PL
 {
-    public partial class list : System.Web.UI.Page
+    public partial class list : Controls.BasePage
     {
         protected DateTime dt;
 
@@ -36,7 +36,7 @@ namespace UniqueStudio.ComContent.PL
             {
                 CategoryId = Converter.IntParse(Request.QueryString["catId"], 1);
                 int pageIndex = Converter.IntParse(Request.QueryString["page"], 1);
-                int pageSize = Converter.IntParse(Request.QueryString["size"], SiteManager.Config(1).PageSizeOfSectionPostList);
+                int pageSize = Converter.IntParse(Request.QueryString["size"], SiteManager.Config(SiteId).PageSizeOfSectionPostList);
 
 
                 CategoryManager catManager = new CategoryManager();
@@ -44,7 +44,7 @@ namespace UniqueStudio.ComContent.PL
                 if (category != null)
                 {
                     //设置网页标题
-                    Page.Header.Title = category.CategoryName + " - " + SiteManager.Config(1).WebName;
+                    Page.Header.Title = category.CategoryName + " - " + SiteManager.Config(SiteId).WebName;
 
                     categories.CategoryId = category.CategoryId;
 
@@ -58,11 +58,11 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    Response.Redirect(SiteManager.Config(1).BaseAddress + "/404.aspx");
+                    Response.Redirect(SiteManager.Config(SiteId).BaseAddress + "/404.aspx");
                 }
 
                 PostManager postManager = new PostManager();
-                PostCollection posts = postManager.GetPostListByCatId(pageIndex, pageSize, false, PostListType.PublishedOnly, CategoryId);
+                PostCollection posts = postManager.GetPostListByCatId(SiteId, pageIndex, pageSize, false, PostListType.PublishedOnly, CategoryId);
                 if (posts != null)
                 {
                     rptList.DataSource = posts;
