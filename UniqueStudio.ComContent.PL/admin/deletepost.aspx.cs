@@ -11,7 +11,7 @@ using UniqueStudio.Common.Model;
 
 namespace UniqueStudio.ComContent.PL
 {
-    public partial class deletepost : System.Web.UI.Page
+    public partial class deletepost : Controls.BasePage
     {
         private PostManager bll = new PostManager();
 
@@ -19,14 +19,12 @@ namespace UniqueStudio.ComContent.PL
         {
             if (!IsPostBack)
             {
-                UserInfo user = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
-                PostPermissionManager ppm = new PostPermissionManager();
                 if (Request.QueryString["uriCollection"] != null)
                 {
                     string[] uris = Request.QueryString["uriCollection"].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (string item in uris)
                     {
-                        if (!ppm.HasDeletePermission(user, Convert.ToInt64(item)))
+                        if (!PostPermissionManager.HasDeletePermission(CurrentUser, Convert.ToInt64(item)))
                         {
                             Response.Redirect("PostPermissionError.aspx?Error=删除文章&Page=" + Request.UrlReferrer.ToString());
                         }
@@ -34,14 +32,13 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    Response.Redirect("postlist.aspx");
+                    Response.Redirect("postlist.aspx?siteId=" + SiteId);
                 }
             }
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            UserInfo user = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
             string[] uriCollection = Request.QueryString["uriCollection"].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             List<string> errorCollection = new List<string>();
             long uri;
@@ -49,7 +46,7 @@ namespace UniqueStudio.ComContent.PL
             {
                 if (long.TryParse(uriString, out uri))
                 {
-                    if (!bll.DeletePost(user, uri))
+                    if (!bll.DeletePost(CurrentUser, uri))
                     {
                         errorCollection.Add(uriString);
                     }
@@ -88,7 +85,7 @@ namespace UniqueStudio.ComContent.PL
             }
             else
             {
-                Response.Redirect("postlist.aspx");
+                Response.Redirect("postlist.aspx?siteId=" + SiteId);
             }
         }
 

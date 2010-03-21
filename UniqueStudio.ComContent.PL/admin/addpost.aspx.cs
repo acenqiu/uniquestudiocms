@@ -10,15 +10,13 @@ using UniqueStudio.ComContent.BLL;
 
 namespace UniqueStudio.ComContent.PL
 {
-    public partial class addpost : System.Web.UI.Page
+    public partial class addpost : Controls.BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                UserInfo user = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
-                PostPermissionManager ppm = new PostPermissionManager();
-                if (!ppm.HasAddPermission(user))
+                if (!PostPermissionManager.HasAddPermission(CurrentUser, SiteId))
                 {
                     //Response.Redirect("PostPermissionError.aspx?Error=添加文章&Page=" + Request.UrlReferrer.ToString());
                 }

@@ -12,7 +12,7 @@ using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComContent.PL
 {
-    public partial class view : System.Web.UI.Page
+    public partial class view : Controls.BasePage
     {
         protected DateTime dt;
 
@@ -36,14 +36,14 @@ namespace UniqueStudio.ComContent.PL
                 long uri = Converter.LongParse(Request.QueryString["uri"], 0);
                 if (uri == 0)
                 {
-                    Response.Redirect(SiteManager.Config(1).BaseAddress + "/404.aspx");
+                    Response.Redirect(SiteManager.Config(SiteId).BaseAddress + "/404.aspx");
                 }
 
                 PostManager postManager = new PostManager();
-                PostInfo post = postManager.GetPost(uri);
+                PostInfo post = postManager.GetPost(null, uri);
                 if (post != null)
                 {
-                    Page.Header.Title = post.Title + " - " + SiteManager.Config(1).WebName;
+                    Page.Header.Title = post.Title + " - " + SiteManager.Config(SiteId).WebName;
                     ltlTitle.Text = post.Title;
                     ltlAuthor.Text = post.Author.Length == 0 ? "匿名" : post.Author;
                     ltlCount.Text = post.Count.ToString();
@@ -75,7 +75,7 @@ namespace UniqueStudio.ComContent.PL
                         if (enclosure != null)
                         {
                             ltlAttachmentExt.Text = enclosure.Type.Substring(1);
-                            ltlAttachmentLink.Text = SiteManager.Config(1).BaseAddress + enclosure.Url;
+                            ltlAttachmentLink.Text = SiteManager.Config(SiteId).BaseAddress + enclosure.Url;
                             ltlAttachmentTitle.Text = enclosure.Tittle;
                         }
                     }
@@ -114,7 +114,7 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    Response.Redirect(SiteManager.Config(1).BaseAddress + "/404.aspx");
+                    Response.Redirect(SiteManager.Config(SiteId).BaseAddress + "/404.aspx");
                 }
             }
         }

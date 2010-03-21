@@ -10,14 +10,12 @@ using UniqueStudio.ComContent.BLL;
 
 namespace UniqueStudio.ComContent.PL
 {
-    public partial class editpost : System.Web.UI.Page
+    public partial class editpost : Controls.BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                UserInfo user = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
-                PostPermissionManager ppm = new PostPermissionManager();
                 string ret = string.Empty;
                 if (Request.QueryString["ret"] != null)
                 {
@@ -30,7 +28,7 @@ namespace UniqueStudio.ComContent.PL
 
                 if (Request.QueryString["uri"] != null)
                 {
-                    if (!ppm.HasEditPermission(user, Convert.ToInt64(Request.QueryString["uri"])))
+                    if (!PostPermissionManager.HasEditPermission(CurrentUser, Convert.ToInt64(Request.QueryString["uri"])))
                     {
                         Response.Redirect("PostPermissionError.aspx?Error=编辑文章&Page=" + Request.UrlReferrer.ToString());
                     }

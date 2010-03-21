@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
 using System.Web;
-using System.Xml;
-using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 
-using UniqueStudio.Core.Category;
-using UniqueStudio.Core.User;
-using UniqueStudio.Core.Site;
-using UniqueStudio.Common.Config;
-using UniqueStudio.Common.Model;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
+using UniqueStudio.Common.Config;
+using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
 using UniqueStudio.Common.XmlHelper;
+using UniqueStudio.Core.Category;
+using UniqueStudio.Core.Site;
+using UniqueStudio.Core.User;
 
 namespace UniqueStudio.ComContent.PL
 {
@@ -42,6 +39,8 @@ namespace UniqueStudio.ComContent.PL
 
         private PostManager bll = new PostManager();
         private XmlManager xm = new XmlManager();
+
+        private UserInfo currentUser;
         private long uri;
         private int siteId;
         private EditorMode mode;
@@ -51,6 +50,11 @@ namespace UniqueStudio.ComContent.PL
             get { return uri; }
             set { uri = value; }
         }
+        public int SiteId
+        {
+            get { return siteId; }
+            set { siteId = value; }
+        }
         public EditorMode Mode
         {
             get { return mode; }
@@ -59,7 +63,7 @@ namespace UniqueStudio.ComContent.PL
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            siteId = Converter.IntParse(Request.QueryString["siteId"], 1);
+            currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
             if (!IsPostBack)
             {
                 CategoryManager manager = new CategoryManager();
@@ -68,9 +72,10 @@ namespace UniqueStudio.ComContent.PL
                 cblCategory.DataTextField = "CategoryName";
                 cblCategory.DataValueField = "CategoryID";
                 cblCategory.DataBind();
+
                 if (mode == EditorMode.Edit)
                 {
-                    PostInfo post = bll.GetPost(uri);
+                    PostInfo post = bll.GetPost(currentUser, uri);
 
                     if (post != null)
                     {
@@ -110,13 +115,13 @@ namespace UniqueStudio.ComContent.PL
                             default:
                                 break;
                         }
-                        foreach (CategoryInfo item in post.Categories)
+                        foreach (CategoryInfo category in post.Categories)
                         {
-                            foreach (ListItem ite in cblCategory.Items)
+                            foreach (ListItem item in cblCategory.Items)
                             {
-                                if (item.CategoryId.ToString() == ite.Value)
+                                if (category.CategoryId.ToString() == item.Value)
                                 {
-                                    ite.Selected = true;
+                                    item.Selected = true;
                                 }
                             }
                         }
@@ -137,16 +142,15 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    UserInfo user = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
-                    UserManager um = new UserManager();
-                    user = um.GetUserInfo(user, user.UserId);
-                    if (user.ExInfo != null)
+                    //EditorMode.Add
+                    currentUser = (new UserManager()).GetUserInfo(currentUser, currentUser.UserId);
+                    if (currentUser.ExInfo != null)
                     {
-                        txtAuthor.Text = user.ExInfo.PenName;
+                        txtAuthor.Text = currentUser.ExInfo.PenName;
                     }
                     else
                     {
-                        txtAuthor.Text = ((UserInfo)this.Session[GlobalConfig.SESSION_USER]).UserName;
+                        txtAuthor.Text = currentUser.UserName;
                     }
                     txtAddDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
                 }
@@ -155,8 +159,6 @@ namespace UniqueStudio.ComContent.PL
 
         protected void btnPublish_Click(object sender, EventArgs e)
         {
-            UserInfo user = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
-            PostPermissionManager ppm = new PostPermissionManager();
             PostInfo post = null;
 
             if (mode == EditorMode.Add)
@@ -169,9 +171,11 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    if (SiteManager.Config(1).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+                    if (SiteManager.Config(siteId).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
                     {
                         //显示扩展名不正确信息
+
+                        //TODO:该行重写！
                         Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
                         return;
                     }
@@ -200,8 +204,9 @@ namespace UniqueStudio.ComContent.PL
                         post.Settings = xmldoc.OuterXml;
                     }
                 }
+                post.SiteId = siteId;
                 post.Title = txtTitle.Text;
-                post.AddUserName = user.UserName;
+                post.AddUserName = currentUser.UserName;
                 post.CreateDate = Converter.DatetimeParse(txtAddDate.Text, DateTime.Now);
                 post.SubTitle = txtSubTitle.Text;
                 post.Author = txtAuthor.Text;
@@ -252,10 +257,10 @@ namespace UniqueStudio.ComContent.PL
                 post.Taxis = 1;
                 post.IsPublished = true;
 
-                long postId = bll.AddPost(user, post);
+                long postId = bll.AddPost(currentUser, post);
                 if (postId > 0)
                 {
-                    Response.Redirect("editpost.aspx?msg=" + HttpUtility.UrlEncode("发布成功！") + "&uri=" + postId);
+                    Response.Redirect(string.Format("editpost.aspx?msg={0}&siteId={1}&uri={2}",HttpUtility.UrlEncode("发布成功！"),postId));
                 }
                 else
                 {
@@ -267,9 +272,10 @@ namespace UniqueStudio.ComContent.PL
                 if (ViewState["post"] != null)
                 {
                     post = (PostInfo)ViewState["post"];
-                    if (!ppm.HasEditPermission(user, post.AddUserName, false))
+                    if (!PostPermissionManager.HasEditPermission(currentUser,post.Uri))
                     {
-                        Response.Redirect("PostPermissionError.aspx?Error=编辑文章&Page=" + Request.UrlReferrer.ToString());
+                        //可能出现空引用
+                        //Response.Redirect("PostPermissionError.aspx?Error=编辑文章&Page=" + Request.UrlReferrer.ToString());
                     }
                     post.Title = txtTitle.Text;
                     post.SubTitle = txtSubTitle.Text;
@@ -308,9 +314,10 @@ namespace UniqueStudio.ComContent.PL
                             Enclosure attachement = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), null);
                             if (!(attachement.Tittle == enclosure.FileName))
                             {
-                                if (SiteManager.Config(1).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+                                if (SiteManager.Config(siteId).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
                                 {
                                     //显示扩展名不正确信息
+                                    //下行重写!
                                     Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
                                     return;
                                 }
@@ -366,11 +373,11 @@ namespace UniqueStudio.ComContent.PL
                     {
                         post.Summary = "";
                     }
-                    post.LastEditUserName = user.UserName;
+                    post.LastEditUserName = currentUser.UserName;
                     post.LastEditDate = DateTime.Now;
                     post.IsPublished = true;
 
-                    if (bll.EditPost(user, post))
+                    if (bll.EditPost(currentUser, post))
                     {
                         message.SetSuccessMessage("发布成功");
                     }
@@ -390,8 +397,6 @@ namespace UniqueStudio.ComContent.PL
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            UserInfo user = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
-            PostPermissionManager ppm = new PostPermissionManager();
             PostInfo post = null;
 
             if (mode == EditorMode.Add)
@@ -404,7 +409,7 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    if (SiteManager.Config(1).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+                    if (SiteManager.Config(siteId).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
                     {
                         //显示扩展名不正确信息
                         Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
@@ -435,6 +440,7 @@ namespace UniqueStudio.ComContent.PL
                         post.Settings = xmldoc.OuterXml;
                     }
                 }
+                post.SiteId = siteId;
                 post.Title = txtTitle.Text;
                 post.SubTitle = txtSubTitle.Text;
                 post.Author = txtAuthor.Text;
@@ -452,21 +458,13 @@ namespace UniqueStudio.ComContent.PL
                 post.PostDisplay = 0;
                 if (tittleChecked.Checked == true)
                 {
-                    post.PostDisplay += 1;
+                    post.PostDisplay = 1;
                 }
                 if (otherChecked.Checked == true)
                 {
                     post.PostDisplay += 2;
                 }
-                //post.CategoryId = Convert.ToInt32(ddlCategory.SelectedValue);
                 CategoryManager cm = new CategoryManager();
-                //string[] s = StringManager(cblCategory.SelectedValue);
-                //CategoryCollection cates = new CategoryCollection();
-                //for (int i = 0; i < s.Length; i++)
-                //{
-                //    cates.Add(cm.GetCategory(Convert.ToInt32(s[i])));
-                //}
-                //post.Categories = cates;
                 CategoryCollection cates = new CategoryCollection();
                 bool isCategoryChecked = false;
                 foreach (ListItem item in cblCategory.Items)
@@ -492,11 +490,10 @@ namespace UniqueStudio.ComContent.PL
                     post.Summary = "";
                 }
                 post.Taxis = 1;
-                //post.AddUserName = this.Session[Global.SESSION_NAME].ToString();
                 post.AddUserName = string.Empty;
                 post.IsPublished = false;
 
-                long postId = bll.AddPost(user, post);
+                long postId = bll.AddPost(currentUser, post);
                 if (postId > 0)
                 {
                     Response.Redirect("editpost.aspx?msg=" + HttpUtility.UrlEncode("保存成功！") + "&uri=" + postId);
@@ -528,21 +525,13 @@ namespace UniqueStudio.ComContent.PL
                     post.PostDisplay = 0;
                     if (tittleChecked.Checked == true)
                     {
-                        post.PostDisplay += 1;
+                        post.PostDisplay = 1;
                     }
                     if (otherChecked.Checked == true)
                     {
                         post.PostDisplay += 2;
                     }
-                    //  post.CategoryId = Convert.ToInt32(ddlCategory.SelectedValue);
                     CategoryManager cm = new CategoryManager();
-                    //string[] s = StringManager(cblCategory.SelectedValue);
-                    //CategoryCollection cates = new CategoryCollection();
-                    //for (int i = 0; i < s.Length; i++)
-                    //{
-                    //    cates.Add(cm.GetCategory(Convert.ToInt32(s[i])));
-                    //}
-                    //post.Categories = cates;
                     post.Settings = string.Empty;
                     post.NewsImage = NewsImageManager();
                     if (filename.Visible == true)
@@ -557,7 +546,7 @@ namespace UniqueStudio.ComContent.PL
                             Enclosure attachement = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), "");
                             if (!(attachement.Tittle == enclosure.FileName))
                             {
-                                if (SiteManager.Config(1).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+                                if (SiteManager.Config(siteId).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
                                 {
                                     //显示扩展名不正确信息
                                     Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
@@ -613,12 +602,10 @@ namespace UniqueStudio.ComContent.PL
                     {
                         //post.Summary = post.Content.Substring(0, Global.SummaryLength > post.Content.Length ? post.Content.Length : Global.SummaryLength);
                     }
-                    //post.LastEditUserName = this.Session[Global.SESSION_NAME].ToString();
 
-                    if (bll.EditPost(user, post))
+                    if (bll.EditPost(currentUser, post))
                     {
                         message.SetSuccessMessage("保存成功");
-                        //Response.Redirect("editpost.aspx?uri=" + post.Uri);
                     }
                     else
                     {
@@ -633,54 +620,7 @@ namespace UniqueStudio.ComContent.PL
                 }
             }
         }
-        //private string EnclosureManager()
-        //{
-        //    if (filename.Visible == true)
-        //    {
-        //        if (!enclosure.HasFile)
-        //        {
-        //            //显示无文件信息
-        //            return string.Empty;
-        //        }
-        //        else
-        //        {
-        //             Enclosure attachement = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), "");
-        //            if (!(attachement.Tittle == enclosure.FileName))
-        //            {
-        //                if (SiteManager.Config(1).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
-        //                {
-        //                    //显示扩展名不正确信息
-        //                    Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
-        //                    return string.Empty;
-        //                }
-        //                else
-        //                {
-        //                    string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + enclosure.FileName;
-        //                    string filepath = Server.MapPath(@"~/upload/" + urlpath);
-        //                    try
-        //                    {
-        //                        enclosure.SaveAs(filepath);
-        //                        filename.Style["Visible"] = "true";
-        //                        filename.Text = enclosure.FileName;
-        //                        Enclosure enclosureInfo = new Enclosure();
-        //                        enclosureInfo.Tittle = enclosure.FileName;
-        //                        enclosureInfo.Length = enclosure.FileContent.Length;
-        //                        enclosureInfo.Type = System.IO.Path.GetExtension(enclosure.FileName);
-        //                        enclosureInfo.Url = "/upload/" + urlpath;
-        //                        XmlDocument xmldoc = xm.ConvertToXml(enclosureInfo, typeof(Enclosure));
-        //                        return xmldoc.OuterXml;
-        //                    }
-        //                    catch
-        //                    {
-        //                        //显示上传失败
-        //                        Response.Write("<script type='text/javascript'>alert('文件上传失败，请重新上传')</script>");
-        //                        return string.Empty;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+
         private string NewsImageManager()
         {
             if (!newsimage.HasFile)
@@ -720,39 +660,3 @@ namespace UniqueStudio.ComContent.PL
         }
     }
 }
-
-////protected void upfilebtn_Click(object sender, EventArgs e)
-//{
-//    //if (!(filename.Style["Visible"] == "false"))
-//    //{
-//    //    //提示会删除原附件
-//    //}
-//    //if (!enclosure.HasFile)
-//    //{
-//    //    //显示无文件信息
-//    //    return;
-//    //}
-//    //else
-//    //{
-//    //    if (WebSiteConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
-//    //    {
-//    //        //显示扩展名不正确信息
-//    //        return;
-//    //    }
-//    //    else
-//    //    {
-//    //        string filepath = Server.MapPath(@"~/upload/" + enclosure.FileName);
-//    //        try
-//    //        {
-//    //            enclosure.SaveAs(filepath);
-//    //            filename.Style["Visible"] = "true";
-//    //            filename.Text = enclosure.FileName;
-//    //        }
-//    //        catch
-//    //        {
-//    //            //显示上传失败
-//    //            return;
-//    //        }
-//    //    }
-//    //}
-//}

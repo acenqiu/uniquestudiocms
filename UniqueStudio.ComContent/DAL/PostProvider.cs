@@ -1,20 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：执行文章管理的数据库方法。
+// 完成日期：2010年03月21日
+// 版本：v0.8
+// 作者：任浩玮
+//=================================================================
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
-using UniqueStudio.Core.Category;
-using UniqueStudio.Common.DatabaseHelper;
-using UniqueStudio.Common.Config;
 using UniqueStudio.ComContent.Model;
-using UniqueStudio.DAL.Uri;
+using UniqueStudio.Common.Config;
+using UniqueStudio.Common.DatabaseHelper;
 using UniqueStudio.Common.Model;
+using UniqueStudio.DAL.Uri;
 
 namespace UniqueStudio.ComContent.DAL
 {
     /// <summary>
-    /// 执行文章管理的数据库方法
+    /// 执行文章管理的数据库方法。
     /// </summary>
     public class PostProvider
     {
@@ -45,7 +49,7 @@ namespace UniqueStudio.ComContent.DAL
         private const string GET_POST_LIST_ALL_BY_USER_PERMISSION = "GetPostListAllByUserPermission";
 
         /// <summary>
-        /// 初始化<see cref="ContentProvider"/>类的实例
+        /// 初始化<see cref="ContentProvider"/>类的实例。
         /// </summary>
         public PostProvider()
         {
@@ -53,15 +57,16 @@ namespace UniqueStudio.ComContent.DAL
         }
 
         /// <summary>
-        /// 添加一篇文章
+        /// 添加一篇文章。
         /// </summary>
-        /// <param name="post"><see cref="PostInfo"/></param>
-        /// <returns>如果添加成功，返回文章的Uri，否则抛出异常</returns>
-        public Int64 AddPost(PostInfo post, bool isPublish)
+        /// <param name="post">文章信息。</param>
+        /// <returns>如果添加成功，返回文章的Uri，否则返回0。</returns>
+        public long AddPost(PostInfo post)
         {
-            Int64 uri = UriProvider.GetNewUri(ResourceType.Article);
-            SqlParameter[] postparms = new SqlParameter[]{
+            long uri = UriProvider.GetNewUri(ResourceType.Article);
+            SqlParameter[] parms = new SqlParameter[]{
                                                     new SqlParameter("@Uri",uri),
+                                                    new SqlParameter("@SiteID",post.SiteId),
                                                     new SqlParameter("@AddUserName",post.AddUserName),
                                                     new SqlParameter("@NewsImage",post.NewsImage),
                                                     new SqlParameter("@CreateDate",post.CreateDate),
@@ -86,18 +91,14 @@ namespace UniqueStudio.ComContent.DAL
                 }
                 using (SqlTransaction trans = conn.BeginTransaction())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    using (SqlCommand cmd = new SqlCommand(ADD_POST, conn))
                     {
-                        cmd.Connection = conn;
                         cmd.Transaction = trans;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddRange(parms);
+
                         try
                         {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.CommandText = ADD_POST;
-                            foreach (SqlParameter parm in postparms)
-                            {
-                                cmd.Parameters.Add(parm);
-                            }
                             if (cmd.ExecuteNonQuery() <= 0)
                             {
                                 trans.Rollback();
@@ -134,28 +135,21 @@ namespace UniqueStudio.ComContent.DAL
         }
 
         /// <summary>
-        /// 删除一篇文章
+        /// 删除一篇文章。
         /// </summary>
-        /// <param name="uri">文章Uri</param>
-        /// <returns></returns>
-        public bool DeletePost(Int64 uri)
+        /// <param name="uri">文章Uri。</param>
+        /// <returns>是否删除成功。</returns>
+        public bool DeletePost(long uri)
         {
             SqlParameter parm = new SqlParameter("@Uri", uri);
-            if (SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, DELETE_POST, parm) > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, DELETE_POST, parm) > 0;
         }
 
         /// <summary>
-        /// 编辑一篇文章
+        /// 编辑一篇文章。
         /// </summary>
-        /// <param name="post"><see cref="PostInfo"/></param>
-        /// <returns>是否编辑成功</returns>
+        /// <param name="post">文章信息。</param>
+        /// <returns>是否编辑成功。</returns>
         public bool EditPost(PostInfo post)
         {
             SqlParameter[] parms = new SqlParameter[]{
@@ -187,29 +181,23 @@ namespace UniqueStudio.ComContent.DAL
                     {
                         cmd.Connection = conn;
                         cmd.Transaction = trans;
+                        cmd.CommandType = CommandType.StoredProcedure;
                         try
                         {
-                            cmd.CommandType = CommandType.StoredProcedure;
                             cmd.CommandText = EDIT_POST;
-                            foreach (SqlParameter parm in parms)
-                            {
-                                cmd.Parameters.Add(parm);
-                            }
+                            cmd.Parameters.AddRange(parms);
                             if (cmd.ExecuteNonQuery() <= 0)
                             {
                                 trans.Rollback();
                                 cmd.Parameters.Clear();
                                 return false;
                             }
+
                             cmd.Parameters.Clear();
                             cmd.Parameters.AddWithValue("@PostUri", post.Uri);
                             cmd.CommandText = DELETE_POST_CATEGORYID;
-                            if (cmd.ExecuteNonQuery() <= 0)
-                            {
-                                trans.Rollback();
-                                cmd.Parameters.Clear();
-                                return false;
-                            }
+                            cmd.ExecuteNonQuery(); //不判断是否大于0，以避免原文章没有选择分类时报错。
+
                             cmd.Parameters.Add("@CategoryID", SqlDbType.Int);
                             cmd.CommandText = ADD_POST_CATEGORYID;
                             foreach (CategoryInfo cate in post.Categories)
@@ -237,110 +225,76 @@ namespace UniqueStudio.ComContent.DAL
         }
 
         /// <summary>
-        /// 返回指定文章
+        /// 返回指定文章。
         /// </summary>
-        /// <param name="uri">文章Uri</param>
-        /// <returns><see cref="PostInfo"/></returns>
-        public PostInfo GetPost(Int64 uri)
+        /// <param name="uri">文章Uri。</param>
+        /// <returns>文章信息。</returns>
+        public PostInfo GetPost(long uri)
         {
             PostInfo post = new PostInfo();
-            post.Uri = uri;
-            SqlParameter parm = new SqlParameter("@Uri", uri);
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
             {
                 if (conn.State == ConnectionState.Closed)
                 {
                     conn.Open();
                 }
-                using (SqlTransaction trans = conn.BeginTransaction())
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.Connection = conn;
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.CommandText = GET_POST;
+                    cmd.Parameters.AddWithValue("@Uri", uri);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        cmd.Connection = conn;
-                        cmd.Transaction = trans;
-                        try
+                        if (reader.Read())
                         {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.CommandText = GET_POST;
-                            cmd.Parameters.Add(parm);
-                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            post = FillPostInfo(reader, true);
+                            post.Content = (string)reader["Content"];
+                            post.PostDisplay = Convert.ToInt32(reader["PostDisplay"]);
+                            if (reader["NewsImage"] != DBNull.Value)
                             {
-                                if (reader.Read())
-                                {
-                                    post.AddUserName = (string)reader["AddUserName"];
-                                    post.CreateDate = Convert.ToDateTime(reader["CreateDate"].ToString());
-                                    post.Taxis = (int)reader["Taxis"];
-                                    post.Title = (string)reader["Title"];
-                                    post.SubTitle = (string)reader["SubTitle"];
-                                    post.Summary = (string)reader["Summary"];
-                                    post.Author = (string)reader["Author"];
-                                    if (reader["Settings"] != DBNull.Value)
-                                    {
-                                        post.Settings = (string)reader["Settings"];
-                                    }
-                                    post.IsRecommend = Convert.ToBoolean(reader["IsRecommend"].ToString());
-                                    post.IsHot = Convert.ToBoolean(reader["IsHot"].ToString());
-                                    post.IsTop = Convert.ToBoolean(reader["IsTop"].ToString());
-                                    post.IsAllowComment = Convert.ToBoolean(reader["IsAllowComment"].ToString());
-                                    post.IsPublished = Convert.ToBoolean(reader["IsPublished"].ToString());
-                                    post.Count = (int)reader["Count"];
-                                    post.Content = (string)reader["Content"];
-                                    post.PostDisplay = Convert.ToInt32(reader["PostDisplay"]);
-                                    if (reader["NewsImage"] != DBNull.Value)
-                                    {
-                                        post.NewsImage = (string)reader["NewsImage"];
-                                    }
-                                }
-                                else
-                                {
-                                    return null;
-                                }
-                            }
-                            cmd.CommandText = GET_CATEGORYINFO_BY_POSTURI;
-                            using (SqlDataReader reader = cmd.ExecuteReader())
-                            {
-                                CategoryCollection cates = new CategoryCollection();
-                                CategoryInfo cate;
-                                while (reader.Read())
-                                {
-                                    cate = new CategoryInfo();
-                                    cate.CategoryId = Convert.ToInt32(reader["CategoryID"]);
-                                    cate.CategoryName = (string)reader["CategoryName"];
-                                    cate.CategoryNiceName = (string)reader["CategoryNiceName"];
-                                    if (reader["SubOF"] != DBNull.Value)
-                                    {
-                                        cate.ParentCategoryId = Convert.ToInt32(reader["SubOf"]);
-                                    }
-                                    if (reader["Description"] != DBNull.Value)
-                                    {
-                                        cate.Description = (string)reader["Description"];
-                                    }
-                                    cates.Add(cate);
-                                }
-                                post.Categories = cates;
+                                post.NewsImage = (string)reader["NewsImage"];
                             }
                         }
-                        catch (Exception)
+                        else
                         {
-                            trans.Rollback();
                             return null;
                         }
 
+                        reader.Close();
                     }
+
+                    cmd.CommandText = GET_CATEGORYINFO_BY_POSTURI;
+                    cmd.Parameters.Clear();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        post.Categories = new CategoryCollection();
+                        CategoryInfo category;
+                        while (reader.Read())
+                        {
+                            category = new CategoryInfo();
+                            category.CategoryId = (int)reader["CategoryID"];
+                            category.CategoryName = (string)reader["CategoryName"];
+                            category.CategoryNiceName = (string)reader["CategoryNiceName"];
+                            post.Categories.Add(category);
+                        }
+                        reader.Close();
+                    }
+                    return post;
                 }
             }
-            return post;
         }
 
         /// <summary>
-        /// 获得文章标题
+        /// 获得指定文章标题。
         /// </summary>
-        /// <param name="uri"></param>
-        /// <returns></returns>
-        public string GetPostTitle(Int64 uri)
+        /// <param name="uri">文章Uri。</param>
+        /// <returns>文章标题。</returns>
+        public string GetPostTitle(long uri)
         {
             SqlParameter parm = new SqlParameter("@Uri", uri);
-            object o = SqlHelper.ExecuteScalar(GlobalConfig.SqlConnectionString, CommandType.StoredProcedure, GET_POST_TITLE, parm);
+            object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, GET_POST_TITLE, parm);
             if (o != null && o != DBNull.Value)
             {
                 return o.ToString();
@@ -351,6 +305,11 @@ namespace UniqueStudio.ComContent.DAL
             }
         }
 
+        /// <summary>
+        /// 返回文章数量统计信息。
+        /// </summary>
+        /// <param name="isByYear">是否按年统计文章数量。</param>
+        /// <returns>文章数量信息的集合。</returns>
         public PostStatCollection GetPostStat(bool isByYear)
         {
             PostStatCollection collection = new PostStatCollection();
@@ -408,17 +367,19 @@ namespace UniqueStudio.ComContent.DAL
                 return -1;
             }
         }
+
         /// <summary>
-        /// 根据用户权限获取文章
+        /// 根据用户权限获取文章。
         /// </summary>
-        /// <param name="pageIndex">页码，从1起始</param>
-        /// <param name="pageSize">每页条目数</param>
-        /// <param name="isIncludeSummary">是否获取文章摘要</param>
-        /// <param name="postListType">获取文章类型</param>
-        /// <param name="IsNeedCategoryInfo">是否需要分类信息</param>
-        /// <param name="userName">用户名</param>
-        /// <returns></returns>
-        public PostCollection GetPostListByUserPermission(int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, bool IsNeedCategoryInfo, string userName)
+        /// <param name="siteId">网站ID。</param>
+        /// <param name="pageIndex">页码，从1起始。</param>
+        /// <param name="pageSize">每页条目数。</param>
+        /// <param name="isIncludeSummary">是否获取文章摘要。</param>
+        /// <param name="postListType">文章类型。</param>
+        /// <param name="IsNeedCategoryInfo">是否返回分类信息。</param>
+        /// <param name="userName">用户名。</param>
+        /// <returns>文章列表。</returns>
+        public PostCollection GetPostListByUserPermission(int siteId, int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, bool IsNeedCategoryInfo, string userName)
         {
             PostCollection collection = new PostCollection(pageSize);
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
@@ -427,336 +388,113 @@ namespace UniqueStudio.ComContent.DAL
                 {
                     conn.Open();
                 }
-                using (SqlTransaction trans = conn.BeginTransaction())
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = conn;
+                    cmd.Parameters.AddWithValue("@SiteID", siteId);
+                    cmd.Parameters.AddWithValue("@PageIndex", pageIndex);
+                    cmd.Parameters.AddWithValue("@PageSize", pageSize);
+                    cmd.Parameters.AddWithValue("@IsIncludeSummary", isIncludeSummary);
+                    cmd.Parameters.Add("@Amount", SqlDbType.Int);
+                    cmd.Parameters["@PageIndex"].Direction = ParameterDirection.InputOutput;
+                    cmd.Parameters["@Amount"].Direction = ParameterDirection.Output;
+
+                    if (postListType == PostListType.Both)
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
-                        cmd.Transaction = trans;
-                        if (postListType == PostListType.Both)
+                        if (userName == null)
                         {
-                            SqlParameter[] parms = new SqlParameter[]{
-                                                    new SqlParameter("@PageIndex",pageIndex),
-                                                    new SqlParameter("@PageSize",pageSize),
-                                                    new SqlParameter("@IsIncludeSummary",isIncludeSummary),
-                                                    new SqlParameter("@Amount",SqlDbType.Int),
-                                                    new SqlParameter("@AddUserName",userName)};
-                            parms[0].Direction = ParameterDirection.InputOutput;
-                            parms[3].Direction = ParameterDirection.Output;
-                            // SqlHelper.PrepareCommand(cmd, conn, CommandType.StoredProcedure, GET_POST_LIST_ALL, parms);
-                            foreach (SqlParameter parm in parms)
-                            {
-                                cmd.Parameters.Add(parm);
-                            }
-                            cmd.CommandText = GET_POST_LIST_ALL_BY_USER_PERMISSION;
-                            try
-                            {
-
-
-                                using (SqlDataReader reader = cmd.ExecuteReader())
-                                {
-                                    while (reader.Read())
-                                    {
-                                        collection.Add(FillPostInfo(reader, isIncludeSummary));
-                                    }
-                                }
-                                if (IsNeedCategoryInfo)
-                                {
-                                    foreach (PostInfo post in collection)
-                                    {
-                                        cmd.CommandText = GET_CATEGORYINFO_BY_POSTURI;
-                                        cmd.Parameters.Clear();
-                                        cmd.Parameters.AddWithValue("@Uri", post.Uri);
-                                        using (SqlDataReader reader = cmd.ExecuteReader())
-                                        {
-                                            CategoryCollection cates = new CategoryCollection();
-                                            CategoryInfo cate;
-                                            while (reader.Read())
-                                            {
-                                                cate = new CategoryInfo();
-                                                cate.CategoryId = Convert.ToInt32(reader["CategoryID"]);
-                                                cate.CategoryName = (string)reader["CategoryName"];
-                                                cate.CategoryNiceName = (string)reader["CategoryNiceName"];
-                                                if (reader["SubOF"] != DBNull.Value)
-                                                {
-                                                    cate.ParentCategoryId = Convert.ToInt32(reader["SubOf"]);
-                                                }
-                                                if (reader["Description"] != DBNull.Value)
-                                                {
-                                                    cate.Description = (string)reader["Description"];
-                                                }
-                                                cates.Add(cate);
-                                            }
-                                            post.Categories = cates;
-                                        }
-                                    }
-                                }
-                            }
-                            catch (Exception)
-                            {
-                                trans.Rollback();
-                                return null;
-                            }
-                            collection.PageIndex = (int)parms[0].Value;
-                            collection.Amount = (int)parms[3].Value;
-                            collection.PageSize = pageSize;
-                            cmd.Parameters.Clear();
-                        }
-                        else
-                        {
-                            bool isPublished = (postListType == PostListType.PublishedOnly);
-                            SqlParameter[] parms = new SqlParameter[]{
-                                                    new SqlParameter("@PageIndex",pageIndex),
-                                                    new SqlParameter("@PageSize",pageSize),
-                                                    new SqlParameter("@IsIncludeSummary",isIncludeSummary),
-                                                    new SqlParameter("@IsPublished",isPublished),
-                                                    new SqlParameter("@Amount",SqlDbType.Int),
-                                                    new SqlParameter("@AddUserName",userName)};
-                            parms[0].Direction = ParameterDirection.InputOutput;
-                            parms[4].Direction = ParameterDirection.Output;
-                            //  SqlHelper.PrepareCommand(cmd, conn, CommandType.StoredProcedure, GET_POST_LIST, parms);
-                            cmd.CommandText = GET_POST_LIST_BY_USER_PERMISSION;
-                            foreach (SqlParameter parm in parms)
-                            {
-                                cmd.Parameters.Add(parm);
-                            }
-                            try
-                            {
-                                using (SqlDataReader reader = cmd.ExecuteReader())
-                                {
-                                    while (reader.Read())
-                                    {
-                                        collection.Add(FillPostInfo(reader, isIncludeSummary));
-                                    }
-                                }
-                                if (IsNeedCategoryInfo)
-                                {
-                                    foreach (PostInfo post in collection)
-                                    {
-                                        cmd.Parameters.Clear();
-                                        cmd.Parameters.AddWithValue("@Uri", post.Uri);
-                                        cmd.CommandText = GET_CATEGORYINFO_BY_POSTURI;
-                                        using (SqlDataReader reader = cmd.ExecuteReader())
-                                        {
-                                            CategoryCollection cates = new CategoryCollection();
-                                            CategoryInfo cate;
-                                            while (reader.Read())
-                                            {
-                                                cate = new CategoryInfo();
-                                                cate.CategoryId = Convert.ToInt32(reader["CategoryID"]);
-                                                cate.CategoryName = (string)reader["CategoryName"];
-                                                cate.CategoryNiceName = (string)reader["CategoryNiceName"];
-                                                if (reader["SubOF"] != DBNull.Value)
-                                                {
-                                                    cate.ParentCategoryId = Convert.ToInt32(reader["SubOf"]);
-                                                }
-                                                if (reader["Description"] != DBNull.Value)
-                                                {
-                                                    cate.Description = (string)reader["Description"];
-                                                }
-                                                cates.Add(cate);
-                                            }
-                                            post.Categories = cates;
-                                        }
-                                    }
-                                }
-                            }
-                            catch
-                            {
-                                trans.Rollback();
-                                return null;
-                            }
-                            collection.PageIndex = (int)parms[0].Value;
-                            collection.Amount = (int)parms[4].Value;
-                            collection.PageSize = pageSize;
-                            cmd.Parameters.Clear();
-                        }
-                    }
-                    conn.Close();
-                    conn.Dispose();
-                }
-            }
-            return collection;
-        }
-
-        /// <summary>
-        /// 返回文章列表
-        /// </summary>
-        /// <param name="pageIndex">页码，从1起始</param>
-        /// <param name="pageSize">每页条目数</param>
-        /// <param name="isIncludeSummary">是否返回文章摘要</param>
-        /// <returns>文章列表</returns>
-        public PostCollection GetPostList(int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, bool IsNeedCategoryInfo)
-        {
-            PostCollection collection = new PostCollection(pageSize);
-            using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
-            {
-                if (conn.State == ConnectionState.Closed)
-                {
-                    conn.Open();
-                }
-                using (SqlTransaction trans = conn.BeginTransaction())
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
-                        cmd.Transaction = trans;
-                        if (postListType == PostListType.Both)
-                        {
-                            SqlParameter[] parms = new SqlParameter[]{
-                                                    new SqlParameter("@PageIndex",pageIndex),
-                                                    new SqlParameter("@PageSize",pageSize),
-                                                    new SqlParameter("@IsIncludeSummary",isIncludeSummary),
-                                                    new SqlParameter("@Amount",SqlDbType.Int)};
-                            parms[0].Direction = ParameterDirection.InputOutput;
-                            parms[3].Direction = ParameterDirection.Output;
-                            // SqlHelper.PrepareCommand(cmd, conn, CommandType.StoredProcedure, GET_POST_LIST_ALL, parms);
-                            foreach (SqlParameter parm in parms)
-                            {
-                                cmd.Parameters.Add(parm);
-                            }
                             cmd.CommandText = GET_POST_LIST_ALL;
-                            try
-                            {
-
-
-                                using (SqlDataReader reader = cmd.ExecuteReader())
-                                {
-                                    while (reader.Read())
-                                    {
-                                        collection.Add(FillPostInfo(reader, isIncludeSummary));
-                                    }
-                                }
-                                if (IsNeedCategoryInfo)
-                                {
-                                    foreach (PostInfo post in collection)
-                                    {
-                                        cmd.CommandText = GET_CATEGORYINFO_BY_POSTURI;
-                                        cmd.Parameters.Clear();
-                                        cmd.Parameters.AddWithValue("@Uri", post.Uri);
-                                        using (SqlDataReader reader = cmd.ExecuteReader())
-                                        {
-                                            CategoryCollection cates = new CategoryCollection();
-                                            CategoryInfo cate;
-                                            while (reader.Read())
-                                            {
-                                                cate = new CategoryInfo();
-                                                cate.CategoryId = Convert.ToInt32(reader["CategoryID"]);
-                                                cate.CategoryName = (string)reader["CategoryName"];
-                                                cate.CategoryNiceName = (string)reader["CategoryNiceName"];
-                                                if (reader["SubOF"] != DBNull.Value)
-                                                {
-                                                    cate.ParentCategoryId = Convert.ToInt32(reader["SubOf"]);
-                                                }
-                                                if (reader["Description"] != DBNull.Value)
-                                                {
-                                                    cate.Description = (string)reader["Description"];
-                                                }
-                                                cates.Add(cate);
-                                            }
-                                            post.Categories = cates;
-                                        }
-                                    }
-                                }
-                            }
-                            catch (Exception)
-                            {
-                                trans.Rollback();
-                                return null;
-                            }
-                            collection.PageIndex = (int)parms[0].Value;
-                            collection.Amount = (int)parms[3].Value;
-                            collection.PageSize = pageSize;
-                            cmd.Parameters.Clear();
                         }
                         else
                         {
-                            bool isPublished = (postListType == PostListType.PublishedOnly);
-                            SqlParameter[] parms = new SqlParameter[]{
-                                                    new SqlParameter("@PageIndex",pageIndex),
-                                                    new SqlParameter("@PageSize",pageSize),
-                                                    new SqlParameter("@IsIncludeSummary",isIncludeSummary),
-                                                    new SqlParameter("@IsPublished",isPublished),
-                                                    new SqlParameter("@Amount",SqlDbType.Int)};
-                            parms[0].Direction = ParameterDirection.InputOutput;
-                            parms[4].Direction = ParameterDirection.Output;
-                            //  SqlHelper.PrepareCommand(cmd, conn, CommandType.StoredProcedure, GET_POST_LIST, parms);
-                            cmd.CommandText = GET_POST_LIST;
-                            foreach (SqlParameter parm in parms)
-                            {
-                                cmd.Parameters.Add(parm);
-                            }
-                            try
-                            {
-                                using (SqlDataReader reader = cmd.ExecuteReader())
-                                {
-                                    while (reader.Read())
-                                    {
-                                        collection.Add(FillPostInfo(reader, isIncludeSummary));
-                                    }
-                                }
-                                if (IsNeedCategoryInfo)
-                                {
-                                    foreach (PostInfo post in collection)
-                                    {
-                                        cmd.Parameters.Clear();
-                                        cmd.Parameters.AddWithValue("@Uri", post.Uri);
-                                        cmd.CommandText = GET_CATEGORYINFO_BY_POSTURI;
-                                        using (SqlDataReader reader = cmd.ExecuteReader())
-                                        {
-                                            CategoryCollection cates = new CategoryCollection();
-                                            CategoryInfo cate;
-                                            while (reader.Read())
-                                            {
-                                                cate = new CategoryInfo();
-                                                cate.CategoryId = Convert.ToInt32(reader["CategoryID"]);
-                                                cate.CategoryName = (string)reader["CategoryName"];
-                                                cate.CategoryNiceName = (string)reader["CategoryNiceName"];
-                                                if (reader["SubOF"] != DBNull.Value)
-                                                {
-                                                    cate.ParentCategoryId = Convert.ToInt32(reader["SubOf"]);
-                                                }
-                                                if (reader["Description"] != DBNull.Value)
-                                                {
-                                                    cate.Description = (string)reader["Description"];
-                                                }
-                                                cates.Add(cate);
-                                            }
-                                            post.Categories = cates;
-                                        }
-                                    }
-                                }
-                            }
-                            catch
-                            {
-                                trans.Rollback();
-                                return null;
-                            }
-                            collection.PageIndex = (int)parms[0].Value;
-                            collection.Amount = (int)parms[4].Value;
-                            collection.PageSize = pageSize;
-                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue("@AddUserName", userName);
+                            cmd.CommandText = GET_POST_LIST_ALL_BY_USER_PERMISSION;
                         }
                     }
-                    conn.Close();
-                    conn.Dispose();
+                    else
+                    {
+                        bool isPublished = (postListType == PostListType.PublishedOnly);
+                        cmd.Parameters.AddWithValue("@IsPublished", isPublished);
+
+                        if (userName == null)
+                        {
+                            cmd.CommandText = GET_POST_LIST;
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@AddUserName", userName);
+                            cmd.CommandText = GET_POST_LIST_BY_USER_PERMISSION;
+                        }
+                    }
+                    
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            collection.Add(FillPostInfo(reader, isIncludeSummary));
+                        }
+                        reader.Close();
+                    }
+
+                    if (IsNeedCategoryInfo)
+                    {
+                        foreach (PostInfo post in collection)
+                        {
+                            cmd.CommandText = GET_CATEGORYINFO_BY_POSTURI;
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue("@Uri", post.Uri);
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                post.Categories = new CategoryCollection();
+                                CategoryInfo category;
+                                while (reader.Read())
+                                {
+                                    category = new CategoryInfo();
+                                    category.CategoryId = (int)reader["CategoryID"];
+                                    category.CategoryName = (string)reader["CategoryName"];
+                                    category.CategoryNiceName = (string)reader["CategoryNiceName"];
+                                    post.Categories.Add(category);
+                                }
+                                reader.Close();
+                            }
+                        }
+                    }
+                    collection.PageIndex = (int)cmd.Parameters["@PageIndex"].Value;
+                    collection.Amount = (int)cmd.Parameters["@Amount"].Value;
+                    collection.PageSize = pageSize;
+                    cmd.Parameters.Clear();
                 }
             }
             return collection;
         }
 
         /// <summary>
-        /// 根据分类ID返回文章
+        /// 返回文章列表。
         /// </summary>
-        /// <param name="pageIndex">页码，从1起始</param>
-        /// <param name="pageSize">每页条目数</param>
-        /// <param name="isIncludeSummary">是否返回文章摘要</param>
-        /// <param name="postListType">返回文章类型，是否发表</param>
-        /// <param name="categoryId">分类ID</param>
-        /// <returns>文章列表</returns>
-        public PostCollection GetPostListByCatId(int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, int categoryId)
+        /// <param name="siteId">网站ID。</param>
+        /// <param name="pageIndex">页码，从1起始。</param>
+        /// <param name="pageSize">每页条目数。</param>
+        /// <param name="isIncludeSummary">是否返回文章摘要。</param>
+        /// <param name="postListType">文章类型。</param>
+        /// <param name="IsNeedCategoryInfo">是否返回分类信息。</param>
+        /// <returns>文章列表。</returns>
+        public PostCollection GetPostList(int siteId, int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, bool IsNeedCategoryInfo)
+        {
+            return GetPostListByUserPermission(siteId, pageIndex, pageSize, isIncludeSummary, postListType, IsNeedCategoryInfo, null);
+        }
+
+        /// <summary>
+        /// 根据分类ID返回文章。
+        /// </summary>
+        /// <param name="siteId">网站ID。</param>
+        /// <param name="pageIndex">页码，从1起始。</param>
+        /// <param name="pageSize">每页条目数。</param>
+        /// <param name="isIncludeSummary">是否返回文章摘要。</param>
+        /// <param name="postListType">文章类型。</param>
+        /// <param name="categoryId">分类ID。</param>
+        /// <returns>文章列表。</returns>
+        public PostCollection GetPostListByCatId(int siteId, int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, int categoryId)
         {
             PostCollection collection = new PostCollection(pageSize);
 
@@ -801,15 +539,17 @@ namespace UniqueStudio.ComContent.DAL
             }
             return collection;
         }
+
         /// <summary>
-        /// 获得近期文章
+        /// 返回最近的文章列表。
         /// </summary>
-        /// <param name="number">数量</param>
-        /// <param name="offset"></param>
-        /// <param name="isIncludeSummary"></param>
-        /// <param name="postListType"></param>
-        /// <returns></returns>
-        public PostCollection GetRecentPosts(int number, int offset, bool isIncludeSummary, PostListType postListType)
+        /// <param name="siteId">网站ID。</param>
+        /// <param name="number">条目数。</param>
+        /// <param name="offset">偏移数。</param>
+        /// <param name="isIncludeSummary">是否返回摘要。</param>
+        /// <param name="postListType">文章类型。</param>
+        /// <returns>文章列表。</returns>
+        public PostCollection GetRecentPosts(int siteId, int number, int offset, bool isIncludeSummary, PostListType postListType)
         {
             PostCollection collection = new PostCollection(number);
             SqlParameter[] parms = null;
@@ -818,6 +558,7 @@ namespace UniqueStudio.ComContent.DAL
             if (postListType == PostListType.Both)
             {
                 parms = new SqlParameter[]{
+                                                    new SqlParameter("@SiteID",siteId),
                                                     new SqlParameter("@number",number),
                                                     new SqlParameter("@offset",offset),
                                                     new SqlParameter("@IsIncludeSummary",isIncludeSummary)};
@@ -827,6 +568,7 @@ namespace UniqueStudio.ComContent.DAL
             {
                 bool isPublished = (postListType == PostListType.PublishedOnly);
                 parms = new SqlParameter[]{
+                                                    new SqlParameter("@SiteID",siteId),
                                                     new SqlParameter("@number",number),
                                                     new SqlParameter("@offset",offset),
                                                     new SqlParameter("@IsIncludeSummary",isIncludeSummary),
@@ -838,20 +580,27 @@ namespace UniqueStudio.ComContent.DAL
                 collection.Add(FillPostInfo(reader, isIncludeSummary));
             }
             reader.Close();
+            reader.Dispose();
             return collection;
         }
 
+        /// <summary>
+        /// 将指定文字的阅读数量增加1。
+        /// </summary>
+        /// <param name="uri">文章Uri。</param>
         public void IncPostReadCount(long uri)
         {
             SqlParameter parm = new SqlParameter("@Uri", uri);
             SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, INC_POST_READ_COUNT, parm);
         }
+
         /// <summary>
-        /// 通过作者搜索文章
+        /// 返回作者署名中包含指定文字的文章列表。
         /// </summary>
-        /// <param name="author">作者</param>
-        /// <returns>返回文章列表</returns>
-        public PostCollection SearchPostsByAuthor(string author)
+        /// <param name="siteId">网站ID。</param>
+        /// <param name="author">作者署名关键词。</param>
+        /// <returns>文章列表。</returns>
+        public PostCollection SearchPostsByAuthor(int siteId, string author)
         {
             SqlParameter parm = new SqlParameter("@Author", author);
             PostCollection collection = new PostCollection();
@@ -884,12 +633,14 @@ namespace UniqueStudio.ComContent.DAL
             }
             return collection;
         }
+
         /// <summary>
-        /// 通过文章标题搜索文章
+        /// 返回标题中包含指定文字的文章列表。
         /// </summary>
-        /// <param name="title">文章标题</param>
-        /// <returns>返回文章列表</returns>
-        public PostCollection SearchPostsByTitle(string title)
+        /// <param name="siteId">网站ID。</param>
+        /// <param name="title">文章标题关键字。</param>
+        /// <returns>文章列表。</returns>
+        public PostCollection SearchPostsByTitle(int siteId, string title)
         {
             SqlParameter parm = new SqlParameter("@Title", title);
             PostCollection collection = new PostCollection();
@@ -922,13 +673,15 @@ namespace UniqueStudio.ComContent.DAL
             }
             return collection;
         }
+
         /// <summary>
-        /// 根据时间获取文章
+        /// 返回指定时间段内的文章列表。
         /// </summary>
-        /// <param name="startTime">开始时间</param>
-        /// <param name="endTime">结束时间</param>
-        /// <returns>返回文章列表</returns>
-        public PostCollection SearchPostsByTime(DateTime startTime, DateTime endTime)
+        /// <param name="siteId">网站ID。</param>
+        /// <param name="startTime">开始时间。</param>
+        /// <param name="endTime">结束时间。</param>
+        /// <returns>文章列表。</returns>
+        public PostCollection SearchPostsByTime(int siteId, DateTime startTime, DateTime endTime)
         {
             SqlParameter[] parms = new SqlParameter[]{
                                                         new SqlParameter("@StartDate", startTime),
@@ -967,7 +720,7 @@ namespace UniqueStudio.ComContent.DAL
         private PostInfo FillPostInfo(SqlDataReader reader, bool isIncludeSummary)
         {
             PostInfo post = new PostInfo();
-            post.Uri = (Int64)reader["Uri"];
+            post.Uri = (long)reader["Uri"];
             post.AddUserName = (string)reader["AddUserName"];
             if (reader["LastEditUserName"] != DBNull.Value)
             {

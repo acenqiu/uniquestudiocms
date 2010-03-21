@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{522567A4-DBFA-483C-B6E9-A60A1C79CF4A}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -207,6 +207,10 @@
       <Project>{B9EC7556-3B7A-4357-920B-94EE1313FF95}</Project>
       <Name>UniqueStudio.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniqueStudio.Controls\UniqueStudio.Controls.csproj">
+      <Project>{36639990-A168-422C-9BF6-1D10373DDE78}</Project>
+      <Name>UniqueStudio.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniqueStudio.Core\UniqueStudio.Core.csproj">
       <Project>{F9D2C679-CD07-49AA-BD9C-B28F6BB14F20}</Project>
       <Name>UniqueStudio.Core</Name>
@@ -230,7 +234,6 @@
     <Content Include="view.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="admin\autoupload.js" />
     <Content Include="admin\editor\fckeditor\editor\css\behaviors\disablehandles.htc" />
     <Content Include="admin\editor\fckeditor\editor\css\behaviors\showtableborders.htc" />
     <Content Include="admin\editor\fckeditor\editor\css\fck_editorarea.css" />
