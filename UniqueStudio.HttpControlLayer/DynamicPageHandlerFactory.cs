@@ -9,12 +9,12 @@ using UniqueStudio.Core.SiteMap;
 namespace UniqueStudio.HttpControlLayer
 {
     /// <summary>
-    /// 动态页面解析工厂类
+    /// 动态页面解析工厂类。
     /// </summary>
     public class DynamicPageHandlerFactory : IHttpHandlerFactory
     {
         /// <summary>
-        /// 返回一个单独的方法，可调用该方法来顺序调用指定事件的所有处理程序
+        /// 返回一个单独的方法，可调用该方法来顺序调用指定事件的所有处理程序。
         /// </summary>
         /// <param name="context"></param>
         /// <param name="requestType"></param>

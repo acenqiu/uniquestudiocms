@@ -8,6 +8,7 @@
     <link rel="Stylesheet" href="../css/style.css" type="text/css" />
     <link rel="Stylesheet" href="../css/admin.css" type="text/css" />
     <script src="../js/main.js" language="javascript" type="text/javascript" > </script>
+    <script src="../js/jquery.js" language="javascript" type="text/javascript" ></script>
     <style type="text/css">
         body
         {

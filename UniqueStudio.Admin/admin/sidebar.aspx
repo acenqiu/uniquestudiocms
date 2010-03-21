@@ -19,8 +19,10 @@
                         <span class="collapse-icon"></span>
                         <div class="candy-menu">
                             <ul>
-                                <li><a href='compenents/com_content/admin/addpost.aspx?siteId=<%= SiteId %>' target="right">发表</a></li>
-                                <li><a href='compenents/com_content/admin/postlist.aspx?siteId=<%= SiteId %>' target="right">管理</a></li>
+                                <li><a href='compenents/com_content/admin/addpost.aspx?siteId=<%= SiteId %>' target="right">
+                                    发表</a></li>
+                                <li><a href='compenents/com_content/admin/postlist.aspx?siteId=<%= SiteId %>' target="right">
+                                    管理</a></li>
                             </ul>
                         </div>
                     </li>
@@ -46,7 +48,6 @@
                         </div>
                     </li>
                 </asp:Panel>
-                
                 <asp:Panel ID="pnlSystem" runat="server">
                     <li onclick="javascript:changestate(this)"><span>组件管理</span><span class="collapse-icon"></span>
                         <div class="candy-menu">
@@ -92,10 +93,17 @@
                             </ul>
                         </div>
                     </li>
+                    <li onclick="javascript:changestate(this)"><span>访问统计</span><span class="collapse-icon"></span>
+                        <div class="candy-menu">
+                            <ul>
+                                <li><a href="background/pvstat.aspx" target="right">统计图</a></li>
+                                <li><a href="background/pvlist.aspx" target="right">访问列表</a></li>
+                            </ul>
+                        </div>
+                    </li>
                     <li onclick="javascript:changestate(this)"><span>管理工具</span><span class="collapse-icon"></span>
                         <div class="candy-menu">
                             <ul>
-                                <li><a href="background/pvlist.aspx" target="right">访问统计</a></li>
                                 <li><a href="background/errorlog.aspx" target="right">系统日志</a></li>
                                 <li><a href="background/file.aspx" target="right">文件管理</a></li>
                             </ul>

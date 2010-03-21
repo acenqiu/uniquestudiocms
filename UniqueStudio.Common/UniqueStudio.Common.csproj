@@ -104,6 +104,8 @@
     <Compile Include="Model\PermissionCollection.cs" />
     <Compile Include="Model\PlugInCollection.cs" />
     <Compile Include="Model\PlugInInfo.cs" />
+    <Compile Include="Model\PointCollection.cs" />
+    <Compile Include="Model\PointInfo.cs" />
     <Compile Include="Model\SiteCollection.cs" />
     <Compile Include="Model\SiteInfo.cs" />
     <Compile Include="Model\UserExInfo.cs" />
