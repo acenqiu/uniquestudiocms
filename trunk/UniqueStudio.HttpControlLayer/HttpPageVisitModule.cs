@@ -1,4 +1,11 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：页面访问http Module。
+// 完成日期：2010年03月20日
+// 版本：v0.3
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -9,7 +16,6 @@ namespace UniqueStudio.HttpControlLayer
 {
     public class HttpPageVisitModule : IHttpModule
     {
-        private static PageVisitManager manager = new PageVisitManager();
         private static Regex r = new Regex("/admin/.*");
 
         public void Dispose()
@@ -38,7 +44,7 @@ namespace UniqueStudio.HttpControlLayer
                                                                           request.UserHostName,
                                                                           request.UserAgent,
                                                                           urlReferrer);
-                manager.AddPageVisit(pv);
+                PageVisitManager.AddPageVisit(pv);
             }
         }
     }

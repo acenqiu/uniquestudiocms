@@ -1,8 +1,8 @@
-﻿<%@ Page MasterPageFile="~/Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs"
+﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs"
     Inherits="UniqueStudio.ComContent.PL.Default" %>
 
 <%@ Import Namespace="UniqueStudio.Common.Config" %>
-<%@ Register Src="~/controls/PostList.ascx" TagPrefix="US" TagName="PostList" %>
+<%@ Register Src="controls/PostList.ascx" TagPrefix="US" TagName="PostList" %>
 <asp:Content ID="head" ContentPlaceHolderID="head" runat="server">
     <script language="javascript">AC_FL_RunContent = 0;</script>
     <script src="flashad/js/AC_RunActiveContent.js" language="javascript"></script>

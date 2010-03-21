@@ -217,6 +217,13 @@
     <Compile Include="admin\background\pvlist.aspx.designer.cs">
       <DependentUpon>pvlist.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\background\pvstat.aspx.cs">
+      <DependentUpon>pvstat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\background\pvstat.aspx.designer.cs">
+      <DependentUpon>pvstat.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\background\securityconfig.aspx.cs">
       <DependentUpon>securityconfig.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -358,6 +365,7 @@
     <Content Include="admin\background\editmenuitem.aspx" />
     <Content Include="admin\background\edituser.aspx" />
     <Content Include="admin\background\feedback.aspx" />
+    <Content Include="admin\background\pvstat.aspx" />
     <Content Include="admin\background\securityconfig.aspx" />
     <Content Include="admin\background\serverconfig.aspx" />
     <Content Include="admin\controls\pagination.ascx" />
@@ -703,6 +711,8 @@
     <Content Include="admin\editor\fckeditor\fckeditor.js" />
     <Content Include="admin\editor\fckeditor\fckstyles.xml" />
     <Content Include="admin\editor\fckeditor\fcktemplates.xml" />
+    <Content Include="admin\js\jquery.js" />
+    <Content Include="admin\js\jquery.gchart.js" />
     <Content Include="admin\xml\SecurityConfig.xml" />
     <Content Include="admin\xml\serverconfig.xml" />
     <Content Include="GetCheckCode.aspx" />

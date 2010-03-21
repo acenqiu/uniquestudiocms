@@ -4,16 +4,13 @@
 <%@ Import Namespace="UniqueStudio.Common.Config" %>
 <%@ Register Src="~/controls/PostList.ascx" TagPrefix="US" TagName="PostList" %>
 <asp:Content ID="head" ContentPlaceHolderID="head" runat="server">
-
     <script language="javascript">AC_FL_RunContent = 0;</script>
-
     <script src="flashad/js/AC_RunActiveContent.js" language="javascript"></script>
-
 </asp:Content>
 <asp:Content ID="content" ContentPlaceHolderID="cphMain" runat="server">
     <div class="slider">
 	<div class="column mini" style="min-height:210px">
-            <US:PostList ID="pltongzhi" CategoryId="6" runat="server" />
+            <US:PostList ID="pltongzhi" CategoryId="6" runat="server" MaxTitleLength="10" />
         </div>
      <div class="column mini" style="line-height:normal">
     <asp:Calendar ID="Calendar1" runat="server" BackColor="White" 
