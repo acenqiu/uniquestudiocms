@@ -55,6 +55,10 @@ namespace UniqueStudio.ComContent.BLL
 
             try
             {
+                if (post.NewsImage == null)
+                {
+                    post.NewsImage = "";
+                }
                 Int64 uri = provider.AddPost(post, true);
                 if (uri == 0)
                 {
@@ -63,6 +67,18 @@ namespace UniqueStudio.ComContent.BLL
                 else
                 {
                     //StatisticsCache.RefreshCache();
+                    //新闻图片更新
+                    if (post.NewsImage != null && post.NewsImage != string.Empty)
+                    {
+                        foreach (CategoryInfo item in post.Categories)
+                        {
+                            if (item.CategoryId == PictureNewsManager.CATEGOEY_ID)
+                            {
+                                PictureNewsManager.UpdatePictureNews();
+                                return uri;
+                            }
+                        }
+                    }
                     return uri;
                 }
             }
