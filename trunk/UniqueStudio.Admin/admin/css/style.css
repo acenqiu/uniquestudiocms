@@ -8,7 +8,7 @@ body
 	font-family: Tohoma,宋体，Arial,Helvetica, sans-serif;
 	background: #ffffff;
 }
-a, a:link, a:visited
+a, a:link
 {
 	text-decoration: none;
 	color: #333333;
@@ -115,23 +115,14 @@ a:hover
 	float: left;
 	padding-right: 2em;
 }
-.form-item .description
-{
-	 background:url(../images/hint.png) no-repeat right;
-}
+
 .form-item-input
 {
 	display: inline-block;
 	text-align: left;
 	text-indent: 1em;
 }
-input[type="text"], textarea, select
-{
-	color: #996600;
-	border: 1px #0066FF solid;
-	font-size: 14px;
-	padding: 1px;
-}
+
 input[type="submit"]
 {
 	color: #ffffff;
