@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3CB902B2-D40A-4263-AB02-E95A63E71BA3}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -52,11 +52,13 @@
   <ItemGroup>
     <Compile Include="ApiLayer\MetaWeblog.cs" />
     <Compile Include="ApiLayer\MetaWeblogAPI.cs" />
+    <Compile Include="BLL\PictureNewsManager.cs" />
     <Compile Include="BLL\PostManager.cs" />
     <Compile Include="BLL\PostPermissionManager.cs" />
     <Compile Include="DAL\PostProvider.cs" />
     <Compile Include="Model\EditorMode.cs" />
     <Compile Include="Model\Enclosure.cs" />
+    <Compile Include="Model\PictureNewsItem.cs" />
     <Compile Include="Model\PostCollection.cs" />
     <Compile Include="Model\PostInfo.cs" />
     <Compile Include="Model\PostListType.cs" />

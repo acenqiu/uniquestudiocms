@@ -30,7 +30,7 @@ namespace UniqueStudio.ComContent.Model
         private int count;
         private string settings;
         private int postDisplay;
-
+        private string newsImage;
         private CategoryCollection categories;
 
         /// <summary>
@@ -205,6 +205,14 @@ namespace UniqueStudio.ComContent.Model
         {
             get { return postDisplay; }
             set { postDisplay = value; }
+        }
+        /// <summary>
+        /// 新闻图片
+        /// </summary>
+        public string NewsImage
+        {
+            get { return newsImage; }
+            set { newsImage = value; }
         }
     }
 }

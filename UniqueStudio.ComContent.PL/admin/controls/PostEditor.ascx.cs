@@ -59,7 +59,7 @@ namespace UniqueStudio.ComContent.PL
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            siteId = Converter.IntParse(Request.QueryString["siteId"],1);
+            siteId = Converter.IntParse(Request.QueryString["siteId"], 1);
             if (!IsPostBack)
             {
                 CategoryManager manager = new CategoryManager();
@@ -80,6 +80,11 @@ namespace UniqueStudio.ComContent.PL
                             Enclosure attachement = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), null);
                             filename.Text = attachement.Tittle;
                         }
+                        //if (post.NewsImage != string.Empty)
+                        //{
+                        //    imagename.Visible = true;
+                        //    imagename.Text = post.NewsImage;
+                        //}
                         txtTitle.Text = post.Title;
                         txtSubTitle.Text = post.SubTitle;
                         txtAuthor.Text = post.Author;
@@ -172,7 +177,8 @@ namespace UniqueStudio.ComContent.PL
                     }
                     else
                     {
-                        string filepath = Server.MapPath(@"~/upload/" + post.Uri.ToString() + enclosure.FileName);
+                        string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + enclosure.FileName;
+                        string filepath = Server.MapPath(@"~/upload/" + urlpath);
                         try
                         {
                             enclosure.SaveAs(filepath);
@@ -189,7 +195,7 @@ namespace UniqueStudio.ComContent.PL
                         enclosureInfo.Tittle = enclosure.FileName;
                         enclosureInfo.Length = enclosure.FileContent.Length;
                         enclosureInfo.Type = System.IO.Path.GetExtension(enclosure.FileName);
-                        enclosureInfo.Url = "/upload/" + post.Uri.ToString() + enclosure.FileName;
+                        enclosureInfo.Url = "/upload/" + urlpath;
                         XmlDocument xmldoc = xm.ConvertToXml(enclosureInfo, typeof(Enclosure));
                         post.Settings = xmldoc.OuterXml;
                     }
@@ -204,6 +210,7 @@ namespace UniqueStudio.ComContent.PL
                 post.IsTop = chbTop.Checked;
                 post.IsAllowComment = chbAllowComment.Checked;
                 post.Content = fckContent.Value;
+                post.NewsImage = NewsImageManager();
                 //控制文章显示内容
                 //0正常显示
                 //1不显示标题
@@ -288,6 +295,7 @@ namespace UniqueStudio.ComContent.PL
                         post.PostDisplay += 2;
                     }
                     post.Settings = string.Empty;
+                    post.NewsImage = NewsImageManager();
                     if (filename.Visible == true)
                     {
                         if (!enclosure.HasFile)
@@ -308,7 +316,8 @@ namespace UniqueStudio.ComContent.PL
                                 }
                                 else
                                 {
-                                    string filepath = Server.MapPath(@"~/upload/" + post.Uri.ToString() + enclosure.FileName);
+                                    string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + enclosure.FileName;
+                                    string filepath = Server.MapPath(@"~/upload/" + urlpath);
                                     try
                                     {
                                         enclosure.SaveAs(filepath);
@@ -325,7 +334,7 @@ namespace UniqueStudio.ComContent.PL
                                     enclosureInfo.Tittle = enclosure.FileName;
                                     enclosureInfo.Length = enclosure.FileContent.Length;
                                     enclosureInfo.Type = System.IO.Path.GetExtension(enclosure.FileName);
-                                    enclosureInfo.Url = "/upload/" + post.Uri.ToString() + enclosure.FileName;
+                                    enclosureInfo.Url = "/upload/" + urlpath;
                                     XmlDocument xmldoc = xm.ConvertToXml(enclosureInfo, typeof(Enclosure));
                                     post.Settings = xmldoc.OuterXml;
                                 }
@@ -403,7 +412,8 @@ namespace UniqueStudio.ComContent.PL
                     }
                     else
                     {
-                        string filepath = Server.MapPath(@"~/upload/" + post.Uri.ToString() + enclosure.FileName);
+                        string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + enclosure.FileName;
+                        string filepath = Server.MapPath(@"~/upload/" + urlpath);
                         try
                         {
                             enclosure.SaveAs(filepath);
@@ -420,7 +430,7 @@ namespace UniqueStudio.ComContent.PL
                         enclosureInfo.Tittle = enclosure.FileName;
                         enclosureInfo.Length = enclosure.FileContent.Length;
                         enclosureInfo.Type = System.IO.Path.GetExtension(enclosure.FileName);
-                        enclosureInfo.Url = "/upload/" + post.Uri.ToString() + enclosure.FileName;
+                        enclosureInfo.Url = "/upload/" + urlpath;
                         XmlDocument xmldoc = xm.ConvertToXml(enclosureInfo, typeof(Enclosure));
                         post.Settings = xmldoc.OuterXml;
                     }
@@ -433,6 +443,7 @@ namespace UniqueStudio.ComContent.PL
                 post.IsTop = chbTop.Checked;
                 post.IsAllowComment = chbAllowComment.Checked;
                 post.Content = fckContent.Value;
+                post.NewsImage = NewsImageManager();
                 //控制文章显示内容
                 //0正常显示
                 //1不显示标题
@@ -533,6 +544,7 @@ namespace UniqueStudio.ComContent.PL
                     //}
                     //post.Categories = cates;
                     post.Settings = string.Empty;
+                    post.NewsImage = NewsImageManager();
                     if (filename.Visible == true)
                     {
                         if (!enclosure.HasFile)
@@ -553,7 +565,8 @@ namespace UniqueStudio.ComContent.PL
                                 }
                                 else
                                 {
-                                    string filepath = Server.MapPath(@"~/upload/" + post.Uri.ToString() + enclosure.FileName);
+                                    string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + enclosure.FileName;
+                                    string filepath = Server.MapPath(@"~/upload/" + urlpath);
                                     try
                                     {
                                         enclosure.SaveAs(filepath);
@@ -570,7 +583,7 @@ namespace UniqueStudio.ComContent.PL
                                     enclosureInfo.Tittle = enclosure.FileName;
                                     enclosureInfo.Length = enclosure.FileContent.Length;
                                     enclosureInfo.Type = System.IO.Path.GetExtension(enclosure.FileName);
-                                    enclosureInfo.Url = "/upload/" + post.Uri.ToString() + enclosure.FileName;
+                                    enclosureInfo.Url = "/upload/" + urlpath;
                                     XmlDocument xmldoc = xm.ConvertToXml(enclosureInfo, typeof(Enclosure));
                                     post.Settings = xmldoc.OuterXml;
                                 }
@@ -620,8 +633,94 @@ namespace UniqueStudio.ComContent.PL
                 }
             }
         }
+        //private string EnclosureManager()
+        //{
+        //    if (filename.Visible == true)
+        //    {
+        //        if (!enclosure.HasFile)
+        //        {
+        //            //显示无文件信息
+        //            return string.Empty;
+        //        }
+        //        else
+        //        {
+        //             Enclosure attachement = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), "");
+        //            if (!(attachement.Tittle == enclosure.FileName))
+        //            {
+        //                if (SiteManager.Config(1).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+        //                {
+        //                    //显示扩展名不正确信息
+        //                    Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
+        //                    return string.Empty;
+        //                }
+        //                else
+        //                {
+        //                    string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + enclosure.FileName;
+        //                    string filepath = Server.MapPath(@"~/upload/" + urlpath);
+        //                    try
+        //                    {
+        //                        enclosure.SaveAs(filepath);
+        //                        filename.Style["Visible"] = "true";
+        //                        filename.Text = enclosure.FileName;
+        //                        Enclosure enclosureInfo = new Enclosure();
+        //                        enclosureInfo.Tittle = enclosure.FileName;
+        //                        enclosureInfo.Length = enclosure.FileContent.Length;
+        //                        enclosureInfo.Type = System.IO.Path.GetExtension(enclosure.FileName);
+        //                        enclosureInfo.Url = "/upload/" + urlpath;
+        //                        XmlDocument xmldoc = xm.ConvertToXml(enclosureInfo, typeof(Enclosure));
+        //                        return xmldoc.OuterXml;
+        //                    }
+        //                    catch
+        //                    {
+        //                        //显示上传失败
+        //                        Response.Write("<script type='text/javascript'>alert('文件上传失败，请重新上传')</script>");
+        //                        return string.Empty;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+        private string NewsImageManager()
+        {
+            if (!newsimage.HasFile)
+            {
+                return null;
+            }
+            else
+            {
+                string imageextension = ".jpg,.jpeg,.gif,.png";
+                if (imageextension.IndexOf(System.IO.Path.GetExtension(newsimage.FileName).ToLower()) < 0)
+                {
+                    //显示扩展名不正确信息
+                    Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
+                    return null;
+                }
+                else
+                {
+                    string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + newsimage.FileName;
+                    string filepath = Server.MapPath(@"~/upload/image/" + urlpath);
+                    try
+                    {
+                        newsimage.SaveAs(filepath);
+                        imagename.Visible = true;
+                        imagename.Text = newsimage.FileName;
+                        // filename.Style["Visible"] = "true";
+                        //filename.Text = enclosure.FileName;
+                    }
+                    catch
+                    {
+                        //显示上传失败
+                        Response.Write("<script type='text/javascript'>alert('新闻图片上传失败，请重新上传')</script>");
+                        return null;
+                    }
+                    return "/upload/image/" + urlpath;
+                }
+            }
+        }
     }
 }
+
 ////protected void upfilebtn_Click(object sender, EventArgs e)
 //{
 //    //if (!(filename.Style["Visible"] == "false"))

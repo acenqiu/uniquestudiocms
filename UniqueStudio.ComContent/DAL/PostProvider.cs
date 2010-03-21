@@ -63,6 +63,7 @@ namespace UniqueStudio.ComContent.DAL
             SqlParameter[] postparms = new SqlParameter[]{
                                                     new SqlParameter("@Uri",uri),
                                                     new SqlParameter("@AddUserName",post.AddUserName),
+                                                    new SqlParameter("@NewsImage",post.NewsImage),
                                                     new SqlParameter("@CreateDate",post.CreateDate),
                                                     new SqlParameter("@Taxis",post.Taxis),
                                                     new SqlParameter("@Title",post.Title),
@@ -285,6 +286,10 @@ namespace UniqueStudio.ComContent.DAL
                                     post.Count = (int)reader["Count"];
                                     post.Content = (string)reader["Content"];
                                     post.PostDisplay = Convert.ToInt32(reader["PostDisplay"]);
+                                    if (reader["NewsImage"] != DBNull.Value)
+                                    {
+                                        post.NewsImage = (string)reader["NewsImage"];
+                                    }
                                 }
                                 else
                                 {
@@ -996,6 +1001,10 @@ namespace UniqueStudio.ComContent.DAL
             if (reader["Settings"] != DBNull.Value)
             {
                 post.Settings = (string)reader["Settings"];
+            }
+            if (reader["NewsImage"] != DBNull.Value)
+            {
+                post.NewsImage = (string)reader["NewsImage"];
             }
             return post;
         }

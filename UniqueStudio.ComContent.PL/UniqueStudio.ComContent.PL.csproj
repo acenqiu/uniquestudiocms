@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{522567A4-DBFA-483C-B6E9-A60A1C79CF4A}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -64,6 +64,13 @@
     <Compile Include="admin\addpost.aspx.designer.cs">
       <DependentUpon>addpost.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\controls\attachment.ascx.cs">
+      <DependentUpon>attachment.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\controls\attachment.ascx.designer.cs">
+      <DependentUpon>attachment.ascx</DependentUpon>
+    </Compile>
     <Compile Include="admin\controls\Message.ascx.cs">
       <DependentUpon>Message.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -98,9 +105,6 @@
     </Compile>
     <Compile Include="admin\editpost.aspx.designer.cs">
       <DependentUpon>editpost.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="admin\fileuploadhandler.ashx.cs">
-      <DependentUpon>fileuploadhandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="admin\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
@@ -213,6 +217,20 @@
     <Content Include="admin\Site.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="controls\PostList.ascx" />
+    <Content Include="Default.aspx" />
+    <Content Include="list.aspx" />
+    <Content Include="Site.Master" />
+    <Content Include="img\bg.png" />
+    <Content Include="img\column-header-icon.png" />
+    <Content Include="img\footer_bg.png" />
+    <Content Include="img\header_bg.png" />
+    <Content Include="img\logo.png" />
+    <Content Include="index.css" />
+    <Content Include="view.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="admin\autoupload.js" />
     <Content Include="admin\editor\fckeditor\editor\css\behaviors\disablehandles.htc" />
     <Content Include="admin\editor\fckeditor\editor\css\behaviors\showtableborders.htc" />
     <Content Include="admin\editor\fckeditor\editor\css\fck_editorarea.css" />
@@ -523,24 +541,10 @@
     <Content Include="admin\editor\fckeditor\fckeditor.js" />
     <Content Include="admin\editor\fckeditor\fckstyles.xml" />
     <Content Include="admin\editor\fckeditor\fcktemplates.xml" />
-    <Content Include="controls\PostList.ascx" />
-    <Content Include="Default.aspx" />
-    <Content Include="list.aspx" />
-    <Content Include="Site.Master" />
-    <Content Include="img\bg.png" />
-    <Content Include="img\column-header-icon.png" />
-    <Content Include="img\footer_bg.png" />
-    <Content Include="img\header_bg.png" />
-    <Content Include="img\logo.png" />
-    <Content Include="index.css" />
-    <Content Include="view.aspx" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="admin\editor\fckeditor\editordef.php" />
+    <Content Include="admin\Fileup.ashx" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
-    <Content Include="admin\fileuploadhandler.ashx" />
     <None Include="flashad\images\Thumbs.db" />
     <None Include="flashad\include2\DepthSet.as" />
     <None Include="flashad\include2\HuspaceCopyRight.as" />
@@ -550,65 +554,17 @@
     <None Include="include2\HuspaceCopyRight.as" />
     <None Include="include2\Initializtion.as" />
     <None Include="include2\Viewer.as" />
+    <Content Include="admin\fileup.css" />
+    <Content Include="admin\img\addfile.gif" />
+    <Content Include="admin\img\addfilehover.gif" />
+    <Content Include="admin\img\f2.gif" />
+    <Content Include="admin\StopUpLoad.ashx" />
     <Content Include="404.aspx" />
     <Content Include="admin\admin-list-style.css" />
     <Content Include="admin\ajaxupload.js" />
+    <Content Include="admin\controls\attachment.ascx" />
     <Content Include="admin\controls\Message.ascx" />
     <Content Include="admin\controls\pagination.ascx" />
-    <Content Include="admin\editor\fckeditor\autosaver.js" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico01.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico02.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico03.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico04.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico05.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico06.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico07.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico08.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico09.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico10.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico11.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico12.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico13.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico14.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico15.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico16.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico17.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico18.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico19.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico20.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico21.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico22.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico23.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico24.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico25.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico26.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico27.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico28.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico29.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico30.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico31.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico32.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico33.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico34.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico35.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico36.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico37.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico38.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico39.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico40.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico41.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico42.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico43.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico44.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico45.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico46.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico47.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico48.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico49.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico50.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico51.gif" />
-    <Content Include="admin\editor\fckeditor\editor\images\smiley\kds\ico52.gif" />
-    <Content Include="admin\editor\fckeditor\uploader.js" />
     <Content Include="admin\img\column-header-icon.png" />
     <Content Include="admin\jquery-ui.min.js" />
     <Content Include="admin\jquery.min.js" />
@@ -618,6 +574,7 @@
     <Content Include="article-style.css" />
     <Content Include="controls\PostStat.ascx" />
     <Content Include="controls\SubCategories.ascx" />
+    <Content Include="admin\fileup.js" />
     <Content Include="img\error.png" />
     <Content Include="flashad\images\1.jpg" />
     <Content Include="flashad\images\2.jpg" />
@@ -656,7 +613,7 @@
     <Content Include="xml\viewerData.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="upload\" />
+    <Folder Include="upload\image\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
