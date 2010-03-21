@@ -4,6 +4,12 @@
 // 完成日期：2010年03月18日
 // 版本：v1.0 alpha
 // 作者：邱江毅
+//
+// 修改记录1：
+// 修改日期：2010年03月21日
+// 版本号：v1.0 alpha
+// 修改人：邱江毅
+// +) 原始角色名
 //=================================================================
 using System;
 using System.Collections.Generic;
@@ -67,6 +73,7 @@ namespace UniqueStudio.Admin.admin.background
                 RoleInfo role = manager.GetRoleInfo(CurrentUser, roleId);
 
                 txtRoleName.Text = role.RoleName;
+                hfOldRoleName.Value = role.RoleName;
                 txtDescription.Text = role.Description;
                 ddlSites.SelectedValue = role.SiteId.ToString();
 
@@ -133,7 +140,7 @@ namespace UniqueStudio.Admin.admin.background
 
             try
             {
-                if ((new RoleManager()).UpdateRole(CurrentUser, role))
+                if ((new RoleManager()).UpdateRole(CurrentUser, role, hfOldRoleName.Value))
                 {
                     message.SetSuccessMessage("角色更新成功！");
                     GetData();

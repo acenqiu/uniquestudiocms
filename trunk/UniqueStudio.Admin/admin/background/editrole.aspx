@@ -12,6 +12,7 @@
         <div class="panel_title">编辑角色</div>
         <div class="panel_body">
             <p>角色名称：<asp:TextBox ID="txtRoleName" runat="server"/>
+            <asp:HiddenField ID="hfOldRoleName" runat="server" />
                 <asp:RequiredFieldValidator ID="require1" runat="server" ControlToValidate="txtRoleName"
                             ValidationGroup="update" Display="None" ErrorMessage="请输入角色名称" />
                  说明：<asp:TextBox ID="txtDescription" Width="300px" runat="server"/>

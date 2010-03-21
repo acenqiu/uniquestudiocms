@@ -15,6 +15,7 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtCategoryName"
                     Display="None" ValidationGroup="update" ErrorMessage="请输入分类名" />
                 别名：<asp:TextBox ID="txtNiceName" runat="server" />
+                <asp:HiddenField ID="hfOldNiceName" runat="server" />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtNiceName"
                     Display="None" ValidationGroup="update" ErrorMessage="请输入分类别名" />
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtNiceName"

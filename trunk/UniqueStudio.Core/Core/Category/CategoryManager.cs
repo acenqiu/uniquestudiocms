@@ -4,6 +4,12 @@
 // 完成日期：2010年03月19日
 // 版本：v1.0 alpha
 // 作者：邱江毅
+//
+// 修改记录1：
+// 修改日期：2010年03月21日
+// 版本号：v1.0 alpha
+// 修改人：邱江毅
+// *)UpdateCategory增加oldNiceName。
 //=================================================================
 using System;
 using System.Data.Common;
@@ -467,16 +473,17 @@ namespace UniqueStudio.Core.Category
         /// 更新分类信息。
         /// </summary>
         /// <param name="category">分类信息。</param>
+        /// <param name="oldNiceName">原始分类别名。</param>
         /// <returns>是否更新成功。</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
         /// 当用户没有更新分类信息的权限时抛出该异常。</exception>
-        public bool UpdateCategory(CategoryInfo category)
+        public bool UpdateCategory(CategoryInfo category,string oldNiceName)
         {
             if (currentUser == null)
             {
                 throw new Exception("请使用CategoryManager(UserInfo)实例化该类。");
             }
-            return UpdateCategory(currentUser, category);
+            return UpdateCategory(currentUser, category,oldNiceName);
         }
 
         /// <summary>
@@ -484,10 +491,11 @@ namespace UniqueStudio.Core.Category
         /// </summary>
         /// <param name="currentUser">执行该方法的用户信息。</param>
         /// <param name="category">分类信息。</param>
+        /// <param name="oldNiceName">原始分类别名。</param>
         /// <returns>是否更新成功。</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
         /// 当用户没有更新分类信息的权限时抛出该异常。</exception>
-        public bool UpdateCategory(UserInfo currentUser, CategoryInfo category)
+        public bool UpdateCategory(UserInfo currentUser, CategoryInfo category, string oldNiceName)
         {
             Validator.CheckNull(category, "category");
             Validator.CheckNotPositive(category.CategoryId, "category.CategoryId");
@@ -501,7 +509,7 @@ namespace UniqueStudio.Core.Category
 
             PermissionManager.CheckPermission(currentUser, "EditCategory", "编辑分类");
 
-            if (IsCategoryNiceNameExists(category.SiteId, category.CategoryNiceName))
+            if (category.CategoryNiceName != oldNiceName && IsCategoryNiceNameExists(category.SiteId, category.CategoryNiceName))
             {
                 throw new Exception("该分类别名已存在，请重新设置！");
             }

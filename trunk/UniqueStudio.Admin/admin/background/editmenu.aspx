@@ -102,7 +102,7 @@
                             <%# Eval("Ordering") %>
                         </td>
                         <td>
-                            <%# Eval("ParentItemName") %>
+                            <%# Eval("ParentItemName").ToString().Length == 0 ? "无" : Eval("ParentItemName")%>
                         </td>
                     </tr>
                 </ItemTemplate>

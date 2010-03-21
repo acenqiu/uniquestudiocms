@@ -4,6 +4,12 @@
 // 完成日期：2010年03月17日
 // 版本：v1.0 alpha
 // 作者：邱江毅
+//
+// 修改记录1：
+// 修改日期：2010年03月21日
+// 版本号：v1.0 alpha
+// 修改人：邱江毅
+// *)UpdataRole增加string oldRoleName参数。
 //=================================================================
 using System;
 using System.Collections.Generic;
@@ -942,16 +948,17 @@ namespace UniqueStudio.Core.Permission
         /// </summary>
         /// <remarks>不更新角色下的用户列表。</remarks>
         /// <param name="role">待更新角色信息。</param>
+        /// <param name="oldRoleName">原始角色名。</param>
         /// <returns>是否更新成功。</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
         /// 当用户没有编辑角色的权限时抛出该异常。</exception>
-        public bool UpdateRole(RoleInfo role)
+        public bool UpdateRole(RoleInfo role,string oldRoleName)
         {
             if (currentUser == null)
             {
                 throw new Exception("请使用RoleManager(UserInfo)实例化该类。");
             }
-            return UpdateRole(currentUser, role);
+            return UpdateRole(currentUser, role, oldRoleName);
         }
 
         /// <summary>
@@ -960,16 +967,23 @@ namespace UniqueStudio.Core.Permission
         /// <remarks>不更新角色下的用户列表。</remarks>
         /// <param name="currentUser">执行该方法的用户信息。</param>
         /// <param name="role">待更新角色信息。</param>
+        /// <param name="oldRoleName">原始角色名。</param>
         /// <returns>是否更新成功。</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
         /// 当用户没有编辑角色的权限时抛出该异常。</exception>
-        public bool UpdateRole(UserInfo currentUser, RoleInfo role)
+        public bool UpdateRole(UserInfo currentUser, RoleInfo role,string oldRoleName)
         {
             Validator.CheckNull(role, "role");
             Validator.CheckNotPositive(role.RoleId, "role.RoleId");
+            Validator.CheckNegative(role.SiteId, "role.SiteId");
             Validator.CheckStringNull(role.RoleName, "role.RoleName");
 
             PermissionManager.CheckPermission(currentUser, "EditRole", "编辑角色");
+
+            if (role.RoleName != oldRoleName && IsRoleExists(role.SiteId, oldRoleName))
+            {
+                throw new Exception("该角色已经存在，请重新设置！");
+            }
 
             try
             {

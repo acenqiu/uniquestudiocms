@@ -50,6 +50,7 @@
                             <td width="10px">
                                 <input type="checkbox" onchange="selectall(this,'chkSelected')" id="chkSelectAll" />
                             </td>
+                            <td width="15px">ID</td>
                             <td width="200px">
                                 分类名称
                             </td>
@@ -70,6 +71,7 @@
                             <input type="checkbox" id='chk_<%# Eval("CategoryId") %>' name='chkSelected' onchange="selectRow(this);selectChildren(this,'<%= chkSelectChildren.ClientID %>')" value='<%# Eval("CategoryId") %>' />
                             <input type="hidden" name='<%# Eval("ParentCategoryId") %>' value='chk_<%# Eval("CategoryId") %>' />
                         </td>
+                        <td><%# Eval("CategoryId")%></td>
                         <td>
                             <a href='editcategory.aspx?siteId=<%= SiteId %>&catId=<%# Eval("CategoryId")%>' title='编辑分类 <%# Eval("CategoryName") %>'>
                                 <%# Eval("CategoryName") %></a>
