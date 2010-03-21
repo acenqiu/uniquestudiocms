@@ -4,6 +4,12 @@
 // 完成日期：2010年03月19日
 // 版本：v1.0 alpha
 // 作者：邱江毅
+//
+// 修改记录1：
+// 修改日期：2010年03月21日
+// 版本号：v1.0 alpha
+// 修改人：邱江毅
+// +) 增加原始分类别名。
 //=================================================================
 using System;
 using System.Web;
@@ -46,6 +52,7 @@ namespace UniqueStudio.Admin.admin.background
                 }
                 txtCategoryName.Text = category.CategoryName;
                 txtNiceName.Text = category.CategoryNiceName;
+                hfOldNiceName.Value = category.CategoryNiceName;
                 txtDescription.Text = category.Description;
 
                 CategoryCollection collection = manager.GetAllCategories(category.SiteId);
@@ -74,6 +81,7 @@ namespace UniqueStudio.Admin.admin.background
         {
             CategoryInfo category = new CategoryInfo();
             category.CategoryId = categoryId;
+            category.SiteId = SiteId;
             category.CategoryName = txtCategoryName.Text.Trim();
             category.CategoryNiceName = txtNiceName.Text.Trim();
             category.Description = txtDescription.Text.Trim();
@@ -86,7 +94,7 @@ namespace UniqueStudio.Admin.admin.background
 
             try
             {
-                if ((new CategoryManager()).UpdateCategory(CurrentUser, category))
+                if ((new CategoryManager()).UpdateCategory(CurrentUser, category, hfOldNiceName.Value))
                 {
                     Response.Redirect("categorylist.aspx?msg=" + HttpUtility.UrlEncode("分类更新成功！") + "&siteId=" + SiteId);
                 }
