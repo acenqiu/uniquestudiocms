@@ -4,8 +4,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>引力中心实验室 - 后台管理</title>
-    <link rel="stylesheet" type="text/css" href="css/admin.css" />
+   
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <script src="js/uscript-base.js"  language="javascript"></script>
+    <script language="javascript" >
+  
+    function applyMenu(parent,actived)
+    {
+    
+      var item=parent.getElementsByTagName("li");
+      for (var i=0;i<item.length;i++)
+      {
+      
+        addEvent(item[i],"click",onLiClick);
+        
+      }
+     function onLiClick(e)
+    {
+    
+       var l=getEventSender(e);
+        while (!isStringEqualsIgnoreCase(l.tagName,"li")&&!isStringEqualsIgnoreCase(l.tagName,"body"))
+        {
+           l=l.parentNode;
+        }
+        var n=hasClass(l.parentNode,actived,"li");
+        for (var j=0;j<n.length;j++)
+        {
+        n[j].className="";
+        }
+                                                    
+        l.className=actived;
+    }
+    }
+
+    </script>
     <asp:Literal ID="ltlEnableTime" runat="server">
         <script language="javascript" type="text/javascript">
              window.setInterval(cal,1000);
@@ -29,20 +61,15 @@
             }   
         //-->
     </script></asp:Literal>
-    <style type="text/css">
-        .header a
-        {
-        	color:#FFFF99;
-        }
-    </style>
+
 </head>
-<body>
-    <div class="header">
+<body  onload="applyMenu(hasClass(document,'nav','ul')[0],'li-actived')">
+    <div class="header" >
         <div class="logo">
-            <h1>&nbsp;</h1>
+            <h1>后台管理</h1>
         </div>
-        <div style="text-align:left;color:White;font-weight:bold;padding-left:20px;">
-            <ul class="nav">
+        <div>
+            <ul class="nav" >
                 <asp:Repeater ID="rptSiteList" runat="server">
                     <ItemTemplate>
                         <li><a href='sidebar.aspx?siteId=<%# Eval("SiteID") %>' target='left' >
@@ -50,7 +77,7 @@
                     </ItemTemplate>
                 </asp:Repeater>
                 <li><a href='sidebar.aspx' target='left'>系统管理</a></li>
-                <li>用户信息</li>
+
                 <li><a href="background/feedback.aspx" target="right">反馈信息</a></li>
             </ul>
          </div>
