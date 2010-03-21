@@ -22,23 +22,18 @@
 
 .form-item
 {
-	padding: 20px 5px;
+	padding: 5px 5px;
 	position: relative;
 }
 .form-item-label
 {
 	color: #FFFFFF;
-	text-align: right;
-	position: absolute;
-	left: 0%;
-	width: 30%;
+	
+	
 }
 .form-item-input
 {
-	position: absolute;
-	width: 50%;
-	left: 31%;
-	text-align: left;
+	
 }
 .form-item-input .input-text
 {

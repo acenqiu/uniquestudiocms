@@ -6,7 +6,7 @@ body
 	font-family: Tohoma,ËÎÌå£¬Arial,Helvetica, sans-serif;
 	background: url(../images/bg.png) #eeeeee;
 }
-a, a:link, a:visited
+a, a:link
 {
 	text-decoration: none;
 	color: #333333;
@@ -58,17 +58,29 @@ a:hover
 {
 	float:left;
 }
+   .header a
+        {
+        	color:#FFFF99;
+        }
+.header .nav li a
+{
+ display:block;
+ padding:3px;
+}
 .candy-menu
 {
 	display: none;
 }
-.logo
+.logo h1
 {
-	background: url(../images/logo.png) no-repeat;
-	margin-left: 20px;
-	margin-top: -10px;
-	text-indent: -1111px;
-	height: 55px;
+
+color:#BBF7F5;
+margin-left:20px;
+font-weight:bold;
+height:20px;
+padding:0px;
+
+
 }
 #navigation a
 {
