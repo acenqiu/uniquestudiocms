@@ -2,12 +2,23 @@
     Inherits="UniqueStudio.ComContent.PL.PostEditor" %>
 <%@ Register Src="Message.ascx" TagPrefix="US" TagName="Message" %>
 <%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>
+<%@ Register Src="attachment.ascx" TagName="Attachment" TagPrefix="US" %>
+
+<script src="jquery.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="ajaxupload.js"></script>
+
 <div class="postEditor">
     <US:Message ID="message" runat="server" />
+    <asp:ValidationSummary ID="validationSummary" runat="server" ValidationGroup="post"
+        CssClass="error" DisplayMode="List" ForeColor="#333333" />
     <asp:Panel ID="pnlEditor" runat="server">
         <div class="form-item">
             <span class="form-item-label">标题：</span> <span class="form-item-input">
-                <asp:TextBox ID="txtTitle" runat="server" Width="450px" /></span>
+                <asp:TextBox ID="txtTitle" runat="server" Width="450px" />
+                <asp:RequiredFieldValidator ControlToValidate="txtTitle" runat="server" Display="None"
+                    ErrorMessage="请输入标题" ValidationGroup="post"></asp:RequiredFieldValidator>
+            </span>
         </div>
         <div class="form-item" style="display: none">
             <span class="form-item-label">副标题：</span> <span class="form-item-input">
@@ -29,13 +40,23 @@
         </div>
         <div class="form-item">
             <span class="form-item-label">作者：</span> <span class="form-item-input">
-                <asp:TextBox ID="txtAuthor" runat="server" Width="250px" /></span>
+                <asp:TextBox ID="txtAuthor" runat="server" Width="250px" /><asp:RequiredFieldValidator
+                    runat="server" ControlToValidate="txtAuthor" ErrorMessage="请输入作者" ValidationGroup="post"
+                    Display="None"></asp:RequiredFieldValidator></span>
         </div>
-        <div class="form-item">
-            <span class="form-item-label">附件：</span>
+        <div class="form-item" id="attachments">
+            <span class="form-item-label">新闻图片：</span> <span class="form-item-input">
+                <asp:Label runat="server" ID="imagename" Visible="false"></asp:Label>
+                <asp:FileUpload runat="server" ID="newsimage" EnableViewState="false" /></span>
+            <br />
+            <span class="form-item-label">附件：</span> <span class="form-item-input">
+                <asp:Label runat="server" ID="filename" Visible="false"></asp:Label>
+                <asp:FileUpload runat="server" EnableViewState="false" ID="enclosure" /></span>
+            <p class="text">
+            </p>
             <span class="form-item-input">
-            <asp:Label runat="server" ID="filename" Visible="false"></asp:Label>
-            <asp:FileUpload runat="server" EnableViewState="false" ID="enclosure" /></span>
+                <US:Attachment ID="attcontrol" runat="server" />
+            </span>
             <%--<asp:Button ID="upfilebtn" runat="server" Text="附件上传" OnClick="upfilebtn_Click" />--%>
         </div>
         <div class="form-item" style="display: none">
@@ -57,6 +78,16 @@
             <span class="form-item-label">添加时间：</span> <span class="form-item-input">
                 <asp:TextBox ID="txtAddDate" runat="server" Width="250px" /></span>
         </div>
+        <div class="form-item">
+            <span class="form-item-label"></span><span class="form-item-input">
+                <asp:CheckBox ID="tittleChecked" runat="server" Text="不显示标题" Checked="false" />
+            </span>
+        </div>
+        <div class="form-item">
+            <span class="form-item-label"></span><span class="form-item-input">
+                <asp:CheckBox runat="server" ID="otherChecked" Text="不显示作者、发表时间、阅读次数等信息" Checked="false" />
+            </span>
+        </div>
         <div class="form-item" style="display: none">
             <span class="form-item-label">标签：</span> <span class="form-item-input">
                 <asp:TextBox ID="txtTags" runat="server" Width="250px" /></span>
@@ -66,7 +97,9 @@
                 <asp:CheckBox ID="chbAllowComment" runat="server" Checked="true" Text="允许评论" /></span>
         </div>
         <p class="submits">
-            <asp:Button ID="btnPublish" runat="server" OnClick="btnPublish_Click" Text="发表" />
-            <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="保存为草稿" />
+            <asp:Button ID="btnPublish" runat="server" OnClick="btnPublish_Click" ValidationGroup="post"
+                Text="发表" />
+            <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" ValidationGroup="post"
+                Text="保存为草稿" />
     </asp:Panel>
 </div>

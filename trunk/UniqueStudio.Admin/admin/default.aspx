@@ -8,7 +8,7 @@
     scrolling="yes">
 <frame name="top" scrolling="no" src="top.aspx" />
 <frameset id="bottomframes" framespacing="0" border="false" cols="220,*" frameborder="0" scrolling="yes">
-	<frame name="left" scrolling="auto" marginwidth="0" marginheight="0" src="sidebar.aspx" noresize />
+	<frame name="left" scrolling="auto" marginwidth="0" marginheight="0" src="sidebar.aspx?siteId=1" noresize />
 	<frame name="right" scrolling="auto" src="background/default.aspx"/>
 </frameset>
 <frame name="bottom" scrolling="no" src="bottom.aspx" />

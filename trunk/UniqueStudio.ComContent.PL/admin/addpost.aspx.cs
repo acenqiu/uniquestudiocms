@@ -14,11 +14,11 @@ namespace UniqueStudio.ComContent.PL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            editor.SiteId = SiteId;
             if (!IsPostBack)
             {
                 if (!PostPermissionManager.HasAddPermission(CurrentUser, SiteId))
                 {
-                    //Response.Redirect("PostPermissionError.aspx?Error=添加文章&Page=" + Request.UrlReferrer.ToString());
                 }
             }
         }

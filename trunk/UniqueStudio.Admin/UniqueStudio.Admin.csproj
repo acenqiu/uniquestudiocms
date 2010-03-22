@@ -322,6 +322,13 @@
     <Compile Include="admin\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GetCheckCode.aspx.cs">
       <DependentUpon>GetCheckCode.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -713,8 +720,10 @@
     <Content Include="admin\editor\fckeditor\fcktemplates.xml" />
     <Content Include="admin\js\jquery.js" />
     <Content Include="admin\js\jquery.gchart.js" />
+    <Content Include="admin\js\uscript-base.js" />
     <Content Include="admin\xml\SecurityConfig.xml" />
     <Content Include="admin\xml\serverconfig.xml" />
+    <Content Include="Default.aspx" />
     <Content Include="GetCheckCode.aspx" />
     <Content Include="admin\images\bg.png" />
     <Content Include="admin\images\column-header-icon.png" />
@@ -732,7 +741,6 @@
     <Content Include="admin\Web.config" />
     <Content Include="admin\xml\error.xml" />
     <Content Include="admin\xml\WebSiteConfig.xml" />
-    <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
   </ItemGroup>
   <ItemGroup>

@@ -14,6 +14,7 @@ namespace UniqueStudio.ComContent.PL
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            editor.SiteId = SiteId;
             if (!IsPostBack)
             {
                 string ret = string.Empty;

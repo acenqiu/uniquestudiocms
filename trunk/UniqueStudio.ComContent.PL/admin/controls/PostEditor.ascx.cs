@@ -260,7 +260,7 @@ namespace UniqueStudio.ComContent.PL
                 long postId = bll.AddPost(currentUser, post);
                 if (postId > 0)
                 {
-                    Response.Redirect(string.Format("editpost.aspx?msg={0}&siteId={1}&uri={2}",HttpUtility.UrlEncode("发布成功！"),postId));
+                    Response.Redirect(string.Format("editpost.aspx?msg={0}&siteId={1}&uri={2}",HttpUtility.UrlEncode("发布成功！"),siteId, postId));
                 }
                 else
                 {

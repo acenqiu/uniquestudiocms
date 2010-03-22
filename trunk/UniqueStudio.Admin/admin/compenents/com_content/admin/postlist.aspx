@@ -1,6 +1,7 @@
 ﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="postlist.aspx.cs"
     Inherits="UniqueStudio.ComContent.PL.postlist" %>
 <%@ Import Namespace="UniqueStudio.Common.Config" %>
+<%@ Import Namespace="UniqueStudio.Core.Site" %>
 <%@ Register Src="controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 <%@ Register Src="controls/pagination.ascx" TagPrefix="US" TagName="Pagination" %>
 
@@ -42,7 +43,7 @@
                     <div class="list-item" onmouseover="hoverItem(this)" onmouseout="outItem(this)">
                         <span>
                             <input type="checkbox" name='chkSelected' onchange='selectRow(this)' value='<%# Eval("Uri") %>' /></span>
-                            <span class="article-title"><a href='<%= WebSiteConfig.BaseAddress %>/view.aspx?uri=<%# Eval("Uri")%>'
+                            <span class="article-title"><a href='<%= SiteManager.Config(SiteId).BaseAddress %>/view.aspx?uri=<%# Eval("Uri")%>'
                                 target="_blank" title='查看  <%# Eval("Title") %>'>
                                 <%# Eval("Title") %></a></span> 
                                 <span class="article-author"> <%# Eval("Author") %></span>
@@ -51,7 +52,7 @@
                         <span class="article-views"><%# Eval("Count") %></span>
                        <span class="article-date"><%# Convert.ToDateTime(Eval("CreateDate")).ToString("yyyy-MM-dd") %></span>
                         <div class="article-do-menu" ><span class="article-edit"><a href='editpost.aspx?uri=<%# Eval("Uri") %>'>
-                            编辑</a></span> <span class="article-views"><a href='<%= WebSiteConfig.BaseAddress %>/view.aspx?uri=<%# Eval("Uri")%>'
+                            编辑</a></span> <span class="article-views"><a href='<%= SiteManager.Config(SiteId).BaseAddress %>/view.aspx?uri=<%# Eval("Uri")%>'
                                 target="_blank" title='<%# Eval("Title") %>'>查看</a></span> <span class="article-delete">
                                     <a href='deletepost.aspx?uriCollection=<%# Eval("Uri") %>'>删除</a></span>
                         </div>

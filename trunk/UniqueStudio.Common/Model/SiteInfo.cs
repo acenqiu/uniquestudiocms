@@ -7,6 +7,7 @@
     {
         private int siteId;
         private string siteName;
+        private string relativePath;
         private string config;
 
         /// <summary>
@@ -32,6 +33,14 @@
         {
             get { return siteName; }
             set { siteName = value; }
+        }
+        /// <summary>
+        /// 网站相对路径。
+        /// </summary>
+        public string RelativePath
+        {
+            get { return relativePath; }
+            set { relativePath = value; }
         }
         /// <summary>
         /// 网站配置。
