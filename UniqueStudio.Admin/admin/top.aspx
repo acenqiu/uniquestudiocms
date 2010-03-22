@@ -6,22 +6,20 @@
     <title>引力中心实验室 - 后台管理</title>
    
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <script src="js/uscript-base.js"  language="javascript"></script>
-    <script language="javascript" >
+    <script src="js/uscript-base.js" type="text/javascript"  language="javascript"></script>
+    <script language="javascript" type="text/javascript" >
   
     function applyMenu(parent,actived)
     {
-    
       var item=parent.getElementsByTagName("li");
       for (var i=0;i<item.length;i++)
       {
-      
         addEvent(item[i],"click",onLiClick);
-        
       }
+      item[0].className =actived;
+      
      function onLiClick(e)
-    {
-    
+     {
        var l=getEventSender(e);
         while (!isStringEqualsIgnoreCase(l.tagName,"li")&&!isStringEqualsIgnoreCase(l.tagName,"body"))
         {
@@ -30,7 +28,7 @@
         var n=hasClass(l.parentNode,actived,"li");
         for (var j=0;j<n.length;j++)
         {
-        n[j].className="";
+            n[j].className="";
         }
                                                     
         l.className=actived;

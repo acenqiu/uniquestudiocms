@@ -20,22 +20,13 @@ namespace UniqueStudio.ComContent.PL
         {
             if (!IsPostBack)
             {
-                //TODO:导航栏（需提取成模块）
-                //if (Common.Cache.Cache.ContainsKey("ModNavigator"))
-                //{
-                //    navigationMenu.Text = (string)Common.Cache.Cache.Get("ModNavigator");
-                //}
-                //else
-                //{
                 MenuManager manager = new MenuManager();
                 MenuInfo menu = manager.GetMenu(1);
                 if (menu != null)
                 {
                     MenuItemInfo head = manager.GetMenuTree(menu.Items);
                     navigationMenu.Text = manager.GetMenuHtml(head);
-                    // Common.Cache.Cache.Add("ModNavigator", navigationMenu.Text);
                 }
-                //}
 
                 try
                 {

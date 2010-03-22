@@ -187,7 +187,7 @@ namespace UniqueStudio.Admin.admin.controls
                 }
                 Response.Redirect(String.Format(url, index.ToString()));
             }
-            catch (Exception exception)
+            catch (Exception)
             {
                 Response.Write("<script>alert('输入有误！')</script>");
             }

@@ -71,6 +71,7 @@ namespace UniqueStudio.DAL.Site
             SiteInfo site = new SiteInfo();
             site.SiteId = (int)reader["SiteID"];
             site.SiteName = reader["SiteName"].ToString();
+            site.RelativePath = reader["RelativePath"].ToString();
             return site;
         }
     }

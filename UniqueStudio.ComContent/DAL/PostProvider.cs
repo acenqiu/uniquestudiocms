@@ -267,6 +267,7 @@ namespace UniqueStudio.ComContent.DAL
 
                     cmd.CommandText = GET_CATEGORYINFO_BY_POSTURI;
                     cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@Uri", uri);
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         post.Categories = new CategoryCollection();
@@ -427,7 +428,7 @@ namespace UniqueStudio.ComContent.DAL
                             cmd.CommandText = GET_POST_LIST_BY_USER_PERMISSION;
                         }
                     }
-                    
+
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
@@ -437,13 +438,19 @@ namespace UniqueStudio.ComContent.DAL
                         reader.Close();
                     }
 
+                    collection.PageIndex = (int)cmd.Parameters["@PageIndex"].Value;
+                    collection.Amount = (int)cmd.Parameters["@Amount"].Value;
+                    collection.PageSize = pageSize;
+
                     if (IsNeedCategoryInfo)
                     {
+                        cmd.CommandText = GET_CATEGORYINFO_BY_POSTURI;
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add("@Uri", SqlDbType.BigInt);
+
                         foreach (PostInfo post in collection)
                         {
-                            cmd.CommandText = GET_CATEGORYINFO_BY_POSTURI;
-                            cmd.Parameters.Clear();
-                            cmd.Parameters.AddWithValue("@Uri", post.Uri);
+                            cmd.Parameters[0].Value = post.Uri;
                             using (SqlDataReader reader = cmd.ExecuteReader())
                             {
                                 post.Categories = new CategoryCollection();
@@ -460,9 +467,6 @@ namespace UniqueStudio.ComContent.DAL
                             }
                         }
                     }
-                    collection.PageIndex = (int)cmd.Parameters["@PageIndex"].Value;
-                    collection.Amount = (int)cmd.Parameters["@Amount"].Value;
-                    collection.PageSize = pageSize;
                     cmd.Parameters.Clear();
                 }
             }

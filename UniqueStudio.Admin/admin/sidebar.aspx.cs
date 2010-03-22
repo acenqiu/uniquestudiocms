@@ -21,7 +21,6 @@ namespace UniqueStudio.Admin.admin
         {
             if (!IsPostBack)
             {
-                //ltlAdvancedMenus.Visible = RoleManager.IsUserInRole(CurrentUser.UserId, "超级管理员");
                 if (SiteId != 0)
                 {
                     pnlSite.Visible = true;

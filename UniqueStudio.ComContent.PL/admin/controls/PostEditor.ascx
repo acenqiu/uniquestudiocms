@@ -8,37 +8,6 @@
 
 <script type="text/javascript" src="ajaxupload.js"></script>
 
-<script type="text/javascript" language="javascript">
-    $(document).ready(function () {
-        new AjaxUpload('button2', {
-            action: 'fileuploadhandler.ashx',
-            data: {
-                'key1': "This data won't",
-                'key2': "be send because",
-                'key3': "we will overwrite it"
-            },
-            onSubmit: function (file, ext) {
-                // Allow only images. You should add security check on the server-side.
-                if (ext && /^(jpg|png|jpeg|gif)$/.test(ext)) {
-                    /* Setting data */
-                    this.setData({
-                        'key': 'This string will be send with the file'
-                    });
-                    $('#attachments .text').text('Uploading ' + file);
-                } else {
-                    // extension is not allowed
-                    $('#attachments .text').text('Error: only images are allowed');
-                    // cancel upload
-                    return false;
-                }
-            },
-            onComplete: function (file) {
-                $('#attachments .text').text('Uploaded ' + file);
-            }
-        });
-    });
-</script>
-
 <div class="postEditor">
     <US:Message ID="message" runat="server" />
     <asp:ValidationSummary ID="validationSummary" runat="server" ValidationGroup="post"
@@ -83,7 +52,6 @@
             <span class="form-item-label">附件：</span> <span class="form-item-input">
                 <asp:Label runat="server" ID="filename" Visible="false"></asp:Label>
                 <asp:FileUpload runat="server" EnableViewState="false" ID="enclosure" /></span>
-            <a href="#" id="button2">Upload Image</a>
             <p class="text">
             </p>
             <span class="form-item-input">
