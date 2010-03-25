@@ -30,11 +30,9 @@ namespace UniqueStudio.Common.Config
         private bool postStatByYear = false;
 
         //string
-        private string baseAddress = string.Empty;
         private string webName = string.Empty;
         private string timeFormatOfIndexPostList = "yyyy-MM-dd";
         private string timeFormatOfSectionPostList = "yyyy-MM-dd";
-        private string enclosureExtension = ".doc;.docx;.rar;.zip;.7z";
 
         //int
         private int pageSizeOfIndexPostList = 9;
@@ -71,14 +69,6 @@ namespace UniqueStudio.Common.Config
 
         //string
         /// <summary>
-        /// 网站首页地址
-        /// </summary>
-        public string BaseAddress
-        {
-            get { return baseAddress; }
-            set { baseAddress = value; }
-        }
-        /// <summary>
         /// 网站名称
         /// </summary>
         public string WebName
@@ -103,15 +93,6 @@ namespace UniqueStudio.Common.Config
         {
             get { return timeFormatOfSectionPostList; }
             set { timeFormatOfSectionPostList = value; }
-        }
-        /// <summary>
-        /// 允许上传的附件扩展名
-        /// </summary>
-        /// <remarks>将在后续版本中转移</remarks>
-        public string EnclosureExtension
-        {
-            get { return enclosureExtension; }
-            set { enclosureExtension = value; }
         }
 
         //int

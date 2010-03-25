@@ -21,6 +21,7 @@ namespace UniqueStudio.Core.Site
     {
         private static readonly ISite provider = DALFactory.CreateSite();
         private static Dictionary<int, WebSiteConfig> wsConfigs = new Dictionary<int, WebSiteConfig>();
+        private static Dictionary<int, string> wsBaseAddresses = new Dictionary<int, string>();
 
         /// <summary>
         /// 初始化<see cref="SiteManager"/>类的实例。
@@ -72,6 +73,25 @@ namespace UniqueStudio.Core.Site
 
                 return wsConfigs[siteId];
             }
+        }
+
+        /// <summary>
+        /// 返回指定网站的根网址。
+        /// </summary>
+        /// <param name="siteId">网站ID。</param>
+        /// <returns>网站根网址。</returns>
+        public static string BaseAddress(int siteId)
+        {
+            if (!wsBaseAddresses.ContainsKey(siteId))
+            {
+                SiteCollection sites = (new SiteManager()).GetAllSites();
+                wsBaseAddresses.Clear();
+                foreach (SiteInfo site in sites)
+                {
+                    wsBaseAddresses.Add(site.SiteId, PathHelper.PathCombine(ServerConfig.BaseAddress, site.RelativePath));
+                }
+            }
+            return wsBaseAddresses[siteId];
         }
 
         /// <summary>

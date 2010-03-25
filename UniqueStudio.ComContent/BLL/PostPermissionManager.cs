@@ -82,7 +82,14 @@ namespace UniqueStudio.ComContent.BLL
                 ErrorLogger.LogError(ex);
                 throw new UnhandledException();
             }
-            return HasDeletePermission(currentUser, post.SiteId, post.AddUserName, post.IsPublished);
+            if (post != null)
+            {
+                return HasDeletePermission(currentUser, post.SiteId, post.AddUserName, post.IsPublished);
+            }
+            else
+            {
+                return true;
+            }
         }
 
         /// <summary>
@@ -142,7 +149,15 @@ namespace UniqueStudio.ComContent.BLL
                 ErrorLogger.LogError(ex);
                 throw new UnhandledException();
             }
-            return HasEditPermission(currentUser, post.SiteId, post.AddUserName, post.IsPublished);
+
+            if (post != null)
+            {
+                return HasEditPermission(currentUser, post.SiteId, post.AddUserName, post.IsPublished);
+            }
+            else
+            {
+                return true;
+            }
         }
 
         /// <summary>

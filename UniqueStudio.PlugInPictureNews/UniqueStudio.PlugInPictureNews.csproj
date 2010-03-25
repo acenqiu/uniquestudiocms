@@ -5,21 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8210A6F7-8301-4B2A-8218-BCCFA48DA96C}</ProjectGuid>
+    <ProjectGuid>{5B94B327-7DCA-4753-82E0-29548EEFECB2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UniqueStudio.HttpControlLayer</RootNamespace>
-    <AssemblyName>UniqueStudio.HttpControlLayer</AssemblyName>
+    <RootNamespace>UniqueStudio.PlugInPictureNews</RootNamespace>
+    <AssemblyName>UniqueStudio.PlugInPictureNews</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,8 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,32 +33,20 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DynamicPageHandler.cs" />
-    <Compile Include="DynamicPageHandlerFactory.cs" />
-    <Compile Include="HttpUserAuthorization.cs" />
-    <Compile Include="HttpPageVisitModule.cs" />
+    <Compile Include="PlugInPictureNews.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RewriterUtils.cs" />
-    <Compile Include="SitesRouter.cs" />
-    <Compile Include="UrlRewriter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UniqueStudio.Common\UniqueStudio.Common.csproj">
-      <Project>{B9EC7556-3B7A-4357-920B-94EE1313FF95}</Project>
-      <Name>UniqueStudio.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UniqueStudio.Core\UniqueStudio.Core.csproj">
       <Project>{F9D2C679-CD07-49AA-BD9C-B28F6BB14F20}</Project>
       <Name>UniqueStudio.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UniqueStudio.PL.Engine\UniqueStudio.PL.Engine.csproj">
-      <Project>{D7B98571-076B-42D1-916E-204D46DD9958}</Project>
-      <Name>UniqueStudio.PL.Engine</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="install.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

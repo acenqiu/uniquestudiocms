@@ -1,9 +1,12 @@
 ﻿using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.SessionState;
 using System.Web.UI;
 
+using UniqueStudio.Common.Caching;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Core.Site;
 using UniqueStudio.Core.SiteMap;
 
 namespace UniqueStudio.HttpControlLayer
@@ -11,7 +14,7 @@ namespace UniqueStudio.HttpControlLayer
     /// <summary>
     /// 动态页面解析工厂类。
     /// </summary>
-    public class DynamicPageHandlerFactory : IHttpHandlerFactory
+    public class DynamicPageHandlerFactory : IHttpHandlerFactory, IRequiresSessionState
     {
         /// <summary>
         /// 返回一个单独的方法，可调用该方法来顺序调用指定事件的所有处理程序。
@@ -40,8 +43,8 @@ namespace UniqueStudio.HttpControlLayer
                 Regex r = new Regex(lookFor, RegexOptions.IgnoreCase);
                 if (r.IsMatch(url))
                 {
-                    
-                    sendToUrl = RewriterUtils.ResolveUrl(context.Request.ApplicationPath, r.Replace(url, pages[i].PagePath+"?"+pages[i].Parameters));
+
+                    sendToUrl = RewriterUtils.ResolveUrl(context.Request.ApplicationPath, r.Replace(url, pages[i].PagePath + "?" + pages[i].Parameters));
 
                     string sendToUrlLessQString;
                     RewriterUtils.RewriteUrl(context, sendToUrl, out sendToUrlLessQString, out filePath);

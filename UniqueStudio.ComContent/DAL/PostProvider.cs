@@ -491,14 +491,13 @@ namespace UniqueStudio.ComContent.DAL
         /// <summary>
         /// 根据分类ID返回文章。
         /// </summary>
-        /// <param name="siteId">网站ID。</param>
         /// <param name="pageIndex">页码，从1起始。</param>
         /// <param name="pageSize">每页条目数。</param>
         /// <param name="isIncludeSummary">是否返回文章摘要。</param>
         /// <param name="postListType">文章类型。</param>
         /// <param name="categoryId">分类ID。</param>
         /// <returns>文章列表。</returns>
-        public PostCollection GetPostListByCatId(int siteId, int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, int categoryId)
+        public PostCollection GetPostListByCatId(int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, int categoryId)
         {
             PostCollection collection = new PostCollection(pageSize);
 

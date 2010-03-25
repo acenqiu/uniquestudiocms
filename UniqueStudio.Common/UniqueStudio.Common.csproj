@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B9EC7556-3B7A-4357-920B-94EE1313FF95}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -60,6 +60,7 @@
     <Compile Include="Config\ServerConfig.cs" />
     <Compile Include="Config\SystemConfig.cs" />
     <Compile Include="Config\WebSiteConfig.cs" />
+    <Compile Include="Cookies\CookieManager.cs" />
     <Compile Include="DatabaseHelper\SqlHelper.cs" />
     <Compile Include="ErrorLogging\ErrorLogger.cs" />
     <Compile Include="Exceptions\CompenentInstallException.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Model\PermissionCollection.cs" />
     <Compile Include="Model\PlugInCollection.cs" />
     <Compile Include="Model\PlugInInfo.cs" />
+    <Compile Include="Model\PlugInInstanceInfo.cs" />
     <Compile Include="Model\PointCollection.cs" />
     <Compile Include="Model\PointInfo.cs" />
     <Compile Include="Model\SiteCollection.cs" />
@@ -121,7 +123,7 @@
     <Compile Include="Security\MD5Helper.cs" />
     <Compile Include="Utilities\Converter.cs" />
     <Compile Include="Utilities\RegularExpressions.cs" />
-    <Compile Include="Utilities\UrlHelper.cs" />
+    <Compile Include="Utilities\PathHelper.cs" />
     <Compile Include="Utilities\Validator.cs" />
     <Compile Include="XmlHelper\XmlManager.cs" />
     <Compile Include="XmlPageParser\Controls\CheckBox.cs" />

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<install type="plugIn">
+  <PlugInName>plugIn_pictureNews</PlugInName>
+  <DisplayName>图片新闻自动更新插件</DisplayName>
+  <PlugInAuthor>UniqueStudio</PlugInAuthor>
+  <Description>
+  </Description>
+  <ClassPath>UniqueStudio.PlugInIpPictureNews.PlugInIpPictureNews</ClassPath>
+  <Assembly>UniqueStudio.PlugInIpPictureNews</Assembly>
+  <params>
+    <param name="CategoryId" type="text" default="1" label="图片新闻分类ID" description="作为图片新闻分类的分类ID。" />
+  </params>
+</install>

@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UniqueStudio.Core.PlugIn
+﻿namespace UniqueStudio.Core.PlugIn
 {
     /// <summary>
-    /// 插件需实现的接口
+    /// 插件需实现的接口。
     /// </summary>
     public interface IPlugIn
     {
         /// <summary>
-        /// 初始化该接口，注册相应的事件
+        /// 启用插件，注册相应的事件。
         /// </summary>
-        void Init();
+        void Start();
+
+        /// <summary>
+        /// 停用插件，反注册事件。
+        /// </summary>
+        void Stop();
     }
 }

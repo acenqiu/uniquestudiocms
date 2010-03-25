@@ -36,7 +36,7 @@ namespace UniqueStudio.ComContent.BLL
             sb.Append("<viewer interval='4000' isRandom='1'>").Append("\r\n");
             PostManager postManager = new PostManager();
 
-            List<PostInfo> postList = postManager.GetPostListByCatId(1, 1, 3, false, PostListType.PublishedOnly, CATEGOEY_ID);
+            List<PostInfo> postList = postManager.GetPostListByCatId(1, 3, false, PostListType.PublishedOnly, CATEGOEY_ID);
 
 
             foreach (PostInfo post in postList)
