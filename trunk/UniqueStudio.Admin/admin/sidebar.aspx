@@ -68,9 +68,9 @@
                     </li>
                     <li onclick="javascript:changestate(this)"><span>插件管理</span><span class="collapse-icon"></span>
                         <div class="candy-menu">
-                            <ul>
-                                <li><a href="background/pluginlist.aspx" target="right">插件列表</a></li>
+                            <ul>                                
                                 <li><a href="background/installplugin.aspx" target="right">插件安装</a></li>
+                                <li><a href="background/pluginlist.aspx" target="right">插件列表</a></li>
                             </ul>
                         </div>
                     </li>

@@ -15,7 +15,7 @@ using UniqueStudio.Core.Category;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class categorylist : Controls.BasePage
+    public partial class categorylist : Controls.AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

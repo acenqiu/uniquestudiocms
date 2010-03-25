@@ -15,7 +15,7 @@ using UniqueStudio.Core.Menu;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class menulist : Controls.BasePage
+    public partial class menulist : Controls.AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

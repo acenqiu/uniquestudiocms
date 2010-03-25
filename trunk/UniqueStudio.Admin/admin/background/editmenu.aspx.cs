@@ -16,7 +16,7 @@ using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class editmenu : UniqueStudio.Controls.BasePage
+    public partial class editmenu : UniqueStudio.Controls.AdminBasePage
     {
         private int menuId;
         private MenuManager manager = new MenuManager();
@@ -59,7 +59,7 @@ namespace UniqueStudio.Admin.admin.background
                 txtDescription.Text = menu.Description;
 
                 //菜单项
-                txtLink.Text = SiteManager.Config(SiteId).BaseAddress;
+                txtLink.Text = SiteManager.BaseAddress(SiteId);
                 txtItemName.Text = string.Empty;
                 txtDescription.Text = string.Empty;
                 txtTarget.Text = string.Empty;

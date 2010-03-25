@@ -14,7 +14,7 @@ using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class createuser : Controls.BasePage
+    public partial class createuser : Controls.AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

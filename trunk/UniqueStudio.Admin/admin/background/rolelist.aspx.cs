@@ -16,7 +16,7 @@ using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class rolelist : Controls.BasePage
+    public partial class rolelist : Controls.AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

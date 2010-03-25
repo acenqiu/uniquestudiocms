@@ -47,7 +47,7 @@
                 <div class="form-item">
                     <span>验证码：</span> <span>
                         <asp:TextBox ID="txtCheckCode" CssClass="input-text" Width="100px" runat="server" />
-                        <img src="../GetCheckCode.aspx" alt="验证码" />
+                        <img src="GetCheckCode.aspx" alt="验证码" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtCheckCode"
                             ValidationGroup="login" Display="None" ErrorMessage="请输入验证码" /></span></div> 
                 <div class="form-item">

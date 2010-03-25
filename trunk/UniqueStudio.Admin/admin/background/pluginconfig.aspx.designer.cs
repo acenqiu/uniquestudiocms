@@ -11,7 +11,7 @@
 namespace UniqueStudio.Admin.admin.background {
     
     
-    public partial class installplugin {
+    public partial class pluginconfig {
         
         /// <summary>
         /// message control.
@@ -21,42 +21,6 @@ namespace UniqueStudio.Admin.admin.background {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::UniqueStudio.Admin.admin.controls.Message message;
-        
-        /// <summary>
-        /// ddlFolders control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFolders;
-        
-        /// <summary>
-        /// ddlSites control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSites;
-        
-        /// <summary>
-        /// btnInstall control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnInstall;
-        
-        /// <summary>
-        /// pnlInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pnlInfo;
         
         /// <summary>
         /// ltlPlugInName control.
@@ -77,13 +41,22 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::System.Web.UI.WebControls.Literal ltlDisplayName;
         
         /// <summary>
-        /// ltlPlugInAuthor control.
+        /// ltlAuthor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlPlugInAuthor;
+        protected global::System.Web.UI.WebControls.Literal ltlAuthor;
+        
+        /// <summary>
+        /// ltlCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltlCategory;
         
         /// <summary>
         /// ltlDescription control.
@@ -95,31 +68,76 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::System.Web.UI.WebControls.Literal ltlDescription;
         
         /// <summary>
-        /// ltlAssembly control.
+        /// ddlSites control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlAssembly;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSites;
         
         /// <summary>
-        /// ltlClassPath control.
+        /// btnAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlClassPath;
+        protected global::System.Web.UI.WebControls.Button btnAdd;
         
         /// <summary>
-        /// btnOk control.
+        /// rptList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnOk;
+        protected global::System.Web.UI.WebControls.Repeater rptList;
+        
+        /// <summary>
+        /// ddlOperation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlOperation;
+        
+        /// <summary>
+        /// btnExcute control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExcute;
+        
+        /// <summary>
+        /// ltlCurrentInstance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltlCurrentInstance;
+        
+        /// <summary>
+        /// config control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UniqueStudio.Admin.admin.controls.Config config;
+        
+        /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
         
         /// <summary>
         /// btnCancel control.

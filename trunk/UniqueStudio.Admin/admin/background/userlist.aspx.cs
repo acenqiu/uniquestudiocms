@@ -14,7 +14,7 @@ using UniqueStudio.Core.User;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class userlist : Controls.BasePage
+    public partial class userlist : Controls.AdminBasePage
     {
         private int pageIndex;
         private int pageSize;

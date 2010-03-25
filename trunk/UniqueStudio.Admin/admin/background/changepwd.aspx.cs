@@ -13,7 +13,7 @@ using UniqueStudio.Core.User;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class changepwd : Controls.BasePage
+    public partial class changepwd : Controls.AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

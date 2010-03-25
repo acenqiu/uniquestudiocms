@@ -15,7 +15,7 @@ using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class createrole : Controls.BasePage
+    public partial class createrole : Controls.AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

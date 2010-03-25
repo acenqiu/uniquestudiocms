@@ -12,7 +12,7 @@ using UniqueStudio.Core.Permission;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class permissionlist : Controls.BasePage
+    public partial class permissionlist : Controls.AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
