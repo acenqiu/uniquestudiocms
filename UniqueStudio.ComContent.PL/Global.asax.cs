@@ -20,8 +20,8 @@ namespace UniqueStudio.ComContent.PL
             //配置信息初始化 
             GlobalConfig.BasePhysicalPath = Server.MapPath("~");
 
-            WebSiteConfig config = new WebSiteConfig();
-            config.LoadConfig();
+            (new ServerConfig()).LoadConfig();
+            (new SecurityConfig()).LoadConfig();
         }
 
         protected void Session_Start(object sender, EventArgs e)

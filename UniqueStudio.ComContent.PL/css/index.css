@@ -3,7 +3,7 @@ body
 {
 	font-size: 12px;
 	font-family: Tohoma,ËÎÌå£¬Arial,Helvetica, sans-serif;
-	background: url(img/bg.png) #eeeeee;
+	background: url(../img/bg.png) #eeeeee;
 	text-align: center;
 }
 a, a:link, a:visited
@@ -33,7 +33,7 @@ a:hover
 }
 .header
 {
-	background: url(img/header_bg.png) repeat-x #FFFFFF;
+	background: url(../img/header_bg.png) repeat-x #FFFFFF;
 	padding-bottom: 15px;
 	height: 100%;
 }
@@ -54,7 +54,7 @@ a:hover
 
 .logo
 {
-	background: url(img/logo.png) no-repeat;
+	background: url(../img/logo.png) no-repeat;
 	margin-left: 20px;
 	margin-top: -10px;
 	text-indent: -1111px;
@@ -112,7 +112,7 @@ a:hover
 }
 #navigation .candy-menu .li-node
 {
-	background: url(img/menu-child.png) right no-repeat;
+	background: url(../img/menu-child.png) right no-repeat;
 }
 
 #navigation .candy-menu ul li
@@ -204,7 +204,7 @@ a:hover
 .column-content ul li .new
 {
 	padding-right: 30px;
-	background: url(img/new.png) no-repeat right;
+	background: url(../img/new.png) no-repeat right;
 }
 .column-content ul li .postdate
 {
@@ -218,7 +218,7 @@ a:hover
 .column-head
 {
 	line-height: 14px;
-	background: url(img/column-header-icon.png) no-repeat;
+	background: url(../img/column-header-icon.png) no-repeat;
 	text-indent: 20px;
 	color: #136DBC;
 	font-size: 16px;
@@ -237,7 +237,7 @@ a:hover
 }
 .column-content ul li
 {
-	list-style: url(img/list-style.png);
+	list-style: url(../img/list-style.png);
 	list-style-position: outside;
 	margin-left: -25px;
 }
@@ -271,7 +271,7 @@ a:hover
 .footer
 {
 	float: left;
-	background: url(img/footer_bg.png) repeat-x;
+	background: url(../img/footer_bg.png) repeat-x;
 	width: 100%;
 	height: 100%;
 	color: #FFFFFF;

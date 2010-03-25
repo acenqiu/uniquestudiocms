@@ -9,7 +9,7 @@ a
 	color: #000066;
 	font-weight: bold;
 	margin: 14px 0 0 10px;
-	background: url(img/column-header-icon.png) no-repeat;
+	background: url(../img/column-header-icon.png) no-repeat;
 }
 .site-depth a
 {
@@ -24,7 +24,7 @@ a
 	border-bottom: 1px dotted #FF9900;
 	padding: 0px;
 	margin-left: -10px;
-	list-style: url(img/list-style.png);
+	list-style: url(../img/list-style.png);
 	list-style-position: outside;
 	margin-right: 20px;
 	font-size:14px;
@@ -32,7 +32,7 @@ a
 .list li .new
 {
 	padding-right: 30px;
-	background: url(img/new.png) no-repeat right;
+	background: url(../img/new.png) no-repeat right;
 }
 .list li .postdate
 {
