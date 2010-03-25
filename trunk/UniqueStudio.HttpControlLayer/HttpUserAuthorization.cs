@@ -24,13 +24,13 @@ namespace UniqueStudio.HttpControlLayer
         {
             HttpApplication app = (HttpApplication)sender;
             HttpContext context = app.Context;
-            if (context.Request.Path.EndsWith(".aspx") && !context.Request.Path.EndsWith("login.aspx"))
+            if (context.Request.Path.EndsWith(".aspx") 
+                && !context.Request.Path.StartsWith("/admin/login.aspx") && !context.Request.Path.StartsWith("/admin/GetCheckCode.aspx"))
             {
                 if (r.IsMatch(context.Request.Path))
                 {
                     if (context.Session[GlobalConfig.SESSION_USER] == null)
                     {
-                        
                         context.Response.Redirect("~/admin/login.aspx?ret=" + HttpUtility.UrlEncode(context.Request.RawUrl));
                     }
                 }

@@ -17,6 +17,8 @@ namespace UniqueStudio.Common.Config
             path = @"admin\xml\SecurityConfig.xml";
         }
 
+        private static string enclosureExtension = ".doc;.docx;.rar;.zip;.7z";
+
         //Boolean
         private static bool enableLoginByUserName = true;
         private static bool enableRegister = false;
@@ -48,5 +50,15 @@ namespace UniqueStudio.Common.Config
             get { return isApprovedAfterRegister; }
             set { isApprovedAfterRegister = value; }
         }
+        /// <summary>
+        /// 允许上传的附件扩展名
+        /// </summary>
+        /// <remarks>将在后续版本中转移</remarks>
+        public static string EnclosureExtension
+        {
+            get { return enclosureExtension; }
+            set { enclosureExtension = value; }
+        }
+
     }
 }

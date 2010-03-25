@@ -34,6 +34,9 @@ namespace UniqueStudio.Common.Config
         /// </summary>
         public static int CacheCapacity = 100;
 
+        //Cache键
+        public const string CACHE_SITES = "Sites";
+
         //Cookie键
         public const string COOKIE = "US";
         public const string COOKIE_EMAIL = "UAccount";
@@ -43,5 +46,6 @@ namespace UniqueStudio.Common.Config
 
         //Session键
         public const string SESSION_USER = "User";
+        public const string SESSION_SITEID = "SiteId";
     }
 }

@@ -167,6 +167,17 @@ namespace UniqueStudio.ComContent.BLL
         /// <summary>
         /// 返回指定文章。
         /// </summary>
+        /// <remarks>仅用于返回已发布文章。</remarks>
+        /// <param name="uri">文章Uri。</param>
+        /// <returns>文章信息。</returns>
+        public PostInfo GetPost(long uri)
+        {
+            return GetPost(null, uri);
+        }
+
+        /// <summary>
+        /// 返回指定文章。
+        /// </summary>
         /// <param name="currentUser">执行该方法的用户信息。</param>
         /// <param name="uri">文章Uri。</param>
         /// <returns>文章信息。</returns>
@@ -180,13 +191,20 @@ namespace UniqueStudio.ComContent.BLL
             try
             {
                 PostInfo post = provider.GetPost(uri);
-                if (!PostPermissionManager.HasViewPermission(currentUser, post.SiteId, post.AddUserName, post.IsPublished))
+                if (post != null)
                 {
-                    throw new InvalidPermissionException();
+                    if (!PostPermissionManager.HasViewPermission(currentUser, post.SiteId, post.AddUserName, post.IsPublished))
+                    {
+                        throw new InvalidPermissionException();
+                    }
+                    else
+                    {
+                        return post;
+                    }
                 }
                 else
                 {
-                    return post;
+                    return null;
                 }
             }
             catch (InvalidPermissionException)
@@ -259,17 +277,16 @@ namespace UniqueStudio.ComContent.BLL
         /// <summary>
         /// 根据分类ID返回文章列表。
         /// </summary>
-        /// <param name="siteId">网站ID。</param>
         /// <param name="pageIndex">页码，从1起始。</param>
         /// <param name="pageSize">每页条目数。</param>
         /// <param name="isIncludeSummary">是否返回文章摘要。</param>
         /// <param name="postListType">文章类型。</param>
         /// <param name="categoryId">分类ID。</param>
         /// <returns>文章列表。</returns>
-        public PostCollection GetPostListByCatId(int siteId, int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, int categoryId)
+        public PostCollection GetPostListByCatId(int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, int categoryId)
         {
-            Validator.CheckNotPositive(siteId, "siteId");
             Validator.CheckNotPositive(pageSize, "pageSize");
+            Validator.CheckNotPositive(categoryId, "categoryId");
             if (pageIndex <= 0)
             {
                 pageIndex = 1;
@@ -277,8 +294,7 @@ namespace UniqueStudio.ComContent.BLL
 
             try
             {
-                //TODO:缺少权限判断
-                return provider.GetPostListByCatId(siteId, pageIndex, pageSize, isIncludeSummary, postListType, categoryId);
+                return provider.GetPostListByCatId(pageIndex, pageSize, isIncludeSummary, postListType, categoryId);
             }
             catch (DbException ex)
             {

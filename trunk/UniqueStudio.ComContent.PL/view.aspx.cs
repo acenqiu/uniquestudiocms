@@ -12,23 +12,8 @@ using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComContent.PL
 {
-    public partial class view : Controls.BasePage
+    public partial class view : Controls.PlBasePage
     {
-        protected DateTime dt;
-
-        protected override void OnPreInit(EventArgs e)
-        {
-            dt = DateTime.Now;
-            base.OnPreInit(e);
-        }
-
-        protected override void OnLoadComplete(EventArgs e)
-        {
-            base.OnLoadComplete(e);
-            TimeSpan ts = DateTime.Now - dt;
-            Response.Write("<!--query time:" + ts.TotalMilliseconds + "-->");
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -36,11 +21,11 @@ namespace UniqueStudio.ComContent.PL
                 long uri = Converter.LongParse(Request.QueryString["uri"], 0);
                 if (uri == 0)
                 {
-                    Response.Redirect(SiteManager.Config(SiteId).BaseAddress + "/404.aspx");
+                    Response.Redirect(PathHelper.PathCombine(SiteManager.BaseAddress(SiteId), "404.aspx"));
                 }
 
                 PostManager postManager = new PostManager();
-                PostInfo post = postManager.GetPost(null, uri);
+                PostInfo post = postManager.GetPost(uri);
                 if (post != null)
                 {
                     Page.Header.Title = post.Title + " - " + SiteManager.Config(SiteId).WebName;
@@ -52,13 +37,13 @@ namespace UniqueStudio.ComContent.PL
 
                     switch (post.PostDisplay)
                     {
-                        case 1://不显示标题
+                        case 1:
                             ltlTitle.Visible = false;
                             break;
-                        case 2://不显示时间作者等信息（在一个div里）
+                        case 2:
                             divDetail.Visible = false;
                             break;
-                        case 3://标题及时间作者都不显示
+                        case 3:
                             ltlTitle.Visible = false;
                             divDetail.Visible = false;
                             break;
@@ -75,7 +60,7 @@ namespace UniqueStudio.ComContent.PL
                         if (enclosure != null)
                         {
                             ltlAttachmentExt.Text = enclosure.Type.Substring(1);
-                            ltlAttachmentLink.Text = SiteManager.Config(SiteId).BaseAddress + enclosure.Url;
+                            ltlAttachmentLink.Text = PathHelper.PathCombine(SiteManager.BaseAddress(SiteId), enclosure.Url);
                             ltlAttachmentTitle.Text = enclosure.Tittle;
                         }
                     }
@@ -114,7 +99,7 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    Response.Redirect(SiteManager.Config(SiteId).BaseAddress + "/404.aspx");
+                    Response.Redirect(PathHelper.PathCombine(SiteManager.BaseAddress(SiteId), "404.aspx"));
                 }
             }
         }
