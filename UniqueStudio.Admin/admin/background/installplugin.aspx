@@ -2,12 +2,21 @@
 <%@ Register Src="~/admin/controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 
 <asp:Content ID="content" ContentPlaceHolderID="cphBody" runat="server">
+  <div class="tip">
+    <p>所有插件存放于：<i>{网站根目录}/admin/plugins/</i>，插件的所有文件在以插件名称命名的文件夹里。
+        安装前请确保install.xml文件的完整性。</p>
+  </div>
 <US:Message ID="message" runat="server" />
     <div class="panel">
         <div class="panel_title">安装插件</div>
         <div class="panel_body">
-            <p>相对路径：
-                <asp:TextBox ID="txtPath" runat="server" Width="400px"></asp:TextBox></p>
+            <p>相对路径：<i>{网站根目录}/admin/plugins/</i>
+                <asp:DropDownList ID="ddlFolders" Width="200px" runat="server">
+                </asp:DropDownList>
+                应用于：
+                <asp:DropDownList ID="ddlSites" runat="server">
+                </asp:DropDownList>
+           </p>
             <p>
                 <asp:Button ID="btnInstall" runat="server" Text="安装" 
                     onclick="btnInstall_Click" />

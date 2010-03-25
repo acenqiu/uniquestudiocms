@@ -18,4 +18,5 @@
     <option value="false" label="未激活状态">
     </option>
   </param>
+  <param name="EnclosureExtension" type="text" value=".doc;.docx;.rar;.zip;.7z;.pdf;" label="附件类型" title="附件类型" />
 </config>

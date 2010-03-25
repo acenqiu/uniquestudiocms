@@ -23,7 +23,7 @@ using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class editrole : Controls.BasePage
+    public partial class editrole : Controls.AdminBasePage
     {
         private int roleId;
         private Dictionary<int, bool> inPermissions;

@@ -203,6 +203,13 @@
     <Compile Include="admin\background\modulelist.aspx.designer.cs">
       <DependentUpon>modulelist.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\background\pluginconfig.aspx.cs">
+      <DependentUpon>pluginconfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\background\pluginconfig.aspx.designer.cs">
+      <DependentUpon>pluginconfig.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\background\pluginlist.aspx.cs">
       <DependentUpon>pluginlist.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -329,7 +336,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="GetCheckCode.aspx.cs">
+    <Compile Include="admin\GetCheckCode.aspx.cs">
       <DependentUpon>GetCheckCode.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -372,6 +379,7 @@
     <Content Include="admin\background\editmenuitem.aspx" />
     <Content Include="admin\background\edituser.aspx" />
     <Content Include="admin\background\feedback.aspx" />
+    <Content Include="admin\background\pluginconfig.aspx" />
     <Content Include="admin\background\pvstat.aspx" />
     <Content Include="admin\background\securityconfig.aspx" />
     <Content Include="admin\background\serverconfig.aspx" />
@@ -722,9 +730,9 @@
     <Content Include="admin\js\jquery.gchart.js" />
     <Content Include="admin\js\uscript-base.js" />
     <Content Include="admin\xml\SecurityConfig.xml" />
-    <Content Include="admin\xml\serverconfig.xml" />
+    <Content Include="admin\xml\ServerConfig.xml" />
     <Content Include="Default.aspx" />
-    <Content Include="GetCheckCode.aspx" />
+    <Content Include="admin\GetCheckCode.aspx" />
     <Content Include="admin\images\bg.png" />
     <Content Include="admin\images\column-header-icon.png" />
     <Content Include="admin\images\file.png" />
@@ -786,7 +794,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>3196</DevelopmentServerPort>
+          <DevelopmentServerPort>19549</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

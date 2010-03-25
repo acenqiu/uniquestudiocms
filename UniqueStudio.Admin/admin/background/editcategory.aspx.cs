@@ -21,7 +21,7 @@ using UniqueStudio.Core.Category;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class editcategory : Controls.BasePage
+    public partial class editcategory : Controls.AdminBasePage
     {
         private int categoryId;
 

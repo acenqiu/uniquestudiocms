@@ -15,7 +15,7 @@ using UniqueStudio.Core.PageVisit;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class pvlist : Controls.BasePage
+    public partial class pvlist : Controls.AdminBasePage
     {
         private int pageIndex;
 

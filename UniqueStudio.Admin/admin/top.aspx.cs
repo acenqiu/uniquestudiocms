@@ -6,7 +6,7 @@ using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.Admin.admin
 {
-    public partial class top : Controls.BasePage
+    public partial class top : Controls.AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

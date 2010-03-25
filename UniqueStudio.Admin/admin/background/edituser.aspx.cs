@@ -16,7 +16,7 @@ using UniqueStudio.Core.User;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class edituser : Controls.BasePage
+    public partial class edituser : Controls.AdminBasePage
     {
         private Guid userId;
         private Dictionary<string, bool> inRoles;

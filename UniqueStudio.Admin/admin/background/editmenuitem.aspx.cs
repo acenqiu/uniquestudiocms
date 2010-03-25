@@ -15,7 +15,7 @@ using UniqueStudio.Core.Menu;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class editmenuitem : Controls.BasePage
+    public partial class editmenuitem : Controls.AdminBasePage
     {
         private int itemId;
         private int menuId;

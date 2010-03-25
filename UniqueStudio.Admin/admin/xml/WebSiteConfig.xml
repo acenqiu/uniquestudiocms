@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
   <param name="WebName" type="text" value="基本物理量测量教育部重点实验室" label="网站名称" title="网站名称" />
-  <param name="BaseAddress" type="text" value="http://localhost:2800" label="网站网址" title="网站网址" />
   <param name="IsDisplayTime" type="radio" value="false" label="是否在后台显示当前时间" title="是否在后台显示当前时间">
     <option value="true" label="是">
     </option>
@@ -19,5 +18,4 @@
     <option value="false" label="按月统计">
     </option>
   </param>
-  <param name="EnclosureExtension" type="text" value=".doc;.docx;.rar;.zip;.7z;.pdf;" label="附件类型" title="附件类型" />
 </config>

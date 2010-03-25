@@ -8,7 +8,7 @@ using UniqueStudio.Core.PageVisit;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class pvstat : Controls.BasePage
+    public partial class pvstat : Controls.AdminBasePage
     {
         protected string JsArrayOfDay;
         protected string JsArrayOfCount;

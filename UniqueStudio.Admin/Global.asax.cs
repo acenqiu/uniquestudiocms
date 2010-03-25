@@ -20,6 +20,9 @@ namespace UniqueStudio.Admin
             //配置信息初始化 
             GlobalConfig.BasePhysicalPath = Server.MapPath("~/");
 
+            (new ServerConfig()).LoadConfig();
+            (new SecurityConfig()).LoadConfig();
+
             PlugInManager manager = new PlugInManager();
             ClassCollection collection = manager.GetAllPlugInsForInit();
             if (collection != null)
@@ -31,7 +34,7 @@ namespace UniqueStudio.Admin
                         IPlugIn plugIn = (IPlugIn)Assembly.Load(collection[i].Assembly).CreateInstance(collection[i].ClassPath);
                         if (plugIn != null)
                         {
-                            plugIn.Init();
+                            plugIn.Start();
                         }
                     }
                     catch (Exception ex)
