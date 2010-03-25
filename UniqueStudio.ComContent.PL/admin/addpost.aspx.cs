@@ -10,7 +10,7 @@ using UniqueStudio.ComContent.BLL;
 
 namespace UniqueStudio.ComContent.PL
 {
-    public partial class addpost : Controls.BasePage
+    public partial class addpost : Controls.AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

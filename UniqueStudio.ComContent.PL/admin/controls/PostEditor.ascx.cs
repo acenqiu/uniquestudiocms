@@ -171,7 +171,7 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    if (SiteManager.Config(siteId).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+                    if (SecurityConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
                     {
                         //显示扩展名不正确信息
 
@@ -314,7 +314,7 @@ namespace UniqueStudio.ComContent.PL
                             Enclosure attachement = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), null);
                             if (!(attachement.Tittle == enclosure.FileName))
                             {
-                                if (SiteManager.Config(siteId).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+                                if (SecurityConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
                                 {
                                     //显示扩展名不正确信息
                                     //下行重写!
@@ -409,7 +409,7 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    if (SiteManager.Config(siteId).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+                    if (SecurityConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
                     {
                         //显示扩展名不正确信息
                         Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
@@ -546,7 +546,7 @@ namespace UniqueStudio.ComContent.PL
                             Enclosure attachement = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), "");
                             if (!(attachement.Tittle == enclosure.FileName))
                             {
-                                if (SiteManager.Config(siteId).EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
+                                if (SecurityConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
                                 {
                                     //显示扩展名不正确信息
                                     Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");

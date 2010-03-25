@@ -7,20 +7,13 @@
 <%@ Register Src="controls/SubCategories.ascx" TagPrefix="US" TagName="SubCategories" %>
 
 <asp:Content ID="head" ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" type="text/css" href="list-style.css" />
+    <link rel="stylesheet" type="text/css" href="css/list-style.css" />
 </asp:Content>
 <asp:Content ID="content" ContentPlaceHolderID="cphMain" runat="server">
     <div class="slider">
         <div class="column mini" style="min-height:150px">
             <US:SubCategories ID="categories" runat="server" />
         </div>
-        <%--<div class="column mini">
-            <div class="column-head">
-                文章统计</div>
-            <div class="column-content">
-                <US:PostStat ID="postStat" runat="server" />
-            </div>
-        </div>--%>
     </div>
     <div class="main-content">
         <div class="site-depth">
@@ -31,9 +24,9 @@
                 <asp:Repeater ID="rptList" runat="server">
                     <ItemTemplate>
                         <li><a href='view.aspx?catId=<%=CategoryId %>&uri=<%# Eval("Uri") %>' title='<%# Eval("Title") %>'
-                            <%# Convert.ToDateTime(Eval("LastEditDate")) >= DateTime.Now.AddDays(-SiteManager.Config(1).NewImageThreshold) ? "class='new'" : ""  %>>
+                            <%# Convert.ToDateTime(Eval("LastEditDate")) >= DateTime.Now.AddDays(-SiteManager.Config(SiteId).NewImageThreshold) ? "class='new'" : ""  %>>
                             <%# Eval("Title")%></a> <span class="postdate">
-                                <%# Convert.ToDateTime(Eval("LastEditDate")).ToString(SiteManager.Config(1).TimeFormatOfSectionPostList) %></span></li>
+                                <%# Convert.ToDateTime(Eval("LastEditDate")).ToString(SiteManager.Config(SiteId).TimeFormatOfSectionPostList) %></span></li>
                     </ItemTemplate>
                 </asp:Repeater>
             </ul>

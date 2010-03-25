@@ -8,10 +8,10 @@
         <asp:Repeater ID="rptList" runat="server">
             <ItemTemplate>
                 <li><a href='view.aspx?catId=<%=CategoryId %>&uri=<%# Eval("Uri") %>' title='<%# Eval("Title") %>'
-                    <%# Convert.ToDateTime(Eval("LastEditDate")) >= DateTime.Now.AddDays(-SiteManager.Config(1).NewImageThreshold) ? "class='new'" : ""  %>>
+                    <%# Convert.ToDateTime(Eval("LastEditDate")) >= DateTime.Now.AddDays(-SiteManager.Config(SiteId).NewImageThreshold) ? "class='new'" : ""  %>>
                     <%# Eval("Title").ToString().Length > MaxTitleLength ? Eval("Title").ToString().Substring(0, MaxTitleLength)+"..." : Eval("Title")%></a>
                     <span class="postdate">
-                        <%# Convert.ToDateTime(Eval("LastEditDate")).ToString(SiteManager.Config(1).TimeFormatOfIndexPostList) %></span></li>
+                        <%# Convert.ToDateTime(Eval("LastEditDate")).ToString(SiteManager.Config(SiteId).TimeFormatOfIndexPostList) %></span></li>
             </ItemTemplate>
         </asp:Repeater>
     </ul>

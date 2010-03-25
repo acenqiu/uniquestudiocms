@@ -6,7 +6,7 @@ using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComContent.PL
 {
-    public partial class postlist : Controls.BasePage
+    public partial class postlist : Controls.AdminBasePage
     {
         private PostManager bll;
         private PostListType postListType = PostListType.Both;

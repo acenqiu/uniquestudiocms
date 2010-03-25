@@ -11,7 +11,7 @@ using UniqueStudio.Common.Model;
 
 namespace UniqueStudio.ComContent.PL
 {
-    public partial class deletepost : Controls.BasePage
+    public partial class deletepost : Controls.AdminBasePage
     {
         private PostManager bll = new PostManager();
 

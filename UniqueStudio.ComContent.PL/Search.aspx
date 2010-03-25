@@ -3,7 +3,7 @@
 
 <%@ Import Namespace="UniqueStudio.Core.Site" %>
 <asp:Content ContentPlaceHolderID="head" runat="server">
-    <link rel="stylesheet" type="text/css" href="search-style.css" />
+    <link rel="stylesheet" type="text/css" href="css/search-style.css" />
 </asp:Content>
 <asp:Content runat="server" ContentPlaceHolderID="cphMain">
     <div class="search-result">
@@ -22,8 +22,7 @@
                         <%# Eval("Summary") %>
                     </div>
                     <div class="result-extra-info">
-                        <span class="result-link"><a href="view.aspx?uri=<%# Eval("Uri") %>"><%=SiteManager.Config(1).BaseAddress %>/view.aspx?uri=<%# Eval("Uri") %></a></span>
-                        <%--<span class="result-category"><a href="#">机构介绍</a></span>--%>
+                        <span class="result-link"><a href="view.aspx?uri=<%# Eval("Uri") %>"><%=SiteManager.Config(SiteId).BaseAddress %>/view.aspx?uri=<%# Eval("Uri") %></a></span>
                         <span class="result-author">作者：<%# Eval("Author") %></span> <span class="result-publish-date">
                             发表时间：<%# Eval("LastEditDate") %></span>
                     </div>
