@@ -1,0 +1,31 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="background.master.cs" Inherits="UniqueStudio.Admin.admin.background.background" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Untitled Page</title>
+    <link rel="Stylesheet" href="../css/style.css" type="text/css" />
+    <link rel="Stylesheet" href="../css/admin.css" type="text/css" />
+    <script src="../js/main.js" language="javascript" type="text/javascript" > </script>
+    <script src="../js/jquery.js" language="javascript" type="text/javascript" ></script>
+    <style type="text/css">
+        body
+        {
+        	background:none;
+        }
+    </style>
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body onload="addTrAction()">
+    <form id="form1" runat="server">
+    <div>
+        <asp:ContentPlaceHolder ID="cphBody" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
