@@ -1,33 +1,16 @@
 ﻿using System;
 using System.Text;
-using UniqueStudio.Core.Category;
-using UniqueStudio.Core.Site;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
-using UniqueStudio.Common;
-using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
+using UniqueStudio.Core.Category;
+using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.ComContent.PL
 {
-    public partial class list : Controls.BasePage
+    public partial class list : Controls.PlBasePage
     {
-        protected DateTime dt;
-
-        protected override void OnPreInit(EventArgs e)
-        {
-            dt = DateTime.Now;
-            base.OnPreInit(e);
-        }
-
-        protected override void OnLoadComplete(EventArgs e)
-        {
-            base.OnLoadComplete(e);
-            TimeSpan ts = DateTime.Now - dt;
-            Response.Write("<!--query time:" + ts.TotalMilliseconds + "-->");
-        }
-
         protected int CategoryId;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -39,8 +22,8 @@ namespace UniqueStudio.ComContent.PL
                 int pageSize = Converter.IntParse(Request.QueryString["size"], SiteManager.Config(SiteId).PageSizeOfSectionPostList);
 
 
-                CategoryManager catManager = new CategoryManager();
-                CategoryInfo category = catManager.GetCategoryPath(CategoryId);
+                CategoryManager manager = new CategoryManager();
+                CategoryInfo category = manager.GetCategoryPath(CategoryId);
                 if (category != null)
                 {
                     //设置网页标题
@@ -58,11 +41,11 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    Response.Redirect(SiteManager.Config(SiteId).BaseAddress + "/404.aspx");
+                    Response.Redirect(PathHelper.PathCombine(SiteManager.BaseAddress(SiteId), "404.aspx"));
                 }
 
                 PostManager postManager = new PostManager();
-                PostCollection posts = postManager.GetPostListByCatId(SiteId, pageIndex, pageSize, false, PostListType.PublishedOnly, CategoryId);
+                PostCollection posts = postManager.GetPostListByCatId(pageIndex, pageSize, false, PostListType.PublishedOnly, CategoryId);
                 if (posts != null)
                 {
                     rptList.DataSource = posts;

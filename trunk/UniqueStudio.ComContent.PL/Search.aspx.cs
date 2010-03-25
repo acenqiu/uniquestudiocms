@@ -9,7 +9,7 @@ using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.ComContent.PL
 {
-    public partial class Search : Controls.BasePage
+    public partial class Search : Controls.PlBasePage
     {
         private const string ErrorMessage = "<div class=\"error\">{0}</div>";
 
@@ -17,7 +17,7 @@ namespace UniqueStudio.ComContent.PL
         {
             if (!IsPostBack)
             {
-                Header.Title = "搜索 - " + SiteManager.Config(SiteId).WebName;
+                Header.Title = SiteManager.Config(SiteId).WebName;
 
                 PostCollection collection = null;
                 PostManager manager = new PostManager();

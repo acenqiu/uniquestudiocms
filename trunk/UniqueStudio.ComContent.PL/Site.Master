@@ -5,10 +5,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-    <link rel="stylesheet" type="text/css" href="index.css" />
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
 
-    <script language="javascript" type="text/javascript" src="index.js"> </script>
+    <script language="javascript" type="text/javascript" src="js/index.js"> </script>
 
     <script language="javascript" type="text/javascript">
         var t1 = new Date().getTime();
@@ -58,12 +58,13 @@
             <div class="footer">
                 <p>
                     页面浏览量：<span style="color: #FF6600"><asp:Literal ID="ltlPv" runat="server" /></span>
-                    <span style="display: none" id="QueryTime"></span>
+                    <span  id="QueryTime"></span>
                 </p>
                 <p>
                     Copyright (C) 华中科技大学基本物理量测量教育部重点实验室</p>
                 <p>
-                    地址：湖北省武汉市洪山区珞瑜路1037号 邮编：430074<a href="admin/" style="float: right; color: #FFFF99;">后台登陆</a></p>
+                    地址：湖北省武汉市洪山区珞瑜路1037号 邮编：430074
+                    <a href="<%= ServerConfig.BaseAddress %>/admin/" style="float: right; color: #FFFF99;">后台登陆</a></p>
             </div>
         </div>
     </div>

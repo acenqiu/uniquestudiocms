@@ -57,6 +57,13 @@
     <Compile Include="404.aspx.designer.cs">
       <DependentUpon>404.aspx</DependentUpon>
     </Compile>
+    <Compile Include="500.aspx.cs">
+      <DependentUpon>500.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="500.aspx.designer.cs">
+      <DependentUpon>500.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\addpost.aspx.cs">
       <DependentUpon>addpost.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -215,6 +222,10 @@
       <Project>{F9D2C679-CD07-49AA-BD9C-B28F6BB14F20}</Project>
       <Name>UniqueStudio.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniqueStudio.HttpControlLayer\UniqueStudio.HttpControlLayer.csproj">
+      <Project>{8210A6F7-8301-4B2A-8218-BCCFA48DA96C}</Project>
+      <Name>UniqueStudio.HttpControlLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\controls\PostEditor.ascx" />
@@ -230,10 +241,11 @@
     <Content Include="img\footer_bg.png" />
     <Content Include="img\header_bg.png" />
     <Content Include="img\logo.png" />
-    <Content Include="index.css" />
+    <Content Include="css\index.css" />
     <Content Include="view.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="500.aspx" />
     <Content Include="admin\editor\fckeditor\editor\css\behaviors\disablehandles.htc" />
     <Content Include="admin\editor\fckeditor\editor\css\behaviors\showtableborders.htc" />
     <Content Include="admin\editor\fckeditor\editor\css\fck_editorarea.css" />
@@ -548,15 +560,10 @@
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
-    <None Include="flashad\images\Thumbs.db" />
     <None Include="flashad\include2\DepthSet.as" />
     <None Include="flashad\include2\HuspaceCopyRight.as" />
     <None Include="flashad\include2\Initializtion.as" />
     <None Include="flashad\include2\Viewer.as" />
-    <None Include="include2\DepthSet.as" />
-    <None Include="include2\HuspaceCopyRight.as" />
-    <None Include="include2\Initializtion.as" />
-    <None Include="include2\Viewer.as" />
     <Content Include="admin\fileup.css" />
     <Content Include="admin\img\addfile.gif" />
     <Content Include="admin\img\addfilehover.gif" />
@@ -574,26 +581,19 @@
     <Content Include="admin\login.aspx" />
     <Content Include="admin\main.js" />
     <Content Include="admin\style.css" />
-    <Content Include="article-style.css" />
+    <Content Include="css\article-style.css" />
     <Content Include="controls\PostStat.ascx" />
     <Content Include="controls\SubCategories.ascx" />
     <Content Include="admin\fileup.js" />
+    <Content Include="images\1.jpg" />
     <Content Include="img\error.png" />
-    <Content Include="flashad\images\1.jpg" />
-    <Content Include="flashad\images\2.jpg" />
-    <Content Include="flashad\images\3.jpg" />
-    <Content Include="flashad\images\4.jpg" />
-    <Content Include="flashad\images\5.jpg" />
     <Content Include="flashad\js\AC_RunActiveContent.js" />
     <Content Include="flashad\viewer.swf" />
-    <Content Include="flashad\xml\viewerData.xml" />
     <Content Include="Global.asax" />
-    <Content Include="images\1.jpg" />
     <Content Include="images\2.jpg" />
     <Content Include="images\3.jpg" />
     <Content Include="images\4.jpg" />
     <Content Include="images\5.jpg" />
-    <Content Include="images\logo.png" />
     <Content Include="img\doc.png" />
     <Content Include="img\file.png" />
     <Content Include="img\hust-logo.png" />
@@ -605,14 +605,12 @@
     <Content Include="img\ppt.png" />
     <Content Include="img\rar.png" />
     <Content Include="img\xls.png" />
-    <Content Include="index.js" />
-    <Content Include="js\AC_RunActiveContent.js" />
-    <Content Include="list-style.css" />
+    <Content Include="js\index.js" />
+    <Content Include="css\list-style.css" />
     <Content Include="MetaWeblogAPI.ashx" />
-    <Content Include="search-style.css" />
+    <Content Include="css\search-style.css" />
     <Content Include="Search.aspx" />
     <Content Include="usupload.aspx" />
-    <Content Include="viewer.swf" />
     <Content Include="xml\viewerData.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -633,7 +631,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>45331</DevelopmentServerPort>
+          <DevelopmentServerPort>19552</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

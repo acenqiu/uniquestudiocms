@@ -10,7 +10,7 @@
 <asp:Content ID="content" ContentPlaceHolderID="cphMain" runat="server">
     <div class="slider">
 	<div class="column mini" style="min-height:210px">
-            <US:PostList ID="pltongzhi" CategoryId="6" runat="server" MaxTitleLength="10" />
+            <US:PostList ID="pltongzhi" CategoryId="49" runat="server" MaxTitleLength="12" />
         </div>
      <div class="column mini" style="line-height:normal">
     <asp:Calendar ID="Calendar1" runat="server" BackColor="White" 
@@ -64,13 +64,13 @@
             </object>
         </div>
         <div class="column">
-            <US:PostList ID="plxinwen" CategoryId="2" runat="server" />
+            <US:PostList ID="plxinwen" CategoryId="50" MaxTitleLength="13" runat="server" />
         </div>
         <div class="column">
-            <US:PostList ID="plkeyan" CategoryId="3" runat="server" />
+            <US:PostList ID="plkeyan" CategoryId="42" MaxTitleLength="13" runat="server" />
         </div>
         <div class="column">
-            <US:PostList ID="plzhaosheng" CategoryId="5" runat="server" />
+            <US:PostList ID="plzhaosheng" CategoryId="48" MaxTitleLength="13" runat="server" />
         </div>
     </div>
 </asp:Content>
