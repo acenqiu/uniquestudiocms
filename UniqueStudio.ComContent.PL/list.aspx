@@ -2,7 +2,7 @@
     Inherits="UniqueStudio.ComContent.PL.list" %>
 
 <%@ Import Namespace="UniqueStudio.Core.Site" %>
-<%@ Register Src="~/admin/controls/pagination.ascx" TagPrefix="US" TagName="Pagination" %>
+<%@ Register Src="controls/Pagination.ascx" TagPrefix="US" TagName="Pagination" %>
 <%@ Register Src="controls/PostStat.ascx" TagPrefix="US" TagName="PostStat" %>
 <%@ Register Src="controls/SubCategories.ascx" TagPrefix="US" TagName="SubCategories" %>
 

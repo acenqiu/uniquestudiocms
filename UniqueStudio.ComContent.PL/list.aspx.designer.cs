@@ -47,6 +47,6 @@ namespace UniqueStudio.ComContent.PL {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.pagination pagination;
+        protected global::UniqueStudio.ComContent.PL.controls.Pagination pagination;
     }
 }

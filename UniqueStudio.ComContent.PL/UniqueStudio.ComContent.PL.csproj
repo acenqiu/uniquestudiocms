@@ -134,6 +134,13 @@
     <Compile Include="admin\Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="controls\Pagination.ascx.cs">
+      <DependentUpon>Pagination.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\Pagination.ascx.designer.cs">
+      <DependentUpon>Pagination.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\PostList.ascx.cs">
       <DependentUpon>PostList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -581,6 +588,7 @@
     <Content Include="admin\login.aspx" />
     <Content Include="admin\main.js" />
     <Content Include="admin\style.css" />
+    <Content Include="controls\Pagination.ascx" />
     <Content Include="css\article-style.css" />
     <Content Include="controls\PostStat.ascx" />
     <Content Include="controls\SubCategories.ascx" />
