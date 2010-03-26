@@ -35,6 +35,7 @@ namespace UniqueStudio.ComContent.PL
 
                         pagination.Count = collection.PageCount;
                         pagination.CurrentPage = collection.PageIndex;
+                        pagination.Url = "postlist.aspx?siteId=" + SiteId + "&page={0}";
                     }
                 }
             }

@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using UniqueStudio.Common.Model;
 
 namespace UniqueStudio.DAL.IDAL
@@ -52,6 +52,20 @@ namespace UniqueStudio.DAL.IDAL
         /// <param name="catNiceName">分类别名。</param>
         /// <returns>分类信息，获取失败返回空。</returns>
         CategoryInfo GetCategory(int siteId, string catNiceName);
+
+        /// <summary>
+        /// 返回分类链。
+        /// </summary>
+        /// <param name="MenuItemId">该分类链中任一分类的ID。</param>
+        /// <returns>分类链中各分类的集合。</returns>
+        CategoryCollection GetCategoryChain(int categoryId);
+
+        /// <summary>
+        /// 返回分类链。
+        /// </summary>
+        /// <param name="chainId">该菜单链的ID。</param>
+        /// <returns>分类链中各分类的集合。</returns>
+        CategoryCollection GetCategoryChain(Guid chainId);
 
         /// <summary>
         /// 返回分类路径。

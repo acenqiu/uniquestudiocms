@@ -18,12 +18,18 @@ namespace UniqueStudio.Common.Utilities
 
         public static string CleanUrlQueryString(string query, params string[] removeKeys)
         {
-            query = query.Trim(new char[] { '?' });
             if (string.IsNullOrEmpty(query))
             {
                 return query;
             }
 
+            query = query.Trim(new char[] { '?' });
+            if (string.IsNullOrEmpty(query) || removeKeys == null || removeKeys.Length == 0)
+            {
+                return query;
+            }
+
+            //移除多余键
             string[] keyValues = query.Split(new char[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
             StringBuilder sb = new StringBuilder();
             int i;

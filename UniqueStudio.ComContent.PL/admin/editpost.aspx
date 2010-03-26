@@ -6,6 +6,7 @@
     <div class="main-content">
         <div class="column-head">
             编辑文章</div>
+          <a href='postlist.aspx?<%= PostListQuery %>'>返回文章列表</a>
         <AO:PostEditor runat="server" ID="editor" Mode="Edit" Height="500px" />
     </div>
 </asp:Content>

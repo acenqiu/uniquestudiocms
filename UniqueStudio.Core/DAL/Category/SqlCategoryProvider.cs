@@ -5,6 +5,14 @@
 // 版本：v0.8
 // 作者：邱江毅
 //
+// 修改记录1：
+// 修改日期：2010年03月26日
+// 版本号：v0.8.5
+// 修改人：邱江毅
+// 修改内容：+)CategoryCollection GetCategoryChain(int categoryId);
+//                 +)CategoryCollection GetCategoryChain(Guid chainId);
+//                 *)CategoryInfo GetCategoryPath(int categoryId);
+//
 // 说明：
 //    1.不删除子分类时，Depth,ChainID没更新；
 //    2.无法自动删除子分类；
@@ -31,6 +39,8 @@ namespace UniqueStudio.DAL.Category
         private const string GET_ALL_CATEGORIES = "GetAllCategories";
         private const string GET_CATEGORY_BY_ID = "GetCategoryById";
         private const string GET_CATEGORY_BY_NICENAME = "GetCategoryByNiceName";
+        private const string GET_CATEGORY_CHAIN_BY_CATID = "GetCategoryChainByCatId";
+        private const string GET_CATEGORY_CHAIN_BY_CHAINID = "GetCategoryChainByChainId";
         private const string GET_CHILD_CATEGORIES_BY_ID = "GetChildCategoriesById";
         private const string GET_CHILD_CATEGORIES_BY_NICENAME = "GetChildCategoriesByNiceName";
         private const string IS_CATEGORY_NICENAME_EXISTS = "IsCategoryNiceNameExists";
@@ -190,6 +200,46 @@ namespace UniqueStudio.DAL.Category
         }
 
         /// <summary>
+        /// 返回分类链。
+        /// </summary>
+        /// <param name="MenuItemId">该分类链中任一分类的ID。</param>
+        /// <returns>分类链中各分类的集合。</returns>
+        public CategoryCollection GetCategoryChain(int categoryId)
+        {
+            CategoryCollection collection = new CategoryCollection();
+            SqlParameter parm = new SqlParameter("@CategoryID", categoryId);
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_CATEGORY_CHAIN_BY_CATID, parm))
+            {
+                while (reader.Read())
+                {
+                    CategoryInfo item = FillCategoryInfo(reader);
+                    collection.Add(item);
+                }
+            }
+            return collection;
+        }
+
+        /// <summary>
+        /// 返回分类链。
+        /// </summary>
+        /// <param name="chainId">该菜单链的ID。</param>
+        /// <returns>分类链中各分类的集合。</returns>
+        public CategoryCollection GetCategoryChain(Guid chainId)
+        {
+            CategoryCollection collection = new CategoryCollection();
+            SqlParameter parm = new SqlParameter("@ChainID", chainId);
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_CATEGORY_CHAIN_BY_CHAINID, parm))
+            {
+                while (reader.Read())
+                {
+                    CategoryInfo item = FillCategoryInfo(reader);
+                    collection.Add(item);
+                }
+            }
+            return collection;
+        }
+
+        /// <summary>
         /// 返回分类路径。
         /// </summary>
         /// <param name="categoryId">叶节点分类ID。</param>
@@ -228,7 +278,8 @@ namespace UniqueStudio.DAL.Category
                             reader.Close();
                         }
 
-                        temp.ChildCategory = category;
+                        temp.ChildCategories = new CategoryCollection();
+                        temp.ChildCategories.Add(category);
                         category = temp;
                     }
                     conn.Close();

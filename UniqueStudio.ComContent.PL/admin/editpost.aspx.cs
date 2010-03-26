@@ -6,27 +6,22 @@ using System.Web.UI.WebControls;
 
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Config;
+using UniqueStudio.Common.Utilities;
 using UniqueStudio.ComContent.BLL;
 
 namespace UniqueStudio.ComContent.PL
 {
     public partial class editpost : Controls.AdminBasePage
     {
+        protected string PostListQuery;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             editor.SiteId = SiteId;
+            PostListQuery = PathHelper.CleanUrlQueryString(HttpUtility.UrlDecode(Request.QueryString["ret"]),
+                                                                                            new string[] { "msg", "msgtype" });
             if (!IsPostBack)
             {
-                string ret = string.Empty;
-                if (Request.QueryString["ret"] != null)
-                {
-                    ret = HttpUtility.UrlDecode(Request.QueryString["ret"]);
-                }
-                if (ret.StartsWith("?"))
-                {
-                    ret = ret.Remove(0, 1);
-                }
-
                 if (Request.QueryString["uri"] != null)
                 {
                     if (!PostPermissionManager.HasEditPermission(CurrentUser, Convert.ToInt64(Request.QueryString["uri"])))

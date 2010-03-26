@@ -26,7 +26,11 @@ namespace UniqueStudio.ComContent.PL
 
                 PostManager postManager = new PostManager();
                 PostInfo post = postManager.GetPost(uri);
-                if (post != null)
+                if (post == null)
+                {
+                    Response.Redirect(PathHelper.PathCombine(SiteManager.BaseAddress(SiteId), "404.aspx"));
+                }
+                else
                 {
                     Page.Header.Title = post.Title + " - " + SiteManager.Config(SiteId).WebName;
                     ltlTitle.Text = post.Title;
@@ -65,14 +69,28 @@ namespace UniqueStudio.ComContent.PL
                         }
                     }
 
-                    CategoryCollection categories = post.Categories;
+                    //增加访问量
+                    try
+                    {
+                        postManager.IncPostReadCount(uri);
+                    }
+                    catch
+                    {
+                        //不予处理
+                    }
 
+                    CategoryCollection categories = post.Categories;
+                    if (categories.Count == 0)
+                    {
+                        return;
+                    }
                     int categoryId = Converter.IntParse(Request.QueryString["catId"], 0);
-                    if (categoryId == 0 && categories.Count > 0)
+                    if (categoryId == 0)
                     {
                         categoryId = categories[0].CategoryId;
                     }
 
+                    //设置侧边栏及分类路径
                     StringBuilder sb = new StringBuilder();
                     CategoryManager manager = new CategoryManager();
                     CategoryInfo category = manager.GetCategoryPath(categoryId);
@@ -84,22 +102,16 @@ namespace UniqueStudio.ComContent.PL
                     while (category != null)
                     {
                         sb.Append(string.Format("-><a href='list.aspx?catId={0}'>{1}</a>  ", category.CategoryId, category.CategoryName));
-                        category = category.ChildCategory;
+                        if (category.ChildCategories != null && category.ChildCategories.Count > 0)
+                        {
+                            category = category.ChildCategories[0];
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                     ltlCategoryLink.Text = sb.ToString();
-
-                    //增加访问量
-                    try
-                    {
-                        postManager.IncPostReadCount(uri);
-                    }
-                    catch
-                    {
-                    }
-                }
-                else
-                {
-                    Response.Redirect(PathHelper.PathCombine(SiteManager.BaseAddress(SiteId), "404.aspx"));
                 }
             }
         }
