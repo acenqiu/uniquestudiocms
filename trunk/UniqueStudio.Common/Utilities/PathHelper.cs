@@ -16,10 +16,36 @@ namespace UniqueStudio.Common.Utilities
             return path1 + "/" + path2;
         }
 
-        public static string CleanUrlQueryString(string url, params string[] removeKeys)
+        public static string CleanUrlQueryString(string query, params string[] removeKeys)
         {
-            Uri uri = new Uri(url);
-            return url;
+            query = query.Trim(new char[] { '?' });
+            if (string.IsNullOrEmpty(query))
+            {
+                return query;
+            }
+
+            string[] keyValues = query.Split(new char[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+            StringBuilder sb = new StringBuilder();
+            int i;
+            foreach (string keyValue in keyValues)
+            {
+                for (i = 0; i < removeKeys.Length; i++)
+                {
+                    if (keyValue.StartsWith(removeKeys[i] + "="))
+                    {
+                        break;
+                    }
+                }
+                if (i == removeKeys.Length)
+                {
+                    sb.Append(keyValue).Append("&");
+                }
+            }
+            if (sb.Length > 0)
+            {
+                sb.Remove(sb.Length - 1, 1);
+            }
+            return sb.ToString();
         }
     }
 }

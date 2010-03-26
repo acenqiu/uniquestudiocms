@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml;
 
+using UniqueStudio.Common.Utilities;
 using UniqueStudio.Common.XmlHelper;
 
 namespace UniqueStudio.Common.Config
@@ -22,7 +23,7 @@ namespace UniqueStudio.Common.Config
         public XmlDocument GetXmlConfig()
         {
             XmlManager manager = new XmlManager();
-            return manager.LoadXml(GlobalConfig.BasePhysicalPath+path);
+            return manager.LoadXml(PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, path));
         }
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace UniqueStudio.Common.Config
         public void LoadConfig()
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(GlobalConfig.BasePhysicalPath + path);
+            doc.Load(PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, path));
             LoadConfig(doc);
         }
 
@@ -97,8 +98,9 @@ namespace UniqueStudio.Common.Config
         /// <param name="content">配置信息xml格式内容</param>
         public void SaveXmlConfig(string content)
         {
-            (new XmlManager()).SaveXml(GlobalConfig.BasePhysicalPath+path, content);
+            (new XmlManager()).SaveXml(PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, path), content);
             LoadConfig();
+
         }
     }
 }

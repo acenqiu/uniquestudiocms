@@ -20,6 +20,7 @@ namespace UniqueStudio.Core.Site
     public class SiteManager
     {
         private static readonly ISite provider = DALFactory.CreateSite();
+        private static string baseAddress = string.Empty;
         private static Dictionary<int, WebSiteConfig> wsConfigs = new Dictionary<int, WebSiteConfig>();
         private static Dictionary<int, string> wsBaseAddresses = new Dictionary<int, string>();
 
@@ -82,13 +83,18 @@ namespace UniqueStudio.Core.Site
         /// <returns>网站根网址。</returns>
         public static string BaseAddress(int siteId)
         {
+            if (baseAddress != ServerConfig.BaseAddress)
+            {
+                baseAddress = ServerConfig.BaseAddress;
+                wsBaseAddresses.Clear();
+            }
             if (!wsBaseAddresses.ContainsKey(siteId))
             {
                 SiteCollection sites = (new SiteManager()).GetAllSites();
                 wsBaseAddresses.Clear();
                 foreach (SiteInfo site in sites)
                 {
-                    wsBaseAddresses.Add(site.SiteId, PathHelper.PathCombine(ServerConfig.BaseAddress, site.RelativePath));
+                    wsBaseAddresses.Add(site.SiteId, PathHelper.PathCombine(ServerConfig.BaseAddress, site.RelativePath).Trim(new char[] { '/', '\\' }));
                 }
             }
             return wsBaseAddresses[siteId];

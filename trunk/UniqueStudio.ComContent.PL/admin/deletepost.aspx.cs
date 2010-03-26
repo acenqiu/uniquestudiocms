@@ -8,6 +8,7 @@ using System.Text;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComContent.PL
 {
@@ -32,7 +33,7 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    Response.Redirect("postlist.aspx?siteId=" + SiteId);
+                    Return();
                 }
             }
         }
@@ -81,7 +82,9 @@ namespace UniqueStudio.ComContent.PL
         {
             if (Request.QueryString["ret"] != null)
             {
-                Response.Redirect("postlist.aspx?" + HttpUtility.UrlDecode(Request.QueryString["ret"]));
+                string query = PathHelper.CleanUrlQueryString(HttpUtility.UrlDecode(Request.QueryString["ret"]),
+                                                                                                new string[] { "msg", "msgtype" });
+                Response.Redirect("postlist.aspx?" + query);
             }
             else
             {

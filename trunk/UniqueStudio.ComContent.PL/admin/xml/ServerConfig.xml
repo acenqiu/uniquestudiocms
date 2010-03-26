@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <param name="BaseAddress" type="text" value="http://localhost:2800" label="网站网址" title="网站网址" />
+
+</config>

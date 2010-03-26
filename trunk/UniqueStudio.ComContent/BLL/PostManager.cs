@@ -139,7 +139,6 @@ namespace UniqueStudio.ComContent.BLL
             {
                 throw new ArgumentException();
             }
-            Validator.CheckNotPositive(post.SiteId, "post.SiteId");
             Validator.CheckStringNull(post.Title, "post.Title");
             Validator.CheckNegative(post.PostDisplay, "post.PostDisplay");
 
