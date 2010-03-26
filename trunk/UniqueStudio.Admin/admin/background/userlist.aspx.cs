@@ -30,7 +30,7 @@ namespace UniqueStudio.Admin.admin.background
         private void GetData()
         {
             pageIndex = Converter.IntParse(Request.QueryString["page"], 1);
-            pageSize = Converter.IntParse(Request.QueryString["number"], 10);
+            pageSize = Converter.IntParse(Request.QueryString["number"], 20);
 
             try
             {

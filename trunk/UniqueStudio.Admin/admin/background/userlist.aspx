@@ -116,7 +116,7 @@
                     <asp:ListItem Value="unlock" Text="解除锁定" />
                 </asp:DropDownList>
                 <asp:Button ID="btnExcute" runat="server" Text="执行" OnClick="btnExcute_Click"
-                OnClientClick="if (selectcheck('chkSelected')) return confirm('您确定执行你所选的操作吗？');" />
+                OnClientClick="if (selectcheck('chkSelected')) return confirm('您确定执行你所选的操作吗？'); else return false;" />
                 <US:Pagination ID="pagination" Url="userlist.aspx?page={0}" runat="server" />
             </div>
         </div>

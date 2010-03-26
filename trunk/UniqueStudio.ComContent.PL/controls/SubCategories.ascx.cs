@@ -1,20 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
 using System.Text;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-
-using UniqueStudio.Core.Category;
-using UniqueStudio.Core.Menu;
-using UniqueStudio.Common;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
+using UniqueStudio.Core.Category;
 
 namespace UniqueStudio.ComContent.PL.controls
 {
@@ -29,76 +17,45 @@ namespace UniqueStudio.ComContent.PL.controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack && Request.QueryString["menuPath"] != null)
+            if (!IsPostBack)
             {
-                string[] menuIds = Request.QueryString["menuPath"].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                if (menuIds.Length > 0)
+                CategoryInfo root = (new CategoryManager()).GetCategoryChain(categoryId);
+                if (root != null)
                 {
-                    int itemId = Converter.IntParse(menuIds[0], 0);
-                    if (itemId != 0)
-                    {
-                        MenuManager manager = new MenuManager();
-                        MenuItemInfo item = manager.GetMenuChain(itemId);
-                        if (item != null)
-                        {
-                            ltlCategoryName.Text = item.ItemName;
-
-                            ltlList.Text = GetMenuHtml(item);
-                        }
-                    }
+                    ltlCategoryName.Text = root.CategoryName;
+                    ltlList.Text = GetCategoryHtml(root);
                 }
             }
         }
 
-        private string GetMenuHtml(MenuItemInfo head)
+        private string GetCategoryHtml(CategoryInfo root)
         {
             StringBuilder sb = new StringBuilder();
-            string menuPath = string.Format("menuPath={0},", head.Id);
             sb.Append("<ul>").Append("\r\n");
-            foreach (MenuItemInfo item in head.ChildItems)
+            foreach (CategoryInfo item in root.ChildCategories)
             {
-                sb.Append(GetHtml(item, menuPath + item.Id.ToString())).Append("\r\n");
+                sb.Append(GetHtml(item)).Append("\r\n");
             }
             sb.Append("</ul>").Append("\r\n");
             return sb.ToString();
         }
 
-        private string GetHtml(MenuItemInfo node, string menuPath)
+        private string GetHtml(CategoryInfo node)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("<li>").Append("\r\n");
-
-            if (!string.IsNullOrEmpty(node.Link))
+            sb.Append(string.Format("<li>\r\n<a href='list.aspx?catId={0}' >{1}</a>\r\n",node.CategoryId,node.CategoryName));
+            
+            if (node.ChildCategories != null)
             {
-                sb.Append("<a href='").Append(node.Link);
-                if (node.Link.IndexOf("?") < 0)
+                sb.Append("<ul>\r\n");
+                foreach (CategoryInfo child in node.ChildCategories)
                 {
-                    sb.Append("?");
+                    sb.Append(GetHtml(child)).Append("\r\n");
                 }
-                else
-                {
-                    sb.Append("&");
-                }
-                sb.Append(menuPath).Append("'>").Append("\r\n");
-                sb.Append(node.ItemName).Append("\r\n");
-                sb.Append("</a>").Append("\r\n");
-            }
-            else
-            {
-                sb.Append(node.ItemName).Append("\r\n");
+                sb.Append("</ul>\r\n");
             }
 
-            if (node.ChildItems != null)
-            {
-                sb.Append("<ul>").Append("\r\n");
-                foreach (MenuItemInfo child in node.ChildItems)
-                {
-                    sb.Append(GetHtml(child, menuPath + "," + child.Id.ToString())).Append("\r\n");
-                }
-                sb.Append("</ul>").Append("\r\n");
-            }
-
-            sb.Append("</li>").Append("\r\n");
+            sb.Append("</li>\r\n");
             return sb.ToString();
         }
     }

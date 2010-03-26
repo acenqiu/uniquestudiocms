@@ -2,14 +2,21 @@
 // 版权所有：版权所有(c) 2010，联创团队
 // 内容摘要：提供分类管理的方法。
 // 完成日期：2010年03月19日
-// 版本：v1.0 alpha
+// 版本：v1.0alpha
 // 作者：邱江毅
 //
 // 修改记录1：
 // 修改日期：2010年03月21日
-// 版本号：v1.0 alpha
+// 版本号：v1.0alpha
 // 修改人：邱江毅
-// *)UpdateCategory增加oldNiceName。
+// 修改内容：*)UpdateCategory增加oldNiceName。
+//
+// 修改记录2：
+// 修改日期：2010年03月26日
+// 版本号：v1.0alpha
+// 修改人：邱江毅
+// 修改内容：+)CategoryCollection GetCategoryChain(int categoryId);
+//                 +)CategoryCollection GetCategoryChain(Guid chainId);
 //=================================================================
 using System;
 using System.Data.Common;
@@ -22,6 +29,7 @@ using UniqueStudio.Common.Utilities;
 using UniqueStudio.Core.Permission;
 using UniqueStudio.DAL;
 using UniqueStudio.DAL.IDAL;
+using System.Collections.Generic;
 
 namespace UniqueStudio.Core.Category
 {
@@ -358,6 +366,88 @@ namespace UniqueStudio.Core.Category
         }
 
         /// <summary>
+        /// 返回分类链。
+        /// </summary>
+        /// <param name="MenuItemId">该分类链中任一分类的ID。</param>
+        /// <returns>分类链的根节点。</returns>
+        public CategoryInfo GetCategoryChain(int categoryId)
+        {
+            Validator.CheckNotPositive(categoryId, "categoryId");
+
+            try
+            {
+                CategoryCollection collection = provider.GetCategoryChain(categoryId);
+                if (collection != null)
+                {
+                    CategoryInfo head = GetCategoryTree(collection);
+                    if (head.ChildCategories.Count > 0)
+                    {
+                        return head.ChildCategories[0];
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 返回分类链。
+        /// </summary>
+        /// <param name="chainId">该菜单链的ID。</param>
+        /// <returns>分类链的根节点。</returns>
+        public CategoryInfo GetCategoryChain(Guid chainId)
+        {
+            Validator.CheckGuid(chainId, "chainId");
+
+            try
+            {
+                CategoryCollection collection = provider.GetCategoryChain(chainId);
+                if (collection != null)
+                {
+                    CategoryInfo head = GetCategoryTree(collection);
+                    if (head.ChildCategories.Count > 0)
+                    {
+                        return head.ChildCategories[0];
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
         /// 返回分类路径。
         /// </summary>
         /// <param name="categoryId">叶节点分类ID。</param>
@@ -528,6 +618,34 @@ namespace UniqueStudio.Core.Category
                 ErrorLogger.LogError(ex);
                 throw new UnhandledException();
             }
+        }
+
+        /// <summary>
+        /// 返回分类的树形结构。
+        /// </summary>
+        /// <remarks>该根节点为临时创建的节点。</remarks>
+        /// <param name="categories">分类的集合。</param>
+        /// <returns>分类树形结构的根节点。</returns>
+        public CategoryInfo GetCategoryTree(CategoryCollection categories)
+        {
+            Validator.CheckNull(categories, "categories");
+
+            Dictionary<int, int> dicIds = new Dictionary<int, int>();
+
+            CategoryInfo head = new CategoryInfo();
+            head.CategoryId = 0;
+            categories.Insert(0, head);
+            for (int i = 0; i < categories.Count; i++)
+            {
+                dicIds.Add(categories[i].CategoryId, i);
+                categories[i].ChildCategories = new CategoryCollection();
+            }
+            foreach (CategoryInfo category in categories)
+            {
+                categories[dicIds[category.ParentCategoryId]].ChildCategories.Add(category);
+            }
+            categories[0].ChildCategories.Remove(categories[0]);
+            return head;
         }
     }
 }

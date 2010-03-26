@@ -4,6 +4,12 @@
 // 完成日期：2010年03月18日
 // 版本：v1.0 alpha
 // 作者：邱江毅
+// 
+// 修改记录1：
+// 修改日期：2010年03月26日
+// 版本号：v1.0alpha
+// 修改人：邱江毅
+// 修改内容：*）ChildCategory ==>CategoryCollection ChildCategories
 //=================================================================
 using System;
 
@@ -24,7 +30,7 @@ namespace UniqueStudio.Common.Model
         private string parentCategoryName = string.Empty;
 
         private CategoryInfo parentCategory = null;
-        private CategoryInfo childCategory = null;
+        private CategoryCollection childCategories = null;
 
         /// <summary>
         /// 初始化CategoryInfo类的实例。
@@ -99,12 +105,12 @@ namespace UniqueStudio.Common.Model
             set { parentCategory = value; }
         }
         /// <summary>
-        /// 子分类信息。
+        /// 子分类的集合。
         /// </summary>
-        public CategoryInfo ChildCategory
+        public CategoryCollection ChildCategories
         {
-            get { return childCategory; }
-            set { childCategory = value; }
+            get { return childCategories; }
+            set { childCategories = value; }
         }
     }
 }

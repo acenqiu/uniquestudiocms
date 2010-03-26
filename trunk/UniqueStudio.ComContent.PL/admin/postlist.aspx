@@ -52,7 +52,7 @@
                             <%# Eval("Count") %></span> <span class="article-date">
                                 <%# Convert.ToDateTime(Eval("CreateDate")).ToString("yyyy-MM-dd") %></span>
                         <div class="article-do-menu">
-                            <span class="article-edit"><a href='editpost.aspx?siteId=<%=SiteId %>&uri=<%# Eval("Uri") %>'>编辑</a></span>
+                            <span class="article-edit"><a href='editpost.aspx?siteId=<%=SiteId %>&uri=<%# Eval("Uri") %>&ret=<%= HttpUtility.UrlEncode(Request.Url.Query) %>'>编辑</a></span>
                             <span class="article-views"><a href='<%= SiteManager.BaseAddress(SiteId) %>/view.aspx?uri=<%# Eval("Uri")%>'
                                 target="_blank" title='<%# Eval("Title") %>'>查看</a></span> <span class="article-delete">
                                     <a href='deletepost.aspx?uriCollection=<%# Eval("Uri") %>&ret=<%= HttpUtility.UrlEncode(Request.Url.Query) %>'>
@@ -74,7 +74,7 @@
                     <asp:ListItem Selected="True" Value="delete" Text="删除" />
                 </asp:DropDownList>
                 <asp:Button ID="btnExcute" runat="server" Text="执行" OnClientClick="return selectcheck('chkSelected');" OnClick="btnExcute_Click" />--%>
-                <US:Pagination ID="pagination" runat="server" Url="postlist.aspx?page={0}" />
+                <US:Pagination ID="pagination" runat="server" />
             </div>
             <div>
             </div>

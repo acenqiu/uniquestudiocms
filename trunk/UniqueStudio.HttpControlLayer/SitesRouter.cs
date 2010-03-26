@@ -44,7 +44,7 @@ namespace UniqueStudio.HttpControlLayer
                 context.Cache.Insert(GlobalConfig.CACHE_SITES, sites);
             }
 
-            int siteId = 0;
+            int siteId = 1;
             foreach (SiteInfo site in sites)
             {
                 //如果该网站处于根目录，先记下它的ID
