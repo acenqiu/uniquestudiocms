@@ -42,8 +42,8 @@ color:#336699;
   padding:0 0 0 20px;
   color:#000066;
   font-weight:bold;
-  margin:14px 0 0 10px;
-  background:url(img/column-header-icon.png) no-repeat;
+  margin:14px 0 0 0px;
+  background:url(../img/column-header-icon.png) no-repeat;
   
 }
 .site-depth a
@@ -67,26 +67,26 @@ padding-left:20px;
 
 .file
 {
- background:url(img/file.png) no-repeat;
+ background:url(../img/file.png) no-repeat;
 }
 .doc , .docx
 {
 
- background:url(img/doc.png) no-repeat;
+ background:url(../img/doc.png) no-repeat;
 }
 .pdf
 {
- background:url(img/pdf.png) no-repeat;
+ background:url(../img/pdf.png) no-repeat;
 }
 .ppt, .pptx
 {
- background:url(img/ppt.png) no-repeat;
+ background:url(../img/ppt.png) no-repeat;
 }
 .xls, .xlsx
 {
- background:url(img/xls.png) no-repeat;
+ background:url(../img/xls.png) no-repeat;
 }
 .png, .jpg, .jpeg, .gif
 {
- background:url(img/jpg.png) no-repeat;
+ background:url(../img/jpg.png) no-repeat;
 }

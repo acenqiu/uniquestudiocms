@@ -33,6 +33,7 @@ li.style.backgroundColor="#0066CC";
 if ((li.className=="li-node")&&(li.parentNode.parentNode.id!="navigation"))
 {
 	 li.style.backgroundColor="#333333";
+	 li.className="li-node-hover";
 }
 }
 function hide(li)
@@ -40,14 +41,16 @@ function hide(li)
 	var div=li.getElementsByTagName("div")[0] 
 	div.style.display="none";
 	li.style.backgroundColor="";
+	 li.className="li-node";
 }
 function resize(object,heigth)
 {
     var v = document.getElementById(object);
     if (v!=null)
     {
-        if (v.offsetHeight<heigth)
+	if (v.offsetHeight<heigth)
         {
+	    
             v.style.height= heigth + "px";
         }
     }

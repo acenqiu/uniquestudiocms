@@ -8,7 +8,7 @@
     <script src="flashad/js/AC_RunActiveContent.js" language="javascript"></script>
 </asp:Content>
 <asp:Content ID="content" ContentPlaceHolderID="cphMain" runat="server">
-    <div class="slider">
+    <div class="index-slider">
 	<div class="column mini" style="min-height:210px">
             <US:PostList ID="pltongzhi" CategoryId="49" runat="server" MaxTitleLength="12" />
         </div>
@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div class="main-content">
+    <div class="index-main-content">
         <div class="column picnews">
             <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"
                 width="312" height="210">
