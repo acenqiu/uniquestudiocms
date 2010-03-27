@@ -65,7 +65,7 @@ namespace UniqueStudio.ComContent.DAL
         {
             //long uri = UriProvider.GetNewUri(ResourceType.Article);
             SqlParameter[] parms = new SqlParameter[]{
-                                                    new SqlParameter("@Uri",uri),
+                                                    new SqlParameter("@Uri",post.Uri),
                                                     new SqlParameter("@SiteID",post.SiteId),
                                                     new SqlParameter("@AddUserName",post.AddUserName),
                                                     new SqlParameter("@NewsImage",post.NewsImage),
@@ -106,7 +106,7 @@ namespace UniqueStudio.ComContent.DAL
                                 return 0;
                             }
                             cmd.Parameters.Clear();
-                            cmd.Parameters.AddWithValue("@PostUri", uri);
+                            cmd.Parameters.AddWithValue("@PostUri", post.Uri);
                             cmd.Parameters.Add("@CategoryID", SqlDbType.Int);
                             cmd.CommandText = ADD_POST_CATEGORYID;
                             foreach (CategoryInfo cate in post.Categories)
@@ -121,7 +121,7 @@ namespace UniqueStudio.ComContent.DAL
                             }
                             cmd.Parameters.Clear();
                             trans.Commit();
-                            return uri;
+                            return post.Uri;
                         }
                         catch
                         {
