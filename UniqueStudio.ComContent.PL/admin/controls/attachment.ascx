@@ -7,6 +7,11 @@ function getfiledName()
    var a=document.getElementById("<%=filedNamelist.ClientID %>");
    return a;
 }
+function getSessionUri()
+{
+    var uri='<%=Session["posturi"] %>';
+    return uri;
+}
 </script>
 
 <div id="fileUpArea">

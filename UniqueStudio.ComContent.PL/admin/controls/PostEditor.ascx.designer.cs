@@ -122,24 +122,6 @@ namespace UniqueStudio.ComContent.PL {
         protected global::System.Web.UI.WebControls.FileUpload newsimage;
         
         /// <summary>
-        /// filename control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label filename;
-        
-        /// <summary>
-        /// enclosure control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload enclosure;
-        
-        /// <summary>
         /// attcontrol control.
         /// </summary>
         /// <remarks>
@@ -147,6 +129,15 @@ namespace UniqueStudio.ComContent.PL {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::UniqueStudio.ComContent.PL.admin.controls.attachment attcontrol;
+        
+        /// <summary>
+        /// text control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl text;
         
         /// <summary>
         /// txtSource control.

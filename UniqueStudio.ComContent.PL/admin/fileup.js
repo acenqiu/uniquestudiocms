@@ -2,8 +2,33 @@
     var inputCount=1;//控件个数，实际上传数少一个， 
     var Allupfiled=0;//总共上传
     var Endupfiled=0;//已上传
-    
     var ua = navigator.userAgent.toLowerCase(); //浏览器信息
+    //自动保存
+    var AutoSaveDiv=document.getElementById("autosavestate");
+    var AutoSaveTime=6000;
+    var iframeid=0;
+    //var fEditor=FCKeditorAPI.GetInstance('fckContent');
+    var content;
+    //获取sessionuri
+    //var user=getSessionUser();
+    //ajax
+    if (typeof(XMLHttpRequest) == "undefined") 
+    {
+	    XMLHttpRequest = function() {
+		    try { return new ActiveXObject("Msxml2.XMLHTTP.6.0"); }
+		    catch(e) {}
+		    try { return new ActiveXObject("Msxml2.XMLHTTP.4.0"); }
+		    catch(e) {}
+		    try { return new ActiveXObject("Msxml2.XMLHTTP.3.0"); }
+		    catch(e) {}
+		    try { return new ActiveXObject("Msxml2.XMLHTTP"); }
+		    catch(e) {}
+		    try { return new ActiveXObject("Microsoft.XMLHTTP"); }
+		    catch(e) {}
+		    throw new Error("This browser does not support XMLHttpRequest.");
+	    };
+    }
+    var xmlhttp=new XMLHttpRequest();
     var info = {    
             ie: /msie/.test(ua) && !/opera/.test(ua),        //匹配IE浏览器    
             op: /opera/.test(ua),     //匹配Opera浏览器    
@@ -14,11 +39,7 @@
     window.onload=SetClick;//加载完成，添加一个控件
     function SetClick()
     {
-        //if(inputCount>=10)
-        //{
-            //alert("附件个数不能超过10个!");
-            //return;
-        //}
+        //setInterval("AutoSave()",AutoSaveTime);
         var container=document.getElementById("fileUpArea");
         var input1=document.createElement("input");
 	    input1.type="file";
@@ -90,6 +111,7 @@
 	    var upedfilename;//上传后文件名称
 	    //var filedNames=document.getElementById("filedName");//显示上传后所有附件名称，后台取值用
 	    var filedNames=getfiledName();
+	    var IsClicked=true;//判断img是否点击
         if(Endupfiled==0)
         {
             filedNames.value="";
@@ -123,13 +145,15 @@
 		iframe.style.display = "none";
 		//插入body
 		body.insertBefore( iframe, body.childNodes[0]);	
+		iframeid++;
+		var uri=getSessionUri();
 		
 		//设置form
 		form.name="form"+name;//表单名称
 		form.target=iframename;
         form.method="post";
         form.encoding="multipart/form-data";
-        form.action=path+"Fileup.ashx";
+        form.action=path+"Fileup.ashx?uri="+uri+"&action=add";
         //form.action="UserControls/CallBack.aspx";
         body.insertBefore( form, body.childNodes[0]);
         
@@ -177,6 +201,23 @@
                       }
                       else//停止上传，从StopUpLoad.ashx页面返回空值，也可能是返回错误001，000
                       {
+                          //扩展名判断
+                          if(upedfilename=="002")
+                          {
+                            alert("附件扩展名不正确，请重新上传！");
+                            IsClicked=false;
+                            imgs.onclick();
+                          }
+                          if(upedfilename=="005")
+                          {
+                            alert("附件已存在!");
+                            IsClicked=false;
+                            imgs.onclick();
+                          }
+                          if(upedfilename=="003")
+                          {
+                            alert("删除成功");
+                          }
                           statediv.innerHTML="等待上传";
                           statediv.style.color="#008080";
                           continueUpLoad();//上传按钮
@@ -209,9 +250,14 @@
          function Dispose()//删除事件
          {
              //alert("ddd");
+             if(IsClicked){
+                DeleteEnclosure(str);
+             }
+             IsClicked=true;
              filetxtDiv.removeChild(contxt);
              body.removeChild(form);
              body.removeChild(iframe);
+             iframeid--;
              Allupfiled--;//总上传数减一
              if(upedfilename)
              {
@@ -255,4 +301,51 @@
 	        return false;
 	    }
 	    return true;
+	}
+	function HideEditDiv(i)
+	{
+	    var divid="editenclosure"+i;
+	    document.getElementById(divid).style.display="none";
+	}
+	function DeleteEnclosure(filename)
+	{
+	    xmlhttp.open("POST",path+"Fileup.ashx?uri="+getSessionUri()+"&action=delete&filename="+filename,true);
+        xmlhttp.onreadystatechange=function(){
+            if(xmlhttp.readyState==4&&xmlhttp.status==200)
+            {
+                alert("删除成功,"+filename);
+            }
+        }
+        xmlhttp.send(null);
+	}
+	function AutoSave()
+	{
+	    //alert("abc");
+	    //content=fEditor.GetXHTML();
+	    //var fEditor=getFCKName();+"&user="+user
+	    content=window.frames[iframeid].window.frames[0].document.body.innerHTML;
+	    xmlhttp.open("POST",path+"AutoSave.ashx?uri="+getSessionUri()+"&content="+content+"&action=save");
+	    AutoSaveDiv.innerHTML="正在自动保存草稿";
+	    xmlhttp.onreadystatechange=function(){
+	        if(xmlhttp.readyState==4&&xmlhttp.status==200)
+	        {
+	            //alert("草稿保存成功");
+	            var now=new Date();
+	            AutoSaveDiv.innerHTML="草稿成功保存于"+now.getDate()+" "+now.getHours()+":"+now.getMinutes();
+	        }
+	    }
+	    xmlhttp.send(null);
+	    //alert(content);
+	}
+	function GetDraft()
+	{
+	    xmlhttp.open("GET",path+"AutoSave.ashx?uri="+getSessionUri()+"&action=load");
+	    AutoSaveDiv.innerHTML="载入中";
+	    xmlhttp.onreadystatechange=function(){
+	        if(xmlhttp.readyState==4&&xmlhttp.status==200)
+	        {
+	           //window.frames[iframeid].window.frames[0].document.body.innerHTML=;
+	        }
+	    }
+	    xmlhttp.send(null);
 	}
