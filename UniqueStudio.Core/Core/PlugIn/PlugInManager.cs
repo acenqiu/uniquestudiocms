@@ -351,7 +351,7 @@ namespace UniqueStudio.Core.PlugIn
                     try
                     {
                         IPlugIn p = (IPlugIn)Assembly.Load(plugIn.Assembly).CreateInstance(plugIn.ClassPath);
-                        p.Start();
+                        p.Register();
                         return true;
                     }
                     catch (Exception ex)

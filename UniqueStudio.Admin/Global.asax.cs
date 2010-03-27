@@ -34,7 +34,7 @@ namespace UniqueStudio.Admin
                         IPlugIn plugIn = (IPlugIn)Assembly.Load(collection[i].Assembly).CreateInstance(collection[i].ClassPath);
                         if (plugIn != null)
                         {
-                            plugIn.Start();
+                            plugIn.Register();
                         }
                     }
                     catch (Exception ex)

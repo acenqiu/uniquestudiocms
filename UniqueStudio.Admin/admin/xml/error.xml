@@ -1608,4 +1608,155 @@ To turn this feature off, remove the registry value [HKLM\Software\Microsoft\Fus
     <Time>2010-03-26T22:34:52.6359348+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.TypeLoadException</ExceptionType>
+    <ErrorMessage>Method 'Start' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.</ErrorMessage>
+    <RepresentationString>System.TypeLoadException: Method 'Start' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+   at System.Reflection.Assembly._GetType(String name, Boolean throwOnError, Boolean ignoreCase)
+   at System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Reflection.Assembly.CreateInstance(String typeName)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34</RepresentationString>
+    <Time>2010-03-27T10:08:50.8563654+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IO.FileNotFoundException</ExceptionType>
+    <ErrorMessage>Could not load file or assembly 'UniqueStudio.PlugInIpPictureNews' or one of its dependencies. The system cannot find the file specified.</ErrorMessage>
+    <RepresentationString>System.IO.FileNotFoundException: Could not load file or assembly 'UniqueStudio.PlugInIpPictureNews' or one of its dependencies. The system cannot find the file specified.
+File name: 'UniqueStudio.PlugInIpPictureNews'
+   at System.Reflection.Assembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(AssemblyName assemblyRef, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34
+
+WRN: Assembly binding logging is turned OFF.
+To enable assembly bind failure logging, set the registry value [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD) to 1.
+Note: There is some performance penalty associated with assembly bind failure logging.
+To turn this feature off, remove the registry value [HKLM\Software\Microsoft\Fusion!EnableLog].
+</RepresentationString>
+    <Time>2010-03-27T10:08:51.7734179+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.TypeLoadException</ExceptionType>
+    <ErrorMessage>Method 'Start' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.</ErrorMessage>
+    <RepresentationString>System.TypeLoadException: Method 'Start' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+   at System.Reflection.Assembly._GetType(String name, Boolean throwOnError, Boolean ignoreCase)
+   at System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Reflection.Assembly.CreateInstance(String typeName)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34</RepresentationString>
+    <Time>2010-03-27T10:10:44.2248497+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IO.FileNotFoundException</ExceptionType>
+    <ErrorMessage>Could not load file or assembly 'UniqueStudio.PlugInIpPictureNews' or one of its dependencies. The system cannot find the file specified.</ErrorMessage>
+    <RepresentationString>System.IO.FileNotFoundException: Could not load file or assembly 'UniqueStudio.PlugInIpPictureNews' or one of its dependencies. The system cannot find the file specified.
+File name: 'UniqueStudio.PlugInIpPictureNews'
+   at System.Reflection.Assembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(AssemblyName assemblyRef, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34
+
+WRN: Assembly binding logging is turned OFF.
+To enable assembly bind failure logging, set the registry value [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD) to 1.
+Note: There is some performance penalty associated with assembly bind failure logging.
+To turn this feature off, remove the registry value [HKLM\Software\Microsoft\Fusion!EnableLog].
+</RepresentationString>
+    <Time>2010-03-27T10:10:44.8228839+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.TypeLoadException</ExceptionType>
+    <ErrorMessage>Method 'Start' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.</ErrorMessage>
+    <RepresentationString>System.TypeLoadException: Method 'Start' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+   at System.Reflection.Assembly._GetType(String name, Boolean throwOnError, Boolean ignoreCase)
+   at System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Reflection.Assembly.CreateInstance(String typeName)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34</RepresentationString>
+    <Time>2010-03-27T10:21:15.4999566+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IO.FileNotFoundException</ExceptionType>
+    <ErrorMessage>Could not load file or assembly 'UniqueStudio.PlugInIpPictureNews' or one of its dependencies. The system cannot find the file specified.</ErrorMessage>
+    <RepresentationString>System.IO.FileNotFoundException: Could not load file or assembly 'UniqueStudio.PlugInIpPictureNews' or one of its dependencies. The system cannot find the file specified.
+File name: 'UniqueStudio.PlugInIpPictureNews'
+   at System.Reflection.Assembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(AssemblyName assemblyRef, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34
+
+=== Pre-bind state information ===
+LOG: User = Qiujiangyi\Acen
+LOG: DisplayName = UniqueStudio.PlugInIpPictureNews
+ (Partial)
+LOG: Appbase = file:///E:/Projects/CMS/Source/CMS/UniqueStudio.Admin/
+LOG: Initial PrivatePath = E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\bin
+Calling assembly : UniqueStudio.Admin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null.
+===
+LOG: This bind starts in default load context.
+LOG: Using application configuration file: E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\web.config
+LOG: Using machine configuration file from C:\Windows\Microsoft.NET\Framework\v2.0.50727\config\machine.config.
+LOG: Policy not being applied to reference at this time (private, custom, partial, or location-based assembly bind).
+LOG: Attempting download of new URL file:///C:/Users/Acen/AppData/Local/Temp/Temporary ASP.NET Files/root/bce337b6/70db9824/UniqueStudio.PlugInIpPictureNews.DLL.
+LOG: Attempting download of new URL file:///C:/Users/Acen/AppData/Local/Temp/Temporary ASP.NET Files/root/bce337b6/70db9824/UniqueStudio.PlugInIpPictureNews/UniqueStudio.PlugInIpPictureNews.DLL.
+LOG: Attempting download of new URL file:///E:/Projects/CMS/Source/CMS/UniqueStudio.Admin/bin/UniqueStudio.PlugInIpPictureNews.DLL.
+LOG: Attempting download of new URL file:///E:/Projects/CMS/Source/CMS/UniqueStudio.Admin/bin/UniqueStudio.PlugInIpPictureNews/UniqueStudio.PlugInIpPictureNews.DLL.
+LOG: Attempting download of new URL file:///C:/Users/Acen/AppData/Local/Temp/Temporary ASP.NET Files/root/bce337b6/70db9824/UniqueStudio.PlugInIpPictureNews.EXE.
+LOG: Attempting download of new URL file:///C:/Users/Acen/AppData/Local/Temp/Temporary ASP.NET Files/root/bce337b6/70db9824/UniqueStudio.PlugInIpPictureNews/UniqueStudio.PlugInIpPictureNews.EXE.
+LOG: Attempting download of new URL file:///E:/Projects/CMS/Source/CMS/UniqueStudio.Admin/bin/UniqueStudio.PlugInIpPictureNews.EXE.
+LOG: Attempting download of new URL file:///E:/Projects/CMS/Source/CMS/UniqueStudio.Admin/bin/UniqueStudio.PlugInIpPictureNews/UniqueStudio.PlugInIpPictureNews.EXE.
+</RepresentationString>
+    <Time>2010-03-27T10:21:16.6890246+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.TypeLoadException</ExceptionType>
+    <ErrorMessage>Method 'Register' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.</ErrorMessage>
+    <RepresentationString>System.TypeLoadException: Method 'Register' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+   at System.Reflection.Assembly._GetType(String name, Boolean throwOnError, Boolean ignoreCase)
+   at System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Reflection.Assembly.CreateInstance(String typeName)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34</RepresentationString>
+    <Time>2010-03-27T10:53:05.9732294+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IO.FileNotFoundException</ExceptionType>
+    <ErrorMessage>Could not load file or assembly 'UniqueStudio.PlugInIpPictureNews' or one of its dependencies. The system cannot find the file specified.</ErrorMessage>
+    <RepresentationString>System.IO.FileNotFoundException: Could not load file or assembly 'UniqueStudio.PlugInIpPictureNews' or one of its dependencies. The system cannot find the file specified.
+File name: 'UniqueStudio.PlugInIpPictureNews'
+   at System.Reflection.Assembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(AssemblyName assemblyRef, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34
+
+WRN: Assembly binding logging is turned OFF.
+To enable assembly bind failure logging, set the registry value [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD) to 1.
+Note: There is some performance penalty associated with assembly bind failure logging.
+To turn this feature off, remove the registry value [HKLM\Software\Microsoft\Fusion!EnableLog].
+</RepresentationString>
+    <Time>2010-03-27T10:53:06.5712636+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.TypeLoadException</ExceptionType>
+    <ErrorMessage>Method 'Register' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.</ErrorMessage>
+    <RepresentationString>System.TypeLoadException: Method 'Register' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+   at System.Reflection.Assembly._GetType(String name, Boolean throwOnError, Boolean ignoreCase)
+   at System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Reflection.Assembly.CreateInstance(String typeName)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34</RepresentationString>
+    <Time>2010-03-27T11:08:08.5888561+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>

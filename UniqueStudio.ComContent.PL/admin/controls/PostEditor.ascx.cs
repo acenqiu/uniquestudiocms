@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
 using System.Xml;
@@ -46,6 +47,7 @@ namespace UniqueStudio.ComContent.PL
         private int siteId;
         private EditorMode mode;
         private SettingsManager em = new SettingsManager();
+
         public long Uri
         {
             get { return uri; }

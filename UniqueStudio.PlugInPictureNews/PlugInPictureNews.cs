@@ -8,12 +8,12 @@ namespace UniqueStudio.PlugInPictureNews
     {
         #region IPlugIn Members
 
-        public void Start()
+        public void Register()
         {
             
         }
 
-        public void Stop()
+        public void UnRegister()
         {
             
         }
