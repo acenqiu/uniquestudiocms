@@ -1577,4 +1577,35 @@ To turn this feature off, remove the registry value [HKLM\Software\Microsoft\Fus
     <Time>2010-03-26T21:59:05.2741127+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.TypeLoadException</ExceptionType>
+    <ErrorMessage>Method 'Start' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.</ErrorMessage>
+    <RepresentationString>System.TypeLoadException: Method 'Start' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+   at System.Reflection.Assembly._GetType(String name, Boolean throwOnError, Boolean ignoreCase)
+   at System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Reflection.Assembly.CreateInstance(String typeName)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34</RepresentationString>
+    <Time>2010-03-26T22:34:51.7668851+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IO.FileNotFoundException</ExceptionType>
+    <ErrorMessage>Could not load file or assembly 'UniqueStudio.PlugInIpPictureNews' or one of its dependencies. The system cannot find the file specified.</ErrorMessage>
+    <RepresentationString>System.IO.FileNotFoundException: Could not load file or assembly 'UniqueStudio.PlugInIpPictureNews' or one of its dependencies. The system cannot find the file specified.
+File name: 'UniqueStudio.PlugInIpPictureNews'
+   at System.Reflection.Assembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(AssemblyName assemblyRef, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34
+
+WRN: Assembly binding logging is turned OFF.
+To enable assembly bind failure logging, set the registry value [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD) to 1.
+Note: There is some performance penalty associated with assembly bind failure logging.
+To turn this feature off, remove the registry value [HKLM\Software\Microsoft\Fusion!EnableLog].
+</RepresentationString>
+    <Time>2010-03-26T22:34:52.6359348+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>
