@@ -4,6 +4,7 @@ using System;
 using System.Web;
 using System.IO;
 using UniqueStudio.Core.Site;
+using UniqueStudio.Common.Config;
 
 public class Fileup : IHttpHandler
 {
@@ -43,7 +44,7 @@ public class Fileup : IHttpHandler
                             }
                             else
                             {
-                                if (SiteManager.Config(1).EnclosureExtension.IndexOf(type) < 0)
+                                if (SecurityConfig.EnclosureExtension.IndexOf(type) < 0)
                                 {
                                     rvalue = "002";
                                     break;
