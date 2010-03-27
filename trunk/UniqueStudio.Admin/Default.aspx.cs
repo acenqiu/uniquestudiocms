@@ -14,7 +14,11 @@ namespace UniqueStudio.Admin
 
             if (collection.Count > 0)
             {
-                int siteId = Converter.IntParse(Request.Cookies[GlobalConfig.COOKIE][GlobalConfig.COOKIE_SITEID], 0);
+                int siteId = 0;
+                if (Request.Cookies[GlobalConfig.COOKIE] != null)
+                {
+                    siteId = Converter.IntParse(Request.Cookies[GlobalConfig.COOKIE][GlobalConfig.COOKIE_SITEID], 0);
+                }
                 string relativePath = string.Empty;
                 if (siteId != 0)
                 {
