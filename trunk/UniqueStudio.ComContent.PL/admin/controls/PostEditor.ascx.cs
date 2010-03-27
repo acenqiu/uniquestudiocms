@@ -13,12 +13,19 @@ using UniqueStudio.Common.XmlHelper;
 using UniqueStudio.Core.Category;
 using UniqueStudio.Core.Site;
 using UniqueStudio.Core.User;
-using System.Text;
 
 namespace UniqueStudio.ComContent.PL
 {
     public partial class PostEditor : System.Web.UI.UserControl
     {
+        private UserInfo currentUser;
+        private long uri;
+        private int siteId;
+        private EditorMode mode;
+        private SettingsManager settingsManager = new SettingsManager();
+        private PostManager postManager = new PostManager();
+        private XmlManager xmlManager = new XmlManager();
+
         public Unit Width
         {
             get
@@ -38,16 +45,6 @@ namespace UniqueStudio.ComContent.PL
                 fckContent.Height = value;
             }
         }
-
-        private PostManager bll = new PostManager();
-        private XmlManager xm = new XmlManager();
-
-        private UserInfo currentUser;
-        private long uri;
-        private int siteId;
-        private EditorMode mode;
-        private SettingsManager em = new SettingsManager();
-
         public long Uri
         {
             get { return uri; }
@@ -63,11 +60,13 @@ namespace UniqueStudio.ComContent.PL
             get { return mode; }
             set { mode = value; }
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
             if (!IsPostBack)
             {
+                //获取分类列表
                 CategoryManager manager = new CategoryManager();
                 CategoryCollection categories = manager.GetAllCategories(siteId);
                 cblCategory.DataSource = categories;
@@ -75,15 +74,35 @@ namespace UniqueStudio.ComContent.PL
                 cblCategory.DataValueField = "CategoryID";
                 cblCategory.DataBind();
 
-                if (mode == EditorMode.Edit)
+                if (mode == EditorMode.Add)
                 {
-                    PostInfo post = bll.GetPost(currentUser, uri);
-                    if (post != null)
+                    //EditorMode.Add
+                    currentUser = (new UserManager()).GetUserInfo(currentUser, currentUser.UserId);
+                    if (currentUser.ExInfo != null)
+                    {
+                        txtAuthor.Text = currentUser.ExInfo.PenName;
+                    }
+                    else
+                    {
+                        txtAuthor.Text = currentUser.UserName;
+                    }
+                    txtAddDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+                }
+                else
+                {
+                    PostInfo post = postManager.GetPost(currentUser, uri);
+                    if (post == null)
+                    {
+                        message.SetErrorMessage("指定文章不存在");
+                        btnPublish.Enabled = false;
+                        btnSave.Enabled = false;
+                    }
+                    else
                     {
                         if (post.Settings != string.Empty)
                         {
                             //TODO:display enclosure
-                            EnclosureCollection enclosures = (EnclosureCollection)em.GetEnclosuresFromXML(post.Settings);
+                            EnclosureCollection enclosures = (EnclosureCollection)settingsManager.GetEnclosuresFromXML(post.Settings);
                             StringBuilder sb = new StringBuilder();
                             int i = 0;
                             foreach (Enclosure enclosure in enclosures)
@@ -136,29 +155,14 @@ namespace UniqueStudio.ComContent.PL
 
                         ViewState["post"] = post;
                     }
-                    else
-                    {
-                        message.SetErrorMessage("指定文章不存在");
-                        btnPublish.Enabled = false;
-                        btnSave.Enabled = false;
-                    }
-                }
-                else
-                {
-                    //EditorMode.Add
-                    currentUser = (new UserManager()).GetUserInfo(currentUser, currentUser.UserId);
-                    if (currentUser.ExInfo != null)
-                    {
-                        txtAuthor.Text = currentUser.ExInfo.PenName;
-                    }
-                    else
-                    {
-                        txtAuthor.Text = currentUser.UserName;
-                    }
-                    txtAddDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
                 }
             }
         }
+
+        private void LoadPost()
+        {
+        }
+
         protected void btnPublish_Click(object sender, EventArgs e)
         {
             PostInfo post = null;
@@ -167,7 +171,7 @@ namespace UniqueStudio.ComContent.PL
             {
                 post = new PostInfo();
                 post.Uri = Convert.ToInt64(Session["posturi"].ToString());
-                post.Settings = em.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
+                post.Settings = settingsManager.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
                 post.SiteId = siteId;
                 post.Title = txtTitle.Text;
                 post.AddUserName = currentUser.UserName;
@@ -221,7 +225,7 @@ namespace UniqueStudio.ComContent.PL
                 }
                 post.Taxis = 1;
                 post.IsPublished = true;
-                long postId = bll.AddPost(currentUser, post);
+                long postId = postManager.AddPost(currentUser, post);
                 if (postId > 0)
                 {
                     Response.Redirect(string.Format("editpost.aspx?msg={0}&siteId={1}&uri={2}", HttpUtility.UrlEncode("发布成功！"), siteId, postId));
@@ -267,7 +271,7 @@ namespace UniqueStudio.ComContent.PL
                     }
                     // post.Settings = string.Empty;
                     post.NewsImage = NewsImageManager();
-                    post.Settings = em.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
+                    post.Settings = settingsManager.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
                     //TODO:editor enclosure
                     CategoryManager cm = new CategoryManager();
                     CategoryCollection cates = new CategoryCollection();
@@ -298,7 +302,7 @@ namespace UniqueStudio.ComContent.PL
                     post.LastEditDate = DateTime.Now;
                     post.IsPublished = true;
 
-                    if (bll.EditPost(currentUser, post))
+                    if (postManager.EditPost(currentUser, post))
                     {
                         message.SetSuccessMessage("发布成功");
                     }
@@ -323,7 +327,7 @@ namespace UniqueStudio.ComContent.PL
             {
                 post = new PostInfo();
                 post.Uri = Convert.ToInt64(Session["posturi"].ToString());
-                post.Settings = em.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
+                post.Settings = settingsManager.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
                 post.SiteId = siteId;
                 post.Title = txtTitle.Text;
                 post.SubTitle = txtSubTitle.Text;
@@ -376,7 +380,7 @@ namespace UniqueStudio.ComContent.PL
                 post.Taxis = 1;
                 post.AddUserName = string.Empty;
                 post.IsPublished = false;
-                long postId = bll.AddPost(currentUser, post);
+                long postId = postManager.AddPost(currentUser, post);
                 if (postId > 0)
                 {
                     Response.Redirect("editpost.aspx?msg=" + HttpUtility.UrlEncode("发布成功！") + "&uri=" + postId);
@@ -400,7 +404,7 @@ namespace UniqueStudio.ComContent.PL
                     post.IsAllowComment = chbAllowComment.Checked;
                     post.Content = fckContent.Value;
                     post.CreateDate = Convert.ToDateTime(txtAddDate.Text);
-                    post.Settings = em.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
+                    post.Settings = settingsManager.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
                     //控制文章显示内容
                     //0正常显示
                     //1不显示标题
@@ -441,7 +445,7 @@ namespace UniqueStudio.ComContent.PL
                     else
                     {
                     }
-                    if (bll.EditPost(currentUser, post))
+                    if (postManager.EditPost(currentUser, post))
                     {
                         message.SetSuccessMessage("保存成功");
                     }

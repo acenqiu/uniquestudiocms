@@ -63,7 +63,6 @@ namespace UniqueStudio.ComContent.DAL
         /// <returns>如果添加成功，返回文章的Uri，否则返回0。</returns>
         public long AddPost(PostInfo post)
         {
-            //long uri = UriProvider.GetNewUri(ResourceType.Article);
             SqlParameter[] parms = new SqlParameter[]{
                                                     new SqlParameter("@Uri",post.Uri),
                                                     new SqlParameter("@SiteID",post.SiteId),
@@ -605,9 +604,11 @@ namespace UniqueStudio.ComContent.DAL
         /// <returns>文章列表。</returns>
         public PostCollection SearchPostsByAuthor(int siteId, string author)
         {
-            SqlParameter parm = new SqlParameter("@Author", author);
+            SqlParameter[] parms = new SqlParameter[]{
+                                                        new SqlParameter("@SiteID",siteId),
+                                                        new SqlParameter("@Author", author)};
             PostCollection collection = new PostCollection();
-            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, SEARCH_POSTS_BY_AUTHOR, parm))
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, SEARCH_POSTS_BY_AUTHOR, parms))
             {
                 while (reader.Read())
                 {
@@ -645,9 +646,11 @@ namespace UniqueStudio.ComContent.DAL
         /// <returns>文章列表。</returns>
         public PostCollection SearchPostsByTitle(int siteId, string title)
         {
-            SqlParameter parm = new SqlParameter("@Title", title);
+            SqlParameter[] parms = new SqlParameter[]{
+                                                        new SqlParameter("@SiteID",siteId),
+                                                        new SqlParameter("@Title", title)};
             PostCollection collection = new PostCollection();
-            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, SEARCH_POSTS_BY_TITLE, parm))
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, SEARCH_POSTS_BY_TITLE, parms))
             {
                 while (reader.Read())
                 {
@@ -687,6 +690,7 @@ namespace UniqueStudio.ComContent.DAL
         public PostCollection SearchPostsByTime(int siteId, DateTime startTime, DateTime endTime)
         {
             SqlParameter[] parms = new SqlParameter[]{
+                                                        new SqlParameter("@SiteID",siteId),
                                                         new SqlParameter("@StartDate", startTime),
                                                         new SqlParameter("@EndDate",endTime)};
             PostCollection collection = new PostCollection();

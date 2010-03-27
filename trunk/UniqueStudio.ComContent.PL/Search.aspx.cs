@@ -33,7 +33,7 @@ namespace UniqueStudio.ComContent.PL
                             Regex r = new Regex("(?<v>" + key + ")");
                             foreach (PostInfo post in collection)
                             {
-                                post.Title = r.Replace(post.Title, "<strong>${v}</strong");
+                                post.Title = r.Replace(post.Title, "<strong>${v}</strong>");
                             }
                         }
                     }
