@@ -52,12 +52,14 @@
   <ItemGroup>
     <Compile Include="ApiLayer\MetaWeblog.cs" />
     <Compile Include="ApiLayer\MetaWeblogAPI.cs" />
+    <Compile Include="BLL\SettingsManager.cs" />
     <Compile Include="BLL\PictureNewsManager.cs" />
     <Compile Include="BLL\PostManager.cs" />
     <Compile Include="BLL\PostPermissionManager.cs" />
     <Compile Include="DAL\PostProvider.cs" />
     <Compile Include="Model\EditorMode.cs" />
     <Compile Include="Model\Enclosure.cs" />
+    <Compile Include="Model\EnclosureCollection.cs" />
     <Compile Include="Model\PictureNewsItem.cs" />
     <Compile Include="Model\PostCollection.cs" />
     <Compile Include="Model\PostInfo.cs" />
