@@ -610,7 +610,7 @@ namespace UniqueStudio.Core.User
                 {
                     //仅用户自身可以获取附加信息
                     UserInfo user = provider.GetUserInfo(userId, true);
-                    if (user != null && user.ExInfoXml != null)
+                    if (user != null && !string.IsNullOrEmpty(user.ExInfoXml))
                     {
                         XmlManager manager = new XmlManager();
                         user.ExInfo = (UserExInfo)manager.ConvertToEntity(user.ExInfoXml, typeof(UserExInfo), null);
