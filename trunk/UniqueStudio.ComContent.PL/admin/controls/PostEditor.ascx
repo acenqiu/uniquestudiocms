@@ -6,8 +6,6 @@
 
 <script src="jquery.min.js" type="text/javascript"></script>
 
-<script type="text/javascript" src="ajaxupload.js"></script>
-
 <div class="postEditor">
     <US:Message ID="message" runat="server" />
     <asp:ValidationSummary ID="validationSummary" runat="server" ValidationGroup="post"
@@ -50,13 +48,11 @@
                 <asp:FileUpload runat="server" ID="newsimage" EnableViewState="false" /></span>
             <br />
             <span class="form-item-label">附件：</span> <span class="form-item-input">
-                <asp:Label runat="server" ID="filename" Visible="false"></asp:Label>
-                <asp:FileUpload runat="server" EnableViewState="false" ID="enclosure" /></span>
-            <p class="text">
-            </p>
-            <span class="form-item-input">
                 <US:Attachment ID="attcontrol" runat="server" />
             </span>
+            <br />
+            <div id="text" runat="server">
+            </div>
             <%--<asp:Button ID="upfilebtn" runat="server" Text="附件上传" OnClick="upfilebtn_Click" />--%>
         </div>
         <div class="form-item" style="display: none">
@@ -68,6 +64,11 @@
             <span class="form-item-input">
                 <FCKeditorV2:FCKeditor ID="fckContent" runat="server" />
             </span>
+            <%--<span class="form-item-label">
+                <div id="autosavestate">
+                </div>
+                <input type="button" value="载入草稿" onclick="GetDraft()" />
+            </span>--%>
         </div>
         <div class="form-item">
             <span class="form-item-label">摘要：</span> <span class="form-item-input">
