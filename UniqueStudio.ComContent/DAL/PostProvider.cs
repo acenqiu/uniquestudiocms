@@ -63,7 +63,7 @@ namespace UniqueStudio.ComContent.DAL
         /// <returns>如果添加成功，返回文章的Uri，否则返回0。</returns>
         public long AddPost(PostInfo post)
         {
-            long uri = UriProvider.GetNewUri(ResourceType.Article);
+            //long uri = UriProvider.GetNewUri(ResourceType.Article);
             SqlParameter[] parms = new SqlParameter[]{
                                                     new SqlParameter("@Uri",uri),
                                                     new SqlParameter("@SiteID",post.SiteId),
