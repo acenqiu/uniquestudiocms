@@ -12,6 +12,7 @@ using UniqueStudio.Common.XmlHelper;
 using UniqueStudio.Core.Category;
 using UniqueStudio.Core.Site;
 using UniqueStudio.Core.User;
+using System.Text;
 
 namespace UniqueStudio.ComContent.PL
 {
@@ -221,7 +222,7 @@ namespace UniqueStudio.ComContent.PL
                 long postId = bll.AddPost(currentUser, post);
                 if (postId > 0)
                 {
-                    Response.Redirect(string.Format("editpost.aspx?msg={0}&siteId={1}&uri={2}",HttpUtility.UrlEncode("发布成功！"),siteId, postId));
+                    Response.Redirect(string.Format("editpost.aspx?msg={0}&siteId={1}&uri={2}", HttpUtility.UrlEncode("发布成功！"), siteId, postId));
                 }
                 else
                 {
@@ -234,7 +235,7 @@ namespace UniqueStudio.ComContent.PL
                 if (ViewState["post"] != null)
                 {
                     post = (PostInfo)ViewState["post"];
-                    if (!PostPermissionManager.HasEditPermission(currentUser,post.Uri))
+                    if (!PostPermissionManager.HasEditPermission(currentUser, post.Uri))
                     {
                         //可能出现空引用
                         //Response.Redirect("PostPermissionError.aspx?Error=编辑文章&Page=" + Request.UrlReferrer.ToString());
