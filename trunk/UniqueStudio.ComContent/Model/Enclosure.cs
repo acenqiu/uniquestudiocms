@@ -4,6 +4,7 @@ using System.Text;
 
 namespace UniqueStudio.ComContent.Model
 {
+    [Serializable]
     public class Enclosure
     {
         private string tittle;
