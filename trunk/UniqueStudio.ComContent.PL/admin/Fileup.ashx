@@ -5,6 +5,7 @@ using System.Web;
 using System.IO;
 using UniqueStudio.Core.Site;
 using UniqueStudio.Common.Config;
+using UniqueStudio.Common.ErrorLogging;
 
 public class Fileup : IHttpHandler
 {
@@ -68,6 +69,7 @@ public class Fileup : IHttpHandler
                 }
                 catch (Exception e)
                 {
+                    ErrorLogger.LogError(e);
                     rvalue = "001";
                 }
                 context.Response.Expires = -1;

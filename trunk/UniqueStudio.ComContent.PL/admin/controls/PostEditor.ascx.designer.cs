@@ -104,22 +104,22 @@ namespace UniqueStudio.ComContent.PL {
         protected global::System.Web.UI.WebControls.TextBox txtAuthor;
         
         /// <summary>
-        /// imagename control.
+        /// lblImageName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label imagename;
+        protected global::System.Web.UI.WebControls.Label lblImageName;
         
         /// <summary>
-        /// newsimage control.
+        /// fuNewsImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload newsimage;
+        protected global::System.Web.UI.WebControls.FileUpload fuNewsImage;
         
         /// <summary>
         /// attcontrol control.
@@ -176,22 +176,22 @@ namespace UniqueStudio.ComContent.PL {
         protected global::System.Web.UI.WebControls.TextBox txtAddDate;
         
         /// <summary>
-        /// tittleChecked control.
+        /// chkTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox tittleChecked;
+        protected global::System.Web.UI.WebControls.CheckBox chkTitle;
         
         /// <summary>
-        /// otherChecked control.
+        /// chkOther control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox otherChecked;
+        protected global::System.Web.UI.WebControls.CheckBox chkOther;
         
         /// <summary>
         /// txtTags control.

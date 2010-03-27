@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -6,6 +7,7 @@ using System.Web.UI.WebControls;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common.Config;
+using UniqueStudio.Common.ErrorLogging;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
 using UniqueStudio.Common.XmlHelper;
@@ -65,12 +67,19 @@ namespace UniqueStudio.ComContent.PL
             if (!IsPostBack)
             {
                 //获取分类列表
-                CategoryManager manager = new CategoryManager();
-                CategoryCollection categories = manager.GetAllCategories(siteId);
-                cblCategory.DataSource = categories;
-                cblCategory.DataTextField = "CategoryName";
-                cblCategory.DataValueField = "CategoryID";
-                cblCategory.DataBind();
+                try
+                {
+                    CategoryManager manager = new CategoryManager();
+                    CategoryCollection categories = manager.GetAllCategories(siteId);
+                    cblCategory.DataSource = categories;
+                    cblCategory.DataTextField = "CategoryName";
+                    cblCategory.DataValueField = "CategoryID";
+                    cblCategory.DataBind();
+                }
+                catch (Exception ex)
+                {
+                    message.SetErrorMessage("分类信息读取失败：" + ex.Message);
+                }
 
                 if (mode == EditorMode.Add)
                 {
@@ -94,19 +103,39 @@ namespace UniqueStudio.ComContent.PL
 
         private void LoadPost()
         {
-            PostInfo post = postManager.GetPost(currentUser, uri);
+            PostInfo post = null;
+            try
+            {
+                post = postManager.GetPost(currentUser, uri);
+            }
+            catch (Exception ex)
+            {
+                message.SetErrorMessage("数据读取失败：" + ex.Message);
+                return;
+            }
+
             if (post == null)
             {
-                message.SetErrorMessage("指定文章不存在");
+                message.SetErrorMessage("数据读取失败：指定文章不存在！");
                 btnPublish.Enabled = false;
                 btnSave.Enabled = false;
             }
             else
             {
+                txtTitle.Text = post.Title;
+                txtSubTitle.Text = post.SubTitle;
+                txtAddDate.Text = post.CreateDate.ToString("yyyy-MM-dd HH:mm:ss");
+                txtAuthor.Text = post.Author;
+                fckContent.Value = post.Content;
+                fckSummary.Value = post.Summary;
+                chbRecommend.Checked = post.IsRecommend;
+                chbHot.Checked = post.IsHot;
+                chbTop.Checked = post.IsTop;
+                chbAllowComment.Checked = post.IsAllowComment;
                 if (post.Settings != string.Empty)
                 {
                     //TODO:display enclosure
-                    EnclosureCollection enclosures = (EnclosureCollection)settingsManager.GetEnclosuresFromXML(post.Settings);
+                    EnclosureCollection enclosures = settingsManager.GetEnclosuresFromXML(post.Settings);
                     StringBuilder sb = new StringBuilder();
                     int i = 0;
                     foreach (Enclosure enclosure in enclosures)
@@ -116,27 +145,17 @@ namespace UniqueStudio.ComContent.PL
                     }
                     text.InnerHtml = sb.ToString();
                 }
-                txtTitle.Text = post.Title;
-                txtSubTitle.Text = post.SubTitle;
-                txtAuthor.Text = post.Author;
-                chbRecommend.Checked = post.IsRecommend;
-                chbHot.Checked = post.IsHot;
-                chbTop.Checked = post.IsTop;
-                chbAllowComment.Checked = post.IsAllowComment;
-                fckContent.Value = post.Content;
-                fckSummary.Value = post.Summary;
-                txtAddDate.Text = post.CreateDate.ToString("yyyy-MM-dd HH:mm:ss");
                 switch (post.PostDisplay)
                 {
                     case 1:
-                        tittleChecked.Checked = true;
+                        chkTitle.Checked = true;
                         break;
                     case 2:
-                        otherChecked.Checked = true;
+                        chkOther.Checked = true;
                         break;
                     case 3:
-                        tittleChecked.Checked = true;
-                        otherChecked.Checked = true;
+                        chkTitle.Checked = true;
+                        chkOther.Checked = true;
                         break;
                     default:
                         break;
@@ -157,319 +176,145 @@ namespace UniqueStudio.ComContent.PL
                     btnPublish.Visible = false;
                 }
 
-                ViewState["post"] = post;
+                ViewState["IsPublished"] = post.IsPublished;
             }
         }
 
         protected void btnPublish_Click(object sender, EventArgs e)
         {
-            PostInfo post = null;
-
             if (mode == EditorMode.Add)
             {
-                post = new PostInfo();
-                post.Uri = Convert.ToInt64(Session["posturi"].ToString());
-                post.Settings = settingsManager.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
-                post.SiteId = siteId;
-                post.Title = txtTitle.Text;
-                post.AddUserName = currentUser.UserName;
-                post.CreateDate = Converter.DatetimeParse(txtAddDate.Text, DateTime.Now);
-                post.SubTitle = txtSubTitle.Text;
-                post.Author = txtAuthor.Text;
-                post.IsRecommend = chbRecommend.Checked;
-                post.IsHot = chbHot.Checked;
-                post.IsTop = chbTop.Checked;
-                post.IsAllowComment = chbAllowComment.Checked;
-                post.Content = fckContent.Value;
-                post.NewsImage = NewsImageManager();
-                //控制文章显示内容
-                //0正常显示
-                //1不显示标题
-                //2不显示时间等其它信息
-                //3只显示文章内容
-                post.PostDisplay = 0;
-                if (tittleChecked.Checked == true)
-                {
-                    post.PostDisplay += 1;
-                }
-                if (otherChecked.Checked == true)
-                {
-                    post.PostDisplay += 2;
-                }
-                CategoryManager cm = new CategoryManager();
-                CategoryCollection cates = new CategoryCollection();
-                bool IsSelected = false;
-                foreach (ListItem item in cblCategory.Items)
-                {
-                    if (item.Selected)
-                    {
-                        IsSelected = true;
-                        cates.Add(cm.GetCategory(Convert.ToInt32(item.Value)));
-                    }
-                }
-                if (!IsSelected)
-                {
-                    Response.Write("<script type='text/javascript'>alert('请选择分类')</script>");
-                    return;
-                }
-                post.Categories = cates;
-                if (!string.IsNullOrEmpty(fckSummary.Value))
-                {
-                    post.Summary = fckSummary.Value;
-                }
-                else
-                {
-                    post.Summary = "";
-                }
-                post.Taxis = 1;
-                post.IsPublished = true;
-                long postId = postManager.AddPost(currentUser, post);
-                if (postId > 0)
-                {
-                    Response.Redirect(string.Format("editpost.aspx?msg={0}&siteId={1}&uri={2}", HttpUtility.UrlEncode("发布成功！"), siteId, postId));
-                }
-                else
-                {
-                    message.SetErrorMessage("发布失败，请重试！");
-                }
-
+                AddPost("文章", true);
             }
             else
             {
-                if (ViewState["post"] != null)
-                {
-                    post = (PostInfo)ViewState["post"];
-                    if (!PostPermissionManager.HasEditPermission(currentUser, post.Uri))
-                    {
-                        //可能出现空引用
-                        //Response.Redirect("PostPermissionError.aspx?Error=编辑文章&Page=" + Request.UrlReferrer.ToString());
-                    }
-                    post.Title = txtTitle.Text;
-                    post.SubTitle = txtSubTitle.Text;
-                    post.Author = txtAuthor.Text;
-                    post.IsRecommend = chbRecommend.Checked;
-                    post.IsHot = chbHot.Checked;
-                    post.IsTop = chbTop.Checked;
-                    post.IsAllowComment = chbAllowComment.Checked;
-                    post.Content = fckContent.Value;
-                    post.CreateDate = Convert.ToDateTime(txtAddDate.Text);
-                    //控制文章显示内容
-                    //0正常显示
-                    //1不显示标题
-                    //2不显示时间等其它信息
-                    //3只显示文章内容
-                    post.PostDisplay = 0;
-                    if (tittleChecked.Checked == true)
-                    {
-                        post.PostDisplay += 1;
-                    }
-                    if (otherChecked.Checked == true)
-                    {
-                        post.PostDisplay += 2;
-                    }
-                    // post.Settings = string.Empty;
-                    post.NewsImage = NewsImageManager();
-                    post.Settings = settingsManager.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
-                    //TODO:editor enclosure
-                    CategoryManager cm = new CategoryManager();
-                    CategoryCollection cates = new CategoryCollection();
-                    bool isCategoryChecked = false;
-                    foreach (ListItem item in cblCategory.Items)
-                    {
-                        if (item.Selected)
-                        {
-                            isCategoryChecked = true;
-                            cates.Add(cm.GetCategory(Convert.ToInt32(item.Value)));
-                        }
-                    }
-                    if (!isCategoryChecked)
-                    {
-                        Response.Write("<script type='text/javascript'>alert('请选择分类')</script>");
-                        return;
-                    }
-                    post.Categories = cates;
-                    if (!string.IsNullOrEmpty(fckSummary.Value))
-                    {
-                        post.Summary = fckSummary.Value;
-                    }
-                    else
-                    {
-                        post.Summary = "";
-                    }
-                    post.LastEditUserName = currentUser.UserName;
-                    post.LastEditDate = DateTime.Now;
-                    post.IsPublished = true;
-
-                    if (postManager.EditPost(currentUser, post))
-                    {
-                        message.SetSuccessMessage("发布成功");
-                    }
-                    else
-                    {
-                        message.SetErrorMessage("发布失败，请重试！");
-                    }
-                }
-                else
-                {
-                    message.SetErrorMessage("啊，出错了");
-                    btnPublish.Enabled = false;
-                    btnSave.Enabled = false;
-                }
+                EditPost(true);
             }
         }
+
+        //保存为草稿
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            PostInfo post = null;
-
             if (mode == EditorMode.Add)
             {
-                post = new PostInfo();
-                post.Uri = Convert.ToInt64(Session["posturi"].ToString());
-                post.Settings = settingsManager.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
-                post.SiteId = siteId;
-                post.Title = txtTitle.Text;
-                post.SubTitle = txtSubTitle.Text;
-                post.Author = txtAuthor.Text;
-                post.IsRecommend = chbRecommend.Checked;
-                post.IsHot = chbHot.Checked;
-                post.IsTop = chbTop.Checked;
-                post.IsAllowComment = chbAllowComment.Checked;
-                post.Content = fckContent.Value;
-                post.NewsImage = NewsImageManager();
-                //控制文章显示内容
-                //0正常显示
-                //1不显示标题
-                //2不显示时间等其它信息
-                //3只显示文章内容
-                post.PostDisplay = 0;
-                if (tittleChecked.Checked == true)
-                {
-                    post.PostDisplay = 1;
-                }
-                if (otherChecked.Checked == true)
-                {
-                    post.PostDisplay += 2;
-                }
-                CategoryManager cm = new CategoryManager();
-                CategoryCollection cates = new CategoryCollection();
-                bool isCategoryChecked = false;
-                foreach (ListItem item in cblCategory.Items)
-                {
-                    if (item.Selected)
-                    {
-                        isCategoryChecked = true;
-                        cates.Add(cm.GetCategory(Convert.ToInt32(item.Value)));
-                    }
-                }
-                if (!isCategoryChecked)
-                {
-                    Response.Write("<script type='text/javascript'>alert('请选择分类')</script>");
-                    return;
-                }
-                post.Categories = cates;
-                if (!string.IsNullOrEmpty(fckSummary.Value))
-                {
-                    post.Summary = fckSummary.Value;
-                }
-                else
-                {
-                    post.Summary = "";
-                }
-                post.Taxis = 1;
-                post.AddUserName = string.Empty;
-                post.IsPublished = false;
-                long postId = postManager.AddPost(currentUser, post);
-                if (postId > 0)
-                {
-                    Response.Redirect("editpost.aspx?msg=" + HttpUtility.UrlEncode("发布成功！") + "&uri=" + postId);
-                }
-                else
-                {
-                    message.SetErrorMessage("发布失败，请重试！");
-                }
+                AddPost("草稿", false);
             }
             else
             {
-                if (ViewState["post"] != null)
+                bool isPublished = (bool)ViewState["IsPublished"];
+                EditPost(isPublished);
+            }
+        }
+
+        private void AddPost(string postType, bool isPublished)
+        {
+            try
+            {
+                PostInfo post = PreparePost(Convert.ToInt64(Session["posturi"].ToString()), isPublished);
+                post.AddUserName = currentUser.UserName;
+                long postUri = postManager.AddPost(currentUser, post);
+                if (postUri > 0)
                 {
-                    post = (PostInfo)ViewState["post"];
-                    post.Title = txtTitle.Text;
-                    post.SubTitle = txtSubTitle.Text;
-                    post.Author = txtAuthor.Text;
-                    post.IsRecommend = chbRecommend.Checked;
-                    post.IsHot = chbHot.Checked;
-                    post.IsTop = chbTop.Checked;
-                    post.IsAllowComment = chbAllowComment.Checked;
-                    post.Content = fckContent.Value;
-                    post.CreateDate = Convert.ToDateTime(txtAddDate.Text);
-                    post.Settings = settingsManager.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
-                    //控制文章显示内容
-                    //0正常显示
-                    //1不显示标题
-                    //2不显示时间等其它信息
-                    //3只显示文章内容
-                    post.PostDisplay = 0;
-                    if (tittleChecked.Checked == true)
-                    {
-                        post.PostDisplay = 1;
-                    }
-                    if (otherChecked.Checked == true)
-                    {
-                        post.PostDisplay += 2;
-                    }
-                    CategoryManager cm = new CategoryManager();
-                    //post.Settings = string.Empty;
-                    post.NewsImage = NewsImageManager();
-                    CategoryCollection cates = new CategoryCollection();
-                    bool isCategoryChecked = false;
-                    foreach (ListItem item in cblCategory.Items)
-                    {
-                        if (item.Selected)
-                        {
-                            isCategoryChecked = true;
-                            cates.Add(cm.GetCategory(Convert.ToInt32(item.Value)));
-                        }
-                    }
-                    if (!isCategoryChecked)
-                    {
-                        Response.Write("<script type='text/javascript'>alert('请选择分类')</script>");
-                        return;
-                    }
-                    post.Categories = cates;
-                    if (!string.IsNullOrEmpty(fckSummary.Value))
-                    {
-                        post.Summary = fckSummary.Value;
-                    }
-                    else
-                    {
-                    }
-                    if (postManager.EditPost(currentUser, post))
-                    {
-                        message.SetSuccessMessage("保存成功");
-                    }
-                    else
-                    {
-                        message.SetErrorMessage(" 保存失败，请重试！");
-                    }
+                    Response.Redirect(string.Format("editpost.aspx?msg={0}&siteId={1}&uri={2}", HttpUtility.UrlEncode(postType + "添加成功！")
+                                                                                                                                          , siteId, postUri));
                 }
                 else
                 {
-                    message.SetErrorMessage("啊，出错了");
-                    btnPublish.Enabled = false;
-                    btnSave.Enabled = false;
+                    message.SetErrorMessage(postType + "添加失败！");
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                message.SetErrorMessage(postType + "草稿添加失败：" + ex.Message);
+            }
         }
-        private string NewsImageManager()
+
+        private void EditPost(bool isPublished)
         {
-            if (!newsimage.HasFile)
+            try
+            {
+                PostInfo post = PreparePost(uri, isPublished);
+                post.LastEditUserName = currentUser.UserName;
+                if (postManager.EditPost(currentUser, post))
+                {
+                    message.SetSuccessMessage("保存成功！");
+                }
+                else
+                {
+                    message.SetErrorMessage("保存失败！");
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                message.SetErrorMessage("保存失败：" + ex.Message);
+            }
+        }
+
+        private PostInfo PreparePost(long uri, bool isPublished)
+        {
+            PostInfo post = new PostInfo();
+            //基本信息
+            post.Uri = uri;
+            post.SiteId = siteId;
+            post.CreateDate = Converter.DatetimeParse(txtAddDate.Text, DateTime.Now);
+            post.Taxis = 1;
+            post.Title = txtTitle.Text;
+            post.SubTitle = txtSubTitle.Text;
+            post.Author = txtAuthor.Text;
+            post.Summary = fckSummary.Value;
+            post.Content = fckContent.Value;
+            post.NewsImage = GetNewsImage();
+            post.Settings = settingsManager.GetPostXMLFromEnclosures(uri.ToString(), Server.MapPath(@"~/upload/"));
+            post.Categories = GetSelectedCategories();
+            if (post.Categories.Count == 0)
+            {
+                message.SetErrorMessage("请至少选择一个分类！");
+            }
+
+            //显示设置
+            post.IsRecommend = chbRecommend.Checked;
+            post.IsHot = chbHot.Checked;
+            post.IsTop = chbTop.Checked;
+            post.IsAllowComment = chbAllowComment.Checked;
+            post.IsPublished = isPublished;
+            post.PostDisplay = 0;
+            if (chkTitle.Checked == true)
+            {
+                post.PostDisplay = 1;
+            }
+            if (chkOther.Checked == true)
+            {
+                post.PostDisplay += 2;
+            }
+
+            return post;
+        }
+
+        private CategoryCollection GetSelectedCategories()
+        {
+            CategoryCollection categories = new CategoryCollection();
+            foreach (ListItem item in cblCategory.Items)
+            {
+                if (item.Selected)
+                {
+                    categories.Add(new CategoryInfo(Converter.IntParse(item.Value, 0)));
+                }
+            }
+            return categories;
+        }
+
+        private string GetNewsImage()
+        {
+            if (!fuNewsImage.HasFile)
             {
                 return null;
             }
             else
             {
-                string imageextension = ".jpg,.jpeg,.gif,.png";
-                if (imageextension.IndexOf(System.IO.Path.GetExtension(newsimage.FileName).ToLower()) < 0)
+                string imageExtension = ".jpg,.jpeg,.gif,.png";
+                if (imageExtension.IndexOf(System.IO.Path.GetExtension(fuNewsImage.FileName).ToLower()) < 0)
                 {
                     //显示扩展名不正确信息
                     Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
@@ -477,13 +322,13 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + newsimage.FileName;
+                    string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + fuNewsImage.FileName;
                     string filepath = Server.MapPath(@"~/upload/image/" + urlpath);
                     try
                     {
-                        newsimage.SaveAs(filepath);
-                        imagename.Visible = true;
-                        imagename.Text = newsimage.FileName;
+                        fuNewsImage.SaveAs(filepath);
+                        lblImageName.Visible = true;
+                        lblImageName.Text = fuNewsImage.FileName;
                     }
                     catch
                     {

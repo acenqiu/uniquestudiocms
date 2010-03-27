@@ -20,28 +20,17 @@ namespace UniqueStudio.ComContent.PL
             editor.SiteId = SiteId;
             PostListQuery = PathHelper.CleanUrlQueryString(HttpUtility.UrlDecode(Request.QueryString["ret"]),
                                                                                             new string[] { "msg", "msgtype" });
-            if (!IsPostBack)
+            if (string.IsNullOrEmpty(PostListQuery))
             {
-                if (Request.QueryString["uri"] != null)
-                {
-                    if (!PostPermissionManager.HasEditPermission(CurrentUser, Convert.ToInt64(Request.QueryString["uri"])))
-                    {
-                        Response.Redirect("PostPermissionError.aspx?Error=编辑文章&Page=" + Request.UrlReferrer.ToString());
-                    }
-                    long uri = 0;
-                    if (long.TryParse(Request.QueryString["uri"], out uri))
-                    {
-                        editor.Uri = uri;
-                    }
-                    else
-                    {
-                        //Response.Redirect("~/admin/postList.aspx?" + ret + "&retMsg=" + HttpUtility.UrlEncode("参数异常"));
-                    }
-                }
-                else
-                {
-                    //Response.Redirect("~/admin/postList.aspx?" + ret + "&retMsg=" + HttpUtility.UrlEncode("参数异常"));
-                }
+                PostListQuery = "siteId=" + SiteId.ToString();
+            }
+
+            long uri = Converter.LongParse(Request.QueryString["uri"], 0);
+            editor.Uri = uri;
+
+            if (!IsPostBack && !PostPermissionManager.HasEditPermission(CurrentUser, uri))
+            {
+                Response.Redirect("PostPermissionError.aspx?Error=编辑文章&Page=" + Request.UrlReferrer.ToString());
             }
         }
     }
