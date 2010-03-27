@@ -2,7 +2,6 @@
 using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
-using System.Xml;
 
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
@@ -11,7 +10,6 @@ using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
 using UniqueStudio.Common.XmlHelper;
 using UniqueStudio.Core.Category;
-using UniqueStudio.Core.Site;
 using UniqueStudio.Core.User;
 
 namespace UniqueStudio.ComContent.PL
@@ -76,7 +74,6 @@ namespace UniqueStudio.ComContent.PL
 
                 if (mode == EditorMode.Add)
                 {
-                    //EditorMode.Add
                     currentUser = (new UserManager()).GetUserInfo(currentUser, currentUser.UserId);
                     if (currentUser.ExInfo != null)
                     {
@@ -90,77 +87,78 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    PostInfo post = postManager.GetPost(currentUser, uri);
-                    if (post == null)
-                    {
-                        message.SetErrorMessage("指定文章不存在");
-                        btnPublish.Enabled = false;
-                        btnSave.Enabled = false;
-                    }
-                    else
-                    {
-                        if (post.Settings != string.Empty)
-                        {
-                            //TODO:display enclosure
-                            EnclosureCollection enclosures = (EnclosureCollection)settingsManager.GetEnclosuresFromXML(post.Settings);
-                            StringBuilder sb = new StringBuilder();
-                            int i = 0;
-                            foreach (Enclosure enclosure in enclosures)
-                            {
-                                sb.Append("<div id=\"editenclosure" + i.ToString() + "\">" + enclosure.Tittle + "<img src=\"img/f2.gif\" onclick=\"HideEditDiv('" + i.ToString() + "');DeleteEnclosure('" + enclosure.Tittle + "')\">" + "</div>");
-                                i++;
-                            }
-                            text.InnerHtml = sb.ToString();
-                        }
-                        txtTitle.Text = post.Title;
-                        txtSubTitle.Text = post.SubTitle;
-                        txtAuthor.Text = post.Author;
-                        chbRecommend.Checked = post.IsRecommend;
-                        chbHot.Checked = post.IsHot;
-                        chbTop.Checked = post.IsTop;
-                        chbAllowComment.Checked = post.IsAllowComment;
-                        fckContent.Value = post.Content;
-                        fckSummary.Value = post.Summary;
-                        txtAddDate.Text = post.CreateDate.ToString("yyyy-MM-dd HH:mm:ss");
-                        switch (post.PostDisplay)
-                        {
-                            case 1:
-                                tittleChecked.Checked = true;
-                                break;
-                            case 2:
-                                otherChecked.Checked = true;
-                                break;
-                            case 3:
-                                tittleChecked.Checked = true;
-                                otherChecked.Checked = true;
-                                break;
-                            default:
-                                break;
-                        }
-                        foreach (CategoryInfo category in post.Categories)
-                        {
-                            foreach (ListItem item in cblCategory.Items)
-                            {
-                                if (category.CategoryId.ToString() == item.Value)
-                                {
-                                    item.Selected = true;
-                                }
-                            }
-                        }
-                        btnSave.Text = "保存";
-                        if (post.IsPublished)
-                        {
-                            btnPublish.Visible = false;
-                        }
-
-                        ViewState["post"] = post;
-                    }
+                    LoadPost();
                 }
             }
         }
 
         private void LoadPost()
         {
+            PostInfo post = postManager.GetPost(currentUser, uri);
+            if (post == null)
+            {
+                message.SetErrorMessage("指定文章不存在");
+                btnPublish.Enabled = false;
+                btnSave.Enabled = false;
+            }
+            else
+            {
+                if (post.Settings != string.Empty)
+                {
+                    //TODO:display enclosure
+                    EnclosureCollection enclosures = (EnclosureCollection)settingsManager.GetEnclosuresFromXML(post.Settings);
+                    StringBuilder sb = new StringBuilder();
+                    int i = 0;
+                    foreach (Enclosure enclosure in enclosures)
+                    {
+                        sb.Append("<div id=\"editenclosure" + i.ToString() + "\">" + enclosure.Tittle + "<img src=\"img/f2.gif\" onclick=\"HideEditDiv('" + i.ToString() + "');DeleteEnclosure('" + enclosure.Tittle + "')\">" + "</div>");
+                        i++;
+                    }
+                    text.InnerHtml = sb.ToString();
+                }
+                txtTitle.Text = post.Title;
+                txtSubTitle.Text = post.SubTitle;
+                txtAuthor.Text = post.Author;
+                chbRecommend.Checked = post.IsRecommend;
+                chbHot.Checked = post.IsHot;
+                chbTop.Checked = post.IsTop;
+                chbAllowComment.Checked = post.IsAllowComment;
+                fckContent.Value = post.Content;
+                fckSummary.Value = post.Summary;
+                txtAddDate.Text = post.CreateDate.ToString("yyyy-MM-dd HH:mm:ss");
+                switch (post.PostDisplay)
+                {
+                    case 1:
+                        tittleChecked.Checked = true;
+                        break;
+                    case 2:
+                        otherChecked.Checked = true;
+                        break;
+                    case 3:
+                        tittleChecked.Checked = true;
+                        otherChecked.Checked = true;
+                        break;
+                    default:
+                        break;
+                }
+                foreach (CategoryInfo category in post.Categories)
+                {
+                    foreach (ListItem item in cblCategory.Items)
+                    {
+                        if (category.CategoryId.ToString() == item.Value)
+                        {
+                            item.Selected = true;
+                        }
+                    }
+                }
+                btnSave.Text = "保存";
+                if (post.IsPublished)
+                {
+                    btnPublish.Visible = false;
+                }
+
+                ViewState["post"] = post;
+            }
         }
 
         protected void btnPublish_Click(object sender, EventArgs e)
@@ -486,8 +484,6 @@ namespace UniqueStudio.ComContent.PL
                         newsimage.SaveAs(filepath);
                         imagename.Visible = true;
                         imagename.Text = newsimage.FileName;
-                        // filename.Style["Visible"] = "true";
-                        //filename.Text = enclosure.FileName;
                     }
                     catch
                     {

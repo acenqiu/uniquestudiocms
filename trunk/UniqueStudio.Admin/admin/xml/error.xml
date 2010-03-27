@@ -1759,4 +1759,144 @@ To turn this feature off, remove the registry value [HKLM\Software\Microsoft\Fus
     <Time>2010-03-27T11:08:08.5888561+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.TypeLoadException</ExceptionType>
+    <ErrorMessage>Method 'Register' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.</ErrorMessage>
+    <RepresentationString>System.TypeLoadException: Method 'Register' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+   at System.Reflection.Assembly._GetType(String name, Boolean throwOnError, Boolean ignoreCase)
+   at System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Reflection.Assembly.CreateInstance(String typeName)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34</RepresentationString>
+    <Time>2010-03-27T12:48:34.1988212+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.TypeLoadException</ExceptionType>
+    <ErrorMessage>Method 'Register' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.</ErrorMessage>
+    <RepresentationString>System.TypeLoadException: Method 'Register' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+   at System.Reflection.Assembly._GetType(String name, Boolean throwOnError, Boolean ignoreCase)
+   at System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Reflection.Assembly.CreateInstance(String typeName)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34</RepresentationString>
+    <Time>2010-03-27T13:15:36.4836106+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Xml.XmlException</ExceptionType>
+    <ErrorMessage>Root element is missing.</ErrorMessage>
+    <RepresentationString>System.Xml.XmlException: Root element is missing.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.ThrowWithoutLineInfo(String res)
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.LoadXml(String xml)
+   at UniqueStudio.Common.XmlHelper.XmlManager.ConvertToEntity(String content, Type t, String xPath) in E:\Projects\CMS\Source\CMS\UniqueStudio.Common\XmlHelper\XmlManager.cs:line 219
+   at UniqueStudio.Core.User.UserManager.GetUserInfo(UserInfo currentUser, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 616</RepresentationString>
+    <Time>2010-03-27T13:22:14.3413668+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Xml.XmlException</ExceptionType>
+    <ErrorMessage>Root element is missing.</ErrorMessage>
+    <RepresentationString>System.Xml.XmlException: Root element is missing.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.ThrowWithoutLineInfo(String res)
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.LoadXml(String xml)
+   at UniqueStudio.Common.XmlHelper.XmlManager.ConvertToEntity(String content, Type t, String xPath) in E:\Projects\CMS\Source\CMS\UniqueStudio.Common\XmlHelper\XmlManager.cs:line 219
+   at UniqueStudio.Core.User.UserManager.GetUserInfo(UserInfo currentUser, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 616</RepresentationString>
+    <Time>2010-03-27T13:22:22.3628256+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Xml.XmlException</ExceptionType>
+    <ErrorMessage>Root element is missing.</ErrorMessage>
+    <RepresentationString>System.Xml.XmlException: Root element is missing.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.ThrowWithoutLineInfo(String res)
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.LoadXml(String xml)
+   at UniqueStudio.Common.XmlHelper.XmlManager.ConvertToEntity(String content, Type t, String xPath) in E:\Projects\CMS\Source\CMS\UniqueStudio.Common\XmlHelper\XmlManager.cs:line 219
+   at UniqueStudio.Core.User.UserManager.GetUserInfo(UserInfo currentUser, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 616</RepresentationString>
+    <Time>2010-03-27T13:22:27.5611229+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.TypeLoadException</ExceptionType>
+    <ErrorMessage>Method 'Register' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.</ErrorMessage>
+    <RepresentationString>System.TypeLoadException: Method 'Register' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+   at System.Reflection.Assembly._GetType(String name, Boolean throwOnError, Boolean ignoreCase)
+   at System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Reflection.Assembly.CreateInstance(String typeName)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34</RepresentationString>
+    <Time>2010-03-27T13:23:37.7381368+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Xml.XmlException</ExceptionType>
+    <ErrorMessage>Root element is missing.</ErrorMessage>
+    <RepresentationString>System.Xml.XmlException: Root element is missing.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.ThrowWithoutLineInfo(String res)
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.LoadXml(String xml)
+   at UniqueStudio.Common.XmlHelper.XmlManager.ConvertToEntity(String content, Type t, String xPath) in E:\Projects\CMS\Source\CMS\UniqueStudio.Common\XmlHelper\XmlManager.cs:line 219
+   at UniqueStudio.Core.User.UserManager.GetUserInfo(UserInfo currentUser, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 616</RepresentationString>
+    <Time>2010-03-27T13:23:45.416576+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Xml.XmlException</ExceptionType>
+    <ErrorMessage>Root element is missing.</ErrorMessage>
+    <RepresentationString>System.Xml.XmlException: Root element is missing.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.ThrowWithoutLineInfo(String res)
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.LoadXml(String xml)
+   at UniqueStudio.Common.XmlHelper.XmlManager.ConvertToEntity(String content, Type t, String xPath) in E:\Projects\CMS\Source\CMS\UniqueStudio.Common\XmlHelper\XmlManager.cs:line 219
+   at UniqueStudio.Core.User.UserManager.GetUserInfo(UserInfo currentUser, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 616</RepresentationString>
+    <Time>2010-03-27T13:23:51.0138961+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Xml.XmlException</ExceptionType>
+    <ErrorMessage>Root element is missing.</ErrorMessage>
+    <RepresentationString>System.Xml.XmlException: Root element is missing.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.ThrowWithoutLineInfo(String res)
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.LoadXml(String xml)
+   at UniqueStudio.Common.XmlHelper.XmlManager.ConvertToEntity(String content, Type t, String xPath) in E:\Projects\CMS\Source\CMS\UniqueStudio.Common\XmlHelper\XmlManager.cs:line 219
+   at UniqueStudio.Core.User.UserManager.GetUserInfo(UserInfo currentUser, Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\User\UserManager.cs:line 616</RepresentationString>
+    <Time>2010-03-27T13:23:57.1642479+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.TypeLoadException</ExceptionType>
+    <ErrorMessage>Method 'Register' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.</ErrorMessage>
+    <RepresentationString>System.TypeLoadException: Method 'Register' in type 'UniqueStudio.PlugInIpAuth.PlugInIpAuth' from assembly 'UniqueStudio.PlugInIpAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+   at System.Reflection.Assembly._GetType(String name, Boolean throwOnError, Boolean ignoreCase)
+   at System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Reflection.Assembly.CreateInstance(String typeName)
+   at UniqueStudio.Admin.Global.Application_Start(Object sender, EventArgs e) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\Global.asax.cs:line 34</RepresentationString>
+    <Time>2010-03-27T13:24:17.3794042+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>
