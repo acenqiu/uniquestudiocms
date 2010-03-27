@@ -34,18 +34,6 @@ namespace UniqueStudio.Admin
                 else
                 {
                     relativePath = collection[0].RelativePath;
-                    if (Request.Cookies[GlobalConfig.COOKIE] == null)
-                    {
-                        Response.Cookies[GlobalConfig.COOKIE][GlobalConfig.COOKIE_SITEID] = collection[0].SiteId.ToString();
-                    }
-                    else
-                    {
-                        foreach (string key in Request.Cookies[GlobalConfig.COOKIE].Values.AllKeys)
-                        {
-                            Response.Cookies[GlobalConfig.COOKIE][key] = Request.Cookies[GlobalConfig.COOKIE].Values[key];
-                        }
-                        Response.Cookies[GlobalConfig.COOKIE][GlobalConfig.COOKIE_SITEID] = collection[0].SiteId.ToString();
-                    }
                 }
                 if (!string.IsNullOrEmpty(relativePath))
                 {

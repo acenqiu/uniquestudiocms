@@ -6,13 +6,13 @@
     public interface IPlugIn
     {
         /// <summary>
-        /// 启用插件，注册相应的事件。
+        /// 注册相应的事件。
         /// </summary>
-        void Start();
+        void Register();
 
         /// <summary>
-        /// 停用插件，反注册事件。
+        /// 反注册事件。
         /// </summary>
-        void Stop();
+        void UnRegister();
     }
 }

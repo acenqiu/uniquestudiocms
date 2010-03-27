@@ -32,7 +32,7 @@
         <div class="header-border">
             <div class="header">
                 <span class="enversion">
-                    <%--<a href="<%= WebSiteConfig.BaseAddress %>/english/">English Version</a>--%></span>
+                    <a href="<%= ServerConfig.BaseAddress %>/en/">English Version</a></span>
                 <h5>
                     <img src="img/hust-logo.png" alt="hust" width="63" height="33" /><img src="img/hust.png"
                         alt="华中科技大学" width="145" height="38" /></h5>

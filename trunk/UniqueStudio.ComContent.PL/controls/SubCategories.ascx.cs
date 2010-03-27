@@ -43,9 +43,9 @@ namespace UniqueStudio.ComContent.PL.controls
         private string GetHtml(CategoryInfo node)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(string.Format("<li>\r\n<a href='list.aspx?catId={0}' >{1}</a>\r\n",node.CategoryId,node.CategoryName));
-            
-            if (node.ChildCategories != null)
+            sb.Append(string.Format("<li>\r\n<a href='list.aspx?catId={0}' >{1}</a>\r\n", node.CategoryId, node.CategoryName));
+
+            if (node.ChildCategories != null && node.ChildCategories.Count != 0)
             {
                 sb.Append("<ul>\r\n");
                 foreach (CategoryInfo child in node.ChildCategories)

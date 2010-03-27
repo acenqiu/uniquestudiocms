@@ -5,8 +5,8 @@
   <PlugInAuthor>UniqueStudio</PlugInAuthor>
   <Description>
   </Description>
-  <ClassPath>UniqueStudio.PlugInIpPictureNews.PlugInIpPictureNews</ClassPath>
-  <Assembly>UniqueStudio.PlugInIpPictureNews</Assembly>
+  <ClassPath>UniqueStudio.PlugInPictureNews.PlugInPictureNews</ClassPath>
+  <Assembly>UniqueStudio.PlugInPictureNews</Assembly>
   <params>
     <param name="CategoryId" type="text" default="1" label="图片新闻分类ID" description="作为图片新闻分类的分类ID。" />
   </params>
