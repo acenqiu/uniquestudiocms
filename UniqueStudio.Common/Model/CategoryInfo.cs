@@ -33,11 +33,19 @@ namespace UniqueStudio.Common.Model
         private CategoryCollection childCategories = null;
 
         /// <summary>
-        /// 初始化CategoryInfo类的实例。
+        /// 初始化<see cref="CategoryInfo"/>类的实例。
         /// </summary>
         public CategoryInfo()
         {
             //默认构造函数
+        }
+        /// <summary>
+        /// 以分类ID初始化<see cref="CategoryInfo"/>类的实例。
+        /// </summary>
+        /// <param name="categoryId">分类ID。</param>
+        public CategoryInfo(int categoryId)
+        {
+            this.categoryId = categoryId;
         }
 
         /// <summary>

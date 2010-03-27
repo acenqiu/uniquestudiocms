@@ -73,8 +73,6 @@ function addLiAction()
     for (i=0;i<links.length;i++)
     {  
       var li=links[i].parentNode;
-     //li.onclick=clickMenu;
-     // li.attachEvent("onclick",clickMenu);
      if (document.addEventListener)
      {
       li.addEventListener("click",clickMenu,true);
@@ -86,10 +84,7 @@ function addLiAction()
          li.attachEvent("onclick",clickMenu);
          }
       }
-     // 
-
     }
-   
 }
 function clickMenu(e)
 {

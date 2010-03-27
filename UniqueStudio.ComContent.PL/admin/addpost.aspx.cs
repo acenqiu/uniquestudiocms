@@ -20,7 +20,6 @@ namespace UniqueStudio.ComContent.PL
                 if (!PostPermissionManager.HasAddPermission(CurrentUser, SiteId))
                 {
                 }
-                //editor.Uri = UriProvider.GetNewUri(ResourceType.Article);
                 Session["posturi"] = UriProvider.GetNewUri(ResourceType.Article);
             }
         }
