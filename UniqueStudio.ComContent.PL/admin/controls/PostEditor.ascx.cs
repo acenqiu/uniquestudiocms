@@ -44,7 +44,7 @@ namespace UniqueStudio.ComContent.PL
         private long uri;
         private int siteId;
         private EditorMode mode;
-
+        private SettingsManager em = new SettingsManager();
         public long Uri
         {
             get { return uri; }
@@ -60,7 +60,6 @@ namespace UniqueStudio.ComContent.PL
             get { return mode; }
             set { mode = value; }
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
@@ -76,20 +75,21 @@ namespace UniqueStudio.ComContent.PL
                 if (mode == EditorMode.Edit)
                 {
                     PostInfo post = bll.GetPost(currentUser, uri);
-
                     if (post != null)
                     {
                         if (post.Settings != string.Empty)
                         {
-                            filename.Visible = true;
-                            Enclosure attachement = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), null);
-                            filename.Text = attachement.Tittle;
+                            //TODO:display enclosure
+                            EnclosureCollection enclosures = (EnclosureCollection)em.GetEnclosuresFromXML(post.Settings);
+                            StringBuilder sb = new StringBuilder();
+                            int i = 0;
+                            foreach (Enclosure enclosure in enclosures)
+                            {
+                                sb.Append("<div id=\"editenclosure" + i.ToString() + "\">" + enclosure.Tittle + "<img src=\"img/f2.gif\" onclick=\"HideEditDiv('" + i.ToString() + "');DeleteEnclosure('" + enclosure.Tittle + "')\">" + "</div>");
+                                i++;
+                            }
+                            text.InnerHtml = sb.ToString();
                         }
-                        //if (post.NewsImage != string.Empty)
-                        //{
-                        //    imagename.Visible = true;
-                        //    imagename.Text = post.NewsImage;
-                        //}
                         txtTitle.Text = post.Title;
                         txtSubTitle.Text = post.SubTitle;
                         txtAuthor.Text = post.Author;
@@ -156,7 +156,6 @@ namespace UniqueStudio.ComContent.PL
                 }
             }
         }
-
         protected void btnPublish_Click(object sender, EventArgs e)
         {
             PostInfo post = null;
@@ -164,46 +163,8 @@ namespace UniqueStudio.ComContent.PL
             if (mode == EditorMode.Add)
             {
                 post = new PostInfo();
-                if (!enclosure.HasFile)
-                {
-                    //显示无文件信息
-                    post.Settings = string.Empty;
-                }
-                else
-                {
-                    if (SecurityConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
-                    {
-                        //显示扩展名不正确信息
-
-                        //TODO:该行重写！
-                        Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
-                        return;
-                    }
-                    else
-                    {
-                        string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + enclosure.FileName;
-                        string filepath = Server.MapPath(@"~/upload/" + urlpath);
-                        try
-                        {
-                            enclosure.SaveAs(filepath);
-                            filename.Style["Visible"] = "true";
-                            filename.Text = enclosure.FileName;
-                        }
-                        catch
-                        {
-                            //显示上传失败
-                            Response.Write("<script type='text/javascript'>alert('文件上传失败，请重新上传')</script>");
-                            return;
-                        }
-                        Enclosure enclosureInfo = new Enclosure();
-                        enclosureInfo.Tittle = enclosure.FileName;
-                        enclosureInfo.Length = enclosure.FileContent.Length;
-                        enclosureInfo.Type = System.IO.Path.GetExtension(enclosure.FileName);
-                        enclosureInfo.Url = "/upload/" + urlpath;
-                        XmlDocument xmldoc = xm.ConvertToXml(enclosureInfo, typeof(Enclosure));
-                        post.Settings = xmldoc.OuterXml;
-                    }
-                }
+                post.Uri = Convert.ToInt64(Session["posturi"].ToString());
+                post.Settings = em.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
                 post.SiteId = siteId;
                 post.Title = txtTitle.Text;
                 post.AddUserName = currentUser.UserName;
@@ -244,6 +205,7 @@ namespace UniqueStudio.ComContent.PL
                 if (!IsSelected)
                 {
                     Response.Write("<script type='text/javascript'>alert('请选择分类')</script>");
+                    return;
                 }
                 post.Categories = cates;
                 if (!string.IsNullOrEmpty(fckSummary.Value))
@@ -256,7 +218,6 @@ namespace UniqueStudio.ComContent.PL
                 }
                 post.Taxis = 1;
                 post.IsPublished = true;
-
                 long postId = bll.AddPost(currentUser, post);
                 if (postId > 0)
                 {
@@ -266,6 +227,7 @@ namespace UniqueStudio.ComContent.PL
                 {
                     message.SetErrorMessage("发布失败，请重试！");
                 }
+
             }
             else
             {
@@ -300,55 +262,10 @@ namespace UniqueStudio.ComContent.PL
                     {
                         post.PostDisplay += 2;
                     }
-                    post.Settings = string.Empty;
+                    // post.Settings = string.Empty;
                     post.NewsImage = NewsImageManager();
-                    if (filename.Visible == true)
-                    {
-                        if (!enclosure.HasFile)
-                        {
-                            //显示无文件信息
-                            post.Settings = string.Empty;
-                        }
-                        else
-                        {
-                            Enclosure attachement = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), null);
-                            if (!(attachement.Tittle == enclosure.FileName))
-                            {
-                                if (SecurityConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
-                                {
-                                    //显示扩展名不正确信息
-                                    //下行重写!
-                                    Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
-                                    return;
-                                }
-                                else
-                                {
-                                    string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + enclosure.FileName;
-                                    string filepath = Server.MapPath(@"~/upload/" + urlpath);
-                                    try
-                                    {
-                                        enclosure.SaveAs(filepath);
-                                        filename.Style["Visible"] = "true";
-                                        filename.Text = enclosure.FileName;
-                                    }
-                                    catch
-                                    {
-                                        //显示上传失败
-                                        Response.Write("<script type='text/javascript'>alert('文件上传失败，请重新上传')</script>");
-                                        return;
-                                    }
-                                    Enclosure enclosureInfo = new Enclosure();
-                                    enclosureInfo.Tittle = enclosure.FileName;
-                                    enclosureInfo.Length = enclosure.FileContent.Length;
-                                    enclosureInfo.Type = System.IO.Path.GetExtension(enclosure.FileName);
-                                    enclosureInfo.Url = "/upload/" + urlpath;
-                                    XmlDocument xmldoc = xm.ConvertToXml(enclosureInfo, typeof(Enclosure));
-                                    post.Settings = xmldoc.OuterXml;
-                                }
-                            }
-                        }
-                    }
-
+                    post.Settings = em.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
+                    //TODO:editor enclosure
                     CategoryManager cm = new CategoryManager();
                     CategoryCollection cates = new CategoryCollection();
                     bool isCategoryChecked = false;
@@ -363,6 +280,7 @@ namespace UniqueStudio.ComContent.PL
                     if (!isCategoryChecked)
                     {
                         Response.Write("<script type='text/javascript'>alert('请选择分类')</script>");
+                        return;
                     }
                     post.Categories = cates;
                     if (!string.IsNullOrEmpty(fckSummary.Value))
@@ -394,7 +312,6 @@ namespace UniqueStudio.ComContent.PL
                 }
             }
         }
-
         protected void btnSave_Click(object sender, EventArgs e)
         {
             PostInfo post = null;
@@ -402,44 +319,8 @@ namespace UniqueStudio.ComContent.PL
             if (mode == EditorMode.Add)
             {
                 post = new PostInfo();
-                if (!enclosure.HasFile)
-                {
-                    //显示无文件信息
-                    post.Settings = string.Empty;
-                }
-                else
-                {
-                    if (SecurityConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
-                    {
-                        //显示扩展名不正确信息
-                        Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
-                        return;
-                    }
-                    else
-                    {
-                        string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + enclosure.FileName;
-                        string filepath = Server.MapPath(@"~/upload/" + urlpath);
-                        try
-                        {
-                            enclosure.SaveAs(filepath);
-                            filename.Style["Visible"] = "true";
-                            filename.Text = enclosure.FileName;
-                        }
-                        catch
-                        {
-                            //显示上传失败
-                            Response.Write("<script type='text/javascript'>alert('文件上传失败，请重新上传')</script>");
-                            return;
-                        }
-                        Enclosure enclosureInfo = new Enclosure();
-                        enclosureInfo.Tittle = enclosure.FileName;
-                        enclosureInfo.Length = enclosure.FileContent.Length;
-                        enclosureInfo.Type = System.IO.Path.GetExtension(enclosure.FileName);
-                        enclosureInfo.Url = "/upload/" + urlpath;
-                        XmlDocument xmldoc = xm.ConvertToXml(enclosureInfo, typeof(Enclosure));
-                        post.Settings = xmldoc.OuterXml;
-                    }
-                }
+                post.Uri = Convert.ToInt64(Session["posturi"].ToString());
+                post.Settings = em.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
                 post.SiteId = siteId;
                 post.Title = txtTitle.Text;
                 post.SubTitle = txtSubTitle.Text;
@@ -478,6 +359,7 @@ namespace UniqueStudio.ComContent.PL
                 if (!isCategoryChecked)
                 {
                     Response.Write("<script type='text/javascript'>alert('请选择分类')</script>");
+                    return;
                 }
                 post.Categories = cates;
                 if (!string.IsNullOrEmpty(fckSummary.Value))
@@ -486,21 +368,19 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    //post.Summary = post.Content.Substring(0, Global.SummaryLength > post.Content.Length ? post.Content.Length : Global.SummaryLength);
                     post.Summary = "";
                 }
                 post.Taxis = 1;
                 post.AddUserName = string.Empty;
                 post.IsPublished = false;
-
                 long postId = bll.AddPost(currentUser, post);
                 if (postId > 0)
                 {
-                    Response.Redirect("editpost.aspx?msg=" + HttpUtility.UrlEncode("保存成功！") + "&uri=" + postId);
+                    Response.Redirect("editpost.aspx?msg=" + HttpUtility.UrlEncode("发布成功！") + "&uri=" + postId);
                 }
                 else
                 {
-                    message.SetErrorMessage("保存失败，请重试！");
+                    message.SetErrorMessage("发布失败，请重试！");
                 }
             }
             else
@@ -517,6 +397,7 @@ namespace UniqueStudio.ComContent.PL
                     post.IsAllowComment = chbAllowComment.Checked;
                     post.Content = fckContent.Value;
                     post.CreateDate = Convert.ToDateTime(txtAddDate.Text);
+                    post.Settings = em.GetPostXMLFromEnclosures(post.Uri.ToString(), Server.MapPath(@"~/upload/"));
                     //控制文章显示内容
                     //0正常显示
                     //1不显示标题
@@ -532,53 +413,8 @@ namespace UniqueStudio.ComContent.PL
                         post.PostDisplay += 2;
                     }
                     CategoryManager cm = new CategoryManager();
-                    post.Settings = string.Empty;
+                    //post.Settings = string.Empty;
                     post.NewsImage = NewsImageManager();
-                    if (filename.Visible == true)
-                    {
-                        if (!enclosure.HasFile)
-                        {
-                            //显示无文件信息
-                            post.Settings = string.Empty;
-                        }
-                        else
-                        {
-                            Enclosure attachement = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), "");
-                            if (!(attachement.Tittle == enclosure.FileName))
-                            {
-                                if (SecurityConfig.EnclosureExtension.IndexOf(System.IO.Path.GetExtension(enclosure.FileName).ToLower()) < 0)
-                                {
-                                    //显示扩展名不正确信息
-                                    Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
-                                    return;
-                                }
-                                else
-                                {
-                                    string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + enclosure.FileName;
-                                    string filepath = Server.MapPath(@"~/upload/" + urlpath);
-                                    try
-                                    {
-                                        enclosure.SaveAs(filepath);
-                                        filename.Style["Visible"] = "true";
-                                        filename.Text = enclosure.FileName;
-                                    }
-                                    catch
-                                    {
-                                        //显示上传失败
-                                        Response.Write("<script type='text/javascript'>alert('文件上传失败，请重新上传')</script>");
-                                        return;
-                                    }
-                                    Enclosure enclosureInfo = new Enclosure();
-                                    enclosureInfo.Tittle = enclosure.FileName;
-                                    enclosureInfo.Length = enclosure.FileContent.Length;
-                                    enclosureInfo.Type = System.IO.Path.GetExtension(enclosure.FileName);
-                                    enclosureInfo.Url = "/upload/" + urlpath;
-                                    XmlDocument xmldoc = xm.ConvertToXml(enclosureInfo, typeof(Enclosure));
-                                    post.Settings = xmldoc.OuterXml;
-                                }
-                            }
-                        }
-                    }
                     CategoryCollection cates = new CategoryCollection();
                     bool isCategoryChecked = false;
                     foreach (ListItem item in cblCategory.Items)
@@ -592,6 +428,7 @@ namespace UniqueStudio.ComContent.PL
                     if (!isCategoryChecked)
                     {
                         Response.Write("<script type='text/javascript'>alert('请选择分类')</script>");
+                        return;
                     }
                     post.Categories = cates;
                     if (!string.IsNullOrEmpty(fckSummary.Value))
@@ -600,9 +437,7 @@ namespace UniqueStudio.ComContent.PL
                     }
                     else
                     {
-                        //post.Summary = post.Content.Substring(0, Global.SummaryLength > post.Content.Length ? post.Content.Length : Global.SummaryLength);
                     }
-
                     if (bll.EditPost(currentUser, post))
                     {
                         message.SetSuccessMessage("保存成功");
@@ -620,7 +455,6 @@ namespace UniqueStudio.ComContent.PL
                 }
             }
         }
-
         private string NewsImageManager()
         {
             if (!newsimage.HasFile)
