@@ -31,22 +31,15 @@
     <div class="wrapper">
         <div class="header-border">
             <div class="header">
-                <span class="enversion">
-                    <a href="<%= ServerConfig.BaseAddress %>/zh/">中文版</a></span>
-                <h5>
-                    <img src="img/hust-logo.png" alt="hust" width="63" height="33" /><img src="img/hust.png"
-                        alt="华中科技大学" width="145" height="38" /></h5>
-                <div class="logo">
-                    <h1>
-                        引力中心实验室</h1>
-                </div>
-                <h3>
-                    &nbsp;</h3>
+                <div class="header-inner">
+                    <span class="enversion"><a href="<%= ServerConfig.BaseAddress %>/en/">English
+                        Version</a></span>
+                        </div>
                 <div id="navigation">
                     <asp:Literal ID="navigationMenu" runat="server"></asp:Literal>
                     <span class="search-box">
                         <asp:TextBox ID="txtSearch" runat="server" Width="110px"></asp:TextBox>
-                        <asp:Button ID="btnSearch" class="input-button" runat="server" Text="Search" OnClick="btnSearch_Click" /></span>
+                        <asp:Button ID="btnSearch" class="input-button" runat="server" Text="搜索" OnClick="btnSearch_Click" /></span>
                 </div>
             </div>
         </div>
