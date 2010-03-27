@@ -33,10 +33,10 @@ namespace UniqueStudio.ComContent.BLL
         {
             //默认构造函数
         }
-        public bool IsFileExistByUri(Int64 uri)
-        {
-            return provider.IsPostExistByUri(uri);
-        }
+        //public bool IsFileExistByUri(Int64 uri)
+        //{
+        //    return provider.IsPostExistByUri(uri);
+        //}
         /// <summary>
         /// 发表一篇文章。
         /// </summary>
