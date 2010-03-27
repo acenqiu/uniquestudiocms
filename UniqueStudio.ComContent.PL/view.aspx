@@ -7,15 +7,15 @@
 </asp:Content>
 <asp:Content ID="content" ContentPlaceHolderID="cphMain" runat="server">
     <div class="slider">
-       <div class="column mini" style="min-height:150px">
+       <div class="column mini" id="category"  style="min-height:150px">
             <US:SubCategories ID="subCategories" runat="server" />
         </div>
     </div>
-    <div class="main-content">
+    <div class="main-content"  >
         <div class="site-depth">
             <a href="default.aspx">首页</a><asp:Literal ID="ltlCategoryLink" runat="server" />
         </div>
-        <div class="article">
+        <div class="article" style="display:none" >
             <h4 class="article-title">
                 <asp:Literal ID="ltlTitle" runat="server" /></h4>
             <div class="detail" id="divDetail" runat="server">
