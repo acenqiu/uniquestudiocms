@@ -1,4 +1,11 @@
-﻿using UniqueStudio.Common.Model;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：插件管理提供类需实现的方法
+// 完成日期：2010年03月28日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using UniqueStudio.Common.Model;
 
 namespace UniqueStudio.DAL.IDAL
 {
@@ -30,6 +37,13 @@ namespace UniqueStudio.DAL.IDAL
         bool DeletePlugIn(int plugInId);
 
         /// <summary>
+        /// 删除多个插件。
+        /// </summary>
+        /// <param name="plugInIds">待删除插件ID的集合。</param>
+        /// <returns>是否删除成功。</returns>
+        bool DeletePlugIns(int[] plugInIds);
+
+        /// <summary>
         /// 删除插件实例。
         /// </summary>
         /// <param name="instanceId">待删除插件实例ID。</param>
@@ -55,6 +69,22 @@ namespace UniqueStudio.DAL.IDAL
         /// <remarks>该方法只在程序系统启动时调用，用于完成插件的初始化工作。</remarks>
         /// <returns>类集合。</returns>
         ClassCollection GetAllPlugInsForInit();
+
+        /// <summary>
+        /// 返回指定插件的类信息。
+        /// </summary>
+        /// <param name="plugInId">插件ID。</param>
+        /// <returns>类信息。</returns>
+        ClassInfo GetClassInfo(int plugInId);
+
+        /// <summary>
+        /// 返回指定插件实例的基本信息。
+        /// </summary>
+        /// <remarks>基本信息包含：插件实例ID，是否启用，配置信息。</remarks>
+        /// <param name="plugInName">插件名称。</param>
+        /// <param name="siteId">网站ID。</param>
+        /// <returns>插件实例。</returns>
+        PlugInInstanceInfo GetInstanceBasicInfo(string plugInName, int siteId);
 
         /// <summary>
         /// 返回指定插件的信息。

@@ -40,6 +40,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniqueStudio.ComContent\UniqueStudio.ComContent.csproj">
+      <Project>{3CB902B2-D40A-4263-AB02-E95A63E71BA3}</Project>
+      <Name>UniqueStudio.ComContent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniqueStudio.Common\UniqueStudio.Common.csproj">
+      <Project>{B9EC7556-3B7A-4357-920B-94EE1313FF95}</Project>
+      <Name>UniqueStudio.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniqueStudio.Core\UniqueStudio.Core.csproj">
       <Project>{F9D2C679-CD07-49AA-BD9C-B28F6BB14F20}</Project>
       <Name>UniqueStudio.Core</Name>

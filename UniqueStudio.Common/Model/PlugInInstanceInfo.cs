@@ -7,6 +7,7 @@
     {
         private int instanceId;
         private int plugInId;
+        private string plugInName;
         private int siteId;
         private string siteName;
         private bool isEnabled;
@@ -18,6 +19,17 @@
         public PlugInInstanceInfo()
         {
             //默认构造函数
+        }
+
+        /// <summary>
+        /// 以插件名称、网站ID初始化<see cref="PlugInInstanceInfo"/>类的实例。
+        /// </summary>
+        /// <param name="plugInName">插件名称。</param>
+        /// <param name="siteId">网站ID。</param>
+        public PlugInInstanceInfo(string plugInName, int siteId)
+        {
+            this.plugInName = plugInName;
+            this.siteId = siteId;
         }
 
         /// <summary>
@@ -35,6 +47,14 @@
         {
             get { return plugInId; }
             set { plugInId = value; }
+        }
+        /// <summary>
+        /// 插件名称。
+        /// </summary>
+        public string PlugInName
+        {
+            get { return plugInName; }
+            set { plugInName = value; }
         }
         /// <summary>
         /// 网站ID。

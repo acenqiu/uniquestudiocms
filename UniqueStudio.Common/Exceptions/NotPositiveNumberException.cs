@@ -5,7 +5,7 @@ using System.Text;
 namespace UniqueStudio.Common.Exceptions
 {
     /// <summary>
-    /// 非正数异常
+    /// 非正数异常。
     /// </summary>
     public class NotPositiveNumberException:ArithmeticException
     {

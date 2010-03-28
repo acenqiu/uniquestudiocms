@@ -71,6 +71,7 @@
     <Compile Include="Exceptions\NegativeNumberException.cs" />
     <Compile Include="Exceptions\NotPositiveNumberException.cs" />
     <Compile Include="Exceptions\PlugInInstallException.cs" />
+    <Compile Include="Exceptions\PlugInNotFoundException.cs" />
     <Compile Include="Exceptions\UnhandledException.cs" />
     <Compile Include="Exceptions\UserDoesNotApprovedException.cs" />
     <Compile Include="Exceptions\UserDoesNotOnlineException.cs" />
