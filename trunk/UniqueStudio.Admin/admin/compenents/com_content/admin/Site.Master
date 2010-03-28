@@ -6,13 +6,8 @@
     <title>文章组件</title>
     <link rel="stylesheet" type="text/css" href="admin-list-style.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <link rel="Stylesheet" type="text/css" href="fileup.css" />
-
-    <script language="javascript" type="text/javascript" src="autoupload.js"></script>
 
     <script language="javascript" type="text/javascript" src="main.js"></script>
-
-    <script type="text/javascript" language="javascript" src="fileup.js"></script>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
