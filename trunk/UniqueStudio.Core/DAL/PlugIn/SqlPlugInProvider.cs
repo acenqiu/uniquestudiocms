@@ -1,4 +1,11 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：提供插件管理在Sql Server上的实现方法。
+// 完成日期：2010年03月28日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -23,7 +30,9 @@ namespace UniqueStudio.DAL.PlugIn
         private const string GET_ALL_PLUGIN_INIT = "GetAllPlugIns_Init";
         private const string GET_ALL_PLUGIN_INSTANCES = "GetAllPlugInInstances";
         private const string GET_PLUGIN = "GetPlugIn";
+        private const string GET_PLUGIN_CLASS_INFO = "GetPlugInClassInfo";
         private const string GET_PLUGIN_CONFIG = "GetPlugInConfig";
+        private const string GET_PLUGIN_INSTANCE_BASIC_INFO = "GetPlugInInstanceBasic";
         private const string GET_PLUGIN_INSTANCE_CONFIG = "GetPlugInInstanceConfig";
         private const string SET_PLUGIN_STATUS = "SetPlugInStatus";
         private const string UPDATE_PLUGIN_INSTANCE_CONFIG = "UpdatePlugInInstanceConfig";
@@ -115,6 +124,45 @@ namespace UniqueStudio.DAL.PlugIn
         }
 
         /// <summary>
+        /// 删除多个插件。
+        /// </summary>
+        /// <param name="plugInIds">待删除插件ID的集合。</param>
+        /// <returns>是否删除成功。</returns>
+        public bool DeletePlugIns(int[] plugInIds)
+        {
+            using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(DELETE_PLUGIN, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@PlugInID", SqlDbType.Int);
+
+                    conn.Open();
+                    using (SqlTransaction trans = conn.BeginTransaction())
+                    {
+                        cmd.Transaction = trans;
+
+                        try
+                        {
+                            foreach (int plugInId in plugInIds)
+                            {
+                                cmd.Parameters[0].Value = plugInId;
+                                cmd.ExecuteNonQuery();
+                            }
+                            trans.Commit();
+                            return true;
+                        }
+                        catch
+                        {
+                            trans.Rollback();
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// 删除插件实例。
         /// </summary>
         /// <param name="instanceId">待删除插件实例ID。</param>
@@ -200,6 +248,60 @@ namespace UniqueStudio.DAL.PlugIn
                 }
             }
             return collection;
+        }
+
+        /// <summary>
+        /// 返回指定插件的类信息。
+        /// </summary>
+        /// <param name="plugInId">插件ID。</param>
+        /// <returns>类信息。</returns>
+        public ClassInfo GetClassInfo(int plugInId)
+        {
+            SqlParameter parm = new SqlParameter("@PlugInID", plugInId);
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_PLUGIN_CLASS_INFO, parm))
+            {
+                if (reader.Read())
+                {
+                    ClassInfo item = new ClassInfo();
+                    item.Assembly = reader["Assembly"].ToString();
+                    item.ClassPath = reader["ClassPath"].ToString();
+                    return item;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 返回指定插件实例的基本信息。
+        /// </summary>
+        /// <remarks>基本信息包含：插件实例ID，是否启用，配置信息。</remarks>
+        /// <param name="plugInName">插件名称。</param>
+        /// <param name="siteId">网站ID。</param>
+        /// <returns>插件实例。</returns>
+        public PlugInInstanceInfo GetInstanceBasicInfo(string plugInName, int siteId)
+        {
+            SqlParameter[] parms = new SqlParameter[]{
+                                                        new SqlParameter("@PlugInName",plugInName),
+                                                        new SqlParameter("@SiteID",siteId)};
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_PLUGIN_INSTANCE_BASIC_INFO, parms))
+            {
+                if (reader.Read())
+                {
+                    PlugInInstanceInfo instance = new PlugInInstanceInfo();
+
+                    instance.InstanceId = (int)reader["ID"];
+                    instance.IsEnabled = Convert.ToBoolean(reader["IsEnabled"]);
+                    instance.Config = reader["Config"].ToString();
+                    return instance;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
         /// <summary>

@@ -37,7 +37,7 @@ namespace UniqueStudio.ComContent.PL.controls
                         rptStatByMonth.DataBind();
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                 }
             }

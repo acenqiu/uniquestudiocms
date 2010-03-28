@@ -1,4 +1,11 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：插件列表页面。
+// 完成日期：2010年03月28日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Collections.Generic;
 
 using UniqueStudio.Common.Model;
@@ -54,29 +61,16 @@ namespace UniqueStudio.Admin.admin.background
                 switch (ddlOperation.SelectedValue)
                 {
                     case "uninstall":
-                        break;
-                    case "start":
-                        if (manager.StartPlugIns(list.ToArray()))
+                        if (manager.UninstallPlugIns(list.ToArray()))
                         {
-                            message.SetSuccessMessage("所选插件已启用！");
+                            message.SetSuccessMessage("所选插件已卸载！");
                             GetData();
                         }
                         else
                         {
-                            message.SetErrorMessage("所选插件启用失败！");
+                            message.SetErrorMessage("所选插件卸载失败！");
                         }
-                        break;
-                    case "stop":
-                        if (manager.StopPlugIns(list.ToArray()))
-                        {
-                            message.SetSuccessMessage("所选插件已停用！");
-                            GetData();
-                        }
-                        else
-                        {
-                            message.SetErrorMessage("所选插件停用失败！");
-                        }
-                        break;
+                        break;                  
                 }
             }
             catch (Exception ex)

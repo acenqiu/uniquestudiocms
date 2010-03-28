@@ -1,7 +1,13 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：提供插件管理的方法。
+// 完成日期：2010年03月28日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.IO;
 using System.Reflection;
 using System.Xml;
 
@@ -22,6 +28,8 @@ namespace UniqueStudio.Core.PlugIn
     public class PlugInManager
     {
         private static readonly DAL.IDAL.IPlugIn provider = DALFactory.CreatePlugIn();
+        private static List<PlugInInstanceInfo> instances = new List<PlugInInstanceInfo>();
+
         private UserInfo currentUser;
 
         /// <summary>
@@ -40,6 +48,97 @@ namespace UniqueStudio.Core.PlugIn
         {
             Validator.CheckNull(currentUser, "currentUser");
             this.currentUser = currentUser;
+        }
+
+        /// <summary>
+        /// 返回指定插件实例是否启用。
+        /// </summary>
+        /// <param name="plugInName">插件名称。</param>
+        /// <param name="siteId">网站ID。</param>
+        /// <returns>是否启用。</returns>
+        public static bool IsEnabled(string plugInName, int siteId)
+        {
+            Validator.CheckStringNull(plugInName, "plugInName");
+            Validator.CheckNegative(siteId, "siteId");
+
+            PlugInInstanceInfo instance = GetInstanceBasicInfo(plugInName, siteId);
+            if (instance != null)
+            {
+                return instance.IsEnabled;
+            }
+            else
+            {
+                throw new PlugInNotFoundException();
+            }
+        }
+
+        /// <summary>
+        /// 返回指定插件实例指定配置项的值。
+        /// </summary>
+        /// <param name="plugInName">插件名称。</param>
+        /// <param name="siteId">网站ID。</param>
+        /// <param name="key">配置项名称。</param>
+        /// <returns>值。</returns>
+        public static string GetConfigValue(string plugInName, int siteId, string key)
+        {
+            Validator.CheckStringNull(plugInName, "plugInName");
+            Validator.CheckNegative(siteId, "siteId");
+
+            PlugInInstanceInfo instance = GetInstanceBasicInfo(plugInName, siteId);
+            if (instance != null)
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(instance.Config);
+                XmlNode node = doc.SelectSingleNode(string.Format("//param[@name=\"{0}\"]", key));
+                if (node != null)
+                {
+                    return node.Attributes["value"].Value;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                throw new PlugInNotFoundException();
+            }
+        }
+
+        private static PlugInInstanceInfo GetInstanceBasicInfo(string plugInName, int siteId)
+        {
+            for (int i = 0; i < instances.Count; i++)
+            {
+                if (instances[i].PlugInName == plugInName && instances[i].SiteId == siteId)
+                {
+                    return instances[i];
+                }
+            }
+
+            //从数据库载入
+            try
+            {
+                PlugInInstanceInfo instance = provider.GetInstanceBasicInfo(plugInName, siteId);
+                if (instance != null)
+                {
+                    instances.Add(instance);
+                    return instance;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
         }
 
         /// <summary>
@@ -450,7 +549,7 @@ namespace UniqueStudio.Core.PlugIn
             plugin.WorkingPath = workingPath;
             return plugin;
         }
-        
+
         /// <summary>
         /// 保存插件实例配置信息。
         /// </summary>
@@ -484,7 +583,22 @@ namespace UniqueStudio.Core.PlugIn
 
             try
             {
-                return provider.SaveConfig(instanceId, config);
+                if (provider.SaveConfig(instanceId, config))
+                {
+                    for (int i = 0; i < instances.Count; i++)
+                    {
+                        if (instances[i].InstanceId == instanceId)
+                        {
+                            instances[i].Config = config;
+                            break;
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (DbException ex)
             {
@@ -497,7 +611,7 @@ namespace UniqueStudio.Core.PlugIn
                 throw new UnhandledException();
             }
         }
-                                                                                                                                                                                                 
+
         /// <summary>
         /// 启用指定插件。
         /// </summary>
@@ -618,7 +732,7 @@ namespace UniqueStudio.Core.PlugIn
         /// 当用户没有停用插件的权限时抛出该异常。</exception>
         public bool StopPlugIn(UserInfo currentUser, int instanceId)
         {
-            throw new NotImplementedException(); Validator.CheckNotPositive(instanceId, "instanceId");
+            Validator.CheckNotPositive(instanceId, "instanceId");
             PermissionManager.CheckPermission(currentUser, "StopPlugIn", "停用插件");
 
             try
@@ -687,7 +801,7 @@ namespace UniqueStudio.Core.PlugIn
         }
 
         /// <summary>
-        /// 卸载指定插件
+        /// 卸载指定插件。
         /// </summary>
         /// <param name="plugInId">待卸载插件ID。</param>
         /// <returns>是否卸载成功。</returns>
@@ -703,7 +817,7 @@ namespace UniqueStudio.Core.PlugIn
         }
 
         /// <summary>
-        /// 卸载指定插件
+        /// 卸载指定插件。
         /// </summary>
         /// <param name="currentUser">执行该方法的用户信息。</param>
         /// <param name="plugInId">待卸载插件ID。</param>
@@ -713,22 +827,134 @@ namespace UniqueStudio.Core.PlugIn
         public bool UninstallPlugIn(UserInfo currentUser, int plugInId)
         {
             Validator.CheckNotPositive(plugInId, "plugInId");
-            PermissionManager.CheckPermission(currentUser, "", "");
+            PermissionManager.CheckPermission(currentUser, "UninstallPlugIn", "卸载插件");
 
-            throw new NotImplementedException();
+            try
+            {
+                ClassInfo plugIn = provider.GetClassInfo(plugInId);
+                if (plugIn == null)
+                {
+                    throw new PlugInNotFoundException();
+                }
+
+                //反注册事件
+                IPlugIn p = (IPlugIn)Assembly.Load(plugIn.Assembly).CreateInstance(plugIn.ClassPath);
+                p.UnRegister();
+
+                //删除插件
+                if (provider.DeletePlugIn(plugInId))
+                {
+                    return true;
+                }
+                else
+                {
+                    p.Register();
+                    return false;
+                }
+            }
+            catch (PlugInNotFoundException)
+            {
+                throw;
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
         }
 
         /// <summary>
-        /// 卸载多个插件
+        /// 卸载多个插件。
         /// </summary>
-        /// <param name="currentUser">执行该方法的用户信息</param>
-        /// <param name="plugIns">待卸载插件的集合</param>
-        /// <returns>是否卸载成功</returns>
+        /// <param name="plugInIds">待卸载插件ID的集合。</param>
+        /// <returns>是否卸载成功。</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
-        /// 当用户没有卸载插件的权限时抛出该异常</exception>
-        public bool UninstallPlugIns(UserInfo currentUser, PlugInCollection plugIns)
+        /// 当用户没有卸载插件的权限时抛出该异常。</exception>
+        public bool UninstallPlugIns(int[] plugInIds)
         {
-            throw new NotImplementedException();
+            if (currentUser == null)
+            {
+                throw new Exception("请使用PlugInManager(UserInfo)实例化该类。");
+            }
+            return UninstallPlugIns(currentUser, plugInIds);
+        }
+
+        /// <summary>
+        /// 卸载多个插件。
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息。</param>
+        /// <param name="plugInIds">待卸载插件ID的集合。</param>
+        /// <returns>是否卸载成功。</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有卸载插件的权限时抛出该异常。</exception>
+        public bool UninstallPlugIns(UserInfo currentUser, int[] plugInIds)
+        {
+            Validator.CheckNull(plugInIds, "plugInIds");
+            foreach (int plugInId in plugInIds)
+            {
+                Validator.CheckNotPositive(plugInId, "plugInIds");
+            }
+            PermissionManager.CheckPermission(currentUser, "UninstallPlugIn", "卸载插件");
+
+            try
+            {
+                List<IPlugIn> SucceedPlugIns = new List<IPlugIn>(plugInIds.Length);
+                try
+                {
+                    foreach (int plugInId in plugInIds)
+                    {
+                        ClassInfo plugIn = provider.GetClassInfo(plugInId);
+                        if (plugIn == null)
+                        {
+                            throw new PlugInNotFoundException();
+                        }
+
+                        //反注册事件
+                        IPlugIn p = (IPlugIn)Assembly.Load(plugIn.Assembly).CreateInstance(plugIn.ClassPath);
+                        p.UnRegister();
+
+                        SucceedPlugIns.Add(p);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorLogger.LogError(ex);
+                    foreach (IPlugIn p in SucceedPlugIns)
+                    {
+                        p.Register();
+                    }
+                    return false;
+                }
+
+                //删除插件
+                if (provider.DeletePlugIns(plugInIds))
+                {
+                    return true;
+                }
+                else
+                {
+                    foreach (IPlugIn p in SucceedPlugIns)
+                    {
+                        p.Register();
+                    }
+                    return false;
+                }
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
         }
     }
 }

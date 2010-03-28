@@ -154,7 +154,7 @@ namespace UniqueStudio.Core.Permission
                 CheckPermission(user,siteId, permissionName, null);
                 return true;
             }
-            catch (DatabaseException ex)
+            catch (DatabaseException)
             {
                 //如果是数据库异常，则抛出
                 throw;

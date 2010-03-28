@@ -23,6 +23,27 @@ namespace UniqueStudio.ComContent.PL
 
             (new ServerConfig()).LoadConfig();
             (new SecurityConfig()).LoadConfig();
+
+            PlugInManager manager = new PlugInManager();
+            ClassCollection collection = manager.GetAllPlugInsForInit();
+            if (collection != null)
+            {
+                for (int i = 0; i < collection.Count; i++)
+                {
+                    try
+                    {
+                        IPlugIn plugIn = (IPlugIn)Assembly.Load(collection[i].Assembly).CreateInstance(collection[i].ClassPath);
+                        if (plugIn != null)
+                        {
+                            plugIn.Register();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorLogger.LogError(ex);
+                    }
+                }
+            }
         }
 
         protected void Session_Start(object sender, EventArgs e)

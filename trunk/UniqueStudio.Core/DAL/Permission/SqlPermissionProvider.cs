@@ -244,9 +244,9 @@ namespace UniqueStudio.DAL.Permission
                 using (SqlCommand cmd = new SqlCommand(CREATE_PERMISSION, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@PermissionName", DbType.String);
-                    cmd.Parameters.Add("@Description", DbType.String);
-                    cmd.Parameters.Add("@Provider", DbType.String);
+                    cmd.Parameters.Add("@PermissionName", SqlDbType.NVarChar, 50);
+                    cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 255);
+                    cmd.Parameters.Add("@Provider", SqlDbType.NVarChar, 50);
 
                     conn.Open();
                     using (SqlTransaction trans = conn.BeginTransaction())

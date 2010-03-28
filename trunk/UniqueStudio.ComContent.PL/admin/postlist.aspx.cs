@@ -9,7 +9,6 @@ namespace UniqueStudio.ComContent.PL
 {
     public partial class postlist : Controls.AdminBasePage
     {
-        private PostManager bll;
         private PostListType postListType = PostListType.Both;
 
         protected void Page_Load(object sender, EventArgs e)

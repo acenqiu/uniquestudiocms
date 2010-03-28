@@ -50,7 +50,7 @@
     <Compile Include="Core\PlugIn\PlugInManager.cs" />
     <Compile Include="Core\SiteMap\SiteMapManager.cs" />
     <Compile Include="Core\Site\SiteManager.cs" />
-    <Compile Include="Core\User\UserArgs.cs" />
+    <Compile Include="Core\User\UserEventArgs.cs" />
     <Compile Include="Core\User\UserManager.cs" />
     <Compile Include="DAL\Category\SqlCategoryProvider.cs" />
     <Compile Include="DAL\Compenent\SqlCompenentProvider.cs" />

@@ -24,6 +24,12 @@ namespace UniqueStudio.ComContent.BLL
     /// </summary>
     public class PostManager
     {
+        public delegate void PostPublishedEventHandler(object sender, PostEventArgs e);
+        public delegate void PostDeletedEventHandler(object sender, PostEventArgs e);
+
+        public static event PostPublishedEventHandler OnPostPublished;
+        public static event PostDeletedEventHandler OnPostDeleted;
+
         private PostProvider provider = new PostProvider();
 
         /// <summary>
@@ -33,10 +39,7 @@ namespace UniqueStudio.ComContent.BLL
         {
             //默认构造函数
         }
-        //public bool IsFileExistByUri(Int64 uri)
-        //{
-        //    return provider.IsPostExistByUri(uri);
-        //}
+
         /// <summary>
         /// 发表一篇文章。
         /// </summary>
@@ -62,28 +65,22 @@ namespace UniqueStudio.ComContent.BLL
                     post.NewsImage = string.Empty;
                 }
                 Int64 uri = provider.AddPost(post);
-                if (uri == 0)
+                if (uri != 0)
                 {
-                    return 0;
-                }
-                else
-                {
-                    //TODO:此次需要修改，通过OnPostAdded事件触发
-
-                    //新闻图片更新
-                    if (string.IsNullOrEmpty(post.NewsImage))
+                    if (OnPostPublished != null)
                     {
-                        foreach (CategoryInfo item in post.Categories)
+                        try
                         {
-                            if (item.CategoryId == PictureNewsManager.CATEGOEY_ID)
-                            {
-                                PictureNewsManager.UpdatePictureNews();
-                                break;
-                            }
+                            post.Uri = uri;
+                            OnPostPublished(null, new PostEventArgs(post));
+                        }
+                        catch (Exception ex)
+                        {
+                            ErrorLogger.LogError(ex, "OnPostPublished事件触发异常。");
                         }
                     }
-                    return uri;
                 }
+                return uri;
             }
             catch (DbException ex)
             {
