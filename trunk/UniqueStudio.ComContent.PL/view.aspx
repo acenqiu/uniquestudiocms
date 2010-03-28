@@ -7,7 +7,7 @@
 </asp:Content>
 <asp:Content ID="content" ContentPlaceHolderID="cphMain" runat="server">
     <div class="slider">
-       <div class="column mini" id="category"  style="min-height:150px">
+       <div class="column mini" id="category"  style="min-height:150px" id="category">
             <US:SubCategories ID="subCategories" runat="server" />
         </div>
     </div>
