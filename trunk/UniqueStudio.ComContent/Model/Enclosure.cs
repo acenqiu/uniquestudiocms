@@ -7,7 +7,7 @@ namespace UniqueStudio.ComContent.Model
     [Serializable]
     public class Enclosure
     {
-        private string tittle;
+        private string title;
         private long length;
         private string type;
         private string url;
@@ -17,10 +17,10 @@ namespace UniqueStudio.ComContent.Model
         /// <summary>
         /// 附件名
         /// </summary>
-        public string Tittle
+        public string Title
         {
-            get { return tittle; }
-            set { tittle = value; }
+            get { return title; }
+            set { title = value; }
         }
         /// <summary>
         /// 附件大小

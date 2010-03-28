@@ -30,7 +30,7 @@ namespace UniqueStudio.ComContent.BLL
                 {
                     enclosure = new Enclosure();
                     fileInfo = new FileInfo(item);
-                    enclosure.Tittle = fileInfo.Name.Remove(0, 15);
+                    enclosure.Title = fileInfo.Name.Remove(0, 15);
                     enclosure.Type = Path.GetExtension(item);
                     enclosure.Url = "/upload/" + fileInfo.Name;
                     enclosure.Length = fileInfo.Length;

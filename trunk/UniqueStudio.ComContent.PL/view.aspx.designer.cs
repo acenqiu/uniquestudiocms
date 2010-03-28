@@ -95,30 +95,21 @@ namespace UniqueStudio.ComContent.PL {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAttachment;
         
         /// <summary>
-        /// ltlAttachmentExt control.
+        /// lblErrorMsg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlAttachmentExt;
+        protected global::System.Web.UI.WebControls.Label lblErrorMsg;
         
         /// <summary>
-        /// ltlAttachmentLink control.
+        /// rptAttachment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlAttachmentLink;
-        
-        /// <summary>
-        /// ltlAttachmentTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlAttachmentTitle;
+        protected global::System.Web.UI.WebControls.Repeater rptAttachment;
     }
 }

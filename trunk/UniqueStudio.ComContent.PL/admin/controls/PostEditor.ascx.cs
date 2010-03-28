@@ -140,7 +140,7 @@ namespace UniqueStudio.ComContent.PL
                     int i = 0;
                     foreach (Enclosure enclosure in enclosures)
                     {
-                        sb.Append("<div id=\"editenclosure" + i.ToString() + "\">" + enclosure.Tittle + "<img src=\"img/f2.gif\" onclick=\"HideEditDiv('" + i.ToString() + "');DeleteEnclosure('" + enclosure.Tittle + "')\">" + "</div>");
+                        sb.Append("<div id=\"editenclosure" + i.ToString() + "\">" + enclosure.Title + "<img src=\"img/f2.gif\" onclick=\"HideEditDiv('" + i.ToString() + "');DeleteEnclosure('" + enclosure.Title + "')\">" + "</div>");
                         i++;
                     }
                     text.InnerHtml = sb.ToString();
@@ -226,7 +226,7 @@ namespace UniqueStudio.ComContent.PL
             catch (Exception ex)
             {
                 ErrorLogger.LogError(ex);
-                message.SetErrorMessage(postType + "草稿添加失败：" + ex.Message);
+                message.SetErrorMessage(postType + "添加失败：" + ex.Message);
             }
         }
 
