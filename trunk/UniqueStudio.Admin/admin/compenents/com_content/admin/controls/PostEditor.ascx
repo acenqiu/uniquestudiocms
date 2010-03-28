@@ -30,8 +30,6 @@
         </div>
         <div class="form-item">
             <span class="form-item-label">分类：</span> <span class="form-item-input">
-                <%--<asp:DropDownList ID="ddlCategory" runat="server">
-                </asp:DropDownList>--%>
                 <asp:CheckBoxList ID="cblCategory" runat="server" RepeatColumns="7" RepeatDirection="Horizontal">
                 </asp:CheckBoxList>
             </span>
@@ -44,8 +42,8 @@
         </div>
         <div class="form-item" id="attachments">
             <span class="form-item-label">新闻图片：</span> <span class="form-item-input">
-                <asp:Label runat="server" ID="imagename" Visible="false"></asp:Label>
-                <asp:FileUpload runat="server" ID="newsimage" EnableViewState="false" /></span>
+                <asp:Label runat="server" ID="lblImageName" Visible="false"></asp:Label>
+                <asp:FileUpload runat="server" ID="fuNewsImage" EnableViewState="false" /></span>
             <br />
             <span class="form-item-label">附件：</span> <span class="form-item-input">
                 <US:Attachment ID="attcontrol" runat="server" />
@@ -81,12 +79,12 @@
         </div>
         <div class="form-item">
             <span class="form-item-label"></span><span class="form-item-input">
-                <asp:CheckBox ID="tittleChecked" runat="server" Text="不显示标题" Checked="false" />
+                <asp:CheckBox ID="chkTitle" runat="server" Text="不显示标题" Checked="false" />
             </span>
         </div>
         <div class="form-item">
             <span class="form-item-label"></span><span class="form-item-input">
-                <asp:CheckBox runat="server" ID="otherChecked" Text="不显示作者、发表时间、阅读次数等信息" Checked="false" />
+                <asp:CheckBox runat="server" ID="chkOther" Text="不显示作者、发表时间、阅读次数等信息" Checked="false" />
             </span>
         </div>
         <div class="form-item" style="display: none">
