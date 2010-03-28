@@ -58,14 +58,17 @@ namespace UniqueStudio.ComContent.PL
                     //设置附件
                     if (!string.IsNullOrEmpty(post.Settings))
                     {
-                        divAttachment.Visible = true;
-                        XmlManager xm = new XmlManager();
-                        Enclosure enclosure = (Enclosure)xm.ConvertToEntity(post.Settings, typeof(Enclosure), null);
-                        if (enclosure != null)
+                        try
                         {
-                            ltlAttachmentExt.Text = enclosure.Type.Substring(1);
-                            ltlAttachmentLink.Text = PathHelper.PathCombine(SiteManager.BaseAddress(SiteId), enclosure.Url);
-                            ltlAttachmentTitle.Text = enclosure.Tittle;
+                            divAttachment.Visible = true;
+                            EnclosureCollection collection = (new SettingsManager()).GetEnclosuresFromXML(post.Settings);
+                            rptAttachment.DataSource = collection;
+                            rptAttachment.DataBind();
+                        }
+                        catch (Exception ex)
+                        {
+                            Common.ErrorLogging.ErrorLogger.LogError(ex);
+                            lblErrorMsg.Visible = true;
                         }
                     }
 
