@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{522567A4-DBFA-483C-B6E9-A60A1C79CF4A}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -70,6 +70,9 @@
     </Compile>
     <Compile Include="admin\addpost.aspx.designer.cs">
       <DependentUpon>addpost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\AutoSave.ashx.cs">
+      <DependentUpon>AutoSave.ashx</DependentUpon>
     </Compile>
     <Compile Include="admin\controls\attachment.ascx.cs">
       <DependentUpon>attachment.ascx</DependentUpon>
@@ -249,7 +252,6 @@
     <Content Include="img\header_bg.png" />
     <Content Include="img\logo.png" />
     <Content Include="css\index.css" />
-    <Content Include="view.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="500.aspx" />
@@ -564,6 +566,7 @@
     <Content Include="admin\editor\fckeditor\fckstyles.xml" />
     <Content Include="admin\editor\fckeditor\fcktemplates.xml" />
     <Content Include="admin\Fileup.ashx" />
+    <Content Include="admin\AutoSave.ashx" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
@@ -578,7 +581,6 @@
     <Content Include="admin\StopUpLoad.ashx" />
     <Content Include="404.aspx" />
     <Content Include="admin\admin-list-style.css" />
-    <Content Include="admin\ajaxupload.js" />
     <Content Include="admin\controls\attachment.ascx" />
     <Content Include="admin\controls\Message.ascx" />
     <Content Include="admin\controls\pagination.ascx" />
@@ -588,6 +590,8 @@
     <Content Include="admin\login.aspx" />
     <Content Include="admin\main.js" />
     <Content Include="admin\style.css" />
+    <Content Include="admin\toolTip.css" />
+    <Content Include="admin\toolTip.js" />
     <Content Include="controls\Pagination.ascx" />
     <Content Include="css\article-style.css" />
     <Content Include="controls\PostStat.ascx" />
@@ -619,6 +623,7 @@
     <Content Include="css\search-style.css" />
     <Content Include="Search.aspx" />
     <Content Include="usupload.aspx" />
+    <Content Include="view.aspx" />
     <Content Include="xml\viewerData.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

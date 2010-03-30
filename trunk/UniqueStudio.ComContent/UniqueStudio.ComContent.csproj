@@ -52,11 +52,13 @@
   <ItemGroup>
     <Compile Include="ApiLayer\MetaWeblog.cs" />
     <Compile Include="ApiLayer\MetaWeblogAPI.cs" />
+    <Compile Include="BLL\AutoSaveManager.cs" />
     <Compile Include="BLL\PostEventArgs.cs" />
     <Compile Include="BLL\SettingsManager.cs" />
     <Compile Include="BLL\PictureNewsManager.cs" />
     <Compile Include="BLL\PostManager.cs" />
     <Compile Include="BLL\PostPermissionManager.cs" />
+    <Compile Include="DAL\AutoSaveProvider.cs" />
     <Compile Include="DAL\PostProvider.cs" />
     <Compile Include="Model\EditorMode.cs" />
     <Compile Include="Model\Enclosure.cs" />
