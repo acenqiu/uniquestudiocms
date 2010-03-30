@@ -5,7 +5,7 @@
     var ua = navigator.userAgent.toLowerCase(); //浏览器信息
     //自动保存
     //var AutoSaveDiv=document.getElementById("toolTip");
-    var AutoSaveTime=10000;
+    var AutoSaveTime=300000;
     var AutoSaveTimer;
     var param;
     var iframeid=0;
