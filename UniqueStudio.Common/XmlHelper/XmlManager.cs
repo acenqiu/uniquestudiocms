@@ -127,7 +127,6 @@ namespace UniqueStudio.Common.XmlHelper
             subDoc.AppendChild(root);
             return subDoc;
         }
-
         /// <summary>
         /// 向指定xml文档插入节点
         /// </summary>
@@ -163,7 +162,6 @@ namespace UniqueStudio.Common.XmlHelper
         {
             InsertNode(doc, xPath, source, t, t.Name);
         }
-
         /// <summary>
         /// 向指定xml文档插入节点
         /// </summary>
@@ -219,7 +217,6 @@ namespace UniqueStudio.Common.XmlHelper
             doc.LoadXml(content);
             return ConvertToEntity(doc, t, xPath);
         }
-
         /// <summary>
         /// 将xml文档反序列化为对象
         /// </summary>

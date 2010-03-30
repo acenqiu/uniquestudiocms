@@ -13,7 +13,6 @@ using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.DatabaseHelper;
 using UniqueStudio.Common.Model;
-using UniqueStudio.DAL.Uri;
 
 namespace UniqueStudio.ComContent.DAL
 {

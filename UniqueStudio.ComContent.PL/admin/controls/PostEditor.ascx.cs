@@ -25,7 +25,8 @@ namespace UniqueStudio.ComContent.PL
         private SettingsManager settingsManager = new SettingsManager();
         private PostManager postManager = new PostManager();
         private XmlManager xmlManager = new XmlManager();
-
+        private AutoSaveManager am = new AutoSaveManager();
+        protected Guid userId;
         public Unit Width
         {
             get
@@ -64,6 +65,7 @@ namespace UniqueStudio.ComContent.PL
         protected void Page_Load(object sender, EventArgs e)
         {
             currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
+            userId = currentUser.UserId;
             if (!IsPostBack)
             {
                 //获取分类列表
@@ -93,6 +95,22 @@ namespace UniqueStudio.ComContent.PL
                         txtAuthor.Text = currentUser.UserName;
                     }
                     txtAddDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+                    #region 自动保存载入
+                    PostInfo autoSavedPost = am.GetEftAutoSaveFile(userId);
+                    if (autoSavedPost != null)
+                    {
+                        if (autoSavedPost.Uri != null)
+                        {
+                            Session["posturi"] = autoSavedPost.Uri;
+                        }
+                        txtAuthor.Text = autoSavedPost.Author;
+                        txtTitle.Text = autoSavedPost.Title;
+                        txtSubTitle.Text = autoSavedPost.SubTitle;
+                        fckContent.Value = autoSavedPost.Content;
+                        fckSummary.Value = autoSavedPost.Summary;
+                        message.SetSuccessMessage("以下为系统自动保存的内容");
+                    }
+                    #endregion
                 }
                 else
                 {
@@ -215,6 +233,7 @@ namespace UniqueStudio.ComContent.PL
                 long postUri = postManager.AddPost(currentUser, post);
                 if (postUri > 0)
                 {
+                    am.SetAutoSaveFileEft(userId, false);
                     Response.Redirect(string.Format("editpost.aspx?msg={0}&siteId={1}&uri={2}", HttpUtility.UrlEncode(postType + "添加成功！")
                                                                                                                                           , siteId, postUri));
                 }
