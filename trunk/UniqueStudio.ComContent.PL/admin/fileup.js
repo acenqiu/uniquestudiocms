@@ -4,17 +4,24 @@
     var Endupfiled=0;//已上传
     var ua = navigator.userAgent.toLowerCase(); //浏览器信息
     //自动保存
-    var AutoSaveDiv=document.getElementById("autosavestate");
-    var AutoSaveTime=6000;
+    //var AutoSaveDiv=document.getElementById("toolTip");
+    var AutoSaveTime=10000;
+    var AutoSaveTimer;
+    var param;
     var iframeid=0;
     //var fEditor=FCKeditorAPI.GetInstance('fckContent');
-    var content;
+    var fckcontent;
+    var fcksummary;
+    var author;
+    var title;
+    var subTitle;
+    var userID;
     //获取sessionuri
     //var user=getSessionUser();
     //ajax
     if (typeof(XMLHttpRequest) == "undefined") 
     {
-	    XMLHttpRequest = function() {
+	    XMLHttpRequest = function(option) {
 		    try { return new ActiveXObject("Msxml2.XMLHTTP.6.0"); }
 		    catch(e) {}
 		    try { return new ActiveXObject("Msxml2.XMLHTTP.4.0"); }
@@ -24,7 +31,10 @@
 		    try { return new ActiveXObject("Msxml2.XMLHTTP"); }
 		    catch(e) {}
 		    try { return new ActiveXObject("Microsoft.XMLHTTP"); }
-		    catch(e) {}
+		    catch(e) {
+		    try { return new XMLHttpRequest()}
+		    catch(e){}
+		    }
 		    throw new Error("This browser does not support XMLHttpRequest.");
 	    };
     }
@@ -39,7 +49,7 @@
     window.onload=SetClick;//加载完成，添加一个控件
     function SetClick()
     {
-        //setInterval("AutoSave()",AutoSaveTime);
+        AutoSaveTimer=setInterval("AutoSave()",AutoSaveTime);
         var container=document.getElementById("fileUpArea");
         var input1=document.createElement("input");
 	    input1.type="file";
@@ -313,39 +323,39 @@
         xmlhttp.onreadystatechange=function(){
             if(xmlhttp.readyState==4&&xmlhttp.status==200)
             {
-                alert("删除成功,"+filename);
+                var rse=xmlhttp.responseText;
+                alert(rse);
             }
         }
         xmlhttp.send(null);
 	}
 	function AutoSave()
 	{
-	    //alert("abc");
-	    //content=fEditor.GetXHTML();
-	    //var fEditor=getFCKName();+"&user="+user
-	    content=window.frames[iframeid].window.frames[0].document.body.innerHTML;
-	    xmlhttp.open("POST",path+"AutoSave.ashx?uri="+getSessionUri()+"&content="+content+"&action=save");
-	    AutoSaveDiv.innerHTML="正在自动保存草稿";
+	    title=GetTitle();
+	    userID=GetUserID();
+	    subTitle=GetSubTitle();
+	    author=GetAuthor();
+	    fckcontent=window.frames[iframeid].window.frames[0].document.body.innerHTML;
+	    if(fckcontent=="<P></P>")
+	    {
+	        return;
+	    }
+	    fcksummary=window.frames[iframeid+1].window.frames[0].document.body.innerHTML;
+	    param="uri="+getSessionUri()+"&content="+escape(fckcontent)+"&summary="+fcksummary
+	        +"&author="+author+"&title="+title+"&subTitle="+subTitle+"&userid="+userID;
+	    xmlhttp.open("POST",path+"AutoSave.ashx",true);
+	    xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	    //AutoSaveDiv.innerHTML="正在自动保存";
+	    toolTip("正在自动保存",-1);
 	    xmlhttp.onreadystatechange=function(){
 	        if(xmlhttp.readyState==4&&xmlhttp.status==200)
 	        {
-	            //alert("草稿保存成功");
-	            var now=new Date();
-	            AutoSaveDiv.innerHTML="草稿成功保存于"+now.getDate()+" "+now.getHours()+":"+now.getMinutes();
+	            var rs=xmlhttp.responseText;
+	            cancelToolTip();
+	            toolTip(rs,2000);
+	            //AutoSaveDiv.innerHTML=rs;
+	           //alert(rs);
 	        }
 	    }
-	    xmlhttp.send(null);
-	    //alert(content);
-	}
-	function GetDraft()
-	{
-	    xmlhttp.open("GET",path+"AutoSave.ashx?uri="+getSessionUri()+"&action=load");
-	    AutoSaveDiv.innerHTML="载入中";
-	    xmlhttp.onreadystatechange=function(){
-	        if(xmlhttp.readyState==4&&xmlhttp.status==200)
-	        {
-	           //window.frames[iframeid].window.frames[0].document.body.innerHTML=;
-	        }
-	    }
-	    xmlhttp.send(null);
+	    xmlhttp.send(param);
 	}

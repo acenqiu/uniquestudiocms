@@ -6,6 +6,24 @@
 
 <script src="jquery.min.js" type="text/javascript"></script>
 
+<script language="javascript" type="text/javascript">
+    function GetUserID(){
+        return '<%=userId %>';
+    }
+    function GetTitle()
+    {
+        return document.getElementById("<%=txtTitle.ClientID %>").value;
+    }
+    function GetSubTitle()
+    {
+        return document.getElementById("<%=txtSubTitle.ClientID %>").value;   
+    }
+    function GetAuthor()
+    {
+        return document.getElementById("<%=txtAuthor.ClientID %>").value;
+    }
+</script>
+
 <div class="postEditor">
     <US:Message ID="message" runat="server" />
     <asp:ValidationSummary ID="validationSummary" runat="server" ValidationGroup="post"
@@ -51,7 +69,6 @@
             <br />
             <div id="text" runat="server">
             </div>
-            <%--<asp:Button ID="upfilebtn" runat="server" Text="附件上传" OnClick="upfilebtn_Click" />--%>
         </div>
         <div class="form-item" style="display: none">
             <span class="form-item-label">来源：</span> <span class="form-item-input">
@@ -62,11 +79,8 @@
             <span class="form-item-input">
                 <FCKeditorV2:FCKeditor ID="fckContent" runat="server" />
             </span>
-            <%--<span class="form-item-label">
-                <div id="autosavestate">
-                </div>
-                <input type="button" value="载入草稿" onclick="GetDraft()" />
-            </span>--%>
+            <div id="toolTip">
+            </div>
         </div>
         <div class="form-item">
             <span class="form-item-label">摘要：</span> <span class="form-item-input">

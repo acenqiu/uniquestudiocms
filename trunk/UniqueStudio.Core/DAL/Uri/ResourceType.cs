@@ -12,22 +12,26 @@ namespace UniqueStudio.DAL.Uri
         /// <summary>
         /// 文章
         /// </summary>
-        Article=1,
+        Article = 1,
         /// <summary>
         /// 图片
         /// </summary>
-        Photo=2,
+        Photo = 2,
         /// <summary>
         /// 视频
         /// </summary>
-        Video=3,
+        Video = 3,
         /// <summary>
         /// 书籍
         /// </summary>
-        Book=4,
+        Book = 4,
         /// <summary>
         /// 任务
         /// </summary>
-        Task=5
+        Task = 5,
+        /// <summary>
+        /// 自动保存
+        /// </summary>
+        AutoSave = 6
     }
 }

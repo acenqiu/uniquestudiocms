@@ -7,7 +7,6 @@ using UniqueStudio.DAL.Uri;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Config;
 using UniqueStudio.ComContent.BLL;
-
 namespace UniqueStudio.ComContent.PL
 {
     public partial class addpost : Controls.AdminBasePage
@@ -19,6 +18,7 @@ namespace UniqueStudio.ComContent.PL
             {
                 if (!PostPermissionManager.HasAddPermission(CurrentUser, SiteId))
                 {
+
                 }
                 Session["posturi"] = UriProvider.GetNewUri(ResourceType.Article);
             }
