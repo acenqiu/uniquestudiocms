@@ -5,21 +5,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3CB902B2-D40A-4263-AB02-E95A63E71BA3}</ProjectGuid>
+    <ProjectGuid>{BA0CB377-0B09-48A9-8628-DA1AFC4B80E9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UniqueStudio.ComContent</RootNamespace>
-    <AssemblyName>UniqueStudio.ComContent</AssemblyName>
+    <RootNamespace>ComCalendar</RootNamespace>
+    <AssemblyName>ComCalendar</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>
-    </SccProjectName>
-    <SccLocalPath>
-    </SccLocalPath>
-    <SccAuxPath>
-    </SccAuxPath>
-    <SccProvider>
-    </SccProvider>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,8 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,36 +33,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CookComputing.XmlRpc, Version=2.4.0.0, Culture=neutral, PublicKeyToken=a7d6e17aa302004d">
-      <HintPath>.\CookComputing.XmlRpc.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiLayer\MetaWeblog.cs" />
-    <Compile Include="ApiLayer\MetaWeblogAPI.cs" />
-    <Compile Include="BLL\AutoSaveManager.cs" />
-    <Compile Include="BLL\PostEventArgs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BLL\SettingsManager.cs" />
-    <Compile Include="BLL\PictureNewsManager.cs" />
-    <Compile Include="BLL\PostManager.cs" />
-    <Compile Include="BLL\PostPermissionManager.cs" />
-    <Compile Include="DAL\AutoSaveProvider.cs" />
-    <Compile Include="DAL\PostProvider.cs" />
-    <Compile Include="Model\EditorMode.cs" />
-    <Compile Include="Model\Enclosure.cs" />
-    <Compile Include="Model\EnclosureCollection.cs" />
-    <Compile Include="Model\PictureNewsItem.cs" />
-    <Compile Include="Model\PostCollection.cs" />
-    <Compile Include="Model\PostInfo.cs" />
-    <Compile Include="Model\PostListType.cs" />
-    <Compile Include="Model\PostStatCollection.cs" />
-    <Compile Include="Model\PostStatInfo.cs" />
+    <Compile Include="BLL\ControlToInputText.cs" />
+    <Compile Include="BLL\DataControl.cs" />
+    <Compile Include="BLL\DataControlManager.cs" />
+    <Compile Include="BLL\IControlToHtml.cs" />
+    <Compile Include="BLL\IDataAccess.cs" />
+    <Compile Include="BLL\NoticeManager.cs" />
+    <Compile Include="DAL\NoticeProvider.cs" />
+    <Compile Include="Model\CalendarNotice.cs" />
+    <Compile Include="Model\CalendarNoticeCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
