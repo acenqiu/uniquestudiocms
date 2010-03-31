@@ -96,10 +96,10 @@ namespace UniqueStudio.ComContent.PL
                     }
                     txtAddDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
                     #region 自动保存载入
-                    PostInfo autoSavedPost = am.GetEftAutoSaveFile(userId);
+                    PostInfo autoSavedPost = am.GetEftAutoSavedFileForAdd(userId);
                     if (autoSavedPost != null)
                     {
-                        if (autoSavedPost.Uri != null)
+                        if (autoSavedPost.Uri != 0)
                         {
                             Session["posturi"] = autoSavedPost.Uri;
                         }
@@ -114,11 +114,12 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    LoadPost();
+                    {
+                        LoadPost();
+                    }
                 }
             }
         }
-
         private void LoadPost()
         {
             PostInfo post = null;
@@ -195,6 +196,13 @@ namespace UniqueStudio.ComContent.PL
                 }
 
                 ViewState["IsPublished"] = post.IsPublished;
+                post = am.GetEftAutoSavedFileForEdit(userId, uri);
+                if (post != null)
+                {
+                    fckContent.Value = post.Content;
+                    fckSummary.Value = post.Summary;
+                    message.SetSuccessMessage("已载入此文章自动保存内容");
+                }
             }
         }
 

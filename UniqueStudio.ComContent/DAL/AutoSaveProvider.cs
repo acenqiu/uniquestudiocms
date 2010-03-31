@@ -15,9 +15,10 @@ namespace UniqueStudio.ComContent.DAL
     {
         private const string GETUSERURI = "GetUserUri";
         private const string SETAUTOSAVEEFT = "SetAutoSaveEft";
-        private const string GETAUTOSAVEDFILE = "GetAutoSavedFile";
+        private const string GETAUTOSAVEDFILEFORADD = "GetAutoSavedFileForAdd";
         private const string ADDAUTOSAVEFILE = "AddAutoSaveFile";
         private const string UPDATEAUTOSAVEFILE = "UpdateAutoSaveFile";
+        private const string ISPOSTSAVED = "IsPostExistSaved";
 
         public AutoSaveProvider()
         {
@@ -114,13 +115,13 @@ namespace UniqueStudio.ComContent.DAL
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <returns>文章信息</returns>
-        public PostInfo GetAutoSavedFile(Guid userId)
+        public PostInfo GetAutoSavedFileForAdd(Guid userId)
         {
             PostInfo post = new PostInfo();
             SqlParameter parm = new SqlParameter("@UserID", userId);
             try
             {
-                SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GETAUTOSAVEDFILE, parm);
+                SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GETAUTOSAVEDFILEFORADD, parm);
                 if (reader.Read())
                 {
                     post.Uri = Convert.ToInt64(reader["PostUri"]);//文章实际发表时Uri，并不是用户的自动保存Uri
@@ -138,6 +139,40 @@ namespace UniqueStudio.ComContent.DAL
                 }
             }
             catch
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// 判断文章是否已经存为草稿或者发表
+        /// </summary>
+        /// <param name="postUri">文章Uri</param>
+        /// <returns></returns>
+        private bool IsPostSaved(Int64 postUri)
+        {
+            SqlParameter parm = new SqlParameter("@PostUri", postUri);
+            try
+            {
+                return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, ISPOSTSAVED, parm) > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 用于编辑页面载入自动保存内容
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <param name="postUri">发表文章的Uri</param>
+        /// <returns>自动报存的文章</returns>
+        public PostInfo GetAutoSavedFileForEdit(Guid userId, Int64 postUri)
+        {
+            if (IsPostSaved(postUri))
+            {
+                return GetAutoSavedFileForAdd(userId);
+            }
+            else
             {
                 return null;
             }

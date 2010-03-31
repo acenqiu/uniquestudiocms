@@ -79,21 +79,31 @@ namespace UniqueStudio.ComContent.BLL
         }
 
         /// <summary>
-        /// 获得用户有效的自动保存文章
+        /// 为添加文章页面获得用户有效的自动保存文章
         /// </summary>
         /// <param name="userID">用户ID</param>
         /// <returns>自动保存的文章信息</returns>
-        public PostInfo GetEftAutoSaveFile(Guid userID)
+        public PostInfo GetEftAutoSavedFileForAdd(Guid userID)
         {
             try
             {
-                return provider.GetAutoSavedFile(userID);
+                return provider.GetAutoSavedFileForAdd(userID);
             }
             catch
             {
 
                 return null;
             }
+        }
+        /// <summary>
+        /// 为编辑页面获得用户有效的自动保存文章
+        /// </summary>
+        /// <param name="userID">用户ID</param>
+        /// <param name="postUri">保存文章的Uri</param>
+        /// <returns>自动保存的文章信息</returns>
+        public PostInfo GetEftAutoSavedFileForEdit(Guid userID, Int64 postUri)
+        {
+            return provider.GetAutoSavedFileForEdit(userID, postUri);
         }
     }
 }
