@@ -74,12 +74,26 @@
     <Compile Include="admin\AutoSave.ashx.cs">
       <DependentUpon>AutoSave.ashx</DependentUpon>
     </Compile>
+    <Compile Include="admin\calendar.aspx.cs">
+      <DependentUpon>calendar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\calendar.aspx.designer.cs">
+      <DependentUpon>calendar.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\controls\attachment.ascx.cs">
       <DependentUpon>attachment.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="admin\controls\attachment.ascx.designer.cs">
       <DependentUpon>attachment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\controls\Calendar.ascx.cs">
+      <DependentUpon>Calendar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\controls\Calendar.ascx.designer.cs">
+      <DependentUpon>Calendar.ascx</DependentUpon>
     </Compile>
     <Compile Include="admin\controls\Message.ascx.cs">
       <DependentUpon>Message.ascx</DependentUpon>
@@ -136,6 +150,16 @@
     </Compile>
     <Compile Include="admin\Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="admin\datacontrol.ashx.cs">
+      <DependentUpon>datacontrol.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\calendarnotice.aspx.cs">
+      <DependentUpon>calendarnotice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\calendarnotice.aspx.designer.cs">
+      <DependentUpon>calendarnotice.aspx</DependentUpon>
     </Compile>
     <Compile Include="controls\Pagination.ascx.cs">
       <DependentUpon>Pagination.ascx</DependentUpon>
@@ -209,6 +233,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ComCalendar\ComCalendar.csproj">
+      <Project>{BA0CB377-0B09-48A9-8628-DA1AFC4B80E9}</Project>
+      <Name>ComCalendar</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniqueStudio.ComContent\UniqueStudio.ComContent.csproj">
       <Project>{3CB902B2-D40A-4263-AB02-E95A63E71BA3}</Project>
       <Name>UniqueStudio.ComContent</Name>
@@ -247,6 +275,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="500.aspx" />
+    <Content Include="admin\calendar.aspx" />
+    <Content Include="admin\controls\Calendar.ascx" />
     <Content Include="admin\editor\fckeditor\editor\css\behaviors\disablehandles.htc" />
     <Content Include="admin\editor\fckeditor\editor\css\behaviors\showtableborders.htc" />
     <Content Include="admin\editor\fckeditor\editor\css\fck_editorarea.css" />
@@ -562,6 +592,7 @@
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
+    <Content Include="admin\datacontrol.ashx" />
     <None Include="flashad\include2\DepthSet.as" />
     <None Include="flashad\include2\HuspaceCopyRight.as" />
     <None Include="flashad\include2\Initializtion.as" />
@@ -582,6 +613,7 @@
     <Content Include="admin\login.aspx" />
     <Content Include="admin\main.js" />
     <Content Include="admin\style.css" />
+    <Content Include="admin\calendarnotice.aspx" />
     <Content Include="admin\toolTip.css" />
     <Content Include="admin\toolTip.js" />
     <Content Include="controls\Pagination.ascx" />
