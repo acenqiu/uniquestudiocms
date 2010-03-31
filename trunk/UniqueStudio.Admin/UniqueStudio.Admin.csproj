@@ -84,6 +84,13 @@
     <Compile Include="admin\background\compenentlist.aspx.designer.cs">
       <DependentUpon>compenentlist.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\background\controlconfig.aspx.cs">
+      <DependentUpon>controlconfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\background\controlconfig.aspx.designer.cs">
+      <DependentUpon>controlconfig.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\background\controllist.aspx.cs">
       <DependentUpon>controllist.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -111,13 +118,6 @@
     </Compile>
     <Compile Include="admin\background\editcategory.aspx.designer.cs">
       <DependentUpon>editcategory.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="admin\background\editcontrol.aspx.cs">
-      <DependentUpon>editcontrol.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="admin\background\editcontrol.aspx.designer.cs">
-      <DependentUpon>editcontrol.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\background\editmenu.aspx.cs">
       <DependentUpon>editmenu.aspx</DependentUpon>
@@ -374,6 +374,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\background\controlconfig.aspx" />
     <Content Include="admin\background\createrole.aspx" />
     <Content Include="admin\background\createuser.aspx" />
     <Content Include="admin\background\editmenuitem.aspx" />
@@ -392,7 +393,6 @@
     <Content Include="admin\background\compenentlist.aspx" />
     <Content Include="admin\background\controllist.aspx" />
     <Content Include="admin\background\editcategory.aspx" />
-    <Content Include="admin\background\editcontrol.aspx" />
     <Content Include="admin\background\editmenu.aspx" />
     <Content Include="admin\background\editrole.aspx" />
     <Content Include="admin\background\errorlog.aspx" />
@@ -795,7 +795,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1856</DevelopmentServerPort>
+          <DevelopmentServerPort>13732</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -1,57 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.RegularExpressions;
 
-using UniqueStudio.Core.Module;
 using UniqueStudio.Common.Config;
-using UniqueStudio.Common.FileAccessHelper;
-
+using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
+using UniqueStudio.Core.Module;
+using UniqueStudio.Core.Category;
+using UniqueStudio.Core.Site;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
 
 namespace UniqueStudio.ModPostList
 {
-    public class ModPostList
+    public class ModPostList : IModule
     {
-        private string controlId;
+        private const string CATEGORY_ID = "CategoryId";
+        private const string TIME_FORMAT = "TimeFormat";
+        private const string NUMBER = "Number";
+        private const string MAX_TITLE_LENGTH = "MaxTitleLength";
+        //{0}：分类名称
+        //{1}：分类ID
+        //{2}：条目
+        private const string MAIN = "<div class=\"column-head\"><span>{0}<a href=\"list.aspx?catId={1}\">more...</a></span></div>\r\n"
+                                                        + "<div class=\"column-content\">\r\n<ul>\r\n{2}</ul>\r\n</div>";
+        //{0}：分类ID
+        //{1}：文章URI
+        //{2}：文章标题
+        //{3}：新文章标志
+        //{4}：已截取的文章标题
+        //{5}：发表时间
+        private const string ITEM = "<li><a href='view.aspx?catId={0}&uri={1}' title='{2}' {3}>{4}</a><span class=\"postdate\">{5}</span></li>\r\n";
 
-        //以下变量需删除
-        private string basePath = @"E:\Projects\CMS\CMS\UniqueStudio.ComContent.PL\admin\";
+        #region IModule Members
 
-        public ModPostList(string controlId)
+        public string RenderContents(int siteId, string controlName)
         {
-            this.controlId = controlId;
+            try
+            {
+                //获取配置信息
+                int categoryId = Converter.IntParse(ModuleControlManager.GetConfigValue(siteId, controlName, CATEGORY_ID), 1);
+                int number = Converter.IntParse(ModuleControlManager.GetConfigValue(siteId, controlName, NUMBER), 8);
+                string timeFormat = ModuleControlManager.GetConfigValue(siteId,controlName,TIME_FORMAT);
+                int maxTitleLength = Converter.IntParse(ModuleControlManager.GetConfigValue(siteId, controlName, MAX_TITLE_LENGTH), 12);
+
+                CategoryInfo category = (new CategoryManager()).GetCategory(categoryId);
+                if (category != null)
+                {
+                    StringBuilder items = new StringBuilder();
+                    PostCollection posts = (new PostManager()).GetPostListByCatId(1, number, false,
+                                                            PostListType.PublishedOnly, categoryId);
+                    if (posts != null)
+                    {
+                        DateTime earliest = DateTime.Now.AddDays(-SiteManager.Config(siteId).NewImageThreshold);
+                        foreach (PostInfo post in posts)
+                        {
+                            items.Append(string.Format(ITEM, categoryId
+                                                                                , post.Uri
+                                                                                , post.Title
+                                                                                , post.LastEditDate >= earliest ? "class='new'" : ""
+                                                                                , post.Title.Length > maxTitleLength ? post.Title.Substring(0, maxTitleLength) : post.Title
+                                                                                , post.LastEditDate.ToString(timeFormat)));
+                        }
+                    }
+                    return string.Format(MAIN, category.CategoryName, categoryId, items.ToString());
+                }
+                else
+                {
+                    return string.Format(MAIN, "分类ID设置错误", "", "");
+                }
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
 
-        public string GetHtmlContent()
+        #endregion
+
+        public ModPostList()
         {
-            //StringBuilder template = new StringBuilder(FileAccess.ReadFile(basePath + @"mod_postlist\template.html"));
-
-            ////应从UniqueStudio.BLL.Module.ModuleControlsManager获取
-            //Dictionary<string, string> settings = GetControlSettings();
-
-            //template.Replace("{CategoryName}", settings["CategoryName"]);
-
-            //Regex rForeach = new Regex(@"<us:foreach[^/>]*>[\s\S]*?</us:foreach>");
-            //Regex rForeachInside = new Regex(@"(?<=<us:foreach[^/>]*>)[\s\S]*?(?=</us:foreach>)");
-            //string foreachInside = Regex.Match(template).Value;
-            //StringBuilder sb = new StringBuilder();
-
-            //PostManager manager = new PostManager();
-            //PostCollection posts = manager.GetPostListByCategoryId(1, Convert.ToInt32(settings["number"]),
-            //                                                                                    Convert.ToInt32(settings["categoryId"]));
-            //foreach (PostInfo post in post)
-            //{
-            //    //string temp = 
-            //}
-            throw new NotImplementedException();
-        }
-
-        private Dictionary<string, string> GetControlSettings()
-        {
-            Dictionary<string, string> settings = new Dictionary<string, string>();
-            return settings;
         }
     }
 }

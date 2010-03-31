@@ -15,7 +15,7 @@
                         插件名称：<asp:Literal ID="ltlPlugInName" runat="server" />
                     </td>
                     <td>
-                        插件名称：<asp:Literal ID="ltlDisplayName" runat="server" />
+                        插件显示名称：<asp:Literal ID="ltlDisplayName" runat="server" />
                     </td>
                     <td>
                         作者：<asp:Literal ID="ltlAuthor" runat="server" />
@@ -83,7 +83,8 @@
                         <asp:ListItem Value="stop" Text="停用" />
                         <asp:ListItem Value="delete" Text="删除" />
                     </asp:DropDownList>
-                    <asp:Button ID="btnExcute" runat="server" Text="执行" OnClick="btnExcute_Click" OnClientClick="if (selectcheck('chkSelected')) return confirm('您确定执行你所选的操作吗？');" />
+                    <asp:Button ID="btnExcute" runat="server" Text="执行" OnClick="btnExcute_Click" 
+                    OnClientClick="if (selectcheck('chkSelected')) return confirm('您确定执行你所选的操作吗？'); else return false;" />
                 </div>
             </div>
         </div>

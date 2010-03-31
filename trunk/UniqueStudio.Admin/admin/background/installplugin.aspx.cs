@@ -18,7 +18,7 @@ namespace UniqueStudio.Admin.admin.background
 {
     public partial class installplugin : Controls.AdminBasePage
     {
-        private const string plugInsFolder = "admin/plugins/";
+        private const string PLUGINS_FOLDER = "admin/plugins/";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,7 +33,7 @@ namespace UniqueStudio.Admin.admin.background
             try
             {
                 ddlFolders.Items.Clear();
-                string[] directories = Directory.GetDirectories(Server.MapPath("~/" + plugInsFolder));
+                string[] directories = Directory.GetDirectories(Server.MapPath("~/" + PLUGINS_FOLDER));
                 foreach (string directory in directories)
                 {
                     DirectoryInfo info = new DirectoryInfo(directory);
@@ -51,17 +51,17 @@ namespace UniqueStudio.Admin.admin.background
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage("数据读取失败：" + ex.Message);
+                message.SetErrorMessage("目录信息读取失败：" + ex.Message);
             }
         }
 
         protected void btnInstall_Click(object sender, EventArgs e)
         {
-            string path = PathHelper.PathCombine(plugInsFolder, ddlFolders.SelectedItem.Value);
-            PlugInManager manager = new PlugInManager();
+            string path = PathHelper.PathCombine(PLUGINS_FOLDER, ddlFolders.SelectedItem.Value);
+
             try
             {
-                PlugInInfo plugin = manager.ReadInstallFile(CurrentUser, path);
+                PlugInInfo plugin = (new PlugInManager()).ReadInstallFile(CurrentUser, path);
                 ltlPlugInName.Text = plugin.PlugInName;
                 ltlDisplayName.Text = plugin.DisplayName;
                 ltlPlugInAuthor.Text = plugin.PlugInAuthor;
@@ -78,7 +78,7 @@ namespace UniqueStudio.Admin.admin.background
 
         protected void btnOk_Click(object sender, EventArgs e)
         {
-            string path = PathHelper.PathCombine(plugInsFolder, ddlFolders.SelectedItem.Value);
+            string path = PathHelper.PathCombine(PLUGINS_FOLDER, ddlFolders.SelectedItem.Value);
             int siteId = Converter.IntParse(ddlSites.SelectedValue, 0);
 
             try

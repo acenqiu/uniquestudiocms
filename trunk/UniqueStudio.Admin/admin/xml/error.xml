@@ -68,4 +68,44 @@ Parameter name: assemblyString
     <Time>2010-03-28T20:48:45.7096927+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Procedure or function 'GetAllModuleControls' expects parameter '@SiteID', which was not supplied.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Procedure or function 'GetAllModuleControls' expects parameter '@SiteID', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at UniqueStudio.Common.DatabaseHelper.SqlHelper.ExecuteReader(CommandType cmdType, String cmdText, SqlParameter[] commandParameters) in E:\Projects\CMS\Source\CMS\UniqueStudio.Common\DatabaseHelper\SqlHelper.cs:line 163
+   at UniqueStudio.DAL.Module.SqlModuleControlProvider.GetAllModuleControls(Int32 siteId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Module\SqlModuleControlProvider.cs:line 64
+   at UniqueStudio.Core.Module.ModuleControlManager.GetAllModuleControls(UserInfo currentUser, Int32 siteId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Module\ModuleControlManager.cs:line 138</RepresentationString>
+    <Time>2010-03-29T21:32:12.250036+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Procedure or function 'CreateModuleControl' expects parameter '@Config', which was not supplied.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Procedure or function 'CreateModuleControl' expects parameter '@Config', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at UniqueStudio.DAL.Module.SqlModuleControlProvider.CreateModuleControl(ModuleControlInfo control) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Module\SqlModuleControlProvider.cs:line 68
+   at UniqueStudio.Core.Module.ModuleControlManager.CreateModuleControl(UserInfo currentUser, ModuleControlInfo control) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Module\ModuleControlManager.cs:line 82</RepresentationString>
+    <Time>2010-03-30T09:46:54.0326778+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>

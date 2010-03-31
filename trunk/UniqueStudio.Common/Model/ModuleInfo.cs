@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UniqueStudio.Common.Model
 {
     /// <summary>
-    /// 表示模块的实体类
+    /// 表示模块的实体类。
     /// </summary>
     [Serializable]
     public class ModuleInfo
@@ -15,18 +13,20 @@ namespace UniqueStudio.Common.Model
         private string displayName;
         private string moduleAuthor;
         private string description;
-        private string installFilePath;
-        private string parameters;
+        private string classPath;
+        private string assembly;
+        private string workingPath;
+        private string config;
 
         /// <summary>
-        /// 初始化<see cref="ModuleInfo"/>类的实例
+        /// 初始化<see cref="ModuleInfo"/>类的实例。
         /// </summary>
         public ModuleInfo()
         {
         }
 
         /// <summary>
-        /// 模块ID
+        /// 模块ID。
         /// </summary>
         public int ModuleId
         {
@@ -34,7 +34,7 @@ namespace UniqueStudio.Common.Model
             set { moduleId = value; }
         }
         /// <summary>
-        /// 模块名称
+        /// 模块名称。
         /// </summary>
         public string ModuleName
         {
@@ -42,7 +42,7 @@ namespace UniqueStudio.Common.Model
             set { moduleName = value; }
         }
         /// <summary>
-        /// 模块显示名
+        /// 模块显示名。
         /// </summary>
         public string DisplayName
         {
@@ -50,7 +50,7 @@ namespace UniqueStudio.Common.Model
             set { displayName = value; }
         }
         /// <summary>
-        /// 模块作者
+        /// 模块作者。
         /// </summary>
         public string ModuleAuthor
         {
@@ -58,7 +58,7 @@ namespace UniqueStudio.Common.Model
             set { moduleAuthor = value; }
         }
         /// <summary>
-        /// 模块说明
+        /// 模块说明。
         /// </summary>
         public string Description
         {
@@ -66,20 +66,36 @@ namespace UniqueStudio.Common.Model
             set { description = value; }
         }
         /// <summary>
-        /// 模块安装文件路径
+        /// 类名。
         /// </summary>
-        public string InstallFilePath
+        public string ClassPath
         {
-            get { return installFilePath; }
-            set { installFilePath = value; }
+            get { return classPath; }
+            set { classPath = value; }
         }
         /// <summary>
-        /// 参数
+        /// 程序集名称。
         /// </summary>
-        public string Parameters
+        public string Assembly
         {
-            get { return parameters; }
-            set { parameters = value; }
+            get { return assembly; }
+            set { assembly = value; }
+        }
+        /// <summary>
+        /// 模块工作路径。
+        /// </summary>
+        public string WorkingPath
+        {
+            get { return workingPath; }
+            set { workingPath = value; }
+        }
+        /// <summary>
+        /// 参数。
+        /// </summary>
+        public string Config
+        {
+            get { return config; }
+            set { config = value; }
         }
     }
 }

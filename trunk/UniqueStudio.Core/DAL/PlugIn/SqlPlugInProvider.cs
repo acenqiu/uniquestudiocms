@@ -450,7 +450,7 @@ namespace UniqueStudio.DAL.PlugIn
         private bool SetPlugInStatus(int instanceId, bool isEnabled)
         {
             SqlParameter[] parms = new SqlParameter[]{
-                                                        new SqlParameter("@instanceId",instanceId),
+                                                        new SqlParameter("@InstanceID",instanceId),
                                                         new SqlParameter("@IsEnabled",isEnabled)};
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, SET_PLUGIN_STATUS, parms) > 0;
         }
@@ -462,7 +462,7 @@ namespace UniqueStudio.DAL.PlugIn
                 using (SqlCommand cmd = new SqlCommand(SET_PLUGIN_STATUS, conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@instanceId", SqlDbType.Int);
+                    cmd.Parameters.Add("@InstanceID", SqlDbType.Int);
                     cmd.Parameters.AddWithValue("@IsEnabled", isEnabled);
 
                     conn.Open();

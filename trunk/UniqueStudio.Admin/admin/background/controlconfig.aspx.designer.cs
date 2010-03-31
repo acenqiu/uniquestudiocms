@@ -11,7 +11,7 @@
 namespace UniqueStudio.Admin.admin.background {
     
     
-    public partial class editcontrol {
+    public partial class controlconfig {
         
         /// <summary>
         /// message control.
@@ -23,31 +23,49 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::UniqueStudio.Admin.admin.controls.Message message;
         
         /// <summary>
-        /// ltlControlId control.
+        /// validationSummary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlControlId;
+        protected global::System.Web.UI.WebControls.ValidationSummary validationSummary;
         
         /// <summary>
-        /// ltlModuleName control.
+        /// txtControlName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlModuleName;
+        protected global::System.Web.UI.WebControls.TextBox txtControlName;
         
         /// <summary>
-        /// btnEnable control.
+        /// require1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEnable;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator require1;
+        
+        /// <summary>
+        /// hfOldControlName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfOldControlName;
+        
+        /// <summary>
+        /// chkIsEnabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkIsEnabled;
         
         /// <summary>
         /// config control.

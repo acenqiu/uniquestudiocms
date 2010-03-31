@@ -1,5 +1,5 @@
-﻿<%@ Page MasterPageFile="~/admin/background/background.Master" Language="C#" AutoEventWireup="true" CodeBehind="installplugin.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.installplugin" %>
-<%@ Register Src="~/admin/controls/Message.ascx" TagPrefix="US" TagName="Message" %>
+﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true" CodeBehind="installplugin.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.installplugin" %>
+<%@ Register Src="../controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 
 <asp:Content ID="content" ContentPlaceHolderID="cphBody" runat="server">
   <div class="tip">
