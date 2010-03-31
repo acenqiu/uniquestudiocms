@@ -65,6 +65,7 @@
     <Compile Include="ErrorLogging\ErrorLogger.cs" />
     <Compile Include="Exceptions\CompenentInstallException.cs" />
     <Compile Include="Exceptions\CompenentUninstallException.cs" />
+    <Compile Include="Exceptions\ControlNotFoundException.cs" />
     <Compile Include="Exceptions\DatabaseException.cs" />
     <Compile Include="Exceptions\InvalidPermissionException.cs" />
     <Compile Include="Exceptions\ModeluInstallException.cs" />

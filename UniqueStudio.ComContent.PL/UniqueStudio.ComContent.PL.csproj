@@ -144,13 +144,6 @@
     <Compile Include="controls\Pagination.ascx.designer.cs">
       <DependentUpon>Pagination.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\PostList.ascx.cs">
-      <DependentUpon>PostList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\PostList.ascx.designer.cs">
-      <DependentUpon>PostList.ascx</DependentUpon>
-    </Compile>
     <Compile Include="controls\PostStat.ascx.cs">
       <DependentUpon>PostStat.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -242,7 +235,6 @@
     <Content Include="admin\Site.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="controls\PostList.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="list.aspx" />
     <Content Include="Site.Master" />

@@ -41,6 +41,7 @@
     <Compile Include="Core\Category\CategoryManager.cs" />
     <Compile Include="Core\Compenent\CompenentManager.cs" />
     <Compile Include="Core\Menu\MenuManager.cs" />
+    <Compile Include="Core\Module\IModule.cs" />
     <Compile Include="Core\Module\ModuleControlManager.cs" />
     <Compile Include="Core\Module\ModuleManager.cs" />
     <Compile Include="Core\PageVisit\PageVisitManager.cs" />

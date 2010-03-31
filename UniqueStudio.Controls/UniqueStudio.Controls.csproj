@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -43,6 +44,7 @@
     <Compile Include="AdminBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Module.cs" />
     <Compile Include="PlBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -52,6 +54,10 @@
     <ProjectReference Include="..\UniqueStudio.Common\UniqueStudio.Common.csproj">
       <Project>{B9EC7556-3B7A-4357-920B-94EE1313FF95}</Project>
       <Name>UniqueStudio.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniqueStudio.Core\UniqueStudio.Core.csproj">
+      <Project>{F9D2C679-CD07-49AA-BD9C-B28F6BB14F20}</Project>
+      <Name>UniqueStudio.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -83,6 +83,7 @@ namespace UniqueStudio.Core.PlugIn
         {
             Validator.CheckStringNull(plugInName, "plugInName");
             Validator.CheckNegative(siteId, "siteId");
+            Validator.CheckStringNull(key, "key");
 
             PlugInInstanceInfo instance = GetInstanceBasicInfo(plugInName, siteId);
             if (instance != null)
@@ -444,7 +445,20 @@ namespace UniqueStudio.Core.PlugIn
                 instance.IsEnabled = true;
                 plugIn.Instances.Add(instance);
 
-                plugIn = provider.CreatePlugIn(plugIn);
+                try
+                {
+                    plugIn = provider.CreatePlugIn(plugIn);
+                }
+                catch (DbException ex)
+                {
+                    ErrorLogger.LogError(ex);
+                    throw new DatabaseException();
+                }
+                catch (Exception ex)
+                {
+                    ErrorLogger.LogError(ex);
+                    throw new UnhandledException();
+                }
                 if (plugIn != null)
                 {
                     try
@@ -531,7 +545,7 @@ namespace UniqueStudio.Core.PlugIn
         /// 读取插件安装文件。
         /// </summary>
         /// <param name="currentUser">执行该方法的用户信息。</param>
-        /// <param name="workingPath">安装文件路径。</param>
+        /// <param name="workingPath">插件工作路径。</param>
         /// <returns>待安装插件信息。</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
         /// 当用户没有安装插件的权限时抛出该异常。</exception>
@@ -545,9 +559,7 @@ namespace UniqueStudio.Core.PlugIn
 
             XmlManager manager = new XmlManager();
             XmlDocument doc = manager.LoadXml(path);
-            PlugInInfo plugin = (PlugInInfo)manager.ConvertToEntity(doc, typeof(PlugInInfo), "/install/*");
-            plugin.WorkingPath = workingPath;
-            return plugin;
+            return (PlugInInfo)manager.ConvertToEntity(doc, typeof(PlugInInfo), "/install/*");
         }
 
         /// <summary>
@@ -903,7 +915,7 @@ namespace UniqueStudio.Core.PlugIn
 
             try
             {
-                List<IPlugIn> SucceedPlugIns = new List<IPlugIn>(plugInIds.Length);
+                List<IPlugIn> succeedPlugIns = new List<IPlugIn>(plugInIds.Length);
                 try
                 {
                     foreach (int plugInId in plugInIds)
@@ -918,13 +930,13 @@ namespace UniqueStudio.Core.PlugIn
                         IPlugIn p = (IPlugIn)Assembly.Load(plugIn.Assembly).CreateInstance(plugIn.ClassPath);
                         p.UnRegister();
 
-                        SucceedPlugIns.Add(p);
+                        succeedPlugIns.Add(p);
                     }
                 }
                 catch (Exception ex)
                 {
                     ErrorLogger.LogError(ex);
-                    foreach (IPlugIn p in SucceedPlugIns)
+                    foreach (IPlugIn p in succeedPlugIns)
                     {
                         p.Register();
                     }
@@ -938,7 +950,7 @@ namespace UniqueStudio.Core.PlugIn
                 }
                 else
                 {
-                    foreach (IPlugIn p in SucceedPlugIns)
+                    foreach (IPlugIn p in succeedPlugIns)
                     {
                         p.Register();
                     }

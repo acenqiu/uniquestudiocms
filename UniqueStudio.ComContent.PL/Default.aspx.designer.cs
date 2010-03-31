@@ -14,13 +14,13 @@ namespace UniqueStudio.ComContent.PL {
     public partial class Default {
         
         /// <summary>
-        /// pltongzhi control.
+        /// plIndex1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.controls.PostList pltongzhi;
+        protected global::UniqueStudio.Controls.Module plIndex1;
         
         /// <summary>
         /// Calendar1 control.
@@ -50,30 +50,30 @@ namespace UniqueStudio.ComContent.PL {
         protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
-        /// plxinwen control.
+        /// plIndex2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.controls.PostList plxinwen;
+        protected global::UniqueStudio.Controls.Module plIndex2;
         
         /// <summary>
-        /// plkeyan control.
+        /// plIndex3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.controls.PostList plkeyan;
+        protected global::UniqueStudio.Controls.Module plIndex3;
         
         /// <summary>
-        /// plzhaosheng control.
+        /// plIndex4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.controls.PostList plzhaosheng;
+        protected global::UniqueStudio.Controls.Module plIndex4;
     }
 }
