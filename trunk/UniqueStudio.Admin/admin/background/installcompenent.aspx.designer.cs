@@ -23,13 +23,22 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::UniqueStudio.Admin.admin.controls.Message message;
         
         /// <summary>
-        /// txtPath control.
+        /// ddlFolders control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPath;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFolders;
+        
+        /// <summary>
+        /// ddlSites control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSites;
         
         /// <summary>
         /// btnInstall control.
@@ -84,6 +93,24 @@ namespace UniqueStudio.Admin.admin.background {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ltlDescription;
+        
+        /// <summary>
+        /// ltlAssembly control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltlAssembly;
+        
+        /// <summary>
+        /// ltlClassPath control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltlClassPath;
         
         /// <summary>
         /// btnOk control.

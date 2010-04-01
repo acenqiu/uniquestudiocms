@@ -86,6 +86,24 @@ namespace UniqueStudio.Admin.admin.background {
         protected global::System.Web.UI.WebControls.Literal ltlDescription;
         
         /// <summary>
+        /// ltlAssembly control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltlAssembly;
+        
+        /// <summary>
+        /// ltlClassPath control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltlClassPath;
+        
+        /// <summary>
         /// btnOk control.
         /// </summary>
         /// <remarks>

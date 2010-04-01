@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using UniqueStudio.Common.Config;
+using UniqueStudio.Common.Utilities;
 using UniqueStudio.Core.Module;
 
 namespace UniqueStudio.Controls
@@ -31,43 +31,51 @@ namespace UniqueStudio.Controls
             }
         }
 
-        public int SiteId
+        [DefaultValue("<%= HttpUtility.UrlEncode(Request.Url.Query) %>")]
+        public string QueryString
         {
             get
             {
-                if (ViewState["SiteId"] != null)
-                {
-                    return (int)ViewState["SiteId"];
-                }
-                else
-                {
-                    return 0;
-                }
+                String s = (String)ViewState["QueryString"];
+                return ((s == null) ? String.Empty : s);
             }
 
             set
             {
-                ViewState["SiteId"] = value;
+                ViewState["QueryString"] = value;
             }
         }
 
         protected override void Render(HtmlTextWriter writer)
         {
-            IModule module = ModuleManager.GetInstance(ModuleName);
-            if (module == null)
+            int SiteId = 0;
+            if (Context.Session[GlobalConfig.SESSION_SITEID] != null)
             {
-                writer.Write(string.Empty);
+                SiteId = (int)Context.Session[GlobalConfig.SESSION_SITEID];
             }
-            else
+
+            try
             {
-                if (ModuleControlManager.IsEnabled(SiteId, ID))
-                {
-                    writer.Write(module.RenderContents(SiteId, ID));
-                }
-                else
+                IModule module = ModuleManager.GetInstance(ModuleName);
+                if (module == null)
                 {
                     writer.Write(string.Empty);
                 }
+                else
+                {
+                    if (ModuleControlManager.IsEnabled(SiteId, ID))
+                    {
+                        writer.Write(module.RenderContents(SiteId, ID, Context.Request.QueryString));
+                    }
+                    else
+                    {
+                        writer.Write(string.Empty);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                writer.Write(string.Format("控件解析过程中出现了异常：{0}", ex.Message));
             }
         }
     }

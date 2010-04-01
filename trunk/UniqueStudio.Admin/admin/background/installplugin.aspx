@@ -24,7 +24,7 @@
         </div>
     </div> 
     <div class="panel" id="pnlInfo" runat="server" visible="false">
-        <div class="panel_title">组件信息</div>
+        <div class="panel_title">插件信息</div>
         <div class="panel_body">
             <p>以下是您即将安装的插件信息，如果没有错误请点击“确认”继续安装，
             否则点击“取消”终止安装该插件，并检查插件目录下的插件信息。</p>

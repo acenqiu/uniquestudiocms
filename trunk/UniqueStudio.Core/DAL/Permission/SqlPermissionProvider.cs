@@ -4,6 +4,12 @@
 // 完成日期：2010年03月16日
 // 版本：v1.0 alpha
 // 作者：邱江毅
+//
+// 修改记录1：
+// 修改日期：2010年03月31日
+// 版本号：v1.0 alpha
+// 修改人：邱江毅
+// 修改内容：+）bool CreatePermissions(SqlConnection conn, SqlCommand cmd, PermissionCollection permissions)
 //=================================================================
 using System;
 using System.Data;
@@ -278,6 +284,42 @@ namespace UniqueStudio.DAL.Permission
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 创建多个权限。
+        /// </summary>
+        /// <param name="conn">数据库连接。</param>
+        /// <param name="cmd">数据库命令。</param>
+        /// <param name="role">待更新角色。</param>
+        /// <returns>是否创建成功。</returns>
+        public bool CreatePermissions(SqlConnection conn, SqlCommand cmd, PermissionCollection permissions)
+        {
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+
+            cmd.CommandText = CREATE_PERMISSION;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
+            cmd.Parameters.Add("@PermissionName", SqlDbType.NVarChar, 50);
+            cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 255);
+            cmd.Parameters.Add("@Provider", SqlDbType.NVarChar, 50);
+
+            foreach (PermissionInfo permission in permissions)
+            {
+                cmd.Parameters[0].Value = permission.PermissionName;
+                cmd.Parameters[1].Value = permission.Description;
+                cmd.Parameters[2].Value = permission.Provider;
+
+                object o = cmd.ExecuteScalar();
+                if (o == null || DBNull.Value == o)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /// <summary>

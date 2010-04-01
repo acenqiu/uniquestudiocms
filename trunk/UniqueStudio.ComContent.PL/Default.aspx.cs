@@ -27,11 +27,6 @@ namespace UniqueStudio.ComContent.PL
                     }
                     Response.Cookies[GlobalConfig.COOKIE][GlobalConfig.COOKIE_SITEID] = SiteId.ToString();
                 }
-
-                plIndex1.SiteId = SiteId;
-                plIndex2.SiteId = SiteId;
-                plIndex3.SiteId = SiteId;
-                plIndex4.SiteId = SiteId;
             }
         }
 

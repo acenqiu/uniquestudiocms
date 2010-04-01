@@ -14,7 +14,7 @@ using UniqueStudio.Common.Model;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class compenentlist : System.Web.UI.Page
+    public partial class compenentlist : Controls.AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,10 +26,17 @@ namespace UniqueStudio.Admin.admin.background
 
         private void GetData()
         {
-            CompenentManager manager = new CompenentManager();
-            CompenentCollection collection = manager.GetAllCompenents();
-            rptList.DataSource = collection;
-            rptList.DataBind();
+            try
+            {
+                CompenentManager manager = new CompenentManager();
+                CompenentCollection collection = manager.GetAllCompenents(CurrentUser);
+                rptList.DataSource = collection;
+                rptList.DataBind();
+            }
+            catch (Exception ex)
+            {
+                message.SetErrorMessage("数据读取失败：" + ex.Message);
+            }
         }
     }
 }

@@ -108,4 +108,17 @@ Parameter name: assemblyString
     <Time>2010-03-30T09:46:54.0326778+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>WorkingPath</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: WorkingPath
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.DAL.Compenent.SqlCompenentProvider.FillCompenentInfo(SqlDataReader reader) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Compenent\SqlCompenentProvider.cs:line 131
+   at UniqueStudio.DAL.Compenent.SqlCompenentProvider.GetAllCompenents() in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Compenent\SqlCompenentProvider.cs:line 106
+   at UniqueStudio.Core.Compenent.CompenentManager.GetAllCompenents(UserInfo currentUser) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Compenent\CompenentManager.cs:line 67</RepresentationString>
+    <Time>2010-03-31T21:42:51.8687067+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>

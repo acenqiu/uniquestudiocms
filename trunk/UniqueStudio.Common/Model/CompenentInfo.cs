@@ -1,24 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace UniqueStudio.Common.Model
 {
     /// <summary>
-    /// 表示组件的实体类
+    /// 表示组件的实体类。
     /// </summary>
     [Serializable]
     public class CompenentInfo
     {
         private int compenentId;
+        private int siteId;
+        private string siteName;
         private string compenentName;
         private string displayName;
         private string compenentAuthor;
         private string description;
-        private string installFilePath;
+        private string classPath;
+        private string assembly;
+        private string workingPath;
+        private string config;
+        private PermissionCollection permissions = null;
 
         /// <summary>
-        /// 初始化<see cref="CompenentInfo"/>类的实例
+        /// 初始化<see cref="CompenentInfo"/>类的实例。
         /// </summary>
         public CompenentInfo()
         {
@@ -26,7 +30,7 @@ namespace UniqueStudio.Common.Model
         }
 
         /// <summary>
-        /// 组件ID
+        /// 组件ID。
         /// </summary>
         public int CompenentId
         {
@@ -34,7 +38,23 @@ namespace UniqueStudio.Common.Model
             set { compenentId = value; }
         }
         /// <summary>
-        /// 组件名称
+        /// 网站ID。
+        /// </summary>
+        public int SiteId
+        {
+            get { return siteId; }
+            set { siteId = value; }
+        }
+        /// <summary>
+        /// 网站名称。
+        /// </summary>
+        public string SiteName
+        {
+            get { return siteName; }
+            set { siteName = value; }
+        }
+        /// <summary>
+        /// 组件名称。
         /// </summary>
         public string CompenentName
         {
@@ -42,7 +62,7 @@ namespace UniqueStudio.Common.Model
             set { compenentName = value; }
         }
         /// <summary>
-        /// 组件显示名
+        /// 组件显示名。
         /// </summary>
         public string DisplayName
         {
@@ -50,7 +70,7 @@ namespace UniqueStudio.Common.Model
             set { displayName = value; }
         }
         /// <summary>
-        /// 组件作者
+        /// 组件作者。
         /// </summary>
         public string CompenentAuthor
         {
@@ -58,7 +78,7 @@ namespace UniqueStudio.Common.Model
             set { compenentAuthor = value; }
         }
         /// <summary>
-        /// 组件描述
+        /// 组件描述。
         /// </summary>
         public string Description
         {
@@ -66,12 +86,45 @@ namespace UniqueStudio.Common.Model
             set { description = value; }
         }
         /// <summary>
-        /// 安装文件路径
+        /// 类名。
         /// </summary>
-        public string InstallFilePath
+        /// <remarks>API层类名。</remarks>
+        public string ClassPath
         {
-            get { return installFilePath; }
-            set { installFilePath = value; }
+            get { return classPath; }
+            set { classPath = value; }
+        }
+        /// <summary>
+        /// 程序集名称。
+        /// </summary>
+        public string Assembly
+        {
+            get { return assembly; }
+            set { assembly = value; }
+        }
+        /// <summary>
+        /// 组件工作路径。
+        /// </summary>
+        public string WorkingPath
+        {
+            get { return workingPath; }
+            set { workingPath = value; }
+        }
+        /// <summary>
+        /// 配置信息。
+        /// </summary>
+        public string Config
+        {
+            get { return config; }
+            set { config = value; }
+        }
+        /// <summary>
+        /// 权限列表。
+        /// </summary>
+        public PermissionCollection Permissions
+        {
+            get { return permissions; }
+            set { permissions = value; }
         }
     }
 }

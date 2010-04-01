@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<install type="module">
+  <ModuleName>mod_friendlylink</ModuleName>
+  <DisplayName>友情链接模块</DisplayName>
+  <ModuleAuthor>Unique Studio</ModuleAuthor>
+  <Description> </Description>
+  <ClassPath>UniqueStudio.ModFriendlyLink.ModFriendlyLink</ClassPath>
+  <Assembly>UniqueStudio.ModFriendlyLink</Assembly>
+  <params>
+    <param name="MenuId" type="text" default="1" value="1" label="菜单ID" description="菜单ID。" />
+  </params>
+</install>
