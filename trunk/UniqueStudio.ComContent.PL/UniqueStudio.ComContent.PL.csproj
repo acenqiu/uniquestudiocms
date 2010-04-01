@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{522567A4-DBFA-483C-B6E9-A60A1C79CF4A}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -233,7 +233,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ComCalendar\ComCalendar.csproj">
+    <ProjectReference Include="..\UniqueStudio.ComCalendar\UniqueStudio.ComCalendar.csproj">
       <Project>{BA0CB377-0B09-48A9-8628-DA1AFC4B80E9}</Project>
       <Name>ComCalendar</Name>
     </ProjectReference>
