@@ -4,6 +4,12 @@
 // 完成日期：2010年03月21日
 // 版本：v0.8
 // 作者：任浩玮
+//
+// 修改记录1：
+// 修改时间：2010年04月01日
+// 版本：v0.85
+// 修改人：邱江毅
+// 修改内容：*)PostStatCollection GetPostStat(int categoryId, bool isByYear);
 //=================================================================
 using System;
 using System.Data.Common;
@@ -310,13 +316,14 @@ namespace UniqueStudio.ComContent.BLL
         /// <summary>
         /// 返回文章数量统计信息。
         /// </summary>
+        /// <param name="categoryId">分类ID。</param>
         /// <param name="isByYear">是否按年统计文章数量。</param>
         /// <returns>文章数量信息的集合。</returns>
-        public PostStatCollection GetPostStat(bool isByYear)
+        public PostStatCollection GetPostStat(int categoryId, bool isByYear)
         {
             try
             {
-                return provider.GetPostStat(isByYear);
+                return provider.GetPostStat(categoryId, isByYear);
             }
             catch (DbException ex)
             {
@@ -436,10 +443,12 @@ namespace UniqueStudio.ComContent.BLL
         /// <param name="siteId">网站ID。</param>
         /// <param name="startTime">开始时间。</param>
         /// <param name="endTime">结束时间。</param>
+        /// <param name="categoryId">分类ID,设为0表示所有分类。</param>
         /// <returns>文章列表。</returns>
-        public PostCollection SearchPostsByTime(int siteId, DateTime startTime, DateTime endTime)
+        public PostCollection SearchPostsByTime(int siteId, DateTime startTime, DateTime endTime, int categoryId)
         {
             Validator.CheckNotPositive(siteId, "siteId");
+            Validator.CheckNegative(categoryId, "categoryId");
             if (startTime == DateTime.MinValue && endTime == DateTime.MinValue)
             {
                 throw new ArgumentNullException();
@@ -459,7 +468,7 @@ namespace UniqueStudio.ComContent.BLL
 
             try
             {
-                return provider.SearchPostsByTime(siteId, startTime, endTime);
+                return provider.SearchPostsByTime(siteId, startTime, endTime, categoryId);
             }
             catch (DbException ex)
             {

@@ -168,13 +168,6 @@
     <Compile Include="controls\Pagination.ascx.designer.cs">
       <DependentUpon>Pagination.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\PostStat.ascx.cs">
-      <DependentUpon>PostStat.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\PostStat.ascx.designer.cs">
-      <DependentUpon>PostStat.ascx</DependentUpon>
-    </Compile>
     <Compile Include="controls\SubCategories.ascx.cs">
       <DependentUpon>SubCategories.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -618,7 +611,6 @@
     <Content Include="admin\toolTip.js" />
     <Content Include="controls\Pagination.ascx" />
     <Content Include="css\article-style.css" />
-    <Content Include="controls\PostStat.ascx" />
     <Content Include="controls\SubCategories.ascx" />
     <Content Include="admin\fileup.js" />
     <Content Include="images\1.jpg" />

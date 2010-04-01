@@ -307,13 +307,16 @@ namespace UniqueStudio.ComContent.DAL
         /// <summary>
         /// 返回文章数量统计信息。
         /// </summary>
+        /// <param name="categoryId">分类ID。</param>
         /// <param name="isByYear">是否按年统计文章数量。</param>
         /// <returns>文章数量信息的集合。</returns>
-        public PostStatCollection GetPostStat(bool isByYear)
+        public PostStatCollection GetPostStat(int categoryId, bool isByYear)
         {
             PostStatCollection collection = new PostStatCollection();
-            SqlParameter parm = new SqlParameter("@IsByYear", isByYear);
-            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_POSTSTAT, parm))
+            SqlParameter[] parms = new SqlParameter[]{
+                                                        new SqlParameter("@CategoryID",categoryId),
+                                                        new SqlParameter("@IsByYear", isByYear)};
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_POSTSTAT, parms))
             {
                 if (isByYear)
                 {
@@ -630,7 +633,6 @@ namespace UniqueStudio.ComContent.DAL
                     {
                         post.Summary = (string)reader["Summary"];
                     }
-                    post.PostDisplay = Convert.ToInt32(reader["PostDisplay"]);
                     collection.Add(post);
                 }
             }
@@ -672,7 +674,6 @@ namespace UniqueStudio.ComContent.DAL
                     {
                         post.Summary = (string)reader["Summary"];
                     }
-                    post.PostDisplay = Convert.ToInt32(reader["PostDisplay"]);
                     collection.Add(post);
                 }
             }
@@ -685,13 +686,15 @@ namespace UniqueStudio.ComContent.DAL
         /// <param name="siteId">网站ID。</param>
         /// <param name="startTime">开始时间。</param>
         /// <param name="endTime">结束时间。</param>
+        /// <param name="categoryId">分类ID。</param>
         /// <returns>文章列表。</returns>
-        public PostCollection SearchPostsByTime(int siteId, DateTime startTime, DateTime endTime)
+        public PostCollection SearchPostsByTime(int siteId, DateTime startTime, DateTime endTime, int categoryId)
         {
             SqlParameter[] parms = new SqlParameter[]{
                                                         new SqlParameter("@SiteID",siteId),
                                                         new SqlParameter("@StartDate", startTime),
-                                                        new SqlParameter("@EndDate",endTime)};
+                                                        new SqlParameter("@EndDate",endTime),
+                                                        new SqlParameter("@CategoryID",categoryId)};
             PostCollection collection = new PostCollection();
             using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, SEARCH_POSTS_BY_TIME, parms))
             {
@@ -716,7 +719,6 @@ namespace UniqueStudio.ComContent.DAL
                     {
                         post.Summary = (string)reader["Summary"];
                     }
-                    post.PostDisplay = Convert.ToInt32(reader["PostDisplay"]);
                     collection.Add(post);
                 }
             }

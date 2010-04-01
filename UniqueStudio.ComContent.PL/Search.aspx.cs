@@ -44,9 +44,10 @@ namespace UniqueStudio.ComContent.PL
                     }
                     else if (Request.QueryString["start"] != null && Request.QueryString["end"] != null)
                     {
-                        DateTime startTime = Converter.DatetimeParse(Request.QueryString["start"], new DateTime());
-                        DateTime endTime = Converter.DatetimeParse(Request.QueryString["end"], new DateTime());
-                        collection = manager.SearchPostsByTime(SiteId, startTime, endTime);
+                        DateTime startTime = Converter.DatetimeParse(Request.QueryString["start"], DateTime.MinValue);
+                        DateTime endTime = Converter.DatetimeParse(Request.QueryString["end"], DateTime.MinValue);
+                        int categoryId = Converter.IntParse(Request.QueryString["catId"], 0);
+                        collection = manager.SearchPostsByTime(SiteId, startTime, endTime, categoryId);
                     }
                     else
                     {

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="sidebar.aspx.cs" Inherits="UniqueStudio.Admin.admin.sidebar" %>
-
+<%@ Import Namespace="UniqueStudio.Core.Site" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -15,6 +15,7 @@
         <div class="admin-navigation">
             <ul>
                 <asp:Panel ID="pnlSite" runat="server">
+                    <li><a href='<%= SiteManager.BaseAddress(SiteId)  %>' target="_top">进入网站</a></li>
                     <li class="menu-activeted" onclick="javascript:changestate(this)"><span>文章组件</span>
                         <span class="collapse-icon"></span>
                         <div class="candy-menu">

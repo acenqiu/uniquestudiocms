@@ -27,15 +27,12 @@ namespace UniqueStudio.Common.Config
         //Boolean
         private bool isDeleteChildCategories = false;
         private bool isDisplayTime = true;
-        private bool postStatByYear = false;
 
         //string
         private string webName = string.Empty;
-        private string timeFormatOfIndexPostList = "yyyy-MM-dd";
         private string timeFormatOfSectionPostList = "yyyy-MM-dd";
 
         //int
-        private int pageSizeOfIndexPostList = 9;
         private int pageSizeOfSectionPostList = 20;
         private int newImageThreshold = 7;
 
@@ -57,15 +54,6 @@ namespace UniqueStudio.Common.Config
             get { return isDisplayTime; }
             set { isDisplayTime = value; }
         }
-        /// <summary>
-        /// 是否根据年统计文章数量
-        /// </summary>
-        /// <remarks>可能在后续版本中修改</remarks>
-        public bool PostStatByYear
-        {
-            get { return postStatByYear; }
-            set { postStatByYear = value; }
-        }
 
         //string
         /// <summary>
@@ -75,15 +63,6 @@ namespace UniqueStudio.Common.Config
         {
             get { return webName; }
             set { webName = value; }
-        }
-        /// <summary>
-        /// 首页文章列表时间显示格式
-        /// </summary>
-        /// <remarks>可能在后续版本中移除</remarks>
-        public string TimeFormatOfIndexPostList
-        {
-            get { return timeFormatOfIndexPostList; }
-            set { timeFormatOfIndexPostList = value; }
         }
         /// <summary>
         /// 子页面文章列表时间显示格式
@@ -96,14 +75,6 @@ namespace UniqueStudio.Common.Config
         }
 
         //int
-        /// <summary>
-        /// 首页文章列表显示数量
-        /// </summary>
-        public int PageSizeOfIndexPostList
-        {
-            get { return pageSizeOfIndexPostList; }
-            set { pageSizeOfIndexPostList = value; }
-        }
         /// <summary>
         /// 子页面文章列表显示数量
         /// </summary>
