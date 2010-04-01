@@ -52,6 +52,7 @@
         AutoSaveTimer=setInterval("AutoSave()",AutoSaveTime);
         var container=document.getElementById("fileUpArea");
         var input1=document.createElement("input");
+   
 	    input1.type="file";
 	    //input1.name="file"+inputCount;
 	    input1.name="filesupload";
@@ -65,7 +66,6 @@
 	           var str=this.value.substring(k+1);
 	           var divs=document.getElementById("filetxt").getElementsByTagName("div");
 	           var check=false;
-
 	           for(var i=0;i<divs.length;i++)
 	           {
 	             if(divs[i].innerHTML.indexOf(str)!=-1)   

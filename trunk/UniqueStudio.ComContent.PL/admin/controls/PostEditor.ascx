@@ -63,9 +63,9 @@
                 <asp:Label runat="server" ID="lblImageName" Visible="false"></asp:Label>
                 <asp:FileUpload runat="server" ID="fuNewsImage" EnableViewState="false" /></span>
             <br />
-            <span class="form-item-label">附件：</span> <span class="form-item-input">
+            <span class="form-item-label">附件：</span> <div class="form-item-input">
                 <US:Attachment ID="attcontrol" runat="server" />
-            </span>
+            </div>
             <br />
             <div id="text" runat="server">
             </div>
