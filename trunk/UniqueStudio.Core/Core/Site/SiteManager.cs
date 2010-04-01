@@ -83,10 +83,16 @@ namespace UniqueStudio.Core.Site
         /// <returns>网站根网址。</returns>
         public static string BaseAddress(int siteId)
         {
+            Validator.CheckNegative(siteId, "siteId");
+
             if (baseAddress != ServerConfig.BaseAddress)
             {
                 baseAddress = ServerConfig.BaseAddress;
                 wsBaseAddresses.Clear();
+            }
+            if (siteId == 0)
+            {
+                return ServerConfig.BaseAddress;
             }
             if (!wsBaseAddresses.ContainsKey(siteId))
             {
@@ -97,7 +103,15 @@ namespace UniqueStudio.Core.Site
                     wsBaseAddresses.Add(site.SiteId, PathHelper.PathCombine(ServerConfig.BaseAddress, site.RelativePath).Trim(new char[] { '/', '\\' }));
                 }
             }
-            return wsBaseAddresses[siteId];
+
+            if (wsBaseAddresses.ContainsKey(siteId))
+            {
+                return wsBaseAddresses[siteId];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>

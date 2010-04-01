@@ -13,6 +13,7 @@ namespace UniqueStudio.Common.Model
     public class PermissionInfo
     {
         private int permissionId;
+        private int siteId;
         private string permissionName;
         private string description = string.Empty;
         private string provider;

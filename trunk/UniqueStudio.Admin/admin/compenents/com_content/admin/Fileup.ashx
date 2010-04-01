@@ -89,6 +89,11 @@ public class Fileup : IHttpHandler
                     if (File.Exists(path))
                     {
                         File.Delete(path);
+                        context.Response.Write("附件" + filename + "删除成功！");
+                    }
+                    else
+                    {
+                        context.Response.Write("未删除指定附件，附件不存在！");
                     }
                 }
             }
