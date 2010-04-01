@@ -9,7 +9,7 @@ using System.Text;
 using UniqueStudio.ComCalendar.Model;
 using UniqueStudio.ComCalendar.BLL;
 
-namespace UniqueStudio.ComContent.PL.admin
+namespace UniqueStudio.Admin
 {
     /// <summary>
     /// Summary description for $codebehindclassname$
