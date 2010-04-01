@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabCollection>
+  <Compenents>
+    <Tab id="Content" text="文章组件" permissions="AddPost,EditAllDraftAPost,EditOwnDraftAPost,EditOwnDraftOnly,
+        DeleteAllDraftAPost,DeleteOwnDraftAPost,DeleteOwnDraftOnly" selected="true">
+      <SubTabs>
+        <Tab text="发表" permissions="AddPost" href="compenents/com_content/admin/addpost.aspx" target="right"/>
+        <Tab text="管理" permissions="EditAllDraftAPost,EditOwnDraftAPost,EditOwnDraftOnly,DeleteAllDraftAPost,
+           DeleteOwnDraftAPost,DeleteOwnDraftOnly" href="compenents/com_content/admin/addpost.aspx" target="right"/>
+      </SubTabs>
+    </Tab>
+  </Compenents>
+  <System>
+    <Tab id="Category" text="分类管理" permissions="CreateCategory,DeleteCategory,EditCategory" >
+      <SubTabs>
+        <Tab text="分类列表" permissions="CreateCategory,DeleteCategory,EditCategory" href="background/categorylist.aspx" target="right"/>
+      </SubTabs>
+    </Tab>
+    <Tab id="Menu" text="菜单管理" permissions="CreateMenu,DeleteMenu,EditMenu" >
+      <SubTabs>
+        <Tab text="菜单列表" permissions="CreateMenu,DeleteMenu,EditMenu" href="background/menulist.aspx" target="right"/>
+      </SubTabs>
+    </Tab>
+    <Tab id="Module" text="模块管理" permissions="CreateModuleControl,DeleteModuleControl,EditModuleControl,ViewModuleControl" >
+      <SubTabs>
+        <Tab text="控件列表" permissions="CreateModuleControl,DeleteModuleControl,EditModuleControl,ViewModuleControl" href="background/controllist.aspx" target="right"/>
+      </SubTabs>
+    </Tab>
+    <Tab id="Module" text="系统设置" permissions="EditSite" >
+      <SubTabs>
+        <Tab text="网站设置" permissions="EditSite" href="background/websiteconfig.aspx" target="right"/>
+      </SubTabs>
+    </Tab>
+  </System>
+</TabCollection>
