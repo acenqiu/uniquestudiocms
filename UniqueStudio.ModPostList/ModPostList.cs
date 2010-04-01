@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text;
 
 using UniqueStudio.Common.Config;
@@ -34,14 +35,14 @@ namespace UniqueStudio.ModPostList
 
         #region IModule Members
 
-        public string RenderContents(int siteId, string controlName)
+        public string RenderContents(int siteId, string controlName, NameValueCollection queryString)
         {
             try
             {
                 //获取配置信息
                 int categoryId = Converter.IntParse(ModuleControlManager.GetConfigValue(siteId, controlName, CATEGORY_ID), 1);
                 int number = Converter.IntParse(ModuleControlManager.GetConfigValue(siteId, controlName, NUMBER), 8);
-                string timeFormat = ModuleControlManager.GetConfigValue(siteId,controlName,TIME_FORMAT);
+                string timeFormat = ModuleControlManager.GetConfigValue(siteId, controlName, TIME_FORMAT);
                 int maxTitleLength = Converter.IntParse(ModuleControlManager.GetConfigValue(siteId, controlName, MAX_TITLE_LENGTH), 12);
 
                 CategoryInfo category = (new CategoryManager()).GetCategory(categoryId);

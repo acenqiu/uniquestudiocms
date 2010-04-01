@@ -51,7 +51,7 @@ namespace UniqueStudio.Admin.admin.background
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage("目录信息读取失败：" + ex.Message);
+                message.SetErrorMessage("信息读取失败：" + ex.Message);
             }
         }
 

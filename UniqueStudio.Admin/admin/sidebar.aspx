@@ -59,8 +59,8 @@
                     <li onclick="javascript:changestate(this)"><span>组件管理</span><span class="collapse-icon"></span>
                         <div class="candy-menu">
                             <ul>
-                                <li><a href="background/compenentlist.aspx" target="right">组件列表</a></li>
                                 <li><a href="background/installcompenent.aspx" target="right">组件安装</a></li>
+                                <li><a href="background/compenentlist.aspx" target="right">组件列表</a></li>
                             </ul>
                         </div>
                     </li>

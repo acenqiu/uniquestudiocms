@@ -53,5 +53,27 @@ namespace UniqueStudio.Common.Utilities
             }
             return sb.ToString();
         }
+
+        public static Dictionary<string, string> SplitToKeyValuePairs(string queryString)
+        {
+            if (string.IsNullOrEmpty(queryString))
+            {
+                return null;
+            }
+
+            queryString = queryString.TrimStart(new char[] { '?' });
+            string[] keyValues = queryString.Split(new char[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+
+            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>(keyValues.Length);
+            for (int i = 0; i < keyValues.Length; i++)
+            {
+                string[] elements = keyValues[i].Split(new char[] { '=' });
+                if (elements.Length == 2)
+                {
+                    keyValuePairs.Add(elements[0], elements[1]);
+                }
+            }
+            return keyValuePairs;
+        }
     }
 }

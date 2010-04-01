@@ -729,6 +729,7 @@
     <Content Include="admin\js\jquery.js" />
     <Content Include="admin\js\jquery.gchart.js" />
     <Content Include="admin\js\uscript-base.js" />
+    <Content Include="admin\xml\MenuOfSite1.xml" />
     <Content Include="admin\xml\SecurityConfig.xml" />
     <Content Include="admin\xml\ServerConfig.xml" />
     <Content Include="Default.aspx" />

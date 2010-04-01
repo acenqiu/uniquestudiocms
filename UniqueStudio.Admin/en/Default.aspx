@@ -13,7 +13,7 @@
 <asp:Content ID="content" ContentPlaceHolderID="cphMain" runat="server">
     <div class="index-slider">
         <div class="column mini" style="min-height: 210px">
-            <US:Module ID="plIndex1" ModuleName="mod_postlist"  runat="server" />
+            <US:Module ID="plIndex1" ModuleName="mod_postlist" runat="server" />
         </div>
         <div class="column mini" style="line-height: normal">
             <asp:Calendar ID="Calendar1" runat="server" BackColor="White" BorderColor="#999999"
@@ -37,20 +37,9 @@
                 <asp:Button ID="btnSearch" class="input-button" runat="server" Text="搜索" OnClick="btnSearch_Click" />
             </div>
         </div>
+        
         <div class="column mini">
-            <div class="column-head">
-                友情链接</div>
-            <div class="column-content">
-                <select id="Select1" style="width: 200px; margin: 10px">
-                    <option>请选择链接</option>
-                    <option onclick="javascript:window.open('http://www.fnal.gov/','blank');">FNAL</option>
-                    <option onclick="javascript:window.open('http://www.virgo.infn.it/','blank');">VIRGO</option>
-                    <option onclick="javascript:window.open('http://public.web.cern.ch/Public/Welcome.html','blank');">
-                        CERN</option>
-                    <option onclick="javascript:window.open('http://www.physics.gla.ac.uk/igr//','blank');">
-                        IGR</option>
-                </select>
-            </div>
+            <US:Module ID="friendlyLink" ModuleName="mod_friendlylink" runat="server" />
         </div>
     </div>
     <div class="index-main-content">
@@ -66,13 +55,13 @@
             </object>
         </div>
         <div class="column">
-            <US:Module ID="plIndex2" ModuleName="mod_postlist"  runat="server" />
+            <US:Module ID="plIndex2" ModuleName="mod_postlist" runat="server" />
         </div>
         <div class="column">
-            <US:Module ID="plIndex3" ModuleName="mod_postlist"  runat="server" />
+            <US:Module ID="plIndex3" ModuleName="mod_postlist" runat="server" />
         </div>
         <div class="column">
-            <US:Module ID="plIndex4" ModuleName="mod_postlist"  runat="server" />
+            <US:Module ID="plIndex4" ModuleName="mod_postlist" runat="server" />
         </div>
     </div>
 </asp:Content>

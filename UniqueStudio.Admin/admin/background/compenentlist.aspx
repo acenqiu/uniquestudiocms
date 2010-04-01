@@ -1,15 +1,9 @@
-﻿<%@ Page MasterPageFile="~/admin/background/background.Master" Language="C#" AutoEventWireup="true" CodeBehind="compenentlist.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.compenentlist" %>
+﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true" CodeBehind="compenentlist.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.compenentlist" %>
 
-<%@ Register Src="~/admin/controls/Message.ascx" TagPrefix="US" TagName="Message" %>
+<%@ Register Src="../controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 
 <asp:Content ID="content" ContentPlaceHolderID="cphBody" runat="server">
 <US:Message ID="message" runat="server" />
-    <%--<div class="panel">
-        <div class="panel_title">筛选</div>
-        <div class="panel_body">
-            
-        </div>
-    </div>--%>
     <div class="panel">
         <div class="panel_title">组件列表</div>
         <div class="panel_body">
@@ -24,7 +18,7 @@
                             <td>显示名</td>
                             <td>作者</td>
                             <td>说明</td>
-                            <td width="250px">安装文件路径</td>
+                            <td>网站名称</td>
                         </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
@@ -36,14 +30,13 @@
                         <td><%# Eval("DisplayName") %></td>
                         <td><%# Eval("CompenentAuthor")%></td>
                         <td><%# Eval("Description") %></td>
-                        <td><%# Eval("InstallFilePath") %></td>
+                        <td><%# Eval("SiteName") %></td>
                     </tr>
                 </ItemTemplate>
                 <FooterTemplate>
                   </table>
                 </FooterTemplate>
             </asp:Repeater>
-             
             <div>
             </div>
         </div>

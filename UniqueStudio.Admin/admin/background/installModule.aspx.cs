@@ -57,6 +57,8 @@ namespace UniqueStudio.Admin.admin.background
                 ltlDisplayName.Text = module.DisplayName;
                 ltlModuleAuthor.Text = module.ModuleAuthor;
                 ltlDescription.Text = module.Description;
+                ltlClassPath.Text = module.ClassPath;
+                ltlAssembly.Text = module.Assembly;
                 pnlInfo.Visible = true;
             }
             catch (Exception ex)
