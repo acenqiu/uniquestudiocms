@@ -23,6 +23,15 @@ namespace UniqueStudio.ComContent.PL {
         protected global::UniqueStudio.ComContent.PL.controls.SubCategories categories;
         
         /// <summary>
+        /// psList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UniqueStudio.Controls.Module psList;
+        
+        /// <summary>
         /// ltlCategoryLink control.
         /// </summary>
         /// <remarks>

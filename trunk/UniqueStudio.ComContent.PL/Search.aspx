@@ -23,7 +23,8 @@
                     </div>
                     <div class="result-extra-info">
                         <span class="result-link"><a href="view.aspx?uri=<%# Eval("Uri") %>"><%=SiteManager.BaseAddress(SiteId) %> %>/view.aspx?uri=<%# Eval("Uri") %></a></span>
-                        <span class="result-author">作者：<%# Eval("Author") %></span> <span class="result-publish-date">
+                       <span class="result-author">作者：<%# Eval("Author") %></span> 
+                       <span class="result-publish-date">
                             发表时间：<%# Eval("LastEditDate") %></span>
                     </div>
                 </div>

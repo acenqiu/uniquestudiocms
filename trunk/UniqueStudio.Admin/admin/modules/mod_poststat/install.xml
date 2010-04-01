@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<install type="module">
+  <ModuleName>mod_poststat</ModuleName>
+  <DisplayName>文章统计模块</DisplayName>
+  <ModuleAuthor>Unique Studio</ModuleAuthor>
+  <Description>  </Description>
+  <ClassPath>UniqueStudio.ModPostStat.ModPostStat</ClassPath>
+  <Assembly>UniqueStudio.ModPostStat</Assembly>
+  <params>
+    <param name="ColumnTitle" type="text" default="文章统计" value="文章统计" label="栏目名称" description="栏目名称。" />
+    <param name="CategoryIds" type="text" default="1" value="1" label="需统计的分类ID" description="需统计的分类ID，以逗号分隔；*表示对所有分类。" />
+    <param name="PostStatByYear" type="radio" value="false" label="统计文章数量的方式" title="统计文章数量的方式。">
+      <option value="true" label="按年统计">
+      </option>
+      <option value="false" label="按月统计">
+      </option>
+    </param>
+  </params>
+</install>

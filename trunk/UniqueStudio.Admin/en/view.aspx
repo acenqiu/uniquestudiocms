@@ -2,7 +2,6 @@
     Inherits="UniqueStudio.ComContent.PL.view" %>
 <%@ Import Namespace="UniqueStudio.Common.Utilities" %>
 <%@ Import Namespace="UniqueStudio.Common.Config" %>
-<%@ Register Src="controls/PostStat.ascx" TagPrefix="US" TagName="PostStat" %>
 <%@ Register Src="controls/SubCategories.ascx" TagPrefix="US" TagName="SubCategories" %>
 <asp:Content ID="head" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" type="text/css" href="css/article-style.css" />
