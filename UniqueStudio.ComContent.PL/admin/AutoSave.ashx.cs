@@ -4,7 +4,7 @@ using System.Web;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
 
-namespace UniqueStudio.ComContent.PL.admin
+namespace UniqueStudio.ComContent.Admin
 {
     public class AutoSave : IHttpHandler
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UniqueStudio.ComContent.PL {
+namespace UniqueStudio.CGE {
     
     
     public partial class list {
@@ -20,7 +20,7 @@ namespace UniqueStudio.ComContent.PL {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.controls.SubCategories categories;
+        protected global::UniqueStudio.CGE.controls.SubCategories categories;
         
         /// <summary>
         /// psList control.
@@ -56,6 +56,6 @@ namespace UniqueStudio.ComContent.PL {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.controls.Pagination pagination;
+        protected global::UniqueStudio.CGE.controls.Pagination pagination;
     }
 }

@@ -9,7 +9,7 @@ using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Utilities;
 using UniqueStudio.ComContent.BLL;
 
-namespace UniqueStudio.ComContent.PL
+namespace UniqueStudio.ComContent.Admin
 {
     public partial class editpost : Controls.AdminBasePage
     {

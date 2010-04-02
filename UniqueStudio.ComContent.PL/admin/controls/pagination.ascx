@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="pagination.ascx.cs" Inherits="UniqueStudio.ComContent.PL.pagination" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="pagination.ascx.cs" Inherits="UniqueStudio.ComContent.Admin.pagination" %>
 <style type="text/css">
 .pagination a, .pagination  strong
 {

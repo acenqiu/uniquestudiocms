@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PostEditor.ascx.cs"
-    Inherits="UniqueStudio.ComContent.PL.PostEditor" %>
+    Inherits="UniqueStudio.ComContent.Admin.PostEditor" %>
 <%@ Register Src="Message.ascx" TagPrefix="US" TagName="Message" %>
 <%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>
 <%@ Register Src="attachment.ascx" TagName="Attachment" TagPrefix="US" %>

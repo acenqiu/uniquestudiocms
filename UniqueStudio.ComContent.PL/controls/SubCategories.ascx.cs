@@ -4,7 +4,7 @@ using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
 using UniqueStudio.Core.Category;
 
-namespace UniqueStudio.ComContent.PL.controls
+namespace UniqueStudio.CGE.controls
 {
     public partial class SubCategories : System.Web.UI.UserControl
     {

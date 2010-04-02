@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UniqueStudio.ComContent.PL.admin {
+namespace UniqueStudio.ComContent.Admin {
     
     
     public partial class login {
@@ -32,22 +32,13 @@ namespace UniqueStudio.ComContent.PL.admin {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// validationSummary control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary validationSummary;
-        
-        /// <summary>
         /// message control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.Message message;
+        protected global::UniqueStudio.ComContent.Admin.Message message;
         
         /// <summary>
         /// txtEmail control.
@@ -59,24 +50,6 @@ namespace UniqueStudio.ComContent.PL.admin {
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
         
         /// <summary>
-        /// requireEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator requireEmail;
-        
-        /// <summary>
-        /// RegularExpressionValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
-        
-        /// <summary>
         /// txtPassword control.
         /// </summary>
         /// <remarks>
@@ -84,15 +57,6 @@ namespace UniqueStudio.ComContent.PL.admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
-        
-        /// <summary>
-        /// requirePassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator requirePassword;
         
         /// <summary>
         /// chbAutoLogin control.

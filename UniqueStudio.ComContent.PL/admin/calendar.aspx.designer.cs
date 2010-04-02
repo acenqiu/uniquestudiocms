@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UniqueStudio.ComContent.PL.admin {
-    
-    
-    public partial class calendar {
-        
+namespace UniqueStudio.ComCalendar.Admin
+{
+    public partial class calendar
+    {
+
         /// <summary>
         /// calendar1 control.
         /// </summary>
@@ -20,6 +20,6 @@ namespace UniqueStudio.ComContent.PL.admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.admin.controls.CalendarEditor calendar1;
+        protected global::UniqueStudio.ComCalendar.Admin.CalendarEditor calendar1;
     }
 }

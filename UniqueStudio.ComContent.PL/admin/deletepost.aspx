@@ -1,5 +1,5 @@
 ﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true"
-    CodeBehind="deletepost.aspx.cs" Inherits="UniqueStudio.ComContent.PL.deletepost" %>
+    CodeBehind="deletepost.aspx.cs" Inherits="UniqueStudio.ComContent.Admin.deletepost" %>
 
 <asp:Content ID="content" ContentPlaceHolderID="cphBody" runat="server">
     <div class="main-content">

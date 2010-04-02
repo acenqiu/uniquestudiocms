@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="attachment.ascx.cs"
-    Inherits="UniqueStudio.ComContent.PL.admin.controls.attachment" %>
+    Inherits="UniqueStudio.ComContent.Admin.attachment" %>
 
 <script type="text/javascript">
 function getfiledName()

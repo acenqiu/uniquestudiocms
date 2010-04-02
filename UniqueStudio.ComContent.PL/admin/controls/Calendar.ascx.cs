@@ -4,7 +4,7 @@ using System.Web.UI.WebControls;
 
 using UniqueStudio.ComCalendar.BLL;
 
-namespace UniqueStudio.ComContent.PL.admin.controls
+namespace UniqueStudio.ComCalendar.Admin
 {
     public partial class CalendarEditor : System.Web.UI.UserControl
     {

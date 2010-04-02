@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UniqueStudio.ComContent.PL {
+namespace UniqueStudio.ComContent.Admin {
     
     
     public partial class deletepost {

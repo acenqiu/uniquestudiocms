@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UniqueStudio.ComContent.PL {
+namespace UniqueStudio.CGE {
     
     
     public partial class view {
@@ -20,7 +20,7 @@ namespace UniqueStudio.ComContent.PL {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.controls.SubCategories subCategories;
+        protected global::UniqueStudio.CGE.controls.SubCategories subCategories;
         
         /// <summary>
         /// ltlCategoryLink control.

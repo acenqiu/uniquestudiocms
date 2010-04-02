@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UniqueStudio.Admin {
+namespace UniqueStudio.ComCalendar.Admin {
     
     
     public partial class WebForm1 {

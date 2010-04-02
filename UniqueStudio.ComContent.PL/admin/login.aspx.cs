@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
 using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-
-using UniqueStudio.Core.User;
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Core.User;
 
-namespace UniqueStudio.ComContent.PL.admin
+namespace UniqueStudio.ComContent.Admin
 {
     public partial class login : System.Web.UI.Page
     {

@@ -5,7 +5,7 @@ using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common.Utilities;
 
-namespace UniqueStudio.ComContent.PL
+namespace UniqueStudio.ComContent.Admin
 {
     public partial class postlist : Controls.AdminBasePage
     {

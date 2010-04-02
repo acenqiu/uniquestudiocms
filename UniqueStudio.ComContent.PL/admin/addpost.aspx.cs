@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using UniqueStudio.DAL.Uri;
-using UniqueStudio.Common.Model;
-using UniqueStudio.Common.Config;
+
 using UniqueStudio.ComContent.BLL;
-namespace UniqueStudio.ComContent.PL
+using UniqueStudio.DAL.Uri;
+
+namespace UniqueStudio.ComContent.Admin
 {
     public partial class addpost : Controls.AdminBasePage
     {

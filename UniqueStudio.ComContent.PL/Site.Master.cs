@@ -6,7 +6,7 @@ using UniqueStudio.Core.Menu;
 using UniqueStudio.Core.PageVisit;
 using UniqueStudio.Common.Config;
 
-namespace UniqueStudio.ComContent.PL
+namespace UniqueStudio.CGE
 {
     public partial class Site : System.Web.UI.MasterPage
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace UniqueStudio.ComContent.PL.controls
+namespace UniqueStudio.CGE.controls
 {
     public partial class Pagination : System.Web.UI.UserControl
     {
