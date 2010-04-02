@@ -12,10 +12,11 @@ namespace UniqueStudio.ModFriendlyLink
 {
     public class ModFriendlyLink : IModule
     {
+        private const string COLUMN_TITLE = "ColumnTitle";
         private const string MENU_ID = "MenuId";
-        //{0}：条目
-        private const string MAIN = "<div class=\"column-head\"><span>友情链接</span></div>\r\n"
-                                                        + "<div class=\"column-content\">\r\n<ul>\r\n{0}</ul>\r\n</div>";
+
+        private const string MAIN = "<div class=\"column-head\"><span>{0}</span></div>\r\n"
+                                                        + "<div class=\"column-content\">\r\n<ul>\r\n{1}</ul>\r\n</div>";
         private const string ITEM = "<li><a href='{0}' title='{1}' target='{1}'>{2}</a></li>\r\n";
 
         #region IModule Members
@@ -24,6 +25,7 @@ namespace UniqueStudio.ModFriendlyLink
         {
             try
             {
+                string columnTitle = ModuleControlManager.GetConfigValue(siteId, controlName, COLUMN_TITLE);
                 int menuId = Converter.IntParse(ModuleControlManager.GetConfigValue(siteId, controlName, MENU_ID), 0);
                 StringBuilder items = new StringBuilder();
                 MenuItemCollection links = (new MenuManager()).GetMenuItems(menuId);
@@ -36,7 +38,7 @@ namespace UniqueStudio.ModFriendlyLink
                                                                             link.ItemName));
                     }
                 }
-                return string.Format(MAIN, items.ToString());
+                return string.Format(MAIN, columnTitle, items.ToString());
             }
             catch
             {
