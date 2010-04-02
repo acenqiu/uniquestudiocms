@@ -30,6 +30,7 @@
                             <td width="10px">
                                 <input type="checkbox" onchange="selectall(this,'chkSelected')" id="chkSelectAll" />
                             </td>
+                            <td width="10px">ID</td>
                             <td width="200px">
                                 菜单名称
                             </td>
@@ -43,6 +44,7 @@
                         <td>
                             <input type="checkbox" name='chkSelected' onchange='selectRow(this)' value='<%# Eval("MenuId") %>' />
                         </td>
+                        <td><%# Eval("MenuId") %></td>
                         <td>
                             <a href='editmenu.aspx?siteId=<%=SiteId %>&menuId=<%# Eval("MenuId") %>' title="单击编辑该菜单">
                                 <%# Eval("MenuName") %></a>
