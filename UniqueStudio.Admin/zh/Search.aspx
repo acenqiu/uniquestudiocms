@@ -1,5 +1,5 @@
 ﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="Search.aspx.cs"
-    Inherits="UniqueStudio.ComContent.PL.Search" %>
+    Inherits="UniqueStudio.CGE.Search" %>
 
 <%@ Import Namespace="UniqueStudio.Core.Site" %>
 <asp:Content ContentPlaceHolderID="head" runat="server">

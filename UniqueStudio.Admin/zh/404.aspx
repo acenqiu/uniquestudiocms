@@ -1,5 +1,5 @@
 ﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="404.aspx.cs"
-    Inherits="UniqueStudio.ComContent.PL._04" %>
+    Inherits="UniqueStudio.CGE._04" %>
 
 <asp:Content runat="server" ID="head" ContentPlaceHolderID="head">
     <style type="text/css">
