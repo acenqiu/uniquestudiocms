@@ -86,8 +86,9 @@ namespace UniqueStudio.Admin.admin
                         Response.Cookies[GlobalConfig.COOKIE].Expires = DateTime.Now.AddDays(100d);
                     }
 
-                    user = new UserInfo(user.UserId, user.UserName, this.Session.SessionID);
-                    this.Session[GlobalConfig.SESSION_USER] = user;
+                    UserInfo sessionUser = new UserInfo(user.UserId, user.UserName, this.Session.SessionID);
+                    sessionUser.Permissions = user.Permissions;
+                    this.Session[GlobalConfig.SESSION_USER] = sessionUser;
                     this.Session.Timeout = 60;
 
                     if (Request.QueryString["ret"] != null)

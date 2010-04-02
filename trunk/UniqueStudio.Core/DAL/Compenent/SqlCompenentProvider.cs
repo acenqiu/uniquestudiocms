@@ -1,8 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：提供组件管理在Sql Server上的实现方法。
+// 完成日期：2010年04月02日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
 using UniqueStudio.Common.Config;
 using UniqueStudio.Common.DatabaseHelper;
@@ -20,6 +25,7 @@ namespace UniqueStudio.DAL.Compenent
         private const string CREATE_COMPENENT = "CreateCompenent";
         private const string DELETE_COMPENENT = "DeleteCompenent";
         private const string GET_ALL_COMPENENTS = "GetAllCompenents";
+        private const string GET_COMPENENT = "GetCompenent";
         private const string GET_COMPENENT_CONFIG_BY_ID = "GetCompenentConfigByID";
         private const string GET_COMPENENT_CONFIG_BY_NAME = "GetCompenentConfigByName";
         private const string IS_COMPENENT_EXISTS = "IsCompenentExists";
@@ -106,6 +112,45 @@ namespace UniqueStudio.DAL.Compenent
         }
 
         /// <summary>
+        /// 删除多个组件。
+        /// </summary>
+        /// <param name="compenentId">待删除组件ID的集合。</param>
+        /// <returns>是否删除成功。</returns>
+        public bool DeleteCompenents(int[] compenentIds)
+        {
+            using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(DELETE_COMPENENT, conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@CompenentID", SqlDbType.Int);
+
+                    conn.Open();
+                    using (SqlTransaction trans = conn.BeginTransaction())
+                    {
+                        cmd.Transaction = trans;
+
+                        try
+                        {
+                            foreach (int compenentId in compenentIds)
+                            {
+                                cmd.Parameters[0].Value = compenentId;
+                                cmd.ExecuteNonQuery();
+                            }
+                            trans.Commit();
+                            return true;
+                        }
+                        catch
+                        {
+                            trans.Rollback();
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// 返回所有组件的信息。
         /// </summary>
         /// <returns>包含所有信息的组件集合。</returns>
@@ -160,6 +205,29 @@ namespace UniqueStudio.DAL.Compenent
             else
             {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// 返回组件信息。
+        /// </summary>
+        /// <param name="compenentId">组件ID。</param>
+        /// <returns>组件信息。</returns>
+        public CompenentInfo GetCompenent(int compenentId)
+        {
+            SqlParameter parm = new SqlParameter("@CompenentID", compenentId);
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_COMPENENT, parm))
+            {
+                if (reader.Read())
+                {
+                    CompenentInfo compenent = FillCompenentInfo(reader);
+                    compenent.SiteId = (int)reader["SiteID"];
+                    return compenent;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
 

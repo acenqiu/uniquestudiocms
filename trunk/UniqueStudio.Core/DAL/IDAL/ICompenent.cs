@@ -1,4 +1,11 @@
-﻿using UniqueStudio.Common.Model;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：组件管理提供类需实现的方法。
+// 完成日期：2010年04月02日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using UniqueStudio.Common.Model;
 
 namespace UniqueStudio.DAL.IDAL
 {
@@ -24,10 +31,24 @@ namespace UniqueStudio.DAL.IDAL
         bool DeleteCompenent(int compenentId);
 
         /// <summary>
+        /// 删除多个组件。
+        /// </summary>
+        /// <param name="compenentId">待删除组件ID的集合。</param>
+        /// <returns>是否删除成功。</returns>
+        bool DeleteCompenents(int[] compenentIds);
+
+        /// <summary>
         /// 返回所有组件的信息。
         /// </summary>
         /// <returns>包含所有信息的组件集合。</returns>
         CompenentCollection GetAllCompenents();
+
+        /// <summary>
+        /// 返回组件信息。
+        /// </summary>
+        /// <param name="compenentId">组件ID。</param>
+        /// <returns>组件信息。</returns>
+        CompenentInfo GetCompenent(int compenentId);
 
         /// <summary>
         /// 返回指定组件的配置信息。

@@ -1,12 +1,18 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：安装组件页面。
+// 完成日期：2010年02月02日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.IO;
 using System.Web.UI.WebControls;
 
-using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 using UniqueStudio.Core.Compenent;
 using UniqueStudio.Core.Site;
-using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.Admin.admin.background
 {

@@ -6,10 +6,15 @@
   <Description></Description>
   <ClassPath>UniqueStudio.ComContent.ApiLayer.Api</ClassPath>
   <Assembly>UniqueStudio.ComContent</Assembly>
-  <AdminPages>
-    <Page title="发表">compenents/com_content/admin/addpost.aspx</Page>
-    <Page title="管理">compenents/com_content/admin/postlist.aspx</Page>
-  </AdminPages>
+  <TabCollection>
+    <Tab id="Content" text="文章组件" permissions="AddPost,EditAllDraftAPost,EditOwnDraftAPost,EditOwnDraftOnly,DeleteAllDraftAPost,DeleteOwnDraftAPost,DeleteOwnDraftOnly" selected="true">
+      <SubTabs>
+        <Tab text="发表" permissions="AddPost" href="compenents/com_content/admin/addpost.aspx" target="right"/>
+        <Tab text="管理" permissions="EditAllDraftAPost,EditOwnDraftAPost,EditOwnDraftOnly,DeleteAllDraftAPost,DeleteOwnDraftAPost,DeleteOwnDraftOnly"
+              href="compenents/com_content/admin/addpost.aspx" target="right"/>
+      </SubTabs>
+    </Tab>
+  </TabCollection>
   <Permissions>
     <Permission name="AddPost" description="发表文章" />    
     <Permission name="DeleteAllDraftAPost" description="删除所有人的草稿及文章" />

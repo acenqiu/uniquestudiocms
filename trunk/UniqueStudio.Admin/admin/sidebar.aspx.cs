@@ -3,9 +3,9 @@ using System.Text;
 using System.Xml;
 
 using UniqueStudio.Common.Config;
+using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
 using UniqueStudio.Common.ErrorLogging;
-
 
 namespace UniqueStudio.Admin.admin
 {
@@ -13,7 +13,7 @@ namespace UniqueStudio.Admin.admin
     {
         //{0}：text
         //{1}：items
-        private const string TAB_WITH_SUBTABS = "<li onclick=\"javascript:changestate(this)\"><span>{0}</span><span class=\"collapse-icon\"></span>\r\n"
+        private const string TAB_WITH_SUBTABS = "<li {2} onclick=\"javascript:changestate(this)\"><span>{0}</span><span class=\"collapse-icon\"></span>\r\n"
                                                                             + "<div class=\"candy-menu\">\r\n<ul>\r\n{1}</ul>\r\n</div></li>\r\n";
         private const string TAB = "<li><a href='{0}' target=\"{1}\">{2}</a></li>\r\n";
 
@@ -86,13 +86,32 @@ namespace UniqueStudio.Admin.admin
             string permissions = node.Attributes["permissions"] == null ? string.Empty : node.Attributes["permissions"].Value;
             string href = node.Attributes["href"] == null ? string.Empty : node.Attributes["href"].Value;
             string target = node.Attributes["target"] == null ? string.Empty : node.Attributes["target"].Value;
+            string selected = node.Attributes["selected"] == null ? "false" : node.Attributes["selected"].Value;
 
-            //权限检测
+            if (!string.IsNullOrEmpty(permissions))
+            {
+                //权限检测
+                bool isValid = false;
+                foreach (PermissionInfo permission in CurrentUser.Permissions)
+                {
+                    if ((permission.SiteId == SiteId || permission.SiteId == 0)
+                                && permissions.IndexOf(permission.PermissionName) >= 0)
+                    {
+                        isValid = true;
+                        break;
+                    }
+                }
+                if (!isValid)
+                {
+                    return string.Empty;
+                }
+            }
 
             if (node.HasChildNodes)
             {
                 string subTabs = TranslateTabs(node.FirstChild.ChildNodes);
-                return string.Format(TAB_WITH_SUBTABS, text, subTabs);
+                return string.Format(TAB_WITH_SUBTABS, text, subTabs
+                    , selected == "true" ? "class=\"menu-activeted\"" : string.Empty);
             }
             else
             {

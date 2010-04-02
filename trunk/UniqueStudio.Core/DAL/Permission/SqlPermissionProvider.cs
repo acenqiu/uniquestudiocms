@@ -10,6 +10,12 @@
 // 版本号：v1.0 alpha
 // 修改人：邱江毅
 // 修改内容：+）bool CreatePermissions(SqlConnection conn, SqlCommand cmd, PermissionCollection permissions)
+//
+// 修改记录2：
+// 修改日期：2010年04月01日
+// 版本号：v1.0 alpha
+// 修改人：邱江毅
+// 修改内容：*）GetPermissionsForUser增加SiteId字段
 //=================================================================
 using System;
 using System.Data;
@@ -449,7 +455,9 @@ namespace UniqueStudio.DAL.Permission
             {
                 while (reader.Read())
                 {
-                    collection.Add(FillPermissionInfo(reader));
+                    PermissionInfo permission = FillPermissionInfo(reader);
+                    permission.SiteId = (int)reader["SiteID"];
+                    collection.Add(permission);
                 }
             }
             return collection;
@@ -479,7 +487,9 @@ namespace UniqueStudio.DAL.Permission
             {
                 while (reader.Read())
                 {
-                    collection.Add(FillPermissionInfo(reader));
+                    PermissionInfo permission = FillPermissionInfo(reader);
+                    permission.SiteId = (int)reader["SiteID"];
+                    collection.Add(permission);
                 }
             }
             return collection;

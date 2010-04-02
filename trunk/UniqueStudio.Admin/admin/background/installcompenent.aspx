@@ -6,6 +6,7 @@
     <div class="tip">
         <p>
             所有组件存放于：<i>{网站根目录}/admin/compenents/</i>，组件的所有文件在以组件名称命名的文件夹里。 安装前请确保install.xml文件的完整性。</p>
+        <p>重新登录后台将看到导航菜单的变化。</p>
     </div>
     <US:Message ID="message" runat="server" />
     <div class="panel">
