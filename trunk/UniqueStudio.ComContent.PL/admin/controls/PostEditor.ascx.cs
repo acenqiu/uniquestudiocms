@@ -12,6 +12,7 @@ using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
 using UniqueStudio.Common.XmlHelper;
 using UniqueStudio.Core.Category;
+using UniqueStudio.Core.Site;
 using UniqueStudio.Core.User;
 
 namespace UniqueStudio.ComContent.PL
@@ -27,6 +28,7 @@ namespace UniqueStudio.ComContent.PL
         private XmlManager xmlManager = new XmlManager();
         private AutoSaveManager am = new AutoSaveManager();
         protected Guid userId;
+
         public Unit Width
         {
             get
@@ -95,6 +97,7 @@ namespace UniqueStudio.ComContent.PL
                         txtAuthor.Text = currentUser.UserName;
                     }
                     txtAddDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+
                     #region 自动保存载入
                     PostInfo autoSavedPost = am.GetEftAutoSavedFileForAdd(userId);
                     if (autoSavedPost != null)
@@ -114,12 +117,11 @@ namespace UniqueStudio.ComContent.PL
                 }
                 else
                 {
-                    {
-                        LoadPost();
-                    }
+                    LoadPost();
                 }
             }
         }
+
         private void LoadPost()
         {
             PostInfo post = null;
@@ -159,7 +161,7 @@ namespace UniqueStudio.ComContent.PL
                     int i = 0;
                     foreach (Enclosure enclosure in enclosures)
                     {
-                        sb.Append("<div id=\"editenclosure" + i.ToString() + "\">" + enclosure.Title + "<img src=\"img/f2.gif\" onclick=\"HideEditDiv('" + i.ToString() + "');DeleteEnclosure('" + enclosure.Title + "')\">" + "</div>");
+                        sb.Append("<div id=\"editenclosure" + i.ToString() + "\">" + enclosure.Title + "<img src=\"images/f2.gif\" onclick=\"HideEditDiv('" + i.ToString() + "');DeleteEnclosure('" + enclosure.Title + "')\">" + "</div>");
                         i++;
                     }
                     text.InnerHtml = sb.ToString();
@@ -218,7 +220,6 @@ namespace UniqueStudio.ComContent.PL
             }
         }
 
-        //保存为草稿
         protected void btnSave_Click(object sender, EventArgs e)
         {
             if (mode == EditorMode.Add)
@@ -340,30 +341,21 @@ namespace UniqueStudio.ComContent.PL
             }
             else
             {
-                string imageExtension = ".jpg,.jpeg,.gif,.png";
-                if (imageExtension.IndexOf(System.IO.Path.GetExtension(fuNewsImage.FileName).ToLower()) < 0)
+                string allowedImageExtension = ".jpg,.jpeg,.gif,.png";
+                string extension = Path.GetExtension(fuNewsImage.FileName).ToLower();
+                if (allowedImageExtension.IndexOf(extension) < 0)
                 {
-                    //显示扩展名不正确信息
-                    Response.Write("<script type='text/javascript'>alert('扩展名不正确')</script>");
-                    return null;
+                    throw new Exception("新闻图片的格式不正确，请重新选择！");
                 }
                 else
                 {
-                    string urlpath = DateTime.Now.ToString("yyyyMMddHHmmss") + fuNewsImage.FileName;
-                    string filepath = Server.MapPath(@"~/upload/image/" + urlpath);
-                    try
-                    {
-                        fuNewsImage.SaveAs(filepath);
-                        lblImageName.Visible = true;
-                        lblImageName.Text = fuNewsImage.FileName;
-                    }
-                    catch
-                    {
-                        //显示上传失败
-                        Response.Write("<script type='text/javascript'>alert('新闻图片上传失败，请重新上传')</script>");
-                        return null;
-                    }
-                    return "/upload/image/" + urlpath;
+                    //控件对中文路径支持不好
+                    string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "." + extension;
+                    string filePath = SiteManager.BasePhysicalPath(siteId) + "/upload/image/" + fileName;
+                    fuNewsImage.SaveAs(filePath);
+                    lblImageName.Visible = true;
+                    lblImageName.Text = fuNewsImage.FileName;
+                    return "upload/image/" + fileName;
                 }
             }
         }

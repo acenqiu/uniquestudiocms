@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <viewer interval="4000" isRandom="1">
-  <item title="图片新闻+插件测试" img="/upload/image/20100328210051萨摩犬.jpg" url="view.aspx?uri=120100328210026" target="_blank" />
-  <item title="附件上传测试" img="/upload/image/20100328205754萨摩犬_s.jpg" url="view.aspx?uri=120100328205729" target="_blank" />
-  <item title="离开家临时的" img="/upload/image/20100328205513萨摩犬_s.jpg" url="view.aspx?uri=120100328205432" target="_blank" />
+  <item title="图片新闻+插件测试" img="/upload/image/20100328210051.jpg" url="view.aspx?uri=120100328210026" target="_blank" />
+  
 </viewer>

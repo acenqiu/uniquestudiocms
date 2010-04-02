@@ -3,12 +3,11 @@
 
 <%@ Register Src="controls/PostEditor.ascx" TagPrefix="AO" TagName="PostEditor" %>
 <asp:Content ID="head" ContentPlaceHolderID="head" runat="server">
-    <link href="fileup.css" type="text/css" rel="Stylesheet" />
-    <link href="toolTip.css" type="text/css" rel="Stylesheet" />
+    <link href="css/fileup.css" type="text/css" rel="Stylesheet" />
+    <link href="css/toolTip.css" type="text/css" rel="Stylesheet" />
 
-    <script type="text/javascript" language="javascript" src="fileup.js"></script>
-
-    <script type="text/javascript" language="javascript" src="toolTip.js"></script>
+    <script type="text/javascript" language="javascript" src="js/fileup.js"></script>
+    <script type="text/javascript" language="javascript" src="js/toolTip.js"></script>
 
 </asp:Content>
 <asp:Content ID="content" ContentPlaceHolderID="cphBody" runat="server">
