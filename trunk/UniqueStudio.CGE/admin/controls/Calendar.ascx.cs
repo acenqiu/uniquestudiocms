@@ -33,7 +33,7 @@ namespace UniqueStudio.ComCalendar.Admin
                 {
                     if (e.Day.Date == date)
                     {
-                        e.Cell.BackColor = System.Drawing.Color.Blue;
+                        e.Cell.BackColor = System.Drawing.Color.DarkOrange;
                     }
                 }
             }

@@ -15,19 +15,9 @@
         <div class="column mini" style="min-height: 210px">
             <US:Module ID="plIndex1" ModuleName="mod_postlist" runat="server" />
         </div>
-        <div class="column mini" style="line-height: normal">
-            <asp:Calendar ID="Calendar1" runat="server" BackColor="White" BorderColor="#999999"
-                CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt"
-                ForeColor="Black" Height="189px" Width="241px">
-                <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
-                <SelectorStyle BackColor="#CCCCCC" />
-                <WeekendDayStyle BackColor="#FFFFCC" />
-                <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
-                <OtherMonthDayStyle ForeColor="#808080" />
-                <NextPrevStyle VerticalAlign="Bottom" ForeColor="White" />
-                <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
-                <TitleStyle BackColor="#FF9900" BorderColor="Black" Font-Bold="True" ForeColor="White" />
-            </asp:Calendar>
+         <div class="column mini" style="line-height: normal">
+           <iframe frameborder="0" src="calendarframe.aspx" height="220px" width="100%" scrolling="no">
+           </iframe>
         </div>
         <div class="column mini" style="display: none">
             <div class="column-head">

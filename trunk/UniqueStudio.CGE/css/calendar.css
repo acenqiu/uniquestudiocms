@@ -1,0 +1,45 @@
+/* CSS Document */
+.calendarList
+{
+list-style:none;
+
+padding:0px;
+}
+	.calendarList li span
+	{
+	  padding-left:1.2em;
+	  margin-right:2em;
+	}
+.calendarTable
+{
+width:100%;
+line-height:1.5em;
+}
+.calendarTable td
+{
+ padding-left:1.5em;
+ vertical-align:top;
+}
+.calendarListWrap
+{
+}
+.calendarList-title
+{
+}
+.calendarItem-time
+{
+ background:url(../img/clock.png) no-repeat;
+}
+.calendarItem-place
+{
+background:url(../img/place.png) no-repeat;
+}
+.calendarItem-event
+{
+background:url(../img/event.png) no-repeat;
+}
+.calendarItem-note
+{
+background:url(../img/note.png) no-repeat;
+}
+
