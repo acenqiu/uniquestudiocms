@@ -6,25 +6,24 @@
 <%@ Import Namespace="UniqueStudio.Core.Site" %>
 <%@ Register Src="controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 <%@ Register Src="controls/pagination.ascx" TagPrefix="US" TagName="Pagination" %>
-<asp:Content ID="content" ContentPlaceHolderID="cphBody" runat="server">
-    <US:Message ID="message" runat="server" />
+<asp:Content ContentPlaceHolderID="head" runat="server">
 
-    <script language="javascript">
+    <script language="javascript" type="text/javascript">
     function hoverItem(sender)
     {
-   
       var menu=sender.getElementsByTagName("div")[0];
       menu.style.display="block";
-     
     }
-      function outItem(sender)
+    function outItem(sender)
     {
-    
       var menu=sender.getElementsByTagName("div")[0];
       menu.style.display="none";
     }
     </script>
 
+</asp:Content>
+<asp:Content ID="content" ContentPlaceHolderID="cphBody" runat="server">
+    <US:Message ID="message" runat="server" />
     <div class="write-article">
         <div class="column-head">
             文章管理</div>
@@ -52,11 +51,11 @@
                             <%# Eval("Count") %></span> <span class="article-date">
                                 <%# Convert.ToDateTime(Eval("CreateDate")).ToString("yyyy-MM-dd") %></span>
                         <div class="article-do-menu">
-                            <span class="article-edit"><a href='editpost.aspx?siteId=<%=SiteId %>&uri=<%# Eval("Uri") %>&ret=<%= HttpUtility.UrlEncode(Request.Url.Query) %>'>编辑</a></span>
-                            <span class="article-views"><a href='<%= SiteManager.BaseAddress(SiteId) %>/view.aspx?uri=<%# Eval("Uri")%>'
-                                target="_blank" title='<%# Eval("Title") %>'>查看</a></span> <span class="article-delete">
-                                    <a href='deletepost.aspx?uriCollection=<%# Eval("Uri") %>&ret=<%= HttpUtility.UrlEncode(Request.Url.Query) %>'>
-                                        删除</a></span>
+                            <span class="article-edit"><a href='editpost.aspx?siteId=<%=SiteId %>&uri=<%# Eval("Uri") %>&ret=<%= HttpUtility.UrlEncode(Request.Url.Query) %>'>
+                                编辑</a></span> <span class="article-views"><a href='<%= SiteManager.BaseAddress(SiteId) %>/view.aspx?uri=<%# Eval("Uri")%>'
+                                    target="_blank" title='<%# Eval("Title") %>'>查看</a></span> <span class="article-delete">
+                                        <a href='deletepost.aspx?uriCollection=<%# Eval("Uri") %>&ret=<%= HttpUtility.UrlEncode(Request.Url.Query) %>'>
+                                            删除</a></span>
                         </div>
                     </div>
                 </ItemTemplate>

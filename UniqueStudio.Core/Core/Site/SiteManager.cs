@@ -21,8 +21,10 @@ namespace UniqueStudio.Core.Site
     {
         private static readonly ISite provider = DALFactory.CreateSite();
         private static string baseAddress = string.Empty;
+
         private static Dictionary<int, WebSiteConfig> wsConfigs = new Dictionary<int, WebSiteConfig>();
         private static Dictionary<int, string> wsBaseAddresses = new Dictionary<int, string>();
+        private static Dictionary<int, string> wsBasePhysicalPath = new Dictionary<int, string>();
 
         /// <summary>
         /// 初始化<see cref="SiteManager"/>类的实例。
@@ -107,6 +109,39 @@ namespace UniqueStudio.Core.Site
             if (wsBaseAddresses.ContainsKey(siteId))
             {
                 return wsBaseAddresses[siteId];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 返回指定网站的根物理路径。
+        /// </summary>
+        /// <param name="siteId">网址ID。</param>
+        /// <returns>网站根物理路径。</returns>
+        public static string BasePhysicalPath(int siteId)
+        {
+            Validator.CheckNegative(siteId, "siteId");
+
+            if (siteId == 0)
+            {
+                return GlobalConfig.BasePhysicalPath;
+            }
+            if (!wsBasePhysicalPath.ContainsKey(siteId))
+            {
+                SiteCollection sites = (new SiteManager()).GetAllSites();
+                wsBasePhysicalPath.Clear();
+                foreach (SiteInfo site in sites)
+                {
+                    wsBasePhysicalPath.Add(site.SiteId, PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, site.RelativePath).Trim(new char[] { '/', '\\' }));
+                }
+            }
+
+            if (wsBasePhysicalPath.ContainsKey(siteId))
+            {
+                return wsBasePhysicalPath[siteId];
             }
             else
             {

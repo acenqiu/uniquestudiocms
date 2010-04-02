@@ -2,13 +2,7 @@
     Inherits="UniqueStudio.ComContent.PL.admin.calendar" %>
 
 <%@ Register Src="controls/Calendar.ascx" TagPrefix="US" TagName="Calendar" %>
-<asp:Content ID="content" runat="server" ContentPlaceHolderID="cphBody">
-    <US:Calendar ID="calendar1" runat="server" />
-    <br />
-    <iframe src="calendarnotice.aspx" id="ifrcalnotice"></iframe>
-</asp:Content>
-<asp:Content ID="Content1" runat="server" contentplaceholderid="head">
-
+<asp:Content runat="server" ContentPlaceHolderID="head">
     <style type="text/css">
         #ifrcalnotice
         {
@@ -16,6 +10,9 @@
             width: 100%;
         }
     </style>
-
 </asp:Content>
-
+<asp:Content runat="server" ContentPlaceHolderID="cphBody">
+    <US:Calendar ID="calendar1" runat="server" />
+    <br />
+    <iframe src="calendarnotice.aspx" id="ifrcalnotice"></iframe>
+</asp:Content>

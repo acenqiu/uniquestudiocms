@@ -4,10 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>文章组件</title>
-    <link rel="stylesheet" type="text/css" href="admin-list-style.css" />
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="css/admin-list-style.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
 
-    <script language="javascript" type="text/javascript" src="main.js"></script>
+    <script language="javascript" type="text/javascript" src="js/main.js"></script>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>

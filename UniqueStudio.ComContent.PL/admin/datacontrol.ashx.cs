@@ -1,24 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Data;
-using System.Web;
-using System.Web.Services;
-using System.Web.Services.Protocols;
 using System.Collections.Generic;
-using System.Text;
-using UniqueStudio.ComCalendar.Model;
+using System.Web;
+
 using UniqueStudio.ComCalendar.BLL;
+using UniqueStudio.ComCalendar.Model;
 
 namespace UniqueStudio.Admin
 {
-    /// <summary>
-    /// Summary description for $codebehindclassname$
-    /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
-    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     public class datacontrol : IHttpHandler
     {
-
         public void ProcessRequest(HttpContext context)
         {
             string[] properties = DataControlManager<CalendarNotice>.Properties;

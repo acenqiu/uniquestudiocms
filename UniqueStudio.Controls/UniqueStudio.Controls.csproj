@@ -44,6 +44,7 @@
     <Compile Include="AdminBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Message.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="PlBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>

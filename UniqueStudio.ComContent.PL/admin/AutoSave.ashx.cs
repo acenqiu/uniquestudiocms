@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Data;
 using System.Web;
-using System.Web.Services;
-using System.Web.Services.Protocols;
+
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
 
 namespace UniqueStudio.ComContent.PL.admin
 {
-    /// <summary>
-    /// Summary description for $codebehindclassname$
-    /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
-    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     public class AutoSave : IHttpHandler
     {
         public void ProcessRequest(HttpContext context)
