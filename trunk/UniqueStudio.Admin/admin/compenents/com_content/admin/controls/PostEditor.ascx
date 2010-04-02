@@ -1,10 +1,28 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PostEditor.ascx.cs"
-    Inherits="UniqueStudio.ComContent.PL.PostEditor" %>
+    Inherits="UniqueStudio.ComContent.Admin.PostEditor" %>
 <%@ Register Src="Message.ascx" TagPrefix="US" TagName="Message" %>
 <%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>
 <%@ Register Src="attachment.ascx" TagName="Attachment" TagPrefix="US" %>
 
-<script src="jquery.min.js" type="text/javascript"></script>
+<script src="js/jquery.min.js" type="text/javascript"></script>
+
+<script language="javascript" type="text/javascript">
+    function GetUserID(){
+        return '<%=userId %>';
+    }
+    function GetTitle()
+    {
+        return document.getElementById("<%=txtTitle.ClientID %>").value;
+    }
+    function GetSubTitle()
+    {
+        return document.getElementById("<%=txtSubTitle.ClientID %>").value;   
+    }
+    function GetAuthor()
+    {
+        return document.getElementById("<%=txtAuthor.ClientID %>").value;
+    }
+</script>
 
 <div class="postEditor">
     <US:Message ID="message" runat="server" />
@@ -45,13 +63,12 @@
                 <asp:Label runat="server" ID="lblImageName" Visible="false"></asp:Label>
                 <asp:FileUpload runat="server" ID="fuNewsImage" EnableViewState="false" /></span>
             <br />
-            <span class="form-item-label">附件：</span> <span class="form-item-input">
+            <span class="form-item-label">附件：</span> <div class="form-item-input">
                 <US:Attachment ID="attcontrol" runat="server" />
-            </span>
+            </div>
             <br />
             <div id="text" runat="server">
             </div>
-            <%--<asp:Button ID="upfilebtn" runat="server" Text="附件上传" OnClick="upfilebtn_Click" />--%>
         </div>
         <div class="form-item" style="display: none">
             <span class="form-item-label">来源：</span> <span class="form-item-input">
@@ -62,11 +79,8 @@
             <span class="form-item-input">
                 <FCKeditorV2:FCKeditor ID="fckContent" runat="server" />
             </span>
-            <%--<span class="form-item-label">
-                <div id="autosavestate">
-                </div>
-                <input type="button" value="载入草稿" onclick="GetDraft()" />
-            </span>--%>
+            <div id="toolTip">
+            </div>
         </div>
         <div class="form-item">
             <span class="form-item-label">摘要：</span> <span class="form-item-input">

@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Calendar.ascx.cs"
-    Inherits="UniqueStudio.ComContent.PL.admin.controls.CalendarEditor" %>
+    Inherits="UniqueStudio.ComCalendar.Admin.CalendarEditor" %>
 <asp:Calendar ID="CalNotice" runat="server" BackColor="White" BorderColor="#999999"
     CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt"
     ForeColor="Black" Height="189px" Width="241px" 
