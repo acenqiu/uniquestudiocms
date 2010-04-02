@@ -15,7 +15,7 @@ using UniqueStudio.Core.Category;
 using UniqueStudio.Core.Site;
 using UniqueStudio.Core.User;
 
-namespace UniqueStudio.ComContent.PL
+namespace UniqueStudio.ComContent.Admin
 {
     public partial class PostEditor : System.Web.UI.UserControl
     {

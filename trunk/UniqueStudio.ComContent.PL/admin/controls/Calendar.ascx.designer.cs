@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UniqueStudio.ComContent.PL.admin.controls {
+namespace UniqueStudio.ComCalendar.Admin {
     
     
     public partial class CalendarEditor {

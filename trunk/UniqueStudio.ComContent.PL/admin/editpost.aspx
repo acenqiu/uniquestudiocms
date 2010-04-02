@@ -1,5 +1,5 @@
 ﻿<%@ Page MasterPageFile="Site.Master" Language="C#" ValidateRequest="false" AutoEventWireup="true"
-    CodeBehind="editpost.aspx.cs" Inherits="UniqueStudio.ComContent.PL.editpost" %>
+    CodeBehind="editpost.aspx.cs" Inherits="UniqueStudio.ComContent.Admin.editpost" %>
 
 <%@ Register Src="controls/PostEditor.ascx" TagPrefix="AO" TagName="PostEditor" %>
 <asp:Content ID="head" ContentPlaceHolderID="head" runat="server">

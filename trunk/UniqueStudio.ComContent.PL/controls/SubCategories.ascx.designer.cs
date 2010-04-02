@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UniqueStudio.ComContent.PL.controls {
+namespace UniqueStudio.CGE.controls {
     
     
     public partial class SubCategories {

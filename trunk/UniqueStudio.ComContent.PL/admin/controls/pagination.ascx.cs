@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
 using System.Text;
 
-namespace UniqueStudio.ComContent.PL
+namespace UniqueStudio.ComContent.Admin
 {
     public partial class pagination : System.Web.UI.UserControl
     {

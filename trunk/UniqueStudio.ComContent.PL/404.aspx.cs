@@ -9,7 +9,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
-namespace UniqueStudio.ComContent.PL
+namespace UniqueStudio.CGE
 {
     public partial class _04 : System.Web.UI.Page
     {

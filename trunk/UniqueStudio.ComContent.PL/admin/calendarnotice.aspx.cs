@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UniqueStudio.ComCalendar.BLL;
 using UniqueStudio.ComCalendar.Model;
 
-namespace UniqueStudio.Admin
+namespace UniqueStudio.ComCalendar.Admin
 {
     public partial class WebForm1 : System.Web.UI.Page
     {

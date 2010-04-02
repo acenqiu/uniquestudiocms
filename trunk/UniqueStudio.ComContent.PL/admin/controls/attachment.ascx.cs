@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UniqueStudio.ComContent.PL.admin.controls
+namespace UniqueStudio.ComContent.Admin
 {
     public partial class attachment : System.Web.UI.UserControl
     {

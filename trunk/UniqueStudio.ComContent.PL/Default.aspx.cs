@@ -5,7 +5,7 @@ using System.Web.UI;
 using UniqueStudio.Core.Site;
 using UniqueStudio.Common.Config;
 
-namespace UniqueStudio.ComContent.PL
+namespace UniqueStudio.CGE
 {
     public partial class Default : Controls.PlBasePage
     {

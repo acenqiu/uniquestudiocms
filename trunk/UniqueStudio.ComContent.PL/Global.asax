@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="UniqueStudio.ComContent.PL.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="UniqueStudio.CGE.Global" Language="C#" %>

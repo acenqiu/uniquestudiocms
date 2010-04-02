@@ -10,7 +10,7 @@ using UniqueStudio.Common.Config;
 using UniqueStudio.Common.ErrorLogging;
 using UniqueStudio.Common.Model;
 
-namespace UniqueStudio.ComContent.PL
+namespace UniqueStudio.CGE
 {
     public class Global : System.Web.HttpApplication
     {

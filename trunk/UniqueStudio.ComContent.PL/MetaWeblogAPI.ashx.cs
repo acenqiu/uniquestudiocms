@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 
-namespace UniqueStudio.ComContent.PL
+namespace UniqueStudio.CGE
 {
     /// <summary>
     /// Summary description for MetaWeblogAPI

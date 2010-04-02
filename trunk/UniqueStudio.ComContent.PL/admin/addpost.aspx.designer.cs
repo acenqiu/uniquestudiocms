@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UniqueStudio.ComContent.PL {
+namespace UniqueStudio.ComContent.Admin {
     
     
     public partial class addpost {
@@ -20,6 +20,6 @@ namespace UniqueStudio.ComContent.PL {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.PostEditor editor;
+        protected global::UniqueStudio.ComContent.Admin.PostEditor editor;
     }
 }

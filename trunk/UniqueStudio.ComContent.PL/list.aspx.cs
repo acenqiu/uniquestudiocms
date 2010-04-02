@@ -7,7 +7,7 @@ using UniqueStudio.Common.Utilities;
 using UniqueStudio.Core.Category;
 using UniqueStudio.Core.Site;
 
-namespace UniqueStudio.ComContent.PL
+namespace UniqueStudio.CGE
 {
     public partial class list : Controls.PlBasePage
     {

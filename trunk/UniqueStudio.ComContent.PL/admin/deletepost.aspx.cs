@@ -10,7 +10,7 @@ using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
 
-namespace UniqueStudio.ComContent.PL
+namespace UniqueStudio.ComContent.Admin
 {
     public partial class deletepost : Controls.AdminBasePage
     {

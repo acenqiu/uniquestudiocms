@@ -1,5 +1,5 @@
 ﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="calendar.aspx.cs"
-    Inherits="UniqueStudio.ComContent.PL.admin.calendar" %>
+    Inherits="UniqueStudio.ComCalendar.Admin.calendar" %>
 
 <%@ Register Src="controls/Calendar.ascx" TagPrefix="US" TagName="Calendar" %>
 <asp:Content runat="server" ContentPlaceHolderID="head">

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UniqueStudio.ComContent.PL {
+namespace UniqueStudio.ComContent.Admin {
     
     
     public partial class postlist {
@@ -20,7 +20,7 @@ namespace UniqueStudio.ComContent.PL {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.Message message;
+        protected global::UniqueStudio.ComContent.Admin.Message message;
         
         /// <summary>
         /// rptList control.
@@ -38,6 +38,6 @@ namespace UniqueStudio.ComContent.PL {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UniqueStudio.ComContent.PL.pagination pagination;
+        protected global::UniqueStudio.ComContent.Admin.pagination pagination;
     }
 }

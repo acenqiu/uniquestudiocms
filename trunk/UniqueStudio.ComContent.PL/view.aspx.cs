@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Web.UI;
+
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common.Config;
@@ -10,7 +11,7 @@ using UniqueStudio.Core.Category;
 using UniqueStudio.Core.Site;
 using UniqueStudio.Common.Utilities;
 
-namespace UniqueStudio.ComContent.PL
+namespace UniqueStudio.CGE
 {
     public partial class view : Controls.PlBasePage
     {

@@ -1,5 +1,5 @@
 ﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="postlist.aspx.cs"
-    Inherits="UniqueStudio.ComContent.PL.postlist" %>
+    Inherits="UniqueStudio.ComContent.Admin.postlist" %>
 
 <%@ Import Namespace="System.Web" %>
 <%@ Import Namespace="UniqueStudio.Common.Config" %>

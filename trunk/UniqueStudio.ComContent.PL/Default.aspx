@@ -1,5 +1,5 @@
 ﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs"
-    Inherits="UniqueStudio.ComContent.PL.Default" %>
+    Inherits="UniqueStudio.CGE.Default" %>
 
 <%@ Register Assembly="UniqueStudio.Controls" Namespace="UniqueStudio.Controls" TagPrefix="US" %>
 
