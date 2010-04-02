@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<install>
+  <CompenentName>Com_Content</CompenentName>
+  <DisplayName>文章组件</DisplayName>
+  <CompenentAuthor>UniqueStudio</CompenentAuthor>
+  <Description></Description>
+  <ClassPath>UniqueStudio.ComContent.ApiLayer.Api</ClassPath>
+  <Assembly>UniqueStudio.ComContent</Assembly>
+  <TabCollection>
+    <Tab id="Com_Content" text="文章组件" permissions="AddPost,EditAllDraftAPost,EditOwnDraftAPost,EditOwnDraftOnly,DeleteAllDraftAPost,DeleteOwnDraftAPost,DeleteOwnDraftOnly" selected="true">
+      <SubTabs>
+        <Tab text="发表" permissions="AddPost" href="compenents/com_content/admin/addpost.aspx" target="right"/>
+        <Tab text="管理" permissions="EditAllDraftAPost,EditOwnDraftAPost,EditOwnDraftOnly,DeleteAllDraftAPost,DeleteOwnDraftAPost,DeleteOwnDraftOnly"
+              href="compenents/com_content/admin/postlist.aspx" target="right"/>
+      </SubTabs>
+    </Tab>
+  </TabCollection>
+  <Permissions>
+    <Permission name="AddPost" description="发表文章" />    
+    <Permission name="DeleteAllDraftAPost" description="删除所有人的草稿及文章" />
+    <Permission name="DeleteOwnDraftAPost" description="删除自己的草稿和文章" />
+    <Permission name="DeleteOwnDraftOnly" description="只能删除自己的草稿，不能删除自己的文章" />
+    <Permission name="EditAllDraftAPost" description="编辑所有文章及草稿" />
+    <Permission name="EditOwnDraftAPost" description="编辑自己的文章及草稿" />
+    <Permission name="EditOwnDraftOnly" description="只能编辑自己的草稿，不能编辑自己的文章" />
+  </Permissions>
+</install>
