@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfErrorInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ErrorInfo>
+    <ExceptionType>System.Threading.ThreadAbortException</ExceptionType>
+    <ErrorMessage>Thread was being aborted.</ErrorMessage>
+    <RepresentationString>System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   at System.Web.HttpResponse.Redirect(String url)
+   at UniqueStudio.ComContent.PL.PostEditor.AddPost(String postType, Boolean isPublished) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent.PL\admin\controls\PostEditor.ascx.cs:line 218</RepresentationString>
+    <Time>2010-03-28T20:58:32.8882774+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Threading.ThreadAbortException</ExceptionType>
+    <ErrorMessage>Thread was being aborted.</ErrorMessage>
+    <RepresentationString>System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   at System.Web.HttpResponse.Redirect(String url)
+   at UniqueStudio.ComContent.PL.PostEditor.AddPost(String postType, Boolean isPublished) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent.PL\admin\controls\PostEditor.ascx.cs:line 218</RepresentationString>
+    <Time>2010-03-28T21:00:51.631213+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IO.FileNotFoundException</ExceptionType>
+    <ErrorMessage>Could not load file or assembly 'UniqueStudio.ModFriendlyLink' or one of its dependencies. The system cannot find the file specified.</ErrorMessage>
+    <RepresentationString>System.IO.FileNotFoundException: Could not load file or assembly 'UniqueStudio.ModFriendlyLink' or one of its dependencies. The system cannot find the file specified.
+File name: 'UniqueStudio.ModFriendlyLink'
+   at System.Reflection.Assembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(AssemblyName assemblyRef, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at UniqueStudio.Core.Module.ModuleManager.GetInstance(String moduleName) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Module\ModuleManager.cs:line 72
+
+WRN: Assembly binding logging is turned OFF.
+To enable assembly bind failure logging, set the registry value [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD) to 1.
+Note: There is some performance penalty associated with assembly bind failure logging.
+To turn this feature off, remove the registry value [HKLM\Software\Microsoft\Fusion!EnableLog].
+</RepresentationString>
+    <Time>2010-03-31T22:59:48.4457598+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IO.FileNotFoundException</ExceptionType>
+    <ErrorMessage>Could not load file or assembly 'UniqueStudio.ModFriendlyLink' or one of its dependencies. The system cannot find the file specified.</ErrorMessage>
+    <RepresentationString>System.IO.FileNotFoundException: Could not load file or assembly 'UniqueStudio.ModFriendlyLink' or one of its dependencies. The system cannot find the file specified.
+File name: 'UniqueStudio.ModFriendlyLink'
+   at System.Reflection.Assembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, Assembly locationHint, StackCrawlMark&amp; stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(AssemblyName assemblyRef, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.InternalLoad(String assemblyString, Evidence assemblySecurity, StackCrawlMark&amp; stackMark, Boolean forIntrospection)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at UniqueStudio.Core.Module.ModuleManager.GetInstance(String moduleName) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Module\ModuleManager.cs:line 72
+
+WRN: Assembly binding logging is turned OFF.
+To enable assembly bind failure logging, set the registry value [HKLM\Software\Microsoft\Fusion!EnableLog] (DWORD) to 1.
+Note: There is some performance penalty associated with assembly bind failure logging.
+To turn this feature off, remove the registry value [HKLM\Software\Microsoft\Fusion!EnableLog].
+</RepresentationString>
+    <Time>2010-03-31T23:39:39.9730749+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.TypeLoadException</ExceptionType>
+    <ErrorMessage>Method 'RenderContents' in type 'UniqueStudio.ModFriendlyLink.ModFriendlyLink' from assembly 'UniqueStudio.ModFriendlyLink, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.</ErrorMessage>
+    <RepresentationString>System.TypeLoadException: Method 'RenderContents' in type 'UniqueStudio.ModFriendlyLink.ModFriendlyLink' from assembly 'UniqueStudio.ModFriendlyLink, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' does not have an implementation.
+   at System.Reflection.Assembly._GetType(String name, Boolean throwOnError, Boolean ignoreCase)
+   at System.Reflection.Assembly.CreateInstance(String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Reflection.Assembly.CreateInstance(String typeName)
+   at UniqueStudio.Core.Module.ModuleManager.GetInstance(String moduleName) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Module\ModuleManager.cs:line 72</RepresentationString>
+    <Time>2010-04-01T09:59:10.0052942+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Threading.ThreadAbortException</ExceptionType>
+    <ErrorMessage>Thread was being aborted.</ErrorMessage>
+    <RepresentationString>System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   at System.Web.HttpResponse.Redirect(String url)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent.PL\admin\controls\PostEditor.ascx.cs:line 246</RepresentationString>
+    <Time>2010-04-02T22:00:57.8671372+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+</ArrayOfErrorInfo>
