@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.ComContent", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.Admin", "UniqueStudio.Admin\UniqueStudio.Admin.csproj", "{DBD763B9-F7E1-4E38-8718-9981BD7BF66D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.CGE", "UniqueStudio.ComContent.PL\UniqueStudio.CGE.csproj", "{522567A4-DBFA-483C-B6E9-A60A1C79CF4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.CGE", "UniqueStudio.CGE\UniqueStudio.CGE.csproj", "{522567A4-DBFA-483C-B6E9-A60A1C79CF4A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniqueStudio.ModPostList", "UniqueStudio.ModPostList\UniqueStudio.ModPostList.csproj", "{7F407FB3-164F-4E97-A57E-24E70E5ED444}"
 EndProject
