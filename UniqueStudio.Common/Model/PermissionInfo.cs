@@ -14,6 +14,7 @@ namespace UniqueStudio.Common.Model
     {
         private int permissionId;
         private int siteId;
+        private string siteName;
         private string permissionName;
         private string description = string.Empty;
         private string provider;
@@ -65,7 +66,22 @@ namespace UniqueStudio.Common.Model
             get { return permissionId; }
             set { permissionId = value; }
         }
-
+        /// <summary>
+        /// 网站ID。
+        /// </summary>
+        public int SiteId
+        {
+            get { return siteId; }
+            set { siteId = value; }
+        }
+        /// <summary>
+        /// 网站名称。
+        /// </summary>
+        public string SiteName
+        {
+            get { return siteName; }
+            set { siteName = value; }
+        }
         /// <summary>
         /// 权限名称。
         /// </summary>
@@ -74,7 +90,6 @@ namespace UniqueStudio.Common.Model
             get { return permissionName; }
             set { permissionName = value; }
         }
-
         /// <summary>
         /// 描述。
         /// </summary>
@@ -83,7 +98,6 @@ namespace UniqueStudio.Common.Model
             get { return description; }
             set { description = value; }
         }
-
         /// <summary>
         /// 权限提供者（内核，组件）。
         /// </summary>

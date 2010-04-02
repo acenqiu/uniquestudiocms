@@ -4,6 +4,12 @@
 // 完成日期：2010年03月18日
 // 版本：v1.0 alpha
 // 作者：邱江毅
+//
+// 修改记录1：
+// 修改日期：2010年04月01日
+// 版本号：v1.0 alpha
+// 修改人：邱江毅
+// 修改内容：*）GetUserInfo增加获取权限。
 //=================================================================
 using System;
 using System.Data;
@@ -303,29 +309,42 @@ namespace UniqueStudio.DAL.User
         /// <returns>用户信息。</returns>
         public UserInfo GetUserInfo(Guid userId, bool includeExInfo)
         {
-            UserInfo user = null;
-            SqlParameter[] parms = new SqlParameter[]{    
-                                                    new SqlParameter("@UserID", userId),
-                                                    new SqlParameter("@IncludeExInfo",includeExInfo)};
-            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_USERINFO, parms))
+            using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
             {
-                if (reader.Read())
+                using (SqlCommand cmd = new SqlCommand(GET_USERINFO, conn))
                 {
-                    user = FillUserInfo(reader);
-                    if (includeExInfo)
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@UserID", userId);
+                    cmd.Parameters.AddWithValue("@IncludeExInfo", includeExInfo);
+
+                    conn.Open();
+                    UserInfo user = null;
+                    using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
-                        if (reader["ExInfo"] != DBNull.Value)
+                        if (reader.Read())
                         {
-                            user.ExInfoXml = reader["ExInfo"].ToString();
+                            user = FillUserInfo(reader);
+                            if (includeExInfo)
+                            {
+                                if (reader["ExInfo"] != DBNull.Value)
+                                {
+                                    user.ExInfoXml = reader["ExInfo"].ToString();
+                                }
+                                else
+                                {
+                                    user.ExInfoXml = null;
+                                }
+                            }
                         }
-                        else
-                        {
-                            user.ExInfoXml = null;
-                        }
+                        reader.Close();
                     }
+                    if (user != null)
+                    {
+                        user.Permissions = (new Permission.SqlPermissionProvider()).GetPermissionsForUser(conn, userId);
+                    }
+                    return user;
                 }
             }
-            return user;
         }
 
         /// <summary>

@@ -1,52 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabCollection>
   <System>
-    <Tab id="Compenent" text="组件管理" permissions="CreateCategory,DeleteCategory,EditCategory" >
+    <Tab id="Compenent" text="组件管理" permissions="InstallCompenent,ViewCompenentInfo,UninstallCompenent" >
       <SubTabs>
-        <Tab text="组件安装" permissions="" href="background/installcompenent.aspx" target="right"/>
-        <Tab text="组件列表" permissions="EditSite" href="background/compenentlist.aspx" target="right"/>
+        <Tab text="组件安装" permissions="InstallCompenent" href="background/installcompenent.aspx" target="right"/>
+        <Tab text="组件列表" permissions="ViewCompenentInfo,UninstallCompenent" href="background/compenentlist.aspx" target="right"/>
       </SubTabs>
     </Tab>
-    <Tab id="Module" text="模块管理" permissions="" >
+    <Tab id="Module" text="模块管理" permissions="InstallModule,ViewModuleInfo,UninstallModule" >
       <SubTabs>
-        <Tab text="模块安装" permissions="" href="background/installmodule.aspx" target="right"/>
-        <Tab text="模块列表" permissions="EditSite" href="background/modulelist.aspx" target="right"/>
+        <Tab text="模块安装" permissions="InstallModule" href="background/installmodule.aspx" target="right"/>
+        <Tab text="模块列表" permissions="ViewModuleInfo,UninstallModule" href="background/modulelist.aspx" target="right"/>
       </SubTabs>
     </Tab>
-    <Tab id="PlugIn" text="插件管理" permissions="" >
+    <Tab id="PlugIn" text="插件管理" permissions="InstallPlugIn,ViewPlugInInfo,UninstallPlugIn" >
       <SubTabs>
-        <Tab text="插件安装" permissions="" href="background/installplugin.aspx" target="right"/>
-        <Tab text="插件列表" permissions="EditSite" href="background/pluginlist.aspx" target="right"/>
+        <Tab text="插件安装" permissions="InstallPlugIn" href="background/installplugin.aspx" target="right"/>
+        <Tab text="插件列表" permissions="ViewPlugInInfo,UninstallPlugIn" href="background/pluginlist.aspx" target="right"/>
       </SubTabs>
     </Tab>
-    <Tab id="Permission" text="权限管理" permissions="EditSite" >
+    <Tab id="Permission" text="权限管理" permissions="CreateUser,ViewUserInfo,ApproveUser,DeleteUser,LockUser,UnLockUser,CreateRole,ViewRoleInfo,DeleteRole,EditRole,ViewPermissionInfo" >
       <SubTabs>
-        <Tab text="创建用户" permissions="EditSite" href="background/createuser.aspx" target="right"/>
-        <Tab text="用户列表" permissions="EditSite" href="background/userlist.aspx" target="right"/>
-        <Tab text="创建角色" permissions="EditSite" href="background/createrole.aspx" target="right"/>
-        <Tab text="角色列表" permissions="EditSite" href="background/rolelist.aspx" target="right"/>
-        <Tab text="权限列表" permissions="EditSite" href="background/permissionlist.aspx" target="right"/>
+        <Tab text="创建用户" permissions="CreateUser" href="background/createuser.aspx" target="right"/>
+        <Tab text="用户列表" permissions="ViewUserInfo,ApproveUser,DeleteUser,LockUser,UnLockUser" href="background/userlist.aspx" target="right"/>
+        <Tab text="创建角色" permissions="CreateRole" href="background/createrole.aspx" target="right"/>
+        <Tab text="角色列表" permissions="ViewRoleInfo,DeleteRole,EditRole" href="background/rolelist.aspx" target="right"/>
+        <Tab text="权限列表" permissions="ViewPermissionInfo" href="background/permissionlist.aspx" target="right"/>
       </SubTabs>
     </Tab>
-    <Tab id="Config" text="系统设置" permissions="EditSite" >
+    <Tab id="Config" text="系统设置" permissions="EditSystemConfig" >
       <SubTabs>
-        <Tab text="服务器设置" permissions="EditSite" href="background/serverconfig.aspx" target="right"/>
-        <Tab text="安全设置" permissions="EditSite" href="background/securityconfig.aspx" target="right"/>
+        <Tab text="服务器设置" permissions="EditSystemConfig" href="background/serverconfig.aspx" target="right"/>
+        <Tab text="安全设置" permissions="EditSystemConfig" href="background/securityconfig.aspx" target="right"/>
       </SubTabs>
     </Tab>
-    <Tab id="PageVisit" text="访问统计" permissions="EditSite" >
+    <Tab id="PageVisit" text="访问统计" permissions="ViewPageVisitInfo" >
       <SubTabs>
-        <Tab text="统计图" permissions="EditSite" href="background/pvstat.aspx" target="right"/>
-        <Tab text="访问列表" permissions="EditSite" href="background/pvlist.aspx" target="right"/>
+        <Tab text="统计图" permissions="ViewPageVisitInfo" href="background/pvstat.aspx" target="right"/>
+        <Tab text="访问列表" permissions="ViewPageVisitInfo" href="background/pvlist.aspx" target="right"/>
       </SubTabs>
     </Tab>
-    <Tab id="Administer" text="管理工具" permissions="EditSite" >
+    <Tab id="Administer" text="管理工具" permissions="ViewErrorLog" >
       <SubTabs>
-        <Tab text="系统日志" permissions="EditSite" href="background/errorlog.aspx" target="right"/>
-        <Tab text="文件管理" permissions="EditSite" href="background/file.aspx" target="right"/>
+        <Tab text="系统日志" permissions="ViewErrorLog" href="background/errorlog.aspx" target="right"/>
       </SubTabs>
     </Tab>
-    <Tab id="User" text="用户信息" permissions="" >
+    <Tab id="User" text="用户信息" permissions="" selected="true" >
       <SubTabs>
         <Tab text="个人信息" permissions="" href="background/userinfo.aspx" target="right"/>
         <Tab text="修改密码" permissions="" href="background/changepwd.aspx" target="right"/>

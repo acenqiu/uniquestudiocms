@@ -1,4 +1,11 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：提供组件管理的方法。
+// 完成日期：2010年04月02日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.IO;
 using System.Xml;
 
@@ -126,9 +133,9 @@ namespace UniqueStudio.Core.Compenent
             }
             else
             {
-                if (IsCompenentExists(siteId,compenent.CompenentName))
+                if (IsCompenentExists(siteId, compenent.CompenentName))
                 {
-                      throw new Exception("该组件已经安装过了。");
+                    throw new Exception("该组件已经安装过了。");
                 }
 
                 compenent.SiteId = siteId;
@@ -151,10 +158,26 @@ namespace UniqueStudio.Core.Compenent
                 {
                     if (provider.CreateCompenent(compenent) != null)
                     {
-                        XmlNode node = doc.SelectSingleNode("/install/AdminPages");
-                        if (node != null)
+                        XmlNode tabNode = doc.SelectSingleNode("/install/TabCollection");
+                        if (tabNode != null)
                         {
-                            //添加导航信息
+                            string navigationPath = PathHelper.PathCombine(GlobalConfig.BasePhysicalPath,
+                                                            string.Format(@"admin\xml\NavigationOfSite{0}.xml", siteId));
+                            XmlDocument navigationDoc = new XmlDocument();
+                            navigationDoc.Load(navigationPath);
+                            XmlNode compenentNode = navigationDoc.SelectSingleNode("/TabCollection/Compenents");
+                            if (compenentNode != null)
+                            {
+                                compenentNode.InnerXml += tabNode.InnerXml;
+                            }
+                            else
+                            {
+                                XmlNode root = doc.SelectSingleNode("/TabCollection");
+                                XmlElement element = doc.CreateElement("Compenent");
+                                element.InnerXml = tabNode.InnerXml;
+                                root.InsertAfter(element, root.FirstChild);
+                            }
+                            navigationDoc.Save(navigationPath);
                         }
                         return true;
                     }
@@ -341,12 +364,17 @@ namespace UniqueStudio.Core.Compenent
         /// 当用户没有编辑组件的权限时抛出该异常</exception>
         public bool SaveConfig(int compenentId, string config)
         {
-            throw new NotImplementedException();
+            if (currentUser == null)
+            {
+                throw new Exception("请使用CompenentManager(UserInfo)实例化该类。");
+            }
+            return SaveConfig(currentUser, compenentId, config);
         }
 
         /// <summary>
         /// 更新组件配置信息。
         /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息。</param>
         /// <param name="compenentId">组件ID。</param>
         /// <param name="config">配置信息。</param>
         /// <returns>是否更新成功。</returns>
@@ -354,7 +382,24 @@ namespace UniqueStudio.Core.Compenent
         /// 当用户没有编辑组件的权限时抛出该异常</exception>
         public bool SaveConfig(UserInfo currentUser, int compenentId, string config)
         {
-            throw new NotImplementedException();
+            Validator.CheckNotPositive(compenentId, "compenentId");
+            Validator.CheckStringNull(config, "config");
+            PermissionManager.CheckPermission(currentUser, "EditCompenent", "编辑组件");
+
+            try
+            {
+                return provider.UpdateCompenentConfig(compenentId, config);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
         }
 
         /// <summary>
@@ -368,23 +413,183 @@ namespace UniqueStudio.Core.Compenent
         /// 当用户没有编辑组件的权限时抛出该异常</exception>
         public bool SaveConfig(int siteId, string compenentName, string config)
         {
-            throw new NotImplementedException();
+            if (currentUser == null)
+            {
+                throw new Exception("请使用CompenentManager(UserInfo)实例化该类。");
+            }
+            return SaveConfig(currentUser, siteId, compenentName, config);
         }
 
         /// <summary>
-        /// 卸载组件
+        /// 更新组件配置信息。
         /// </summary>
-        /// <remarks>该方法签名不确定，估计要改成使用组件ID</remarks>
-        /// <param name="currentUser">当前用户信息</param>
-        /// <param name="compenent">待删除组件信息</param>
-        /// <returns>是否删除成功</returns>
+        /// <param name="currentUser">执行该方法的用户信息。</param>
+        /// <param name="siteId">网站ID。</param>
+        /// <param name="compenentName">组件名称。</param>
+        /// <param name="config">配置信息。</param>
+        /// <returns>是否更新成功。</returns>
         /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
-        /// 当用户没有卸载组件的权限时抛出该异常</exception>
-        /// <exception cref="UniqueStudio.Common.Exceptions.CompenentInstallException">
-        /// 当用户卸载失败时抛出该异常</exception>
-        public bool UninstallCompenent(UserInfo currentUser, CompenentInfo compenent)
+        /// 当用户没有编辑组件的权限时抛出该异常</exception>
+        public bool SaveConfig(UserInfo currentUser, int siteId, string compenentName, string config)
         {
-            throw new NotImplementedException();
+            Validator.CheckNotPositive(siteId, "siteId");
+            Validator.CheckStringNull(compenentName, "compenentName");
+            Validator.CheckStringNull(config, "config");
+            PermissionManager.CheckPermission(currentUser, "EditCompenent", "编辑组件");
+
+            try
+            {
+                return provider.UpdateCompenentConfig(siteId, compenentName, config);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 卸载组件。
+        /// </summary>
+        /// <param name="compenentId">待删除组件ID。</param>
+        /// <returns>是否删除成功。</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有卸载组件的权限时抛出该异常。</exception>
+        public bool UninstallCompenent(int compenentId)
+        {
+            if (currentUser == null)
+            {
+                throw new Exception("请使用CompenentManager(UserInfo)实例化该类。");
+            }
+            return UninstallCompenent(currentUser, compenentId);
+        }
+
+        /// <summary>
+        /// 卸载组件。
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息。</param>
+        /// <param name="compenentId">待删除组件ID。</param>
+        /// <returns>是否删除成功。</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有卸载组件的权限时抛出该异常。</exception>
+        public bool UninstallCompenent(UserInfo currentUser, int compenentId)
+        {
+            Validator.CheckNotPositive(compenentId, "compenentId");
+            PermissionManager.CheckPermission(currentUser, "UninstallCompenent", "卸载组件");
+
+            try
+            {
+                CompenentInfo compenent = provider.GetCompenent(compenentId);
+                if (compenent == null)
+                {
+                    return false;
+                }
+
+                //删除导航信息
+                string navigationPath = PathHelper.PathCombine(GlobalConfig.BasePhysicalPath,
+                                                            string.Format(@"admin\xml\NavigationOfSite{0}.xml", compenent.SiteId));
+                XmlDocument navigationDoc = new XmlDocument();
+                navigationDoc.Load(navigationPath);
+                string xPath = string.Format("/TabCollection/Compenents/Tab[@id='{0}']", compenent.CompenentName);
+                XmlNode tabNode = navigationDoc.SelectSingleNode(xPath);
+                XmlNode navigationNode = navigationDoc.SelectSingleNode("/TabCollection/Compenents");
+                if (tabNode != null)
+                {
+                    navigationNode.RemoveChild(tabNode);
+                }
+                navigationDoc.Save(navigationPath);
+
+                //删除数据记录
+                return provider.DeleteCompenent(compenentId);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 卸载多个组件。
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息。</param>
+        /// <param name="compenentIds">待删除组件ID的集合。</param>
+        /// <returns>是否卸载成功。</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有卸载组件的权限时抛出该异常。</exception>
+        public bool UninstallCompenents(int[] compenentIds)
+        {
+            if (currentUser == null)
+            {
+                throw new Exception("请使用CompenentManager(UserInfo)实例化该类。");
+            }
+            return UninstallCompenents(currentUser, compenentIds);
+        }
+
+        /// <summary>
+        /// 卸载多个组件。
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息。</param>
+        /// <param name="compenentIds">待删除组件ID的集合。</param>
+        /// <returns>是否卸载成功。</returns>
+        /// <exception cref="UniqueStudio.Common.Exceptions.InvalidPermissionException">
+        /// 当用户没有卸载组件的权限时抛出该异常。</exception>
+        public bool UninstallCompenents(UserInfo currentUser, int[] compenentIds)
+        {
+            Validator.CheckNull(compenentIds, "compenentIds");
+            foreach (int compenentId in compenentIds)
+            {
+                Validator.CheckNotPositive(compenentId, "compenentId");
+            }
+            PermissionManager.CheckPermission(currentUser, "UninstallCompenent", "卸载组件");
+
+            try
+            {
+                foreach (int compenentId in compenentIds)
+                {
+                    CompenentInfo compenent = provider.GetCompenent(compenentId);
+                    if (compenent == null)
+                    {
+                        continue;
+                    }
+                    //删除导航信息
+                    string navigationPath = PathHelper.PathCombine(GlobalConfig.BasePhysicalPath,
+                                                                string.Format(@"admin\xml\NavigationOfSite{0}.xml", compenent.SiteId));
+                    XmlDocument navigationDoc = new XmlDocument();
+                    navigationDoc.Load(navigationPath);
+                    string xPath = string.Format("/TabCollection/Compenents/Tab[@id='{0}']", compenent.CompenentName);
+                    XmlNode tabNode = navigationDoc.SelectSingleNode(xPath);
+                    XmlNode navigationNode = navigationDoc.SelectSingleNode("/TabCollection/Compenents");
+                    if (tabNode != null)
+                    {
+                        navigationNode.RemoveChild(tabNode);
+                    }
+                    navigationDoc.Save(navigationPath);
+                }
+
+                //删除数据记录
+                return provider.DeleteCompenents(compenentIds);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
         }
     }
 }

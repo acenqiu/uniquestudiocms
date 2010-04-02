@@ -236,4 +236,126 @@ File name: 'E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\xml\NavigationOf
     <Time>2010-04-01T17:25:50.1339218+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NullReferenceException</ExceptionType>
+    <ErrorMessage>Object reference not set to an instance of an object.</ErrorMessage>
+    <RepresentationString>System.NullReferenceException: Object reference not set to an instance of an object.
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 85
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 111
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.LoadTabs() in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 52</RepresentationString>
+    <Time>2010-04-01T23:40:45.5928702+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NullReferenceException</ExceptionType>
+    <ErrorMessage>Object reference not set to an instance of an object.</ErrorMessage>
+    <RepresentationString>System.NullReferenceException: Object reference not set to an instance of an object.
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 85
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 111
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.LoadTabs() in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 52</RepresentationString>
+    <Time>2010-04-01T23:41:31.6485044+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NullReferenceException</ExceptionType>
+    <ErrorMessage>Object reference not set to an instance of an object.</ErrorMessage>
+    <RepresentationString>System.NullReferenceException: Object reference not set to an instance of an object.
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 85
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 111
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.LoadTabs() in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 52</RepresentationString>
+    <Time>2010-04-01T23:42:47.0818189+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NullReferenceException</ExceptionType>
+    <ErrorMessage>Object reference not set to an instance of an object.</ErrorMessage>
+    <RepresentationString>System.NullReferenceException: Object reference not set to an instance of an object.
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 85
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 111
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.LoadTabs() in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 52</RepresentationString>
+    <Time>2010-04-01T23:43:14.6653966+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NullReferenceException</ExceptionType>
+    <ErrorMessage>Object reference not set to an instance of an object.</ErrorMessage>
+    <RepresentationString>System.NullReferenceException: Object reference not set to an instance of an object.
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 85
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 111
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.LoadTabs() in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 52</RepresentationString>
+    <Time>2010-04-01T23:44:55.4441609+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NullReferenceException</ExceptionType>
+    <ErrorMessage>Object reference not set to an instance of an object.</ErrorMessage>
+    <RepresentationString>System.NullReferenceException: Object reference not set to an instance of an object.
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 89
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.LoadTabs() in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 52</RepresentationString>
+    <Time>2010-04-01T23:55:19.6288622+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NullReferenceException</ExceptionType>
+    <ErrorMessage>Object reference not set to an instance of an object.</ErrorMessage>
+    <RepresentationString>System.NullReferenceException: Object reference not set to an instance of an object.
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 89
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.LoadTabs() in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 49</RepresentationString>
+    <Time>2010-04-01T23:56:01.5132578+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.NullReferenceException</ExceptionType>
+    <ErrorMessage>Object reference not set to an instance of an object.</ErrorMessage>
+    <RepresentationString>System.NullReferenceException: Object reference not set to an instance of an object.
+   at UniqueStudio.Admin.admin.sidebar.TranslateTab(XmlNode node) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 89
+   at UniqueStudio.Admin.admin.sidebar.TranslateTabs(XmlNodeList nodes) in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 73
+   at UniqueStudio.Admin.admin.sidebar.LoadTabs() in E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\sidebar.aspx.cs:line 49</RepresentationString>
+    <Time>2010-04-01T23:56:07.1505803+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IO.FileNotFoundException</ExceptionType>
+    <ErrorMessage>Could not find file 'E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\xml\NavigationOfSite0.xml'.</ErrorMessage>
+    <RepresentationString>System.IO.FileNotFoundException: Could not find file 'E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\xml\NavigationOfSite0.xml'.
+File name: 'E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\xml\NavigationOfSite0.xml'
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at System.Xml.XmlDownloadManager.GetStream(Uri uri, ICredentials credentials)
+   at System.Xml.XmlUrlResolver.GetEntity(Uri absoluteUri, String role, Type ofObjectToReturn)
+   at System.Xml.XmlTextReaderImpl.OpenUrlDelegate(Object xmlResolver)
+   at System.Threading.CompressedStack.runTryCode(Object userData)
+   at System.Runtime.CompilerServices.RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup(TryCode code, CleanupCode backoutCode, Object userData)
+   at System.Threading.CompressedStack.Run(CompressedStack compressedStack, ContextCallback callback, Object state)
+   at System.Xml.XmlTextReaderImpl.OpenUrl()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.Load(String filename)
+   at UniqueStudio.Core.Compenent.CompenentManager.UninstallCompenent(UserInfo currentUser, Int32 compenentId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Compenent\CompenentManager.cs:line 490</RepresentationString>
+    <Time>2010-04-02T15:14:12.3793614+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.ArgumentException</ExceptionType>
+    <ErrorMessage>The node to be removed is not a child of this node.</ErrorMessage>
+    <RepresentationString>System.ArgumentException: The node to be removed is not a child of this node.
+   at System.Xml.XmlNode.RemoveChild(XmlNode oldChild)
+   at UniqueStudio.Core.Compenent.CompenentManager.UninstallCompenent(UserInfo currentUser, Int32 compenentId) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Compenent\CompenentManager.cs:line 495</RepresentationString>
+    <Time>2010-04-02T15:18:15.1972498+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>

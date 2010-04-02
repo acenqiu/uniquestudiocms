@@ -107,6 +107,7 @@
                                         <td>
                                             权限提供者
                                         </td>
+                                        <td>所属网站ID</td>
                                     </tr>
                             </HeaderTemplate>
                             <ItemTemplate>
@@ -120,6 +121,7 @@
                                     <td>
                                         <%# Eval("Provider")%>
                                     </td>
+                                    <td><%# Eval("SiteId") %></td>
                                 </tr>
                             </ItemTemplate>
                             <FooterTemplate>
