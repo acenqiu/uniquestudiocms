@@ -8,28 +8,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UniqueStudio.ComCalendar.Admin {
+namespace UniqueStudio.CGE {
     
     
-    public partial class WebForm1 {
+    public partial class calendar {
         
         /// <summary>
-        /// Head1 control.
+        /// showcalendar2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
-        
-        /// <summary>
-        /// form1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::UniqueStudio.CGE.controls.CalendarEditor showcalendar2;
         
         /// <summary>
         /// calendarDate control.
@@ -41,12 +32,12 @@ namespace UniqueStudio.ComCalendar.Admin {
         protected global::System.Web.UI.WebControls.Literal calendarDate;
         
         /// <summary>
-        /// Literal1 control.
+        /// calendarNotice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal1;
+        protected global::System.Web.UI.WebControls.Literal calendarNotice;
     }
 }

@@ -6,9 +6,9 @@ namespace UniqueStudio.ComCalendar.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["caldate"] != null)
+            if (Session["caldate"] != null)
             {
-                Session["caldate"] = Request.QueryString["caldate"].ToString();
+
             }
             else
             {

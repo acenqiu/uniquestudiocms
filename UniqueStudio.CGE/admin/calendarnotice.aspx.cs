@@ -21,6 +21,7 @@ namespace UniqueStudio.ComCalendar.Admin
             {
                 date = DateTime.Today;
             }
+            calendarDate.Text = date.Year.ToString() + "年" + date.Month.ToString() + "月" + date.Day.ToString() + "日";
             testList = cnm.GetNoticesByDate(date);
             if (testList == null)
             {

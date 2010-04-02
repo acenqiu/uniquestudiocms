@@ -161,6 +161,27 @@
     <Compile Include="admin\calendarnotice.aspx.designer.cs">
       <DependentUpon>calendarnotice.aspx</DependentUpon>
     </Compile>
+    <Compile Include="calendar.aspx.cs">
+      <DependentUpon>calendar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="calendar.aspx.designer.cs">
+      <DependentUpon>calendar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="calendarframe.aspx.cs">
+      <DependentUpon>calendarframe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="calendarframe.aspx.designer.cs">
+      <DependentUpon>calendarframe.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\Calendar.ascx.cs">
+      <DependentUpon>Calendar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\Calendar.ascx.designer.cs">
+      <DependentUpon>Calendar.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\Pagination.ascx.cs">
       <DependentUpon>Pagination.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -613,6 +634,9 @@
     <Content Include="admin\images\column-header-icon.png" />
     <Content Include="admin\login.aspx" />
     <Content Include="admin\calendarnotice.aspx" />
+    <Content Include="calendar.aspx" />
+    <Content Include="calendarframe.aspx" />
+    <Content Include="controls\Calendar.ascx" />
     <Content Include="controls\Pagination.ascx" />
     <Content Include="css\article-style.css" />
     <Content Include="controls\SubCategories.ascx" />

@@ -1,38 +1,83 @@
-.label-input, .label-select
+table
 {
-	background: #FFFFFF;
-	display: none;
+  font-size:14px;
+  line-height:25px;
 }
-.label-input-focus
+a
 {
-	border: 1px;
-	outline: 1px;
+text-decoration:none;
+color:#333333;
 }
-span a
+a:hover
 {
-	padding-left: 1.2em;
+text-decoration:underline;
+color:#000000;
 }
-.save-or-cancel
+.addItem
 {
-	display: none;
+color:#FF9900;
+text-decoration:none;
 }
-.edit-button
+.addItem:hover
 {
-	background: url(../images/edit.png) no-repeat;
+ color:#FF9900;
+ font-weight:bold;
 }
-.save-button
+ .label-input, .label-select
+ {
+  background:#FFFFFF;
+  display:none;
+  
+ }
+ .label-input-focus
+ {
+ 
+   border:1px  ;
+   outline:1px;
+ }
+ td
 {
-	background: url(../images/save.png) no-repeat;
+	width:130px;
 }
-.cancel-button
-{
-	background: url(../images/cancel.png) no-repeat;
-}
-.delete-button
-{
-	background: url(../images/delete.png) no-repeat;
-}
-select
-{
-	display: none;
-}
+ table,tr,td
+ {
+ border:0px solid;
+ outline:0px;
+ border-spacing:0px;
+ margin:0px;
+
+ }
+ tr
+ {
+  padding:5px;
+ }
+ span a
+ {
+     padding-left:1.2em;
+	 padding-right:1em;
+	
+ }
+ .save-or-cancel
+ {
+   display:none;
+ }
+ .edit-button
+ {
+ background:url(../img/edit.png) no-repeat;
+ }
+ .save-button
+ {
+ background:url(../img/save.png) no-repeat;
+ }
+ .cancel-button
+ {
+  background:url(../img/cancel.png) no-repeat;
+ }
+  .delete-button
+ {
+  background:url(../img/delete.png) no-repeat;
+ }
+ select
+ {
+ display:none;
+ }
