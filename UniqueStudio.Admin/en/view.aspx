@@ -1,5 +1,5 @@
 ﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="view.aspx.cs"
-    Inherits="UniqueStudio.ComContent.PL.view" %>
+    Inherits="UniqueStudio.CGE.view" %>
 <%@ Import Namespace="UniqueStudio.Common.Utilities" %>
 <%@ Import Namespace="UniqueStudio.Common.Config" %>
 <%@ Register Src="controls/SubCategories.ascx" TagPrefix="US" TagName="SubCategories" %>
