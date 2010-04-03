@@ -5,7 +5,7 @@
 <asp:Content ID="content" ContentPlaceHolderID="cphBody" runat="server">
     <div class="tip">
         <p>
-            “组件列表”中列出了当前系统中已经安装的所有组件。</p>
+            “组件列表”中列出了当前系统中已经安装的所有组件。点击组件进行组件配置。</p>
         <p>
             卸载组件是一个比较耗时的操作，建议您一次仅卸载一个组件。</p>
     </div>
@@ -44,7 +44,8 @@
                             <input type="checkbox" name='chkSelected' onchange='selectRow(this)' value='<%# Eval("CompenentId") %>' />
                         </td>
                         <td>
-                            <%# Eval("CompenentName")%>
+                            <a href='compenentconfig.aspx?comId=<%# Eval("CompenentId") %>' title="点击配置该组件" >
+                            <%# Eval("CompenentName")%></a>
                         </td>
                         <td>
                             <%# Eval("DisplayName") %>

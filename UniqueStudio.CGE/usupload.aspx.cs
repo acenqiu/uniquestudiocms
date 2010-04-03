@@ -9,6 +9,8 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
+using UniqueStudio.Common.Config;
+
 namespace UniqueStudio.CGE
 {
     public partial class usupload : System.Web.UI.Page

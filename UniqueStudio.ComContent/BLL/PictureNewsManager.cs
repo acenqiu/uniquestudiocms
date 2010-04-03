@@ -1,86 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
-using System.Xml;
-using System.IO;
 
-using UniqueStudio.Common.Config;
-using UniqueStudio.Common.XmlHelper;
 using UniqueStudio.ComContent.Model;
-using UniqueStudio.Common.Model;
+using UniqueStudio.Common.ErrorLogging;
+using UniqueStudio.Common.Utilities;
+using UniqueStudio.Common.XmlHelper;
 using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.ComContent.BLL
 {
     public class PictureNewsManager
     {
-        private static string itemPrototype = "<item title=\"{0}\" img=\"{1}\" url=\"{2}\" target='_blank' />";
-        private static string XML_PATH = Path.Combine(GlobalConfig.BasePhysicalPath, @"xml\viewerData.xml");
-        //private static string XML_ROOT = "<?xml version=\"1.0\" encoding=\"utf-8\"?><ArrayOfErrorInfo xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"></ArrayOfErrorInfo>";
+        private const string ITEM_PROTOTYPE = "<item title=\"{0}\" img=\"{1}\" url=\"{2}\" target='_blank' />\r\n";
 
-        public static int CATEGOEY_ID = 51;
-
-        public static void UpdatePictureNews()
+        public static void UpdatePictureNews(int siteId)
         {
-            UpdatePictureNews(XML_PATH);
-        }
-
-        public static void UpdatePictureNews(string url)
-        {
-            WriteXMLContent(url, GetXMLContent());
-        }
-
-        public static string GetXMLContent()
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<?xml version='1.0' encoding='utf-8'?>").Append("\r\n");
-            sb.Append("<viewer interval='4000' isRandom='1'>").Append("\r\n");
-
-            PostManager postManager = new PostManager();
-            PostCollection postList = postManager.GetPostListByCatId(1, 3, false, PostListType.PublishedOnly, CATEGOEY_ID);
-
-            foreach (PostInfo post in postList)
+            try
             {
-                if (!string.IsNullOrEmpty(post.NewsImage))
+                string path = PathHelper.PathCombine(SiteManager.BasePhysicalPath(siteId), @"xml\viewerData.xml");
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n");
+                sb.Append(string.Format("<viewer interval=\"{0}\" isRandom=\"{1}\">\r\n", ConfigAdapter.Config(siteId).PictureNewsInterval
+                                                                                                                                   , ConfigAdapter.Config(siteId).PictureNewsIsRandom ? "1" : "0"));
+                PostManager postManager = new PostManager();
+                PostCollection postList = postManager.GetPostListByCatId(1
+                                                                                                        , ConfigAdapter.Config(siteId).PictureNewsNumber
+                                                                                                        , false
+                                                                                                        , PostListType.PublishedOnly
+                                                                                                        , ConfigAdapter.Config(siteId).PictureNewsCategoryId);
+
+                foreach (PostInfo post in postList)
                 {
-                    string[] param = { post.Title, post.NewsImage, "view.aspx?uri=" + post.Uri };
-                    sb.Append(String.Format(itemPrototype, param)).Append("\r\n");
+                    if (!string.IsNullOrEmpty(post.NewsImage))
+                    {
+                        string[] param = { post.Title, post.NewsImage, "view.aspx?uri=" + post.Uri };
+                        sb.Append(String.Format(ITEM_PROTOTYPE, param));
+                    }
                 }
+                sb.Append("</viewer>\r\n");
+
+                (new XmlManager()).SaveXml(path, sb.ToString());
             }
-            sb.Append("</viewer>").Append("\r\n");
-            return sb.ToString();
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+            }
         }
-
-        public static void WriteXMLContent(string url, string content)
-        {
-            XmlManager manager = new XmlManager();
-            manager.SaveXml(url, content);
-        }
-
-        //public static List<PictureNewsItem> GetAllNews()
-        //{
-        //    XmlManager manager = new XmlManager();
-        //    if (!File.Exists(XML_PATH))
-        //    {
-        //        try
-        //        {
-        //            manager.SaveXml(XML_PATH, XML_ROOT);
-        //            return new List<PictureNewsItem>();
-        //        }
-        //        catch
-        //        {
-        //            return null;
-        //        }
-        //    }
-        //    XmlDocument doc = manager.LoadXml(XML_PATH);
-        //    XmlNodeList list = doc.GetElementsByTagName("item");
-        //    List<PictureNewsItem> picList = new List<PictureNewsItem>();
-        //    foreach (XmlNode node in list)
-        //    {
-        //        PictureNewsItem item = new PictureNewsItem() { Title = node.Attributes["title"].Value, Url = node.Attributes["url"].Value, ImageUrl = node.Attributes["img"].Value };
-        //        picList.Add(item);
-        //    }
-        //    return picList;
-        //}
     }
 }

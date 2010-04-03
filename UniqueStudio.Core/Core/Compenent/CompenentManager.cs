@@ -6,6 +6,7 @@
 // 作者：邱江毅
 //=================================================================
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
@@ -28,6 +29,10 @@ namespace UniqueStudio.Core.Compenent
     public class CompenentManager
     {
         private static readonly ICompenent provider = DALFactory.CreateCompenent();
+
+        private static Dictionary<int, SystemConfig> dicConfigs = new Dictionary<int, SystemConfig>();
+        private static Dictionary<int, Dictionary<string, int>> compenentIdMapping = new Dictionary<int, Dictionary<string, int>>();
+
         private UserInfo currentUser;
 
         /// <summary>
@@ -45,6 +50,74 @@ namespace UniqueStudio.Core.Compenent
         public CompenentManager(UserInfo currentUser)
         {
             this.currentUser = currentUser;
+        }
+
+        /// <summary>
+        /// 返回指定组件的配置信息。
+        /// </summary>
+        /// <remarks>当缓存中没有该组件的配置信息时，将使用组件配置类进行初始化。</remarks>
+        /// <param name="siteId">网站ID。</param>
+        /// <param name="compenentName">组件名称。</param>
+        /// <param name="compenentConfig">组件配置类。</param>
+        /// <returns>组件实体类。</returns>
+        public static SystemConfig Config(int siteId, string compenentName,SystemConfig compenentConfig)
+        {
+            int compenentId = GetCompenentId(siteId, compenentName);
+            if (compenentId == 0)
+            {
+                return null;
+            }
+
+            if (dicConfigs.ContainsKey(compenentId))
+            {
+                return dicConfigs[compenentId];
+            }
+            else
+            {
+                string config = provider.GetCompenentConfig(compenentId);
+                if (string.IsNullOrEmpty(config))
+                {
+                    return null;
+                }
+                else
+                {
+                    compenentConfig.LoadConfig(config);
+                    dicConfigs.Add(compenentId, compenentConfig);
+                    return compenentConfig;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 根据网站ID及组件名返回组件ID。
+        /// </summary>
+        /// <param name="siteId">网站ID。</param>
+        /// <param name="compenentName">组件名称。</param>
+        /// <returns>组件ID。</returns>
+        public static int GetCompenentId(int siteId, string compenentName)
+        {
+            if (!compenentIdMapping.ContainsKey(siteId))
+            {
+                compenentIdMapping.Clear();
+                CompenentCollection compenents = provider.GetAllCompenents();
+                foreach (CompenentInfo compenent in compenents)
+                {
+                    if (!compenentIdMapping.ContainsKey(compenent.SiteId))
+                    {
+                        compenentIdMapping.Add(compenent.SiteId, new Dictionary<string, int>());
+                    }
+                    compenentIdMapping[compenent.SiteId].Add(compenent.CompenentName, compenent.CompenentId);
+                }
+            }
+
+            if (compenentIdMapping.ContainsKey(siteId))
+            {
+                if (compenentIdMapping[siteId].ContainsKey(compenentName))
+                {
+                    return compenentIdMapping[siteId][compenentName];
+                }
+            }
+            return 0;
         }
 
         /// <summary>
@@ -388,7 +461,18 @@ namespace UniqueStudio.Core.Compenent
 
             try
             {
-                return provider.UpdateCompenentConfig(compenentId, config);
+                if (provider.UpdateCompenentConfig(compenentId, config))
+                {
+                    if (dicConfigs.ContainsKey(compenentId))
+                    {
+                        dicConfigs[compenentId].LoadConfig(config);
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (DbException ex)
             {
@@ -439,7 +523,19 @@ namespace UniqueStudio.Core.Compenent
 
             try
             {
-                return provider.UpdateCompenentConfig(siteId, compenentName, config);
+                if (provider.UpdateCompenentConfig(siteId, compenentName, config))
+                {
+                    int compenentId = GetCompenentId(siteId,compenentName);
+                    if (dicConfigs.ContainsKey(compenentId))
+                    {
+                        dicConfigs[compenentId].LoadConfig(config);
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (DbException ex)
             {

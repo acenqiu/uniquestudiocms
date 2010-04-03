@@ -3,6 +3,7 @@
 
 <%@ Register Assembly="UniqueStudio.Controls" Namespace="UniqueStudio.Controls" TagPrefix="US" %>
 <%@ Import Namespace="UniqueStudio.Core.Site" %>
+<%@ Import Namespace="UniqueStudio.ComContent" %>
 <%@ Register Src="controls/Pagination.ascx" TagPrefix="US" TagName="Pagination" %>
 <%@ Register Src="controls/SubCategories.ascx" TagPrefix="US" TagName="SubCategories" %>
 <asp:Content ID="head" ContentPlaceHolderID="head" runat="server">
@@ -26,9 +27,9 @@
                 <asp:Repeater ID="rptList" runat="server">
                     <ItemTemplate>
                         <li><a href='view.aspx?catId=<%=CategoryId %>&uri=<%# Eval("Uri") %>' title='<%# Eval("Title") %>'
-                            <%# Convert.ToDateTime(Eval("LastEditDate")) >= DateTime.Now.AddDays(-SiteManager.Config(SiteId).NewImageThreshold) ? "class='new'" : ""  %>>
+                            <%# Convert.ToDateTime(Eval("LastEditDate")) >= DateTime.Now.AddDays(-NewImageThreshold) ? "class='new'" : ""  %>>
                             <%# Eval("Title")%></a> <span class="postdate">
-                                <%# Convert.ToDateTime(Eval("LastEditDate")).ToString(SiteManager.Config(SiteId).TimeFormatOfSectionPostList) %></span></li>
+                                <%# Convert.ToDateTime(Eval("LastEditDate")).ToString(TimeFormat) %></span></li>
                     </ItemTemplate>
                 </asp:Repeater>
             </ul>

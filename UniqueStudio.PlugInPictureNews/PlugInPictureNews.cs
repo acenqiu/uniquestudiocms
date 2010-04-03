@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+using UniqueStudio.ComContent;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common.Model;
@@ -13,7 +14,6 @@ namespace UniqueStudio.PlugInPictureNews
     public class PlugInPictureNews : Core.PlugIn.IPlugIn
     {
         private const string PLUGIN_NAME = "plugIn_PictureNews";
-        private const string CATEGOEY_ID = "CategoryId";
 
         #region IPlugIn Members
 
@@ -42,15 +42,14 @@ namespace UniqueStudio.PlugInPictureNews
                 return;
             }
 
-            int categoryId = Converter.IntParse(PlugInManager.GetConfigValue(PLUGIN_NAME, post.SiteId, CATEGOEY_ID), 0);
-
+            int categoryId = ConfigAdapter.Config(post.SiteId).PictureNewsCategoryId;
             if (!string.IsNullOrEmpty(post.NewsImage))
             {
                 foreach (CategoryInfo item in post.Categories)
                 {
                     if (item.CategoryId == categoryId)
                     {
-                        PictureNewsManager.UpdatePictureNews();
+                        PictureNewsManager.UpdatePictureNews(post.SiteId);
                         break;
                     }
                 }

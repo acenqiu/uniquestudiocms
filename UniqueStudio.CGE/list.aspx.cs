@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text;
+
+using UniqueStudio.ComContent;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common.Model;
@@ -12,19 +14,23 @@ namespace UniqueStudio.CGE
     public partial class list : Controls.PlBasePage
     {
         protected int CategoryId;
+        protected int NewImageThreshold;
+        protected string TimeFormat;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            CategoryId = Converter.IntParse(Request.QueryString["catId"], 0);
+            TimeFormat = ConfigAdapter.Config(SiteId).TimeFormatOfSectionPostList;
+
             if (!IsPostBack)
             {
-                CategoryId = Converter.IntParse(Request.QueryString["catId"], 0);
                 if (CategoryId == 0)
                 {
                     Response.Redirect(PathHelper.PathCombine(SiteManager.BaseAddress(SiteId), "404.aspx"));
                 }
 
                 int pageIndex = Converter.IntParse(Request.QueryString["page"], 1);
-                int pageSize = Converter.IntParse(Request.QueryString["size"], SiteManager.Config(SiteId).PageSizeOfSectionPostList);
+                int pageSize = Converter.IntParse(Request.QueryString["size"], ConfigAdapter.Config(SiteId).PageSizeOfSectionPostList);
 
                 PostManager postManager = new PostManager();
                 PostCollection posts = postManager.GetPostListByCatId(pageIndex, pageSize, false, PostListType.PublishedOnly, CategoryId);

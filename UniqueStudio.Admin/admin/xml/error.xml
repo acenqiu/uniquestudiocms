@@ -358,4 +358,120 @@ File name: 'E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\xml\NavigationOf
     <Time>2010-04-02T15:18:15.1972498+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Procedure or function 'UpdateCompenentConfigByID' expects parameter '@SiteID', which was not supplied.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Procedure or function 'UpdateCompenentConfigByID' expects parameter '@SiteID', which was not supplied.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(DbAsyncResult result, String methodName, Boolean sendToPipe)
+   at System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at UniqueStudio.Common.DatabaseHelper.SqlHelper.ExecuteNonQuery(CommandType cmdType, String cmdText, SqlParameter[] commandParameters) in E:\Projects\CMS\Source\CMS\UniqueStudio.Common\DatabaseHelper\SqlHelper.cs:line 56
+   at UniqueStudio.DAL.Compenent.SqlCompenentProvider.UpdateCompenentConfig(Int32 compenentId, String config) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\DAL\Compenent\SqlCompenentProvider.cs:line 265
+   at UniqueStudio.Core.Compenent.CompenentManager.SaveConfig(UserInfo currentUser, Int32 compenentId, String config) in E:\Projects\CMS\Source\CMS\UniqueStudio.Core\Core\Compenent\CompenentManager.cs:line 464</RepresentationString>
+    <Time>2010-04-03T16:31:20.1168574+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IO.DirectoryNotFoundException</ExceptionType>
+    <ErrorMessage>Could not find a part of the path 'E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\zh\upload\image\20100403205849..jpg'.</ErrorMessage>
+    <RepresentationString>System.IO.DirectoryNotFoundException: Could not find a part of the path 'E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\zh\upload\image\20100403205849..jpg'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode)
+   at System.Web.HttpPostedFile.SaveAs(String filename)
+   at System.Web.UI.WebControls.FileUpload.SaveAs(String filename)
+   at UniqueStudio.ComContent.Admin.PostEditor.GetNewsImage()
+   at UniqueStudio.ComContent.Admin.PostEditor.PreparePost(Int64 uri, Boolean isPublished)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished)</RepresentationString>
+    <Time>2010-04-03T20:58:49.7639271+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IO.DirectoryNotFoundException</ExceptionType>
+    <ErrorMessage>Could not find a part of the path 'E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\zh\upload\image\20100403210105.jpg'.</ErrorMessage>
+    <RepresentationString>System.IO.DirectoryNotFoundException: Could not find a part of the path 'E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\zh\upload\image\20100403210105.jpg'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode)
+   at System.Web.HttpPostedFile.SaveAs(String filename)
+   at System.Web.UI.WebControls.FileUpload.SaveAs(String filename)
+   at UniqueStudio.ComContent.Admin.PostEditor.GetNewsImage()
+   at UniqueStudio.ComContent.Admin.PostEditor.PreparePost(Int64 uri, Boolean isPublished)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished)</RepresentationString>
+    <Time>2010-04-03T21:01:05.8847127+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Threading.ThreadAbortException</ExceptionType>
+    <ErrorMessage>Thread was being aborted.</ErrorMessage>
+    <RepresentationString>System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   at System.Web.HttpResponse.Redirect(String url)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished)</RepresentationString>
+    <Time>2010-04-03T21:02:08.5542972+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Threading.ThreadAbortException</ExceptionType>
+    <ErrorMessage>Thread was being aborted.</ErrorMessage>
+    <RepresentationString>System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   at System.Web.HttpResponse.Redirect(String url)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished)</RepresentationString>
+    <Time>2010-04-03T21:03:58.5695898+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Threading.ThreadAbortException</ExceptionType>
+    <ErrorMessage>Thread was being aborted.</ErrorMessage>
+    <RepresentationString>System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   at System.Web.HttpResponse.Redirect(String url)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished)</RepresentationString>
+    <Time>2010-04-03T21:04:37.2087998+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Threading.ThreadAbortException</ExceptionType>
+    <ErrorMessage>Thread was being aborted.</ErrorMessage>
+    <RepresentationString>System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   at System.Web.HttpResponse.Redirect(String url)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished)</RepresentationString>
+    <Time>2010-04-03T21:05:43.7756072+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Threading.ThreadAbortException</ExceptionType>
+    <ErrorMessage>Thread was being aborted.</ErrorMessage>
+    <RepresentationString>System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   at System.Web.HttpResponse.Redirect(String url)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished)</RepresentationString>
+    <Time>2010-04-03T21:06:16.7794949+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>
