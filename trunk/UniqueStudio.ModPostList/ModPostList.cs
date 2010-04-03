@@ -11,6 +11,7 @@ using UniqueStudio.Core.Category;
 using UniqueStudio.Core.Site;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
+using UniqueStudio.ComContent;
 
 namespace UniqueStudio.ModPostList
 {
@@ -53,7 +54,7 @@ namespace UniqueStudio.ModPostList
                                                             PostListType.PublishedOnly, categoryId);
                     if (posts != null)
                     {
-                        DateTime earliest = DateTime.Now.AddDays(-SiteManager.Config(siteId).NewImageThreshold);
+                        DateTime earliest = DateTime.Now.AddDays(-ConfigAdapter.Config(siteId).NewImageThreshold);
                         foreach (PostInfo post in posts)
                         {
                             items.Append(string.Format(ITEM, categoryId

@@ -350,7 +350,7 @@ namespace UniqueStudio.ComContent.Admin
                 else
                 {
                     //控件对中文路径支持不好
-                    string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "." + extension;
+                    string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
                     string filePath = SiteManager.BasePhysicalPath(siteId) + "/upload/image/" + fileName;
                     fuNewsImage.SaveAs(filePath);
                     lblImageName.Visible = true;

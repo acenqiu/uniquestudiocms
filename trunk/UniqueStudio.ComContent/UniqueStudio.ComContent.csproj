@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3CB902B2-D40A-4263-AB02-E95A63E71BA3}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -61,8 +61,11 @@
     <Compile Include="BLL\PictureNewsManager.cs" />
     <Compile Include="BLL\PostManager.cs" />
     <Compile Include="BLL\PostPermissionManager.cs" />
+    <Compile Include="ComContentConfig.cs" />
+    <Compile Include="ConfigAdapter.cs" />
     <Compile Include="DAL\AutoSaveProvider.cs" />
     <Compile Include="DAL\PostProvider.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="Model\EditorMode.cs" />
     <Compile Include="Model\Enclosure.cs" />
     <Compile Include="Model\EnclosureCollection.cs" />
@@ -83,6 +86,9 @@
       <Project>{F9D2C679-CD07-49AA-BD9C-B28F6BB14F20}</Project>
       <Name>UniqueStudio.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="install.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

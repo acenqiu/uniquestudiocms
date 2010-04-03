@@ -40,8 +40,8 @@ namespace UniqueStudio.ExtraTools
                 XmlManager manager = new XmlManager();
                 try
                 {
-                    manager.SaveXml("temp.xml", (string)o);
-                    webBrowser1.Url = new Uri("temp.xml");
+                    manager.SaveXml(Environment.CurrentDirectory + "/temp.xml", (string)o);
+                    webBrowser1.Url = new Uri(Environment.CurrentDirectory + "/temp.xml");
                 }
                 catch (Exception ex)
                 {

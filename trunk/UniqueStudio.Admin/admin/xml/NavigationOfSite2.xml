@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TabCollection>
   <Compenents>
-    <Tab id="Content" text="文章组件" permissions="AddPost,EditAllDraftAPost,EditOwnDraftAPost,EditOwnDraftOnly,DeleteAllDraftAPost,DeleteOwnDraftAPost,DeleteOwnDraftOnly" selected="true">
-      <SubTabs>
-        <Tab text="发表" permissions="AddPost" href="compenents/com_content/admin/addpost.aspx" target="right" />
-        <Tab text="管理" permissions="EditAllDraftAPost,EditOwnDraftAPost,EditOwnDraftOnly,DeleteAllDraftAPost,DeleteOwnDraftAPost,DeleteOwnDraftOnly" href="compenents/com_content/admin/addpost.aspx" target="right" />
-      </SubTabs>
-    </Tab>
   </Compenents>
   <System>
     <Tab id="Category" text="分类管理" permissions="CreateCategory,DeleteCategory,EditCategory">

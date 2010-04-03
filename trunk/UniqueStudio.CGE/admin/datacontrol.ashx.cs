@@ -4,6 +4,7 @@ using System.Web;
 
 using UniqueStudio.ComCalendar.BLL;
 using UniqueStudio.ComCalendar.Model;
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.Admin
 {
@@ -29,15 +30,7 @@ namespace UniqueStudio.Admin
             {
                 if (context.Request["action"].Equals("add"))
                 {
-                    DateTime date;
-                    if (String.IsNullOrEmpty(context.Request["caldate"]))
-                    {
-                        date = DateTime.Today;
-                    }
-                    else
-                    {
-                        date = Convert.ToDateTime(context.Request["caldate"]);
-                    }
+                    DateTime date = Converter.DatetimeParse(context.Request["caldate"], DateTime.Today);
                     // control = new DataControl<CalendarNotice>(new CalendarNotice(), DataControlManager<CalendarNotice>.Properties);
                     DataControlManager<CalendarNotice>.Add(new CalendarNotice() { Content = "事件", Remarks = "备注", Time = "时间", Date = date });
                     test = DataControlManager<CalendarNotice>.ControlList.Count.ToString();

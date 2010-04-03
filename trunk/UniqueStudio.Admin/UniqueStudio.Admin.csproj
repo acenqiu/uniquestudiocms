@@ -77,6 +77,13 @@
     <Compile Include="admin\background\changepwd.aspx.designer.cs">
       <DependentUpon>changepwd.aspx</DependentUpon>
     </Compile>
+    <Compile Include="admin\background\compenentconfig.aspx.cs">
+      <DependentUpon>compenentconfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\background\compenentconfig.aspx.designer.cs">
+      <DependentUpon>compenentconfig.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\background\compenentlist.aspx.cs">
       <DependentUpon>compenentlist.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -374,6 +381,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\background\compenentconfig.aspx" />
     <Content Include="admin\background\controlconfig.aspx" />
     <Content Include="admin\background\createrole.aspx" />
     <Content Include="admin\background\createuser.aspx" />

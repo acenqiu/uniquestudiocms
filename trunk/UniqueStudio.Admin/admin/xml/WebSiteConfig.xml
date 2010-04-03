@@ -7,7 +7,4 @@
     <option value="false" label="否">
     </option>
   </param>
-  <param name="TimeFormatOfSectionPostList" type="text" value="yyyy-MM-dd" label="子栏目文章列表时间格式" title="子栏目文章列表时间格式" />
-  <param name="PageSizeOfSectionPostList" type="text" value="20" label="子栏目文章列表显示数量" title="子栏目文章列表显示数量" />
-  <param name="NewImageThreshold" type="text" value="7" label="定义为新文章的天数" title="定义为新文章的天数" />
 </config>

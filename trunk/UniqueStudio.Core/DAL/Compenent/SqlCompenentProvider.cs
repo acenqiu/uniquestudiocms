@@ -220,9 +220,7 @@ namespace UniqueStudio.DAL.Compenent
             {
                 if (reader.Read())
                 {
-                    CompenentInfo compenent = FillCompenentInfo(reader);
-                    compenent.SiteId = (int)reader["SiteID"];
-                    return compenent;
+                    return FillCompenentInfo(reader);
                 }
                 else
                 {
@@ -287,6 +285,7 @@ namespace UniqueStudio.DAL.Compenent
         {
             CompenentInfo compenent = new CompenentInfo();
             compenent.CompenentId = (int)reader["CompenentID"];
+            compenent.SiteId = (int)reader["SiteID"];
             compenent.CompenentName = reader["CompenentName"].ToString();
             compenent.DisplayName = reader["DisplayName"].ToString();
             compenent.CompenentAuthor = reader["CompenentAuthor"].ToString();

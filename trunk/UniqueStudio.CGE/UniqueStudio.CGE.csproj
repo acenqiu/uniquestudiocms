@@ -46,7 +46,6 @@
     <Content Include="admin\deletepost.aspx" />
     <Content Include="admin\editpost.aspx" />
     <Content Include="admin\postlist.aspx" />
-    <Content Include="install.xml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -71,8 +70,8 @@
     <Compile Include="admin\addpost.aspx.designer.cs">
       <DependentUpon>addpost.aspx</DependentUpon>
     </Compile>
-    <Compile Include="admin\AutoSave.ashx.cs">
-      <DependentUpon>AutoSave.ashx</DependentUpon>
+    <Compile Include="admin\autosavehandler.ashx.cs">
+      <DependentUpon>autosavehandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="admin\calendar.aspx.cs">
       <DependentUpon>calendar.aspx</DependentUpon>
@@ -607,7 +606,7 @@
     <Content Include="admin\editor\fckeditor\fckstyles.xml" />
     <Content Include="admin\editor\fckeditor\fcktemplates.xml" />
     <Content Include="admin\Fileup.ashx" />
-    <Content Include="admin\AutoSave.ashx" />
+    <Content Include="admin\autosavehandler.ashx" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
