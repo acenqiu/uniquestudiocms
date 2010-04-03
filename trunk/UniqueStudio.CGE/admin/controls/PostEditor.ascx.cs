@@ -249,6 +249,7 @@ namespace UniqueStudio.ComContent.Admin
             {
                 PostInfo post = PreparePost(Convert.ToInt64(Session["posturi"].ToString()), isPublished);
                 post.AddUserName = currentUser.UserName;
+                post.NewsImage = GetNewsImage();
                 long postUri = postManager.AddPost(currentUser, post);
                 if (postUri > 0)
                 {
@@ -274,6 +275,11 @@ namespace UniqueStudio.ComContent.Admin
             {
                 PostInfo post = PreparePost(uri, isPublished);
                 post.LastEditUserName = currentUser.UserName;
+                string newsImage = GetNewsImage();
+                if (!string.IsNullOrEmpty(newsImage))
+                {
+                    post.NewsImage = newsImage;
+                }
                 if (postManager.EditPost(currentUser, post))
                 {
                     message.SetSuccessMessage("保存成功！");
@@ -303,7 +309,6 @@ namespace UniqueStudio.ComContent.Admin
             post.Author = txtAuthor.Text;
             post.Summary = fckSummary.Value;
             post.Content = fckContent.Value;
-            post.NewsImage = GetNewsImage();
             post.Settings = settingsManager.GetPostXMLFromEnclosures(uri.ToString(), Server.MapPath(@"~/upload/"));
             post.Categories = GetSelectedCategories();
             if (post.Categories.Count == 0)
