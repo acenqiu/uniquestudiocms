@@ -14,10 +14,12 @@ function getSessionUri()
 }
 </script>
 
-<span style="border: 1px solid #666666; padding: 4px; background: #ffff99; cursor: pointer;
-    margin-left: 10px; position: absolute; bottom: 0">点击上传</span>
+<span style="border: 1px solid #666666; padding: 4px; background: #ffff99; cursor: pointer;  position: absolute; ">点击上传</span>
+
 <div id="fileUpArea">
 </div>
+
 <div id="filetxt" style="margin-bottom: 10px">
+<div style="visibility:hidden ;margin-bottom: 1em;">upload</div>
 </div>
 <input id="filedNamelist" name="filedNamelist" type="hidden" runat="server" value="" />

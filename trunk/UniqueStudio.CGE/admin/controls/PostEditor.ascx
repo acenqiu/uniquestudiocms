@@ -75,12 +75,11 @@
                 <asp:TextBox ID="txtSource" runat="server" Enabled="false" Width="250px" /></span>
         </div>
         <div class="form-item">
-            <span class="form-item-label" style="height: 400px">内容(点击工具栏上的“全屏编辑”按钮可以将编辑窗口最大化)：</span>
-            <span class="form-item-input">
+            <span >内容(点击工具栏上的“全屏编辑”按钮可以将编辑窗口最大化)：</span>
+            <div >
                 <FCKeditorV2:FCKeditor ID="fckContent" runat="server" />
-            </span>
-            <div id="toolTip">
             </div>
+         
         </div>
         <div class="form-item">
             <span class="form-item-label">摘要：</span> <span class="form-item-input">

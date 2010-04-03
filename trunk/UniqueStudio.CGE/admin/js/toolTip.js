@@ -2,9 +2,7 @@
 var toolTipInstance;
 function toolTip(title,content,time)
 {
-setTimeout(function (){aa(title,content,time);},100);
-function aa(title,content,time)
-{
+
 	var hasTitle=true;
 
 	if (!content)
@@ -48,17 +46,16 @@ function aa(title,content,time)
 	 {
 		 toolTip.instance=tip;
 	 }
-}
+
 }
 function cancelToolTip()
 {
-	;
 	 if(toolTip.instance)
 	 {
-
 		  var tip=toolTip.instance;
 			var parent=tip.parentNode;
 			parent.removeChild(tip);
+            tip.innerHTML="";
 			toolTip.instance=null;	
 	 }
 }
