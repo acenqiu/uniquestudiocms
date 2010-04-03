@@ -14,13 +14,14 @@ form
 	font-size: 20px;
 	cursor: pointer;
 	position: absolute;
-	bottom: 0;
+
 	filter: alpha(opacity=0);
 	opacity: 0;
 	width: 10px;
 	outline: none;
 	hide-focus: expression(this.hideFocus=true);
 	cursor: pointer;
+	
 }
 .filetxt
 {
@@ -36,8 +37,14 @@ form
 .spanstate
 {
 	font-size: 11px;
-	color: #0099FF;
+	color:#666666;
 	padding: 10px;
+}
+.delFile 
+{
+	color:#FFCC00;
+	font-weight:bold;
+	cursor:pointer;
 }
 
 

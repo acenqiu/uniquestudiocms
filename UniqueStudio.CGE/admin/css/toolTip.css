@@ -1,13 +1,14 @@
 .tipBox
 {
 	position: fixed;
-	left: 40%;
-	top: 40%;
+
 	width: 200px;
 	width: 200px;
 	background: #FFFF99;
 	border: #FFCC66 1px solid;
 	font-size: 12px;
+	right:auto;left:40%;
+	bottom:auto;top:30%;
 }
 #toolTip .tipBox
 {
@@ -25,5 +26,10 @@
 	text-align: center;
 	padding: 2px;
 }
-/* CSS Document */
+
+* html .tipBox 
+{position:absolute;
+ bottom:auto;
+ top:expression(eval(document.documentElement.scrollTop+200));
+ }
 

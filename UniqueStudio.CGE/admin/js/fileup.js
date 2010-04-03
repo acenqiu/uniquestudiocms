@@ -117,7 +117,7 @@
 	    var statediv=document.createElement("span");//状态div
 	    var stopdiv=document.createElement("span");//停止按钮
 	    var jxupdiv;//上传按钮
-	    var imgs=document.createElement('img');//删除按钮
+	   // var imgs=document.createElement('img');//删除按钮
 	    var upedfilename;//上传后文件名称
 	    //var filedNames=document.getElementById("filedName");//显示上传后所有附件名称，后台取值用
 	    var filedNames=getfiledName();
@@ -132,10 +132,10 @@
         contxt.className="";
         filetxtDiv.appendChild(contxt);//添加一个显示附件内容的div
         
-        imgs.src=path+"img/f2.gif";
-        imgs.onclick=Dispose;//删除事件
-        contxt.appendChild(imgs);//添加删除按钮
-        
+        //imgs.src=path+"img/f2.gif";
+        //imgs.onclick=Dispose;//删除事件
+        //contxt.appendChild(imgs);//添加删除按钮
+     
         statediv.id="state"+num;
         statediv.className="spanstate";
         statediv.innerHTML="准备上传";
@@ -259,7 +259,6 @@
          }
          function Dispose()//删除事件
          {
-             //alert("ddd");
              if(IsClicked){
                 DeleteEnclosure(str);
              }
@@ -289,7 +288,7 @@
          }
          function finished()//上传完毕
          {
-            statediv.style.color="#ff0000";
+ 
 	        statediv.innerHTML="上传成功";
 	        contxt.removeChild(stopdiv);
             if(filedNames.value=="")
@@ -300,6 +299,12 @@
             {
                 filedNames.value+=","+upedfilename;
             }
+               var del=document.createElement("span");
+        del.className="delFile";
+       // del.innerHTML="<a href='#' onclick='Dispose()'>删除</a>"
+        del.innerHTML="删除";
+        del.onclick=Dispose;
+        contxt.appendChild(del);
             Endupfiled++;//已上传数加一
          }
 	}
@@ -331,16 +336,19 @@
 	}
 	function AutoSave()
 	{
+	    toolTip("正在自动保存...",-1);
 	    title=GetTitle();
 	    userID=GetUserID();
 	    subTitle=GetSubTitle();
 	    author=GetAuthor();
 	    fckcontent=window.frames[iframeid].window.frames[0].document.body.innerHTML;
-	    if(fckcontent=="<P></P>")
+	    //alert(fckcontent.toUpperCase());
+	    if(fckcontent.toUpperCase()=="<P></P>"||fckcontent.toUpperCase()=="<P><BR></P>")
 	    {
 	        return;
 	    }
 	    fcksummary=window.frames[iframeid+1].window.frames[0].document.body.innerHTML;
+	    /*
 	    param="uri="+getSessionUri()+"&content="+escape(fckcontent)+"&summary="+fcksummary
 	        +"&author="+author+"&title="+title+"&subTitle="+subTitle+"&userid="+userID;
 	    xmlhttp.open("POST",path+"AutoSave.ashx",true);
@@ -351,11 +359,32 @@
 	        if(xmlhttp.readyState==4&&xmlhttp.status==200)
 	        {
 	            var rs=xmlhttp.responseText;
+	            alert("sss");
 	            cancelToolTip();
 	            toolTip(rs,2000);
 	            //AutoSaveDiv.innerHTML=rs;
 	           //alert(rs);
 	        }
 	    }
-	    xmlhttp.send(param);
+	     xmlhttp.send(param);
+	    */
+	
+	       var postO=new Object();
+	       postO.uri=getSessionUri()
+	       postO.content=escape(fckcontent);
+	       postO.summary=fcksummary;
+	       postO.author=author;
+	       postO.title=title;
+	       postO.subTitle=subTitle;
+	       postO.userid=userID;
+	   
+	   $.post("autosavehandler.ashx",
+       postO,
+       function(data){
+
+           cancelToolTip();
+	       toolTip(data,2000);
+ 
+       });
+	   
 	}
