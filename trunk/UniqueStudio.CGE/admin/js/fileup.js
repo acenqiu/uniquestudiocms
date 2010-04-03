@@ -336,7 +336,6 @@
 	}
 	function AutoSave()
 	{
-	    toolTip("正在自动保存...",-1);
 	    title=GetTitle();
 	    userID=GetUserID();
 	    subTitle=GetSubTitle();
@@ -347,28 +346,9 @@
 	    {
 	        return;
 	    }
+	    toolTip("正在自动保存...",-1);
+
 	    fcksummary=window.frames[iframeid+1].window.frames[0].document.body.innerHTML;
-	    /*
-	    param="uri="+getSessionUri()+"&content="+escape(fckcontent)+"&summary="+fcksummary
-	        +"&author="+author+"&title="+title+"&subTitle="+subTitle+"&userid="+userID;
-	    xmlhttp.open("POST",path+"AutoSave.ashx",true);
-	    xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	    //AutoSaveDiv.innerHTML="正在自动保存";
-	    toolTip("正在自动保存",-1);
-	    xmlhttp.onreadystatechange=function(){
-	        if(xmlhttp.readyState==4&&xmlhttp.status==200)
-	        {
-	            var rs=xmlhttp.responseText;
-	            alert("sss");
-	            cancelToolTip();
-	            toolTip(rs,2000);
-	            //AutoSaveDiv.innerHTML=rs;
-	           //alert(rs);
-	        }
-	    }
-	     xmlhttp.send(param);
-	    */
-	
 	       var postO=new Object();
 	       postO.uri=getSessionUri()
 	       postO.content=escape(fckcontent);
@@ -377,7 +357,6 @@
 	       postO.title=title;
 	       postO.subTitle=subTitle;
 	       postO.userid=userID;
-	   
 	   $.post("autosavehandler.ashx",
        postO,
        function(data){

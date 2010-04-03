@@ -25,8 +25,10 @@
 <head>
 	<title>Resources</title>
 	<link href="browser.css" type="text/css" rel="stylesheet">
+	<link href="custom.css" type="text/css" rel="stylesheet">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/custom.js"></script>
 	<script type="text/javascript">
 
 var oListManager = new Object() ;
@@ -89,9 +91,19 @@ function OpenFolder( folderPath )
 
 function OpenFile( fileUrl )
 {
+ 
+  try
+  {
 	window.top.opener.SetUrl( encodeURI( fileUrl ).replace( '#', '%23' ) ) ;
 	window.top.close() ;
 	window.top.opener.focus() ;
+  }
+  catch(e)
+  {
+    //alert(encodeURI( fileUrl ).replace( '#', '%23' ));
+    copyUrlHint(encodeURI( fileUrl ).replace( '#', '%23' ));
+  
+  }
 }
 
 function LoadResources( resourceType, folderPath )

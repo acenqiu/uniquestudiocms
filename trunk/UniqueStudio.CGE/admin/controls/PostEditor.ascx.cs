@@ -64,6 +64,7 @@ namespace UniqueStudio.ComContent.Admin
             set { mode = value; }
         }
 
+        private string categoryPrototype = "#{0}#*{1}*";
         protected void Page_Load(object sender, EventArgs e)
         {
             currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
@@ -74,11 +75,20 @@ namespace UniqueStudio.ComContent.Admin
                 try
                 {
                     CategoryManager manager = new CategoryManager();
+
                     CategoryCollection categories = manager.GetAllCategories(siteId);
                     cblCategory.DataSource = categories;
                     cblCategory.DataTextField = "CategoryName";
                     cblCategory.DataValueField = "CategoryID";
                     cblCategory.DataBind();
+                    foreach (ListItem item in cblCategory.Items)
+                    {
+                        StringBuilder sb = new StringBuilder(item.Text);
+                        CategoryInfo cat = manager.GetCategory(Convert.ToInt32(item.Value));
+                        sb.Append(String.Format(categoryPrototype, new string[] { item.Value, cat.ParentCategoryId.ToString() }));
+                        item.Text = sb.ToString();
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -350,7 +360,7 @@ namespace UniqueStudio.ComContent.Admin
                 else
                 {
                     //控件对中文路径支持不好
-                    string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
+                    string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + "." + extension;
                     string filePath = SiteManager.BasePhysicalPath(siteId) + "/upload/image/" + fileName;
                     fuNewsImage.SaveAs(filePath);
                     lblImageName.Visible = true;
