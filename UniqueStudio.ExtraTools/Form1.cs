@@ -19,8 +19,6 @@ namespace UniqueStudio.ExtraTools
             InitializeComponent();
         }
 
-        private string connectionString = @"Server=(local)\sqlexpress;Database=UniqueStudioCMS;User ID=sa;Password=P@ssw0rd;Trusted_Connection=False;";
-
         private void btnBrowse_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -34,7 +32,7 @@ namespace UniqueStudio.ExtraTools
         {
             string cmdText = "SELECT Config FROM [uniqueCMS_Sites] WHERE SiteID=@SiteID";
             SqlParameter parm = new SqlParameter("@SiteID", Convert.ToInt32(txtSiteId.Text));
-            object o = SqlHelper.ExecuteScalar(connectionString, CommandType.Text, cmdText, parm);
+            object o = SqlHelper.ExecuteScalar(txtConnnectionString.Text, CommandType.Text, cmdText, parm);
             if (o != null && o != DBNull.Value)
             {
                 XmlManager manager = new XmlManager();
@@ -58,7 +56,7 @@ namespace UniqueStudio.ExtraTools
             SqlParameter[] parms = new SqlParameter[]{
                                                     new SqlParameter("@SiteId",siteId),
                                                     new SqlParameter("@Config",content)};
-            if (SqlHelper.ExecuteNonQuery(connectionString, CommandType.StoredProcedure, cmdText, parms) > 0)
+            if (SqlHelper.ExecuteNonQuery(txtConnnectionString.Text, CommandType.StoredProcedure, cmdText, parms) > 0)
             {
                 MessageBox.Show("ok");
             }

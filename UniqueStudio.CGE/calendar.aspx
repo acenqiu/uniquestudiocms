@@ -1,7 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="calendar.aspx.cs" MasterPageFile="~/Site.Master"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="calendar.aspx.cs" MasterPageFile="Site.Master"
     Inherits="UniqueStudio.CGE.calendar" %>
 
-<%@ Register Src="~/controls/Calendar.ascx" TagPrefix="US" TagName="Calendar" %>
+<%@ Register Src="controls/Calendar.ascx" TagPrefix="US" TagName="Calendar" %>
 <asp:Content ID="calendarHead" runat="server" ContentPlaceHolderID="head">
 <style>
 .column td a
