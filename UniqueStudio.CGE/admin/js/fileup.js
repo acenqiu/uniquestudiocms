@@ -103,7 +103,6 @@
 	                  break;
 	        }
 	   }
-	   
 	}
 	function SetIframeInput(input,num,str)//选取值后的file控件，第几个，选取的文件名称
 	{
@@ -299,12 +298,12 @@
             {
                 filedNames.value+=","+upedfilename;
             }
-               var del=document.createElement("span");
-        del.className="delFile";
-       // del.innerHTML="<a href='#' onclick='Dispose()'>删除</a>"
-        del.innerHTML="删除";
-        del.onclick=Dispose;
-        contxt.appendChild(del);
+            var del=document.createElement("span");
+            del.className="delFile";
+            //del.innerHTML="<a href='#' onclick='Dispose()'>删除</a>"
+            del.innerHTML="删除";
+            del.onclick=Dispose;
+            contxt.appendChild(del);
             Endupfiled++;//已上传数加一
          }
 	}
@@ -324,7 +323,8 @@
 	}
 	function DeleteEnclosure(filename)
 	{
-	    xmlhttp.open("POST",path+"Fileup.ashx?uri="+getSessionUri()+"&action=delete&filename="+filename,true);
+	    xmlhttp.open("GET",path+"Fileup.ashx?uri="+getSessionUri()+"&action=delete&filename="+encodeURIComponent(filename),true);
+	    //xmlhttp.setRequestHeader("Content-Type","text/html;encoding=gb2312");
         xmlhttp.onreadystatechange=function(){
             if(xmlhttp.readyState==4&&xmlhttp.status==200)
             {
@@ -341,7 +341,6 @@
 	    subTitle=GetSubTitle();
 	    author=GetAuthor();
 	    fckcontent=window.frames[iframeid].window.frames[0].document.body.innerHTML;
-	    //alert(fckcontent.toUpperCase());
 	    if(fckcontent.toUpperCase()=="<P></P>"||fckcontent.toUpperCase()=="<P><BR></P>")
 	    {
 	        return;
