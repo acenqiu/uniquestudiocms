@@ -10,7 +10,6 @@
 <link rel="Stylesheet" href="css/toolTip.css" />
 
 <script language="javascript" type="text/javascript" src="js/toolTip.js"> </script>
-<script language="javascript" type="text/javascript" src="js/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="js/dataControl.js"></script>
 <script language="javascript" type="text/javascript" src="js/base.js"></script>
 <script type="text/javascript">

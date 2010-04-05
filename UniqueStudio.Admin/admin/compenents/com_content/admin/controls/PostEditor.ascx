@@ -4,8 +4,7 @@
 <%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>
 <%@ Register Src="attachment.ascx" TagName="Attachment" TagPrefix="US" %>
 
-<script src="js/jquery.min.js" type="text/javascript"></script>
-
+<script src="js/getCategoryTree.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
     function GetUserID(){
         return '<%=userId %>';
@@ -30,7 +29,7 @@
         CssClass="error" DisplayMode="List" ForeColor="#333333" />
     <asp:Panel ID="pnlEditor" runat="server">
         <div class="form-item">
-            <span class="form-item-label">标题：</span> <span class="form-item-input">
+            <span class="form-item-label" onclick="getCategory()">标题：</span> <span class="form-item-input">
                 <asp:TextBox ID="txtTitle" runat="server" Width="450px" />
                 <asp:RequiredFieldValidator ControlToValidate="txtTitle" runat="server" Display="None"
                     ErrorMessage="请输入标题" ValidationGroup="post"></asp:RequiredFieldValidator>
@@ -47,10 +46,12 @@
                         <asp:CheckBox ID="chbTop" runat="server" Text="置顶" /></span></span>
         </div>
         <div class="form-item">
-            <span class="form-item-label">分类：</span> <span class="form-item-input">
+            <span class="form-item-label" >分类：</span> <span class="form-item-input" id="categorySpan" style= "visibility:hidden">
                 <asp:CheckBoxList ID="cblCategory" runat="server" RepeatColumns="7" RepeatDirection="Horizontal">
                 </asp:CheckBoxList>
+                <script>getCategory();</script>
             </span>
+            <div class="clear"></div>
         </div>
         <div class="form-item">
             <span class="form-item-label">作者：</span> <span class="form-item-input">
@@ -75,12 +76,11 @@
                 <asp:TextBox ID="txtSource" runat="server" Enabled="false" Width="250px" /></span>
         </div>
         <div class="form-item">
-            <span class="form-item-label" style="height: 400px">内容(点击工具栏上的“全屏编辑”按钮可以将编辑窗口最大化)：</span>
-            <span class="form-item-input">
+            <span >内容(点击工具栏上的“全屏编辑”按钮可以将编辑窗口最大化)：</span>
+            <div >
                 <FCKeditorV2:FCKeditor ID="fckContent" runat="server" />
-            </span>
-            <div id="toolTip">
             </div>
+         
         </div>
         <div class="form-item">
             <span class="form-item-label">摘要：</span> <span class="form-item-input">
