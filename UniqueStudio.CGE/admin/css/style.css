@@ -28,6 +28,7 @@ a:hover
 .postEditor .submits input
 {
 }
+
 .panel
 {
 	border: solid 1px #93b9dc;
@@ -49,13 +50,14 @@ a:hover
 {
 	border: 0px solid;
 	width: 100%;
-	text-align: center;
+	text-align: left;
 	cursor: default;
 	position: relative;
 }
 .panel_table_head, .panel_table tbody tr:first-child
 {
 	background: #FFFF99;
+	text-align: center;
 }
 .panel_table .row-hover
 {

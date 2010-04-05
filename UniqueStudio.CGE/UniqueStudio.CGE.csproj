@@ -295,6 +295,7 @@
     <Content Include="admin\css\fileup.css" />
     <Content Include="admin\css\style.css" />
     <Content Include="admin\css\toolTip.css" />
+    <Content Include="admin\css\ui-sui.css" />
     <Content Include="admin\editor\fckeditor\editor\css\behaviors\disablehandles.htc" />
     <Content Include="admin\editor\fckeditor\editor\css\behaviors\showtableborders.htc" />
     <Content Include="admin\editor\fckeditor\editor\css\fck_editorarea.css" />
@@ -621,8 +622,8 @@
     <Content Include="admin\js\base.js" />
     <Content Include="admin\js\dataControl.js" />
     <Content Include="admin\js\fileup.js" />
-    <Content Include="admin\js\jquery.js" />
-    <Content Include="admin\js\jquery.min.js" />
+    <Content Include="admin\js\getCategoryTree.js" />
+    <Content Include="admin\js\jquery-plus-jquery-ui.js" />
     <Content Include="admin\js\main.js" />
     <Content Include="admin\js\toolTip.js" />
     <Content Include="admin\StopUpLoad.ashx" />
