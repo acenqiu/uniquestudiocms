@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/index.css" />
 
     <script type="text/javascript" src="js/main.js" language="javascript"></script>
-
+   <script type="text/javascript" src="js/uscript-base.js" language="javascript"></script>
 </head>
 <body onload="addLiAction()">
     <div class="slider">

@@ -76,7 +76,7 @@ function addLiAction()
       var li=links[i].parentNode;
      if (document.addEventListener)
      {
-      li.addEventListener("click",clickMenu,true);
+     li.addEventListener("click",clickMenu,true);
       }
       else
       {
@@ -86,6 +86,22 @@ function addLiAction()
          }
       }
     }
+    navigateToDefaultHref();
+  //  parent.right.location=rightHref;
+}
+function navigateToDefaultHref()
+{
+     var rightHref="background/default.aspx";
+      var d=hasClass(document.body,"admin-navigation","div")[0];
+      var li=hasClass(d,"menu-activeted","li")[0];
+      if (li)
+      {
+       clickLi(li.getElementsByTagName("a")[0]);
+      }
+      else
+      {
+         parent.right.location=rightHref;
+      }
 }
 function clickMenu(e)
 {
@@ -99,19 +115,7 @@ function clickMenu(e)
     { 
       li=e.srcElement;
     }
- if (li.tagName=="A"||li.tagName=="a")
-{
-	li=li.parentNode;
-}
-
-  li.className="menu-activeted";
-  var link=li.getElementsByTagName("a");
- 
-  if (preLi!=null)
-  {
-  preLi.className="";
-  }
-  preLi=li;
+    clickLi(li);
   
     if (e.stopPropagation)
    {
@@ -121,7 +125,22 @@ function clickMenu(e)
    {
      e.cancelBubble=true;
    }
-    parent.right.location=link[0].href;
+}
+function clickLi(li)
+{
+ if (li.tagName=="A"||li.tagName=="a")
+{
+	li=li.parentNode;
+}
+    li.className="menu-activeted";
+  var link=li.getElementsByTagName("a");
+ 
+  if (preLi!=null)
+  {
+  preLi.className="";
+  }
+  preLi=li;
+  parent.right.location=link[0].href;
 }
 
 function selectall(sender,controls)
