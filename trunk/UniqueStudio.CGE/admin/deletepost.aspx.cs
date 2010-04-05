@@ -15,61 +15,44 @@ namespace UniqueStudio.ComContent.Admin
     public partial class deletepost : Controls.AdminBasePage
     {
         private PostManager bll = new PostManager();
+        private long uri;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            uri = Converter.LongParse(Request.QueryString["uri"], 0);
+
             if (!IsPostBack)
             {
-                if (Request.QueryString["uriCollection"] != null)
+                if (uri == 0)
                 {
-                    string[] uris = Request.QueryString["uriCollection"].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (string item in uris)
-                    {
-                        if (!PostPermissionManager.HasDeletePermission(CurrentUser, Convert.ToInt64(item)))
-                        {
-                            Response.Redirect("PostPermissionError.aspx?Error=删除文章&Page=" + Request.UrlReferrer.ToString());
-                        }
-                    }
+                    Return();
                 }
                 else
                 {
-                    Return();
+                    if (!PostPermissionManager.HasDeletePermission(CurrentUser, uri))
+                    {
+                        Response.Redirect("PostPermissionError.aspx?Error=删除文章&Page=" + Request.UrlReferrer.ToString());
+                    }
                 }
             }
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            string[] uriCollection = Request.QueryString["uriCollection"].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            List<string> errorCollection = new List<string>();
-            long uri;
-            foreach (string uriString in uriCollection)
+            try
             {
-                if (long.TryParse(uriString, out uri))
+                if ((new PostManager()).DeletePost(CurrentUser, uri))
                 {
-                    if (!bll.DeletePost(CurrentUser, uri))
-                    {
-                        errorCollection.Add(uriString);
-                    }
+                    Return();
                 }
                 else
                 {
-                    errorCollection.Add(uriString);
+                    message.SetErrorMessage("文章删除失败！");
                 }
             }
-            if (errorCollection.Count == 0)
+            catch (Exception ex)
             {
-                Return();
-            }
-            else
-            {
-                pnlError.Visible = true;
-                StringBuilder sb = new StringBuilder();
-                foreach (string errorUri in errorCollection)
-                {
-                    sb.AppendFormat("{0}<br />", errorUri);
-                }
-                lblErrorList.Text = sb.ToString();
+                message.SetErrorMessage("文章删除失败：" + ex.Message);
             }
         }
 
@@ -90,11 +73,6 @@ namespace UniqueStudio.ComContent.Admin
             {
                 Response.Redirect("postlist.aspx?siteId=" + SiteId);
             }
-        }
-
-        protected void btnOK_Click(object sender, EventArgs e)
-        {
-            Return();
         }
     }
 }

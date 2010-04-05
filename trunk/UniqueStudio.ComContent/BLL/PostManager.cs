@@ -133,6 +133,11 @@ namespace UniqueStudio.ComContent.BLL
             }
         }
 
+        public bool DeletePosts(UserInfo currentUser, long[] uris)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// 编辑指定文章。
         /// </summary>

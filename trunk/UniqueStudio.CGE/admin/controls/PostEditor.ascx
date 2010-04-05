@@ -4,7 +4,6 @@
 <%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>
 <%@ Register Src="attachment.ascx" TagName="Attachment" TagPrefix="US" %>
 
-<script src="js/jquery.min.js" type="text/javascript"></script>
 <script src="js/getCategoryTree.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
     function GetUserID(){

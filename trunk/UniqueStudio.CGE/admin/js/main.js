@@ -1,4 +1,7 @@
-﻿function changestate(sender)
+﻿var preLi=null;
+var preRow=null;
+
+function changestate(sender)
 {
     if (sender.className=="menu-activeted")
     {
@@ -9,13 +12,13 @@
         sender.className="menu-activeted";
     }
 }
-var preLi=null;
-var preRow=null;
+
 function addFunction()
 {
-  addLiAction();
-  addTrFunction();
+    addLiAction();
+    addTrFunction();
 }
+
 function addTrAction()
 {
  var tableRow=document.getElementsByTagName("tr");
@@ -55,8 +58,6 @@ function hoverRow(e)
  {
    row.className="row-hover";
  }
-
- ;
   if ((preRow!=null)&&(preRow.className!="row-select"))
   {
   preRow.className="";
@@ -88,7 +89,6 @@ function addLiAction()
 }
 function clickMenu(e)
 {
-
   var li;
   if (e.currentTarget)
     {
@@ -99,10 +99,14 @@ function clickMenu(e)
     { 
       li=e.srcElement;
     }
- 
+ if (li.tagName=="A"||li.tagName=="a")
+{
+	li=li.parentNode;
+}
+
   li.className="menu-activeted";
   var link=li.getElementsByTagName("a");
-  parent.right.location=link[0].href;
+ 
   if (preLi!=null)
   {
   preLi.className="";
@@ -117,6 +121,7 @@ function clickMenu(e)
    {
      e.cancelBubble=true;
    }
+    parent.right.location=link[0].href;
 }
 
 function selectall(sender,controls)
@@ -128,18 +133,39 @@ function selectall(sender,controls)
           selectRow(c[i]);
     }   
 }
-
+function selectChildren(sender,chkSelectChildren)
+{
+    var a = document.getElementById(chkSelectChildren);
+    if (a==null || !a.checked)
+    {
+        return;
+    }
+    if (sender!=null)
+    {
+        var c = document.getElementsByName(sender.value);
+        for (var i=0;i<c.length;i++)
+        {
+            var t = document.getElementById(c[i].value);
+            if (t!=null)
+            {
+                t.checked=sender.checked;
+                selectRow(t);
+                selectChildren(t,chkSelectChildren);
+            }
+        }
+    } 
+}
 function selectRow(checkBox)
 {
-var row=checkBox.parentNode.parentNode;
-if (checkBox.checked)
-{
-   row.className="row-select";
-}
-else
-{
-  row.className=""; 
-}
+    var row=checkBox.parentNode.parentNode;
+    if (checkBox.checked)
+    {
+        row.className="row-select";
+    }
+    else
+    {
+        row.className=""; 
+    }
 }
 function selectcheck(controls)
 {
