@@ -171,7 +171,8 @@ namespace UniqueStudio.ComContent.Admin
                     int i = 0;
                     foreach (Enclosure enclosure in enclosures)
                     {
-                        sb.Append("<div id=\"editenclosure" + i.ToString() + "\">" + enclosure.Title + "<img src=\"images/f2.gif\" onclick=\"HideEditDiv('" + i.ToString() + "');DeleteEnclosure('" + enclosure.Title + "')\">" + "</div>");
+                        //sb.Append("<div id=\"editenclosure" + i.ToString() + "\">" + enclosure.Title + "<img src=\"images/f2.gif\" onclick=\"HideEditDiv('" + i.ToString() + "');DeleteEnclosure('" + enclosure.Title + "')\">" + "</div>");
+                        sb.Append("<div id=\"editenclosure" + i.ToString() + "\">" + enclosure.Title + "<span class=\"delFile\" onclick=\"HideEditDiv('" + i.ToString() + "');DeleteEnclosure('" + enclosure.Title + "')\">删除</span></div>");
                         i++;
                     }
                     text.InnerHtml = sb.ToString();
