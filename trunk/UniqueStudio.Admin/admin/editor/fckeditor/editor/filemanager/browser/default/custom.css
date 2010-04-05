@@ -1,0 +1,50 @@
+﻿.hintBox
+{
+   border:1px solid #CC6633;
+   background:#FFFF99;
+   display:block;
+   width:500px;
+   position:absolute;
+   top:30%;
+   left:30%;
+}
+.hintBox-title
+{
+padding:5px;
+ background:#CC6633;
+ color:#FFFF99;
+ font-weight:bold;
+}
+.hintBox-content
+{
+ text-align:center;
+ font-size:12px;
+
+}
+.hintBox-content div 
+{ 
+  padding:5px 0;
+ 
+}
+#url-textbox
+{
+ width:300px;
+ height:16px;
+ padding:0px;
+
+}
+.linkButton
+{
+ text-decoration:none;
+  display:inline;
+  margin-top:-4px;
+  padding:2px 5px;
+  border:#990000 1px solid;
+  font-weight:bold;
+   background:#CC6633;
+ color:#FFFF99;
+ line-height:25px;
+ margin-left:2em;
+
+
+}
