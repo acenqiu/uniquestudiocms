@@ -2,7 +2,7 @@
 <asp:Calendar ID="CalNotice" runat="server" BackColor="White" BorderColor="#999999"
     CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt"
     ForeColor="Black" Height="189px" Width="241px" OnSelectionChanged="CalendarNotice_SelectionChanged"
-    OnDayRender="CalNotice_DayRender">
+    OnDayRender="CalNotice_DayRender" >
     <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
     <SelectorStyle BackColor="#CCCCCC" />
     <WeekendDayStyle BackColor="#FFFFCC" />

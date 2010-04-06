@@ -33,10 +33,18 @@ namespace UniqueStudio.CGE.controls
                target = value;
            }
        }
+       public Calendar MyCalendar
+       {
+           get
+           {
+               return CalNotice;
+           }
+       }
        private string linkPrototype = "<a href='calendar.aspx?date={0}' class='{2}' target='{3}'>{1}</a>";
         protected void Page_Load(object sender, EventArgs e)
         {
             dates = cnm1.GetAllCalNoticeDate();
+           
         }
 
         protected void CalendarNotice_SelectionChanged(object sender, EventArgs e)
@@ -77,5 +85,7 @@ namespace UniqueStudio.CGE.controls
 
             e.Cell.Controls.Add(link);
         }
+
+
     }
 }
