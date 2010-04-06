@@ -27,21 +27,9 @@
      	color:Gray;
      }
     </style>
-    <script>
-    function addMy()
-    {
-       var links=document.getElementsByTagName("a");
-       /*
-       for (var i=0;i<links.length;i++)
-       {
-        links[i].href="calendar.aspx";
-        links[i].target="_blank";
-       }
-       */
-    }
-    </script>
+
 </head>
-<body onload="addMy()">
+<body >
     <form id="form1" runat="server">
     <div>
      <US:Calendar ID="showcalendar2" Target="_blank" runat="server"  />

@@ -111,6 +111,10 @@ a:hover
 	float: left;
 	padding-right: 1em;
 }
+.form-item .description
+{
+	 background:url(../images/hint.png) no-repeat right;
+}
 .form-item-input
 {
 	display: inline-table;

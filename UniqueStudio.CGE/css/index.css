@@ -272,9 +272,17 @@ list-style:none;
 	font-size: 12px;
 	color: #66CC00;
 }
+.column-content
+{
+  margin-top:0.5em;
+}
+.column-content ul
+{
+	margin-top:0em;
+}
 .column-content ul li
 {
-	list-style: url(../img/list-style.png);
+	list-style: url(../img/list-style.gif);
 	list-style-position: outside;
 	margin-left: -25px;
 	position:relative;
@@ -302,7 +310,7 @@ list-style:none;
 {
 	list-style:none;
 	list-style-image:none;
-	background:url(../img/list-style.png) no-repeat;
+	background:url(../img/list-style.gif) no-repeat;
 	background-position:20% 0.8em;
 	text-align:center;
 	width:100%;
