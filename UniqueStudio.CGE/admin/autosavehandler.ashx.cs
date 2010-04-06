@@ -22,32 +22,33 @@ namespace UniqueStudio.CGE
             if (context.Request.Form["uri"] != null & context.Request.Form["content"] != null & context.Request.Form["userid"] != null)
             {
                 AutoSaveManager am = new AutoSaveManager();
+                Guid userid = new Guid(context.Request.Form["userid"]);
                 PostInfo post = new PostInfo();
-                Guid userid = new Guid(context.Request.Form["userid"].ToString());
-                Int64 userUri = Convert.ToInt64(context.Request.Form["uri"]);
-                post.Content = context.Request.Form["content"].ToString();
+                post.Uri = Convert.ToInt64(context.Request.Form["uri"]);
                 post.Summary = post.SubTitle = post.Title = post.AddUserName = post.Author = string.Empty;
-                if (context.Request.Form["summary"] != null)
-                {
-                    post.Summary = context.Request.Form["summary"].ToString();
-                }
                 if (context.Request.Form["title"] != null)
                 {
-                    post.Title = context.Request.Form["title"].ToString();
-                }
-                if (context.Request.Form["author"] != null)
-                {
-                    post.Author = post.AddUserName = context.Request.Form["author"].ToString();
+                    post.Title = context.Request.Form["title"];
                 }
                 if (context.Request.Form["subTitle"] != null)
                 {
-                    post.SubTitle = context.Request.Form["subTitle"].ToString();
+                    post.SubTitle = context.Request.Form["subTitle"];
                 }
+                if (context.Request.Form["author"] != null)
+                {
+                    post.Author = post.AddUserName = context.Request.Form["author"];
+                }
+                if (context.Request.Form["summary"] != null)
+                {
+                    post.Summary = HttpUtility.UrlDecode(context.Request.Form["summary"]);
+                }
+                post.Content = HttpUtility.UrlDecode(context.Request.Form["content"]);
+
                 try
                 {
-                    if (am.AutoSaveFile(userid, post, userUri))
+                    if (am.AutoSavePost(userid, post))
                     {
-                        context.Response.Write("自动保存成功于" + DateTime.Now.ToString("yyyy/mm/dd hh:mm"));
+                        context.Response.Write("自动保存成功于" + DateTime.Now.ToString("yyyy-MM-dd HH:mm"));
                     }
                     else
                     {

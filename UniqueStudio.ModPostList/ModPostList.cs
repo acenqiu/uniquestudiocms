@@ -50,8 +50,7 @@ namespace UniqueStudio.ModPostList
                 if (category != null)
                 {
                     StringBuilder items = new StringBuilder();
-                    PostCollection posts = (new PostManager()).GetPostListByCatId(1, number, false,
-                                                            PostListType.PublishedOnly, categoryId);
+                    PostCollection posts = (new PostManager()).GetPostListByCatId(1, number, categoryId, false);
                     if (posts != null)
                     {
                         DateTime earliest = DateTime.Now.AddDays(-ConfigAdapter.Config(siteId).NewImageThreshold);

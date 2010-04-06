@@ -13,12 +13,13 @@ namespace UniqueStudio.ComContent.DAL
 {
     public class AutoSaveProvider
     {
-        private const string GETUSERURI = "GetUserUri";
-        private const string SETAUTOSAVEEFT = "SetAutoSaveEft";
-        private const string GETAUTOSAVEDFILEFORADD = "GetAutoSavedFileForAdd";
-        private const string ADDAUTOSAVEFILE = "AddAutoSaveFile";
-        private const string UPDATEAUTOSAVEFILE = "UpdateAutoSaveFile";
-        private const string ISPOSTSAVED = "IsPostExistSaved";
+        private const string AUTOSAVE_POST = "AutoSavePost";
+        private const string GET_USER_URI = "GetUserUri";
+        private const string SET_AUTOSAVE_EFT = "SetAutoSaveEft";
+        private const string GET_AUTOSAVED_POST = "GetAutoSavedPost";
+        private const string ADD_AUTOSAVE_FILE = "AddAutoSaveFile";
+        private const string UPDATE_AUTOSAVE_FILE = "UpdateAutoSaveFile";
+        private const string IS_POST_SAVED = "IsPostExistSaved";
 
         public AutoSaveProvider()
         {
@@ -31,70 +32,19 @@ namespace UniqueStudio.ComContent.DAL
         /// <param name="post">自动保存的文章信息</param>
         /// <param name="postUri">文章实际保存Uri</param>
         /// <returns></returns>
-        public bool AutoSaveFile(Guid userId, PostInfo post, Int64 postUri)
+        public bool AutoSaveFile(Guid userId, PostInfo post, Int64 userUri)
         {
-            SqlParameter parm = new SqlParameter("@UserID", userId);
             SqlParameter[] parms = new SqlParameter[] { 
+                                                       new SqlParameter("@UserID", userId),
+                                                       new SqlParameter("@UserUri",userUri),
+                                                       new SqlParameter("@PostUri",post.Uri),
                                                        new SqlParameter("@Title",post.Title),
                                                        new SqlParameter("@SubTitle",post.SubTitle),
                                                        new SqlParameter("@Author",post.Author),
                                                        new SqlParameter("@AddUserName",post.AddUserName),
                                                        new SqlParameter("@Content",post.Content),
-                                                       new SqlParameter("@Summary",post.Summary),
-                                                       new SqlParameter("@PostUri",postUri)};
-            using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
-            {
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Open();
-                }
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = GETUSERURI;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(parm);
-                    try
-                    {
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            cmd.Parameters.AddRange(parms);
-                            cmd.Parameters.Add("@UserUri", SqlDbType.BigInt);
-                            if (reader.Read())
-                            {
-                                if (reader["UserUri"] != DBNull.Value)
-                                {
-                                    post.Uri = Convert.ToInt64(reader["UserUri"]);
-                                }
-                                else
-                                {
-                                    post.Uri = 0;
-                                }
-                            }
-                            else
-                            {
-                                post.Uri = 0;
-                            }
-                        }
-                        if (post.Uri != 0)
-                        {
-                            cmd.Parameters[8].Value = post.Uri;
-                            cmd.CommandText = UPDATEAUTOSAVEFILE;
-                            return cmd.ExecuteNonQuery() > 0;
-                        }
-                        else
-                        {
-                            cmd.Parameters[8].Value = UriProvider.GetNewUri(ResourceType.AutoSave);
-                            cmd.CommandText = ADDAUTOSAVEFILE;
-                            return cmd.ExecuteNonQuery() > 0;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        return false;
-                    }
-                }
-            }
+                                                       new SqlParameter("@Summary",post.Summary)};
+            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, AUTOSAVE_POST, parms) > 0;
         }
 
         /// <summary>
@@ -107,7 +57,7 @@ namespace UniqueStudio.ComContent.DAL
             SqlParameter[] parms = new SqlParameter[]{
                 new SqlParameter("@UserID",userId),
                 new SqlParameter("@IsEffictive",isEffictive)};
-            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, SETAUTOSAVEEFT, parms) > 0;
+            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, SET_AUTOSAVE_EFT, parms) > 0;
         }
 
         /// <summary>
@@ -115,22 +65,40 @@ namespace UniqueStudio.ComContent.DAL
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <returns>文章信息</returns>
-        public PostInfo GetAutoSavedFileForAdd(Guid userId)
+        public PostInfo GetAutoSavedPost(Guid userId)
         {
-            PostInfo post = new PostInfo();
             SqlParameter parm = new SqlParameter("@UserID", userId);
-            try
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_AUTOSAVED_POST, parm))
             {
-                SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GETAUTOSAVEDFILEFORADD, parm);
                 if (reader.Read())
                 {
+                    PostInfo post = new PostInfo();
                     post.Uri = Convert.ToInt64(reader["PostUri"]);//文章实际发表时Uri，并不是用户的自动保存Uri
-                    post.Title = (string)reader["Title"];
-                    post.Content = (string)reader["Content"];
-                    post.Author = (string)reader["Author"];
-                    post.AddUserName = (string)reader["AddUserName"];
+                    if (reader["Title"] != DBNull.Value)
+                    {
+                        post.Title = (string)reader["Title"];
+                    }
+                    if (reader["SubTitle"] != DBNull.Value)
+                    {
+                        post.SubTitle = (string)reader["SubTitle"];
+                    }
+                    if (reader["Author"] != DBNull.Value)
+                    {
+                        post.Author = (string)reader["Author"];
+                    }
+                    if (reader["AddUserName"] != DBNull.Value)
+                    {
+                        post.AddUserName = (string)reader["AddUserName"];
+                    }
                     post.CreateDate = Convert.ToDateTime(reader["CreateDate"]);
-                    //post.LastEditDate = Convert.ToDateTime(reader["LastEditDate"]);
+                    if (reader["Content"] != DBNull.Value)
+                    {
+                        post.Content = (string)reader["Content"];
+                    }
+                    if (reader["Summary"] != DBNull.Value)
+                    {
+                        post.Summary = (string)reader["Summary"];
+                    }
                     return post;
                 }
                 else
@@ -138,11 +106,8 @@ namespace UniqueStudio.ComContent.DAL
                     return null;
                 }
             }
-            catch
-            {
-                return null;
-            }
         }
+
         /// <summary>
         /// 判断文章是否已经存为草稿或者发表
         /// </summary>
@@ -153,13 +118,14 @@ namespace UniqueStudio.ComContent.DAL
             SqlParameter parm = new SqlParameter("@PostUri", postUri);
             try
             {
-                return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, ISPOSTSAVED, parm) > 0;
+                return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, IS_POST_SAVED, parm) > 0;
             }
             catch
             {
                 return false;
             }
         }
+
         /// <summary>
         /// 用于编辑页面载入自动保存内容
         /// </summary>
@@ -170,7 +136,7 @@ namespace UniqueStudio.ComContent.DAL
         {
             if (IsPostSaved(postUri))
             {
-                return GetAutoSavedFileForAdd(userId);
+                return GetAutoSavedPost(userId);
             }
             else
             {

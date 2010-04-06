@@ -30,7 +30,7 @@ namespace UniqueStudio.ComContent.Admin
 
             if (!IsPostBack && !PostPermissionManager.HasEditPermission(CurrentUser, uri))
             {
-                //Response.Redirect("PostPermissionError.aspx?Error=编辑文章&Page=" + Request.UrlReferrer.ToString());
+                Response.Redirect("PostPermissionError.aspx?Error=编辑文章&Page=" + Request.UrlReferrer.ToString());
             }
         }
     }

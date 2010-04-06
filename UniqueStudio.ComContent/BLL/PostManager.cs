@@ -13,6 +13,7 @@
 //=================================================================
 using System;
 using System.Data.Common;
+using System.Text.RegularExpressions;
 
 using UniqueStudio.ComContent.DAL;
 using UniqueStudio.ComContent.Model;
@@ -133,9 +134,41 @@ namespace UniqueStudio.ComContent.BLL
             }
         }
 
+        /// <summary>
+        /// 删除多篇文章
+        /// </summary>
+        /// <param name="currentUser">执行该方法的用户信息。</param>
+        /// <param name="uris">待删除文章uri的集合。</param>
+        /// <returns>是否删除成功。</returns>
         public bool DeletePosts(UserInfo currentUser, long[] uris)
         {
-            throw new NotImplementedException();
+            Validator.CheckNull(uris, "uris");
+            foreach (long uri in uris)
+            {
+                if (uri <= 119900101000000)
+                {
+                    throw new ArgumentException();
+                }
+                if (!PostPermissionManager.HasEditPermission(currentUser, uri))
+                {
+                    throw new InvalidPermissionException("EditPost", "编辑文章");
+                }
+            }
+
+            try
+            {
+                return provider.DeletePosts(uris);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
         }
 
         /// <summary>
@@ -236,18 +269,34 @@ namespace UniqueStudio.ComContent.BLL
         /// <summary>
         /// 返回文章列表。
         /// </summary>
+        /// <remarks>该重载用于后台文章管理。</remarks>
         /// <param name="currentUser">执行该方法的用户信息。</param>
         /// <param name="siteId">网站ID。</param>
-        /// <param name="pageIndex">页码，从1起始。</param>
+        /// <param name="pageIndex">页索引。</param>
         /// <param name="pageSize">每页条目数。</param>
-        /// <param name="isIncludeSummary">是否返回文章摘要。</param>
+        /// <param name="createFrom">创建时间晚于该时间。</param>
+        /// <param name="createTo">创建时间早于该时间。</param>
+        /// <param name="editFrom">修改时间晚于该时间。</param>
+        /// <param name="editTo">修改时间早于该时间。</param>
+        /// <param name="categoryId">分类ID，设为0表示所有分类。</param>
         /// <param name="postListType">文章类型。</param>
-        /// <param name="IsNeedCategoryInfo">是否返回分类信息。</param>
+        /// <param name="titleKeyWord">标题关键词。</param>
         /// <returns>文章列表。</returns>
-        public PostCollection GetPostList(UserInfo currentUser, int siteId, int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, bool IsNeedCategoryInfo)
+        public PostCollection GetPostList(UserInfo currentUser, int siteId, int pageIndex, int pageSize, DateTime createFrom, DateTime createTo
+                                                            , DateTime editFrom, DateTime editTo, int categoryId, PostListType postListType, string titleKeyWord)
         {
             Validator.CheckNotPositive(siteId, "siteId");
             Validator.CheckNotPositive(pageSize, "pageSize");
+            Validator.CheckNegative(categoryId, "categoryId");
+            if (!string.IsNullOrEmpty(titleKeyWord))
+            {
+                Regex r = new Regex(RegularExpressions.SPECIAL_STRING);
+                if (!r.IsMatch(titleKeyWord))
+                {
+                    ErrorLogger.LogError("Warning", "文章标题关键词格式不正确，可能造成SQL注入。", titleKeyWord);
+                    throw new ArgumentException("文章标题关键词格式不正确！");
+                }
+            }
             if (pageIndex <= 0)
             {
                 pageIndex = 1;
@@ -257,11 +306,13 @@ namespace UniqueStudio.ComContent.BLL
             {
                 if (PermissionManager.HasPermission(currentUser, siteId, "EditAllDraftAPost"))
                 {
-                    return provider.GetPostList(siteId, pageIndex, pageSize, isIncludeSummary, postListType, IsNeedCategoryInfo);
+                    return provider.GetPostList(siteId, pageIndex, pageSize, createFrom, createTo, editFrom, editTo
+                                                            , categoryId, postListType, titleKeyWord, null, false, true);
                 }
                 else if (PermissionManager.HasPermission(currentUser, siteId, "EditOwnDraftAPost"))
                 {
-                    return provider.GetPostListByUserPermission(siteId, pageIndex, pageSize, isIncludeSummary, postListType, IsNeedCategoryInfo, currentUser.UserName);
+                    return provider.GetPostList(siteId, pageIndex, pageSize, createFrom, createTo, editFrom, editTo
+                                                        , categoryId, postListType, titleKeyWord, currentUser.UserName, false, true);
                 }
                 else
                 {
@@ -287,13 +338,13 @@ namespace UniqueStudio.ComContent.BLL
         /// <summary>
         /// 根据分类ID返回文章列表。
         /// </summary>
+        /// <remarks>该方法仅用于前台。</remarks>
         /// <param name="pageIndex">页码，从1起始。</param>
         /// <param name="pageSize">每页条目数。</param>
-        /// <param name="isIncludeSummary">是否返回文章摘要。</param>
-        /// <param name="postListType">文章类型。</param>
         /// <param name="categoryId">分类ID。</param>
+        /// <param name="isIncludeSummary">是否返回文章摘要。</param>
         /// <returns>文章列表。</returns>
-        public PostCollection GetPostListByCatId(int pageIndex, int pageSize, bool isIncludeSummary, PostListType postListType, int categoryId)
+        public PostCollection GetPostListByCatId(int pageIndex, int pageSize, int categoryId, bool isIncludeSummary)
         {
             Validator.CheckNotPositive(pageSize, "pageSize");
             Validator.CheckNotPositive(categoryId, "categoryId");
@@ -304,7 +355,7 @@ namespace UniqueStudio.ComContent.BLL
 
             try
             {
-                return provider.GetPostListByCatId(pageIndex, pageSize, isIncludeSummary, postListType, categoryId);
+                return provider.GetPostListByCatId(pageIndex, pageSize, categoryId, isIncludeSummary);
             }
             catch (DbException ex)
             {
@@ -384,6 +435,43 @@ namespace UniqueStudio.ComContent.BLL
             catch (Exception ex)
             {
                 ErrorLogger.LogError(ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentUser"></param>
+        /// <param name="uris"></param>
+        /// <returns></returns>
+        public bool PublishPosts(UserInfo currentUser, long[] uris)
+        {
+            Validator.CheckNull(uris, "uris");
+            foreach (long uri in uris)
+            {
+                if (uri <= 119900101000000)
+                {
+                    throw new ArgumentException();
+                }
+                if (!PostPermissionManager.HasEditPermission(currentUser, uri))
+                {
+                    throw new InvalidPermissionException("EditPost", "编辑文章");
+                }
+            }
+
+            try
+            {
+                return provider.SetPostsStatus(uris, true);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
             }
         }
 
@@ -474,6 +562,43 @@ namespace UniqueStudio.ComContent.BLL
             try
             {
                 return provider.SearchPostsByTime(siteId, startTime, endTime, categoryId);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentUser"></param>
+        /// <param name="uris"></param>
+        /// <returns></returns>
+        public bool StopPublishPosts(UserInfo currentUser, long[] uris)
+        {
+            Validator.CheckNull(uris, "uris");
+            foreach (long uri in uris)
+            {
+                if (uri <= 119900101000000)
+                {
+                    throw new ArgumentException();
+                }
+                if (!PostPermissionManager.HasEditPermission(currentUser, uri))
+                {
+                    throw new InvalidPermissionException("EditPost", "编辑文章");
+                }
+            }
+
+            try
+            {
+                return provider.SetPostsStatus(uris, false);
             }
             catch (DbException ex)
             {

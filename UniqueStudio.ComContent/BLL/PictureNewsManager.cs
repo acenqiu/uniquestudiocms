@@ -26,9 +26,8 @@ namespace UniqueStudio.ComContent.BLL
                 PostManager postManager = new PostManager();
                 PostCollection postList = postManager.GetPostListByCatId(1
                                                                                                         , ConfigAdapter.Config(siteId).PictureNewsNumber
-                                                                                                        , false
-                                                                                                        , PostListType.PublishedOnly
-                                                                                                        , ConfigAdapter.Config(siteId).PictureNewsCategoryId);
+                                                                                                        , ConfigAdapter.Config(siteId).PictureNewsCategoryId
+                                                                                                        , false);
 
                 foreach (PostInfo post in postList)
                 {

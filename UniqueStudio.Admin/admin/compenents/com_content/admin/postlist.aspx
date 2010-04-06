@@ -36,6 +36,7 @@
             文章管理</div>
         <div class="tip">
            <p>通过筛选功能您可以更方便地找到您要的文章，对于不需要进行筛选的条件请留空。</p>
+           <p>仅输入日期时，默认的时间是当日的0:00:00。</p>
         </div>
         <US:Message ID="message" runat="server" />
         <div class="list-manager">
@@ -71,6 +72,7 @@
                             <td width="100px">添加时间</td>
                             <td width="80px">最后修改用户</td>
                             <td width="100px">最后修改时间</td>
+                            <td width="50px">已发布</td>
                             <td width="50px">阅读次数</td>
                             <td width="40px">操作</td>
                         </tr>
@@ -90,6 +92,7 @@
                         <td><%# Convert.ToDateTime(Eval("CreateDate")).ToString("yyyy-MM-dd  HH:mm") %></td>
                         <td align="center"><%# Eval("LastEditUserName") %></td>
                         <td><%# Convert.ToDateTime(Eval("LastEditDate")).ToString("yyyy-MM-dd  HH:mm") %></td>
+                        <td align="center"><%# Convert.ToBoolean(Eval("IsPublished"))?"是":"否" %></td>
                         <td align="center"><%# Eval("Count") %></td>
                         <td align="center">
                             <a href='editpost.aspx?siteId=<%=SiteId %>&uri=<%# Eval("Uri") %>&ret=<%= HttpUtility.UrlEncode(Request.Url.Query) %>'
@@ -104,20 +107,21 @@
                 </FooterTemplate>
             </asp:Repeater>
             <div>
-                <p>批量操作：<asp:DropDownList ID="ddlOperation" runat="server">
+                批量操作：<asp:DropDownList ID="ddlOperation" runat="server">
                     <asp:ListItem Selected="True" Value="delete" Text="删除" />
+                    <asp:ListItem Value="publish">发布</asp:ListItem>
+                    <asp:ListItem Value="stoppublish">停止发布</asp:ListItem>
                 </asp:DropDownList>
                 <asp:Button ID="btnExcute" runat="server" Text="执行" OnClick="btnExcute_Click" 
                         OnClientClick="if (selectcheck('chkSelected')) return confirm('您确定执行你所选的操作吗？'); else return false;" />
-                </p>
-                <p>
+                <%--<br />
                 <asp:DropDownList ID="ddlPageSize" AutoPostBack="true" runat="server">
                     <asp:ListItem Value="10">每页10条</asp:ListItem>
                     <asp:ListItem Value="15" Selected="True">每页15条</asp:ListItem>
                     <asp:ListItem Value="20">每页20条</asp:ListItem>
                     <asp:ListItem Value="25">每页25条</asp:ListItem>
-                </asp:DropDownList>
-                <US:Pagination ID="pagination" runat="server" /></p>
+                </asp:DropDownList>--%>
+                <US:Pagination ID="pagination" runat="server" />
             </div>
         </div>
     </div>
