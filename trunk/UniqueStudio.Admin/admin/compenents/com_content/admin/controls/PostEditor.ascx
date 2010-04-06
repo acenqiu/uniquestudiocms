@@ -24,6 +24,11 @@
 </script>
 
 <div class="postEditor">
+    <div id="divASPrompt" runat="server" visible="false" class="tip">
+        <p>您有未保存的文章，建议您先处理该文章，再进行其它操作。</p>
+        <p>或者您可以舍弃自动保存的内容。<asp:Button ID="btnDiscard" runat="server" Text="舍弃" 
+                onclick="btnDiscard_Click" /></p>
+    </div> 
     <US:Message ID="message" runat="server" />
     <asp:ValidationSummary ID="validationSummary" runat="server" ValidationGroup="post"
         CssClass="error" DisplayMode="List" ForeColor="#333333" />

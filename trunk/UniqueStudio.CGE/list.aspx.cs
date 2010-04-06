@@ -33,7 +33,7 @@ namespace UniqueStudio.CGE
                 int pageSize = Converter.IntParse(Request.QueryString["size"], ConfigAdapter.Config(SiteId).PageSizeOfSectionPostList);
 
                 PostManager postManager = new PostManager();
-                PostCollection posts = postManager.GetPostListByCatId(pageIndex, pageSize, false, PostListType.PublishedOnly, CategoryId);
+                PostCollection posts = postManager.GetPostListByCatId(pageIndex, pageSize, CategoryId, false);
                 if (posts != null)
                 {
                     if (posts.Count == 1)

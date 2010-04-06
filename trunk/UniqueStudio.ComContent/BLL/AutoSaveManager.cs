@@ -4,15 +4,21 @@ using System.Text;
 
 using UniqueStudio.ComContent.Model;
 using UniqueStudio.ComContent.DAL;
+using UniqueStudio.Common.Utilities;
+using UniqueStudio.Common.ErrorLogging;
+using UniqueStudio.Common.Exceptions;
+using System.Data.Common;
 
 namespace UniqueStudio.ComContent.BLL
 {
     public class AutoSaveManager
     {
+        private AutoSaveProvider provider = new AutoSaveProvider();
+
         public AutoSaveManager()
         {
+
         }
-        AutoSaveProvider provider = new AutoSaveProvider();
 
         /// <summary>
         /// 文章自动保存
@@ -20,7 +26,7 @@ namespace UniqueStudio.ComContent.BLL
         /// <param name="userID">用户ID</param>
         /// <param name="post">文章信息</param>
         /// <returns>是否自动保存成功</returns>
-        public bool AutoSaveFile(Guid userID, PostInfo post, Int64 postUri)
+        public bool AutoSavePost(Guid userID, PostInfo post)
         {
             if (post.Title == null)
             {
@@ -46,14 +52,15 @@ namespace UniqueStudio.ComContent.BLL
             {
                 return false;
             }
+
             try
             {
-                return provider.AutoSaveFile(userID, post, postUri);
+                long userUri = Convert.ToInt64("6" + DateTime.Now.ToString("yyyyMMddHHmmss"));
+                return provider.AutoSaveFile(userID, post, userUri);
             }
-            catch
+            catch (Exception ex)
             {
-
-                // throw;
+                ErrorLogger.LogError(ex);
                 return false;
             }
         }
@@ -83,16 +90,23 @@ namespace UniqueStudio.ComContent.BLL
         /// </summary>
         /// <param name="userID">用户ID</param>
         /// <returns>自动保存的文章信息</returns>
-        public PostInfo GetEftAutoSavedFileForAdd(Guid userID)
+        public PostInfo GetAutoSavedPost(Guid userID)
         {
+            Validator.CheckGuid(userID, "userID");
+
             try
             {
-                return provider.GetAutoSavedFileForAdd(userID);
+                return provider.GetAutoSavedPost(userID);
             }
-            catch
+            catch (DbException ex)
             {
-
-                return null;
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
             }
         }
         /// <summary>

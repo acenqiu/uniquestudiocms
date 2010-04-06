@@ -5,7 +5,7 @@
 <asp:Content ContentPlaceHolderID="head" runat="server">
     <link href="css/fileup.css" type="text/css" rel="Stylesheet"/>
     <link href="css/toolTip.css" type="text/css" rel="Stylesheet"/>
-
+  <link href="css/category.css" type="text/css" rel="Stylesheet"/>
     <script src="js/fileup.js" type="text/javascript" language="javascript"></script>
     <script src="js/toolTip.js" type="text/javascript" language="javascript"></script>
 

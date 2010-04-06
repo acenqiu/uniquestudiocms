@@ -291,6 +291,7 @@
     <Content Include="admin\calendar.aspx" />
     <Content Include="admin\controls\Calendar.ascx" />
     <Content Include="admin\css\admin-list-style.css" />
+    <Content Include="admin\css\category.css" />
     <Content Include="admin\css\dataControl.css" />
     <Content Include="admin\css\fileup.css" />
     <Content Include="admin\css\style.css" />
@@ -684,7 +685,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1859</DevelopmentServerPort>
+          <DevelopmentServerPort>4761</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

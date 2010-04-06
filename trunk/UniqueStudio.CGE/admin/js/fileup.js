@@ -5,7 +5,7 @@
     var ua = navigator.userAgent.toLowerCase(); //浏览器信息
     //自动保存
     //var AutoSaveDiv=document.getElementById("toolTip");
-    var AutoSaveTime=300000;
+    var AutoSaveTime=30000;
     var AutoSaveTimer;
     var param;
     var iframeid=0;
@@ -336,8 +336,8 @@
 	}
 	function AutoSave()
 	{
+		userID=GetUserID();
 	    title=GetTitle();
-	    userID=GetUserID();
 	    subTitle=GetSubTitle();
 	    author=GetAuthor();
 	    fckcontent=window.frames[iframeid].window.frames[0].document.body.innerHTML;
@@ -359,10 +359,8 @@
 	   $.post("autosavehandler.ashx",
        postO,
        function(data){
-
            cancelToolTip();
 	       toolTip(data,2000);
- 
        });
 	   
 	}

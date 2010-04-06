@@ -90,4 +90,209 @@ To turn this feature off, remove the registry value [HKLM\Software\Microsoft\Fus
     <Time>2010-04-02T22:00:57.8671372+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Incorrect syntax near 'SiteID'.
+Incorrect syntax near 'SiteID'.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Incorrect syntax near 'SiteID'.
+Incorrect syntax near 'SiteID'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at UniqueStudio.ComContent.DAL.PostProvider.GetPostList(Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord, String addUserName, Boolean isIncludeSummary, Boolean isGetCategoryInfo) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 457
+   at UniqueStudio.ComContent.BLL.PostManager.GetPostList(UserInfo currentUser, Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\BLL\PostManager.cs:line 283</RepresentationString>
+    <Time>2010-04-05T17:17:03.4317283+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>The multi-part identifier "t1.Uri" could not be bound.
+The multi-part identifier "t1.Uri" could not be bound.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: The multi-part identifier "t1.Uri" could not be bound.
+The multi-part identifier "t1.Uri" could not be bound.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at UniqueStudio.ComContent.DAL.PostProvider.GetPostList(Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord, String addUserName, Boolean isIncludeSummary, Boolean isGetCategoryInfo) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 457
+   at UniqueStudio.ComContent.BLL.PostManager.GetPostList(UserInfo currentUser, Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\BLL\PostManager.cs:line 283</RepresentationString>
+    <Time>2010-04-05T17:19:26.1328903+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>PostDisplay</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: PostDisplay
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.ComContent.DAL.PostProvider.FillPostInfo(SqlDataReader reader, Boolean isIncludeSummary) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 757
+   at UniqueStudio.ComContent.DAL.PostProvider.GetPostList(Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord, String addUserName, Boolean isIncludeSummary, Boolean isGetCategoryInfo) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 461
+   at UniqueStudio.ComContent.BLL.PostManager.GetPostList(UserInfo currentUser, Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\BLL\PostManager.cs:line 283</RepresentationString>
+    <Time>2010-04-05T17:20:24.0982057+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Incorrect syntax near '0'.
+Incorrect syntax near '0'.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Incorrect syntax near '0'.
+Incorrect syntax near '0'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at UniqueStudio.ComContent.DAL.PostProvider.GetPostList(Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord, String addUserName, Boolean isIncludeSummary, Boolean isGetCategoryInfo) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 458
+   at UniqueStudio.ComContent.BLL.PostManager.GetPostList(UserInfo currentUser, Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\BLL\PostManager.cs:line 283</RepresentationString>
+    <Time>2010-04-05T18:56:05.3678918+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Incorrect syntax near '0'.
+Incorrect syntax near '0'.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Incorrect syntax near '0'.
+Incorrect syntax near '0'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at UniqueStudio.ComContent.DAL.PostProvider.GetPostList(Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord, String addUserName, Boolean isIncludeSummary, Boolean isGetCategoryInfo) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 461
+   at UniqueStudio.ComContent.BLL.PostManager.GetPostList(UserInfo currentUser, Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\BLL\PostManager.cs:line 283</RepresentationString>
+    <Time>2010-04-05T19:00:46.2619581+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.InvalidCastException</ExceptionType>
+    <ErrorMessage>Specified cast is not valid.</ErrorMessage>
+    <RepresentationString>System.InvalidCastException: Specified cast is not valid.
+   at UniqueStudio.ComContent.DAL.PostProvider.GetPost(Int64 uri) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 253
+   at UniqueStudio.ComContent.BLL.PostPermissionManager.HasEditPermission(UserInfo currentUser, Int64 uri) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\BLL\PostPermissionManager.cs:line 140</RepresentationString>
+    <Time>2010-04-05T19:17:53.1126906+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.IndexOutOfRangeException</ExceptionType>
+    <ErrorMessage>Summary</ErrorMessage>
+    <RepresentationString>System.IndexOutOfRangeException: Summary
+   at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at UniqueStudio.ComContent.DAL.AutoSaveProvider.GetAutoSavedPost(Guid userId) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\DAL\AutoSaveProvider.cs:line 83
+   at UniqueStudio.ComContent.BLL.AutoSaveManager.GetAutoSavedPost(Guid userID) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\BLL\AutoSaveManager.cs:line 97</RepresentationString>
+    <Time>2010-04-05T22:23:54.3030515+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.InvalidCastException</ExceptionType>
+    <ErrorMessage>Specified cast is not valid.</ErrorMessage>
+    <RepresentationString>System.InvalidCastException: Specified cast is not valid.
+   at UniqueStudio.ComContent.DAL.PostProvider.FillPostInfo(SqlDataReader reader, Boolean isIncludeSummary) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 823
+   at UniqueStudio.ComContent.DAL.PostProvider.GetPostList(Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord, String addUserName, Boolean isIncludeSummary, Boolean isGetCategoryInfo) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 505
+   at UniqueStudio.ComContent.BLL.PostManager.GetPostList(UserInfo currentUser, Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\BLL\PostManager.cs:line 309</RepresentationString>
+    <Time>2010-04-05T22:29:43.0209971+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Invalid column name 'Taxis'.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Invalid column name 'Taxis'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at UniqueStudio.ComContent.DAL.PostProvider.GetPostList(Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord, String addUserName, Boolean isIncludeSummary, Boolean isGetCategoryInfo) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 501
+   at UniqueStudio.ComContent.BLL.PostManager.GetPostList(UserInfo currentUser, Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\BLL\PostManager.cs:line 309</RepresentationString>
+    <Time>2010-04-05T22:36:16.3104919+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Threading.ThreadAbortException</ExceptionType>
+    <ErrorMessage>Thread was being aborted.</ErrorMessage>
+    <RepresentationString>System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   at System.Web.HttpResponse.Redirect(String url)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished) in E:\Projects\CMS\Source\CMS\UniqueStudio.CGE\admin\controls\PostEditor.ascx.cs:line 278</RepresentationString>
+    <Time>2010-04-05T23:37:33.5689693+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Threading.ThreadAbortException</ExceptionType>
+    <ErrorMessage>Thread was being aborted.</ErrorMessage>
+    <RepresentationString>System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   at System.Web.HttpResponse.Redirect(String url)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished) in E:\Projects\CMS\Source\CMS\UniqueStudio.CGE\admin\controls\PostEditor.ascx.cs:line 307</RepresentationString>
+    <Time>2010-04-06T00:14:07.395449+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Threading.ThreadAbortException</ExceptionType>
+    <ErrorMessage>Thread was being aborted.</ErrorMessage>
+    <RepresentationString>System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   at System.Web.HttpResponse.Redirect(String url)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished) in E:\Projects\CMS\Source\CMS\UniqueStudio.CGE\admin\controls\PostEditor.ascx.cs:line 301</RepresentationString>
+    <Time>2010-04-06T09:37:13.7916351+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Exception</ExceptionType>
+    <ErrorMessage>请至少选择一个分类！</ErrorMessage>
+    <RepresentationString>System.Exception: 请至少选择一个分类！
+   at UniqueStudio.ComContent.Admin.PostEditor.PreparePost(Int64 uri, Boolean isPublished) in E:\Projects\CMS\Source\CMS\UniqueStudio.CGE\admin\controls\PostEditor.ascx.cs:line 380
+   at UniqueStudio.ComContent.Admin.PostEditor.EditPost(Boolean isPublished) in E:\Projects\CMS\Source\CMS\UniqueStudio.CGE\admin\controls\PostEditor.ascx.cs:line 332</RepresentationString>
+    <Time>2010-04-06T13:16:22.3219766+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>

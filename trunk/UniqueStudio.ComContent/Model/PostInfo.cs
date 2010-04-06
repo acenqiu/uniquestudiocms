@@ -16,7 +16,7 @@ namespace UniqueStudio.ComContent.Model
         private string lastEditUserName = string.Empty;
         private DateTime createDate;
         private DateTime lastEditDate;
-        private int taxis;
+        private int type;
         private string title = string.Empty;
         private string subTitle = string.Empty;
         private string author = string.Empty;
@@ -90,10 +90,10 @@ namespace UniqueStudio.ComContent.Model
             get { return lastEditDate; }
             set { lastEditDate = value; }
         }
-        public int Taxis
+        public int Type
         {
-            get { return taxis; }
-            set { taxis = value; }
+            get { return type; }
+            set { type = value; }
         }
         /// <summary>
         /// 文章标题
