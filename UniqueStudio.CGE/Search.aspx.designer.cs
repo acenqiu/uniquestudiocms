@@ -14,6 +14,33 @@ namespace UniqueStudio.CGE {
     public partial class Search {
         
         /// <summary>
+        /// divSlider control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSlider;
+        
+        /// <summary>
+        /// categories control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UniqueStudio.CGE.controls.SubCategories categories;
+        
+        /// <summary>
+        /// psList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UniqueStudio.Controls.Module psList;
+        
+        /// <summary>
         /// ltlCount control.
         /// </summary>
         /// <remarks>

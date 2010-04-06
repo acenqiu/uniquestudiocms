@@ -17,5 +17,5 @@
 <asp:Content ID="Content2" runat="server" ContentPlaceHolderID="cphBody">
     <US:Calendar ID="calendar1" runat="server" />
     <br />
-    <iframe src="calendarnotice.aspx" id="ifrcalnotice"></iframe>
+    <iframe src="calendarnotice.aspx" id="ifrcalnotice" frameborder="0"></iframe>
 </asp:Content>

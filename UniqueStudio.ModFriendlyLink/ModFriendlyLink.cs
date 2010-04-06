@@ -15,9 +15,11 @@ namespace UniqueStudio.ModFriendlyLink
         private const string COLUMN_TITLE = "ColumnTitle";
         private const string MENU_ID = "MenuId";
 
-        private const string MAIN = "<div class=\"column-head\"><span>{0}</span></div>\r\n"
-                                                        + "<div class=\"column-content\">\r\n<ul>\r\n{1}</ul>\r\n</div>";
-        private const string ITEM = "<li><a href='{0}' title='{1}' target='{1}'>{2}</a></li>\r\n";
+        private const string MAIN =  "<div class=\"column-head\"><span>{0}</span></div>\r\n"
+                                                        + "<div class=\"column-content\">\r\n"
+                                                        + "<select id=\"Select1\" onchange=\"changeUrl(this)\" style=\"width:100%\">\r\n"
+                                                        + "{1}</select>\r\n</div>";
+        private const string ITEM = "<option value=\"{0}\">{1}</option>\r\n";
 
         #region IModule Members
 
@@ -34,7 +36,6 @@ namespace UniqueStudio.ModFriendlyLink
                     foreach (MenuItemInfo link in links)
                     {
                         items.Append(string.Format(ITEM, link.Link,
-                                                                            link.Target,
                                                                             link.ItemName));
                     }
                 }

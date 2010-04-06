@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs"
+﻿<%@ Page MasterPageFile="Site.Master" EnableViewState="false" Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs"
     Inherits="UniqueStudio.CGE.Default" %>
 
 <%@ Register Assembly="UniqueStudio.Controls" Namespace="UniqueStudio.Controls" TagPrefix="US" %>
@@ -6,9 +6,14 @@
 <%@ Import Namespace="UniqueStudio.Common.Config" %>
 <asp:Content ID="head" ContentPlaceHolderID="head" runat="server">
 
-    <script language="javascript">AC_FL_RunContent = 0;</script>
-    <script src="flashad/js/AC_RunActiveContent.js" language="javascript"></script>
-
+    <script language="javascript" type="text/javascript">AC_FL_RunContent = 0;</script>
+    <script src="flashad/js/AC_RunActiveContent.js" language="javascript" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+       function  changeUrl(sender)
+       {
+        window.open(sender.options[sender.selectedIndex].value);
+       }
+    </script>
 </asp:Content>
 <asp:Content ID="content" ContentPlaceHolderID="cphMain" runat="server">
     <div class="index-slider">

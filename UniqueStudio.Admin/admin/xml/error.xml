@@ -487,4 +487,26 @@ File name: 'E:\Projects\CMS\Source\CMS\UniqueStudio.Admin\admin\xml\NavigationOf
     <Time>2010-04-03T22:31:30.0339563+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Exception</ExceptionType>
+    <ErrorMessage>请至少选择一个分类！</ErrorMessage>
+    <RepresentationString>System.Exception: 请至少选择一个分类！
+   at UniqueStudio.ComContent.Admin.PostEditor.PreparePost(Int64 uri, Boolean isPublished)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished)</RepresentationString>
+    <Time>2010-04-06T13:44:01.9359011+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Threading.ThreadAbortException</ExceptionType>
+    <ErrorMessage>Thread was being aborted.</ErrorMessage>
+    <RepresentationString>System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse)
+   at System.Web.HttpResponse.Redirect(String url)
+   at UniqueStudio.ComContent.Admin.PostEditor.AddPost(String postType, Boolean isPublished)</RepresentationString>
+    <Time>2010-04-06T13:44:13.6095687+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>

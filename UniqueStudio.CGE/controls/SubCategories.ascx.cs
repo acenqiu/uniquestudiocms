@@ -8,7 +8,7 @@ namespace UniqueStudio.CGE.controls
 {
     public partial class SubCategories : System.Web.UI.UserControl
     {
-        private int categoryId;
+        private int categoryId = 0;
 
         public int CategoryId
         {
@@ -17,7 +17,7 @@ namespace UniqueStudio.CGE.controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!IsPostBack && categoryId != 0)
             {
                 CategoryInfo root = (new CategoryManager()).GetCategoryChain(categoryId);
                 if (root != null)
