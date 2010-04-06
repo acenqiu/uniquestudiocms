@@ -7,10 +7,8 @@ using System.Web.UI.WebControls;
 using UniqueStudio.ComContent.BLL;
 using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common.Config;
-using UniqueStudio.Common.ErrorLogging;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
-using UniqueStudio.Common.XmlHelper;
 using UniqueStudio.Core.Category;
 using UniqueStudio.Core.Site;
 using UniqueStudio.Core.User;
@@ -67,125 +65,144 @@ namespace UniqueStudio.ComContent.Admin
         {
             currentUser = (UserInfo)this.Session[GlobalConfig.SESSION_USER];
             userId = currentUser.UserId;
+
             if (IsPostBack)
             {
                 divASPrompt.Visible = false;
             }
             else
             {
-                LoadCategories();
-
-                //自动保存载入
-                PostInfo autoSavedPost = null;
                 try
                 {
-                    autoSavedPost = (new AutoSaveManager()).GetAutoSavedPost(userId);
+                    LoadCategories();
                 }
                 catch (Exception ex)
                 {
-                    message.SetErrorMessage("自动保存的文章获取失败：" + ex.Message);
+                    message.SetErrorMessage("分类信息读取失败：" + ex.Message);
+                    return;
                 }
 
-                if (mode == EditorMode.Add)
+                try
                 {
-                    //新增模式
-                    if (autoSavedPost == null)
+                    if (mode == EditorMode.Add)
                     {
-                        currentUser = (new UserManager()).GetUserInfo(currentUser, currentUser.UserId);
-                        if (currentUser.ExInfo != null)
-                        {
-                            txtAuthor.Text = currentUser.ExInfo.PenName;
-                        }
-                        else
-                        {
-                            txtAuthor.Text = currentUser.UserName;
-                        }
+                        InitAddMode();
                     }
                     else
                     {
-                        if (autoSavedPost.Uri != 0)
-                        {
-                            Session["posturi"] = autoSavedPost.Uri;
-                        }
-                        txtAuthor.Text = autoSavedPost.Author;
-                        txtTitle.Text = autoSavedPost.Title;
-                        txtSubTitle.Text = autoSavedPost.SubTitle;
-                        fckContent.Value = autoSavedPost.Content;
-                        fckSummary.Value = autoSavedPost.Summary;
-                        divASPrompt.Visible = true;
+                        InitEditMode();
                     }
-                    txtAddDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
                 }
-                else
+                catch (Exception ex)
                 {
-                    //编辑模式
-                    if (autoSavedPost != null)
-                    {
-                        if (autoSavedPost.Uri != uri)
-                        {
-                            Response.Redirect(string.Format("editpost.aspx?siteId={0}&uri={1}&oriUri={2}&ret={3}"
-                                                                                    , siteId
-                                                                                    , autoSavedPost.Uri
-                                                                                    , uri
-                                                                                    , Request.QueryString["ret"]));
-                        }
-                        else
-                        {
-                            int retValue = LoadPost();
-                            if (retValue == 1)
-                            {
-                                txtTitle.Text = autoSavedPost.Title;
-                                txtSubTitle.Text = autoSavedPost.SubTitle;
-                                fckContent.Value = autoSavedPost.Content;
-                                fckSummary.Value = autoSavedPost.Summary;
-                                divASPrompt.Visible = true;
-                            }
-                            else if (retValue == 0)
-                            {
-                                Response.Redirect(string.Format("addpost.aspx?siteId={0}&oriUri={1}&ret={2}"
-                                                                                    , siteId
-                                                                                    , Request.QueryString["oriUri"]
-                                                                                    , Request.QueryString["ret"]));
-                            }
-                        }
-                    }
-                    else
-                    {
-                        LoadPost();
-                    }
+                    message.SetErrorMessage("初始化失败：" + ex.Message);
                 }
             }
         }
 
         private void LoadCategories()
         {
-            try
+            CategoryManager manager = new CategoryManager();
+            CategoryCollection categories = manager.GetAllCategories(siteId);
+            cblCategory.DataSource = categories;
+            cblCategory.DataTextField = "CategoryName";
+            cblCategory.DataValueField = "CategoryID";
+            cblCategory.DataBind();
+            foreach (ListItem item in cblCategory.Items)
             {
-                CategoryManager manager = new CategoryManager();
-                CategoryCollection categories = manager.GetAllCategories(siteId);
-                cblCategory.DataSource = categories;
-                cblCategory.DataTextField = "CategoryName";
-                cblCategory.DataValueField = "CategoryID";
-                cblCategory.DataBind();
-                foreach (ListItem item in cblCategory.Items)
-                {
-                    StringBuilder sb = new StringBuilder(item.Text);
-                    CategoryInfo cat = manager.GetCategory(Convert.ToInt32(item.Value));
-                    sb.Append(String.Format(categoryPrototype, new string[] { item.Value, cat.ParentCategoryId.ToString() }));
-                    item.Text = sb.ToString();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                message.SetErrorMessage("分类信息读取失败：" + ex.Message);
+                StringBuilder sb = new StringBuilder(item.Text);
+                CategoryInfo cat = manager.GetCategory(Convert.ToInt32(item.Value));
+                sb.Append(String.Format(categoryPrototype, new string[] { item.Value, cat.ParentCategoryId.ToString() }));
+                item.Text = sb.ToString();
             }
         }
 
-        //1：正常
-        //0：不存在
-        //-1：出现错误
-        private int LoadPost()
+        private void InitAddMode()
+        {
+            AutoSaveManager manager = new AutoSaveManager();
+            PostInfo autoSavedPost = manager.GetAutoSavedPost(userId);
+
+            if (autoSavedPost != null)
+            {
+                if (manager.IsPostSaved(currentUser.UserId))
+                {
+                    //跳转到编辑页面
+                    Response.Redirect(string.Format("editpost.aspx?siteId={0}&uri={1}", siteId, autoSavedPost.Uri));
+                }
+                else
+                {
+                    //载入
+                    if (autoSavedPost.Uri != 0)
+                    {
+                        Session["posturi"] = autoSavedPost.Uri;
+                    }
+                    txtAuthor.Text = autoSavedPost.Author;
+                    txtTitle.Text = autoSavedPost.Title;
+                    txtSubTitle.Text = autoSavedPost.SubTitle;
+                    fckContent.Value = autoSavedPost.Content;
+                    fckSummary.Value = autoSavedPost.Summary;
+                    divASPrompt.Visible = true;
+                }
+            }
+            else
+            {
+                //没有自动保存的文章
+                currentUser = (new UserManager()).GetUserInfo(currentUser, currentUser.UserId);
+                if (currentUser.ExInfo != null)
+                {
+                    txtAuthor.Text = currentUser.ExInfo.PenName;
+                }
+                else
+                {
+                    txtAuthor.Text = currentUser.UserName;
+                }
+            }
+            txtAddDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+        }
+
+        private void InitEditMode()
+        {
+            AutoSaveManager manager = new AutoSaveManager();
+            PostInfo autoSavedPost = manager.GetAutoSavedPost(userId);
+            if (autoSavedPost != null)
+            {
+                if (manager.IsPostSaved(currentUser.UserId))
+                {
+                    if (autoSavedPost.Uri != uri)
+                    {
+                        Response.Redirect(string.Format("editpost.aspx?siteId={0}&uri={1}&oriUri={2}&ret={3}"
+                                                                            , siteId
+                                                                            , autoSavedPost.Uri
+                                                                            , uri
+                                                                            , Request.QueryString["ret"]));
+                    }
+                    else
+                    {
+                        //载入文章
+                        LoadPost();
+                        txtTitle.Text = autoSavedPost.Title;
+                        txtSubTitle.Text = autoSavedPost.SubTitle;
+                        fckContent.Value = autoSavedPost.Content;
+                        fckSummary.Value = autoSavedPost.Summary;
+                        divASPrompt.Visible = true;
+                    }
+                }
+                else
+                {
+                    //跳转到新增页面
+                    Response.Redirect(string.Format("addpost.aspx?siteId={0}&oriUri={1}&ret={2}"
+                                                                            , siteId
+                                                                            , uri
+                                                                            , Request.QueryString["ret"]));
+                }
+            }
+            else
+            {
+                LoadPost();
+            }
+        }
+
+        private void LoadPost()
         {
             PostInfo post = null;
             try
@@ -195,7 +212,7 @@ namespace UniqueStudio.ComContent.Admin
             catch (Exception ex)
             {
                 message.SetErrorMessage("数据读取失败：" + ex.Message);
-                return -1;
+                return;
             }
 
             if (post == null)
@@ -203,7 +220,7 @@ namespace UniqueStudio.ComContent.Admin
                 message.SetErrorMessage("数据读取失败：指定文章不存在！");
                 btnPublish.Enabled = false;
                 btnSave.Enabled = false;
-                return 0;
+                return;
             }
             else
             {
@@ -263,7 +280,6 @@ namespace UniqueStudio.ComContent.Admin
                 }
 
                 ViewState["IsPublished"] = post.IsPublished;
-                return 1;
             }
         }
 
@@ -304,7 +320,7 @@ namespace UniqueStudio.ComContent.Admin
                 {
                     if (Request.QueryString["oriUri"] != null)
                     {
-                        Response.Redirect(string.Format("editpost.aspx?msg={0}&siteId={1}&uri={2}&", HttpUtility.UrlEncode("自动保存的文章处理成功，现在您可以编辑原来打算编辑的文章！")
+                        Response.Redirect(string.Format("editpost.aspx?msg={0}&siteId={1}&uri={2}&ret={3}", HttpUtility.UrlEncode("自动保存的文章处理成功，现在您可以编辑原来打算编辑的文章！")
                                                                                                                                               , siteId, Request.QueryString["oriUri"]
                                                                                                                                               , Request.QueryString["ret"]));
                     }
@@ -321,7 +337,6 @@ namespace UniqueStudio.ComContent.Admin
             }
             catch (Exception ex)
             {
-                ErrorLogger.LogError(ex);
                 message.SetErrorMessage(postType + "添加失败：" + ex.Message);
             }
         }
@@ -342,7 +357,7 @@ namespace UniqueStudio.ComContent.Admin
                     string prompt = "保存成功！";
                     if (Request.QueryString["oriUri"] != null)
                     {
-                        prompt = string.Format("自动保存的文章处理成功，您可以<a href='siteId={0}&uri={1}&ret={2}'>编辑原来打算编辑的文章</a>。"
+                        prompt = string.Format("自动保存的文章处理成功，您可以<a href='editpost.aspx?siteId={0}&uri={1}&ret={2}'>编辑原来打算编辑的文章</a>。"
                                                             , siteId
                                                             , Request.QueryString["oriUri"]
                                                             , Request.QueryString["ret"]);
@@ -356,7 +371,6 @@ namespace UniqueStudio.ComContent.Admin
             }
             catch (Exception ex)
             {
-                ErrorLogger.LogError(ex);
                 message.SetErrorMessage("保存失败：" + ex.Message);
             }
         }

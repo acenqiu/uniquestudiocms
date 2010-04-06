@@ -83,12 +83,6 @@ namespace UniqueStudio.Core.Menu
             }
             PermissionManager.CheckPermission(currentUser, "EditMenu", "编辑菜单");
 
-            //不需要如此严格地限定菜单项名称
-            //if (IsMenuItemExist(item.MenuId, item.ItemName))
-            //{
-            //    throw new Exception("该菜单项名称已经存在，请重新设置！");
-            //}
-
             try
             {
                 return provider.AddMenuItem(item);
@@ -784,24 +778,24 @@ namespace UniqueStudio.Core.Menu
             sb.Append("<ul>").Append("\r\n");
             foreach (MenuItemInfo child in head.ChildItems)
             {
-                sb.Append(GetHtml(child, new StringBuilder("menuPath=").Append(child.Id.ToString()).ToString())).Append("\r\n");
+                sb.Append(GetHtml(child)).Append("\r\n");
             }
             sb.Append("</ul>").Append("\r\n");
             return sb.ToString();
         }
 
-        private string GetHtml(MenuItemInfo node, string menuPath)
+        private string GetHtml(MenuItemInfo node)
         {
             StringBuilder sb = new StringBuilder();
 
             if (node.ChildItems.Count > 0)
             {
-                sb.Append("<li onmouseover='show(this)' onmouseout='hide(this)' class='li-node'>").Append("\r\n");
+                sb.Append("<li onmouseover='show(this)' onmouseout='hide(this)' class='li-node'>\r\n");
                 sb.Append("<div class='candy-menu'>").Append("\r\n");
                 sb.Append("<ul>").Append("\r\n");
                 foreach (MenuItemInfo child in node.ChildItems)
                 {
-                    sb.Append(GetHtml(child, menuPath + "," + child.Id)).Append("\r\n");
+                    sb.Append(GetHtml(child)).Append("\r\n");
                 }
                 sb.Append("</ul>").Append("\r\n");
                 sb.Append("</div>").Append("\r\n");
@@ -813,18 +807,14 @@ namespace UniqueStudio.Core.Menu
 
             if (!string.IsNullOrEmpty(node.Link))
             {
-                sb.Append("<a href='").Append(node.Link);
-                if (node.Link.IndexOf("?") < 0)
+                if (string.IsNullOrEmpty(node.Target))
                 {
-                    sb.Append("?");
+                    sb.Append(string.Format("<a href='{0}'>{1}</a>\r\n", node.Link, node.ItemName));
                 }
                 else
                 {
-                    sb.Append("&");
+                    sb.Append(string.Format("<a href='{0}' target='{1}'>{2}</a>\r\n", node.Link, node.Target, node.ItemName));
                 }
-                sb.Append(menuPath).Append("'>").Append("\r\n");
-                sb.Append(node.ItemName).Append("\r\n");
-                sb.Append("</a>").Append("\r\n");
             }
             else
             {

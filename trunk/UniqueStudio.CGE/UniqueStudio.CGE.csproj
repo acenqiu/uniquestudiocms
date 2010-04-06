@@ -641,6 +641,9 @@
     <Content Include="controls\Pagination.ascx" />
     <Content Include="css\article-style.css" />
     <Content Include="controls\SubCategories.ascx" />
+    <Content Include="css\ui-images\bg-grad.gif" />
+    <Content Include="css\ui-images\button-triangle.png" />
+    <Content Include="css\ui-images\calendar.png" />
     <Content Include="images\1.jpg" />
     <Content Include="img\error.png" />
     <Content Include="flashad\js\AC_RunActiveContent.js" />

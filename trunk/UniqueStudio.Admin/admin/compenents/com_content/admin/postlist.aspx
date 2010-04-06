@@ -66,6 +66,7 @@
                                 <input type="checkbox" onchange="selectall(this,'chkSelected')" id="chkSelectAll" />
                             </td>
                             <td>标题</td>
+                            <td width="40px">操作</td>
                             <td width="70px">作者</td>
                             <td>分类</td>
                             <td width="70px">添加用户</td>
@@ -74,7 +75,6 @@
                             <td width="100px">最后修改时间</td>
                             <td width="50px">已发布</td>
                             <td width="50px">阅读次数</td>
-                            <td width="40px">操作</td>
                         </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
@@ -86,6 +86,12 @@
                             <a href='<%= SiteManager.BaseAddress(SiteId) %>/view.aspx?uri=<%# Eval("Uri")%>'
                                 target="_blank" title='在新窗口/标签页中查看'><%# Eval("Title") %></a>
                         </td>
+                        <td align="center">
+                            <a href='editpost.aspx?siteId=<%=SiteId %>&uri=<%# Eval("Uri") %>&ret=<%= HttpUtility.UrlEncode(Request.Url.Query) %>'
+                             title="编辑"><img src="images/edit.png" alt="编辑" /></a>
+                             <a href='deletepost.aspx?uri=<%# Eval("Uri") %>&ret=<%= HttpUtility.UrlEncode(Request.Url.Query) %>'
+                             title="删除"><img src="images/delete.png" alt="删除" /></a></span>
+                         </td>
                         <td align="center"><%# Eval("Author") %></td>
                         <td><%# ((PostInfo)Container.DataItem).Categories%></td>
                         <td align="center"><%# Eval("AddUserName") %></td>
@@ -94,12 +100,6 @@
                         <td><%# Convert.ToDateTime(Eval("LastEditDate")).ToString("yyyy-MM-dd  HH:mm") %></td>
                         <td align="center"><%# Convert.ToBoolean(Eval("IsPublished"))?"是":"否" %></td>
                         <td align="center"><%# Eval("Count") %></td>
-                        <td align="center">
-                            <a href='editpost.aspx?siteId=<%=SiteId %>&uri=<%# Eval("Uri") %>&ret=<%= HttpUtility.UrlEncode(Request.Url.Query) %>'
-                             title="编辑"><img src="images/edit.png" alt="编辑" /></a>
-                             <a href='deletepost.aspx?uri=<%# Eval("Uri") %>&ret=<%= HttpUtility.UrlEncode(Request.Url.Query) %>'
-                             title="删除"><img src="images/delete.png" alt="删除" /></a></span>
-                         </td>
                     </tr>
                 </ItemTemplate>
                 <FooterTemplate>

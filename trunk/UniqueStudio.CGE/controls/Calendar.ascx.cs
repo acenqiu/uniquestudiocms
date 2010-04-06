@@ -16,35 +16,35 @@ namespace UniqueStudio.CGE.controls
     public partial class CalendarEditor : System.Web.UI.UserControl
     {
         private CalNoticeManager cnm1 = new CalNoticeManager();
-       private static List<DateTime> dates;
-       private string target;
-       public string Target
-       {
-           get
-           {
-               if (String.IsNullOrEmpty(target))
-               {
-                   target = "_self";
-               }
-               return target;
-           }
-           set
-           {
-               target = value;
-           }
-       }
-       public Calendar MyCalendar
-       {
-           get
-           {
-               return CalNotice;
-           }
-       }
-       private string linkPrototype = "<a href='calendar.aspx?date={0}' class='{2}' target='{3}'>{1}</a>";
+        private static List<DateTime> dates;
+        private string target;
+        public string Target
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(target))
+                {
+                    target = "_self";
+                }
+                return target;
+            }
+            set
+            {
+                target = value;
+            }
+        }
+        public Calendar MyCalendar
+        {
+            get
+            {
+                return CalNotice;
+            }
+        }
+        private string linkPrototype = "<a href='calendar.aspx?date={0}' class='{2}' target='{3}'>{1}</a>";
         protected void Page_Load(object sender, EventArgs e)
         {
             dates = cnm1.GetAllCalNoticeDate();
-           
+
         }
 
         protected void CalendarNotice_SelectionChanged(object sender, EventArgs e)
@@ -55,7 +55,6 @@ namespace UniqueStudio.CGE.controls
                 //TODO:定位到特定日期的notice页面
                 Session["caldate"] = CalNotice.SelectedDate.ToString();
                 Response.Redirect("calendar.aspx");
-           
             }
         }
         protected void CalNotice_DayRender(object sender, DayRenderEventArgs e)

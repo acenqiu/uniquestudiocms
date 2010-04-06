@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="list.aspx.cs"
+﻿<%@ Page MasterPageFile="Site.Master" EnableViewState="false" Language="C#" AutoEventWireup="true" CodeBehind="list.aspx.cs"
     Inherits="UniqueStudio.CGE.list" %>
 
 <%@ Register Assembly="UniqueStudio.Controls" Namespace="UniqueStudio.Controls" TagPrefix="US" %>

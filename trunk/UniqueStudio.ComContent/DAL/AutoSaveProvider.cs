@@ -1,25 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 
 using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common.DatabaseHelper;
-using UniqueStudio.DAL.Uri;
-using UniqueStudio.Common.Config;
 
 namespace UniqueStudio.ComContent.DAL
 {
     public class AutoSaveProvider
     {
         private const string AUTOSAVE_POST = "AutoSavePost";
-        private const string GET_USER_URI = "GetUserUri";
         private const string SET_AUTOSAVE_EFT = "SetAutoSaveEft";
         private const string GET_AUTOSAVED_POST = "GetAutoSavedPost";
-        private const string ADD_AUTOSAVE_FILE = "AddAutoSaveFile";
-        private const string UPDATE_AUTOSAVE_FILE = "UpdateAutoSaveFile";
-        private const string IS_POST_SAVED = "IsPostExistSaved";
+        private const string IS_POST_SAVED = "IsPostSaved";
 
         public AutoSaveProvider()
         {
@@ -45,19 +38,6 @@ namespace UniqueStudio.ComContent.DAL
                                                        new SqlParameter("@Content",post.Content),
                                                        new SqlParameter("@Summary",post.Summary)};
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, AUTOSAVE_POST, parms) > 0;
-        }
-
-        /// <summary>
-        /// 设置自动保存文章的有效性
-        /// </summary>
-        /// <param name="userId">用户ID</param>
-        /// <returns></returns>
-        public bool SetAutoSaveFileEft(Guid userId, bool isEffictive)
-        {
-            SqlParameter[] parms = new SqlParameter[]{
-                new SqlParameter("@UserID",userId),
-                new SqlParameter("@IsEffictive",isEffictive)};
-            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, SET_AUTOSAVE_EFT, parms) > 0;
         }
 
         /// <summary>
@@ -109,39 +89,35 @@ namespace UniqueStudio.ComContent.DAL
         }
 
         /// <summary>
-        /// 判断文章是否已经存为草稿或者发表
+        /// 
         /// </summary>
-        /// <param name="postUri">文章Uri</param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        private bool IsPostSaved(Int64 postUri)
+        public bool IsPostSaved(Guid userId)
         {
-            SqlParameter parm = new SqlParameter("@PostUri", postUri);
-            try
+            SqlParameter parm = new SqlParameter("@UserID", userId);
+            object o = SqlHelper.ExecuteScalar(CommandType.StoredProcedure, IS_POST_SAVED, parm);
+            if (o != null && o != DBNull.Value)
             {
-                return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, IS_POST_SAVED, parm) > 0;
+                return Convert.ToBoolean(o);
             }
-            catch
+            else
             {
-                return false;
+                throw new Exception();
             }
         }
 
         /// <summary>
-        /// 用于编辑页面载入自动保存内容
+        /// 设置自动保存文章的有效性
         /// </summary>
         /// <param name="userId">用户ID</param>
-        /// <param name="postUri">发表文章的Uri</param>
-        /// <returns>自动报存的文章</returns>
-        public PostInfo GetAutoSavedFileForEdit(Guid userId, Int64 postUri)
+        /// <returns></returns>
+        public bool SetAutoSavePostEft(Guid userId, bool isEffictive)
         {
-            if (IsPostSaved(postUri))
-            {
-                return GetAutoSavedPost(userId);
-            }
-            else
-            {
-                return null;
-            }
+            SqlParameter[] parms = new SqlParameter[]{
+                new SqlParameter("@UserID",userId),
+                new SqlParameter("@IsEffictive",isEffictive)};
+            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, SET_AUTOSAVE_EFT, parms) > 0;
         }
     }
 }

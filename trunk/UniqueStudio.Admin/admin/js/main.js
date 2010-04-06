@@ -91,17 +91,9 @@ function addLiAction()
 }
 function navigateToDefaultHref()
 {
-     var rightHref="background/default.aspx";
+      var rightHref="background/default.aspx";
       var d=hasClass(document.body,"admin-navigation","div")[0];
-      var li=hasClass(d,"menu-activeted","li")[0];
-      if (li)
-      {
-       clickLi(li.getElementsByTagName("a")[0]);
-      }
-      else
-      {
-         parent.right.location=rightHref;
-      }
+      parent.right.location=rightHref;
 }
 function clickMenu(e)
 {

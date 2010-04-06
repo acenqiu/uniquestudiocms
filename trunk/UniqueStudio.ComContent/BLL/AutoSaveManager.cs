@@ -1,19 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Data.Common;
 
-using UniqueStudio.ComContent.Model;
 using UniqueStudio.ComContent.DAL;
-using UniqueStudio.Common.Utilities;
+using UniqueStudio.ComContent.Model;
 using UniqueStudio.Common.ErrorLogging;
 using UniqueStudio.Common.Exceptions;
-using System.Data.Common;
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComContent.BLL
 {
     public class AutoSaveManager
     {
-        private AutoSaveProvider provider = new AutoSaveProvider();
+        //
+        // !!! 没有进行用户权限检测
+        //
+
+        private static AutoSaveProvider provider = new AutoSaveProvider();
 
         public AutoSaveManager()
         {
@@ -66,26 +68,6 @@ namespace UniqueStudio.ComContent.BLL
         }
 
         /// <summary>
-        /// 修改自动保存文章是否有效
-        /// </summary>
-        /// <param name="userID">用户ID</param>
-        /// <param name="isEffictive">是否有效</param>
-        /// <returns>修改是否成功</returns>
-        public bool SetAutoSaveFileEft(Guid userID, bool isEffictive)
-        {
-            try
-            {
-                return provider.SetAutoSaveFileEft(userID, isEffictive);
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-
-        }
-
-        /// <summary>
         /// 为添加文章页面获得用户有效的自动保存文章
         /// </summary>
         /// <param name="userID">用户ID</param>
@@ -109,15 +91,54 @@ namespace UniqueStudio.ComContent.BLL
                 throw new UnhandledException();
             }
         }
+
         /// <summary>
-        /// 为编辑页面获得用户有效的自动保存文章
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool IsPostSaved(Guid userId)
+        {
+            Validator.CheckGuid(userId, "userId");
+
+            try
+            {
+                return provider.IsPostSaved(userId);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// 修改自动保存文章是否有效
         /// </summary>
         /// <param name="userID">用户ID</param>
-        /// <param name="postUri">保存文章的Uri</param>
-        /// <returns>自动保存的文章信息</returns>
-        public PostInfo GetEftAutoSavedFileForEdit(Guid userID, Int64 postUri)
+        /// <param name="isEffictive">是否有效</param>
+        /// <returns>修改是否成功</returns>
+        public bool SetAutoSaveFileEft(Guid userID, bool isEffictive)
         {
-            return provider.GetAutoSavedFileForEdit(userID, postUri);
+            try
+            {
+                return provider.SetAutoSavePostEft(userID, isEffictive);
+            }
+            catch (DbException ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new DatabaseException();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex);
+                throw new UnhandledException();
+            }
         }
     }
 }

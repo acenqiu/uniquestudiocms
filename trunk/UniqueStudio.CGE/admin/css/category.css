@@ -32,53 +32,52 @@
 */
 #categorySpan
 {
-	 float:left;
-	 width:800px;
-	 display:block;
-	 overflow:hidden;
-	 background:#EEF5FF;
-	 
+	float: left;
+	width: 800px;
+	display: block;
+	overflow: hidden;
+	background: #EEF5FF;
 }
 .categorySpan-hover
 {
-	height:auto;
-	 padding-bottom:1em;
-border:1px #CCCCEE solid;
+	height: auto;
+	padding-bottom: 1em;
+	border: 1px #CCCCEE solid;
 }
 .categorySpan-common
 {
-	 height:2em;
-	 border:1px #CCCCEE solid;
-	 	 border-bottom:1px dashed;
+	height: 2em;
+	border: 1px #CCCCEE solid;
+	border-bottom: 1px dashed;
 }
 #categorySpan ul
 {
-	 float:left;
-	 padding:0px;
-	 margin:0px;
+	float: left;
+	padding: 0px;
+	margin: 0px;
 }
 #categorySpan ul li ul
 {
-	 float:none;
+	float: none;
 }
 #categorySpan ul li
 {
-	 float:left;
-	 padding:0px;
-	 margin:0px;
-	 list-style:none;
+	float: left;
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
 }
 #categorySpan ul li ul li
 {
-	 float:none;
-	 text-indent:2em;
+	float: none;
+	text-indent: 2em;
 }
 #categorySpan ul li ul li ul li
 {
-	 float:none;
-	 text-indent:3em;
+	float: none;
+	text-indent: 3em;
 }
 .clear
 {
-	 clear:both;
+	clear: both;
 }

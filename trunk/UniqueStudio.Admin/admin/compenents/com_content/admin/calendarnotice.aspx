@@ -12,10 +12,13 @@
 <script language="javascript" type="text/javascript" src="js/toolTip.js"> </script>
 <script language="javascript" type="text/javascript" src="js/dataControl.js"></script>
 <script language="javascript" type="text/javascript" src="js/base.js"></script>
+<script language="javascript" type="text/javascript" src="js/jquery-plus-jquery-ui.js"></script>
 <script type="text/javascript">
 
 function addRow()
 {
+ if (!lock)
+ {
 	  var postO=new Object();
   	  postO["action"]="add";
   	  postO["caldate"]='<%=Session["caldate"] %>';
@@ -25,6 +28,17 @@ function addRow()
           toolTip("添加成功!",1000);
           window.location.reload();
        });
+   }
+    else
+ {
+    if(confirm("当前已经有一条记录正在被修改，确认不保存修改？"))
+	{
+	    cancelRow(preRowCache);
+		  addRow();
+	  
+	}
+
+ }
 }
     </script>
 

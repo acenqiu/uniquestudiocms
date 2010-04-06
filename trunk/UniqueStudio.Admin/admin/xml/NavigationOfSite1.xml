@@ -7,6 +7,11 @@
         <Tab text="管理" permissions="EditAllDraftAPost,EditOwnDraftAPost,EditOwnDraftOnly,DeleteAllDraftAPost,DeleteOwnDraftAPost,DeleteOwnDraftOnly" href="compenents/com_content/admin/postlist.aspx" target="right" />
       </SubTabs>
     </Tab>
+	<Tab id="Com_Calendar" text="日历组件" permissions="" selected="true">
+		  <SubTabs>
+			  <Tab text="日历管理" permissions="" href="compenents/com_content/admin/calendar.aspx" target="right" />
+		  </SubTabs>
+	  </Tab>  
   </Compenents>
   <System>
     <Tab id="Category" text="分类管理" permissions="CreateCategory,DeleteCategory,EditCategory">

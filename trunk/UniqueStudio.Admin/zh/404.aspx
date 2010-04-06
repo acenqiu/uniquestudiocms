@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="404.aspx.cs"
+﻿<%@ Page MasterPageFile="Site.Master" EnableViewState="false" Language="C#" AutoEventWireup="true" CodeBehind="404.aspx.cs"
     Inherits="UniqueStudio.CGE._04" %>
 
 <asp:Content runat="server" ID="head" ContentPlaceHolderID="head">

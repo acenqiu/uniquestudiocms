@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="view.aspx.cs"
+﻿<%@ Page MasterPageFile="Site.Master" EnableViewState="false" Language="C#" AutoEventWireup="true" CodeBehind="view.aspx.cs"
     Inherits="UniqueStudio.CGE.view" %>
 <%@ Import Namespace="UniqueStudio.Common.Utilities" %>
 <%@ Import Namespace="UniqueStudio.Common.Config" %>

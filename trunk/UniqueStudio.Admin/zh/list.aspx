@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="Site.Master" Language="C#" AutoEventWireup="true" CodeBehind="list.aspx.cs"
+﻿<%@ Page MasterPageFile="Site.Master" EnableViewState="false" Language="C#" AutoEventWireup="true" CodeBehind="list.aspx.cs"
     Inherits="UniqueStudio.CGE.list" %>
 
 <%@ Register Assembly="UniqueStudio.Controls" Namespace="UniqueStudio.Controls" TagPrefix="US" %>
@@ -27,9 +27,9 @@
                 <asp:Repeater ID="rptList" runat="server">
                     <ItemTemplate>
                         <li><a href='view.aspx?catId=<%=CategoryId %>&uri=<%# Eval("Uri") %>' title='<%# Eval("Title") %>'
-                            <%# Convert.ToDateTime(Eval("LastEditDate")) >= DateTime.Now.AddDays(-NewImageThreshold) ? "class='new'" : ""  %>>
+                            <%# Convert.ToDateTime(Eval("LastEditDate")) >= DateTime.Now.AddDays(-ConfigAdapter.Config(SiteId).NewImageThreshold) ? "class='new'" : ""  %>>
                             <%# Eval("Title")%></a> <span class="postdate">
-                                <%# Convert.ToDateTime(Eval("LastEditDate")).ToString(TimeFormat) %></span></li>
+                                <%# Convert.ToDateTime(Eval("LastEditDate")).ToString(ConfigAdapter.Config(SiteId).TimeFormatOfSectionPostList) %></span></li>
                     </ItemTemplate>
                 </asp:Repeater>
             </ul>
