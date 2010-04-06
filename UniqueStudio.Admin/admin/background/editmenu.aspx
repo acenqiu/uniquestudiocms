@@ -85,7 +85,8 @@
                             <input type="hidden" name='<%# Eval("ParentItemId") %>' value='chk_<%# Eval("Id") %>' />
                         </td>
                         <td>
-                            <a href='editmenuitem.aspx?siteId=<%=SiteId %>&menuId=<%# Eval("MenuId") %>&itemId=<%# Eval("Id") %>'>
+                            <a href='editmenuitem.aspx?siteId=<%=SiteId %>&menuId=<%# Eval("MenuId") %>&itemId=<%# Eval("Id") %>'
+                                    title="单击编辑该菜单项">
                                 <%# Eval("ItemName") %></a>
                         </td>
                         <td>

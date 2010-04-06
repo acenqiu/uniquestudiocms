@@ -321,4 +321,27 @@ Incorrect syntax near '0'.
     <Time>2010-04-06T13:32:08.450092+08:00</Time>
     <Remarks />
   </ErrorInfo>
+  <ErrorInfo>
+    <ExceptionType>System.Data.SqlClient.SqlException</ExceptionType>
+    <ErrorMessage>Incorrect syntax near '0'.
+Incorrect syntax near '0'.</ErrorMessage>
+    <RepresentationString>System.Data.SqlClient.SqlException: Incorrect syntax near '0'.
+Incorrect syntax near '0'.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at UniqueStudio.ComContent.DAL.PostProvider.GetPostList(Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord, String addUserName, Boolean isIncludeSummary, Boolean isGetCategoryInfo) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\DAL\PostProvider.cs:line 494
+   at UniqueStudio.ComContent.BLL.PostManager.GetPostList(UserInfo currentUser, Int32 siteId, Int32 pageIndex, Int32 pageSize, DateTime createFrom, DateTime createTo, DateTime editFrom, DateTime editTo, Int32 categoryId, PostListType postListType, String titleKeyWord) in E:\Projects\CMS\Source\CMS\UniqueStudio.ComContent\BLL\PostManager.cs:line 309</RepresentationString>
+    <Time>2010-04-06T22:25:08.4621989+08:00</Time>
+    <Remarks />
+  </ErrorInfo>
 </ArrayOfErrorInfo>

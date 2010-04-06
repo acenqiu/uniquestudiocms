@@ -78,7 +78,7 @@
                             <input type="checkbox" name='chkSelected' onchange='selectRow(this)' value='<%# Eval("UserId") %>' />
                         </td>
                         <td>
-                            <a href='edituser.aspx?id=<%# Eval("UserId") %>'>
+                            <a href='edituser.aspx?id=<%# Eval("UserId") %>' title="单击修改该用户">
                                 <%# Eval("Email") %></a>
                         </td>
                         <td>
