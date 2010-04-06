@@ -30,9 +30,6 @@ namespace UniqueStudio.CGE
             }
         }
 
-        protected void btnSearch_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("search.aspx?title=" + HttpUtility.UrlEncode(txtSearch.Text.Trim()));
-        }
+
     }
 }

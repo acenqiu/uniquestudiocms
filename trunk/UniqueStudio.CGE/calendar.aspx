@@ -21,7 +21,7 @@
     </div>
     <div class="index-main-content">
     <div  class="calendarListWrap">
-    <h2 class="calendarList-title"><asp:Literal ID="calendarDate" runat="server"></asp:Literal>日程安排</h2>
+    <h2 class="calendarList-title"><asp:Literal ID="calendarDate" runat="server"></asp:Literal></h2>
         <asp:Literal ID="calendarNotice" runat="server"></asp:Literal>
         </div></div>
 </asp:Content>
