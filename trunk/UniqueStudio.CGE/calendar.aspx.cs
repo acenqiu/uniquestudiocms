@@ -32,7 +32,7 @@ namespace UniqueStudio.CGE
             {
                 date = DateTime.Today;
             }
-
+            showcalendar2.MyCalendar.VisibleDate=date;
             calendarDate.Text = date.Year.ToString() + "年" + date.Month.ToString() + "月" + date.Day.ToString() + "日";
             CalendarNoticeCollection calNotice = cnm.GetNoticesByDate(date);
             StringBuilder sb = new StringBuilder();

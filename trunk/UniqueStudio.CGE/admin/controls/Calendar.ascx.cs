@@ -9,6 +9,13 @@ namespace UniqueStudio.ComCalendar.Admin
     public partial class CalendarEditor : System.Web.UI.UserControl
     {
         private CalNoticeManager cnm = new CalNoticeManager();
+        public Calendar MyCalendar
+        {
+            get
+            {
+                return CalNotice;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -20,6 +27,7 @@ namespace UniqueStudio.ComCalendar.Admin
             {
                 //Response.Redirect("");
                 //TODO:定位到特定日期的notice页面
+                Session["caldate"] = CalNotice.SelectedDate.ToString();
                 Response.Redirect("calendar.aspx?caldate=" + CalNotice.SelectedDate.ToString());
             }
         }

@@ -8,7 +8,7 @@ namespace UniqueStudio.ComCalendar.Admin
         {
             if (Session["caldate"] != null)
             {
-
+                calendar1.MyCalendar.VisibleDate = Convert.ToDateTime(Session["caldate"]);
             }
             else
             {
