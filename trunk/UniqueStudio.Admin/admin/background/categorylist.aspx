@@ -73,7 +73,7 @@
                         </td>
                         <td><%# Eval("CategoryId")%></td>
                         <td>
-                            <a href='editcategory.aspx?siteId=<%= SiteId %>&catId=<%# Eval("CategoryId")%>' title='编辑分类 <%# Eval("CategoryName") %>'>
+                            <a href='editcategory.aspx?siteId=<%= SiteId %>&catId=<%# Eval("CategoryId")%>' title='单击编辑该分类'>
                                 <%# Eval("CategoryName") %></a>
                         </td>
                         <td>

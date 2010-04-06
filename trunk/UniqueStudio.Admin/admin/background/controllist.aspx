@@ -51,7 +51,8 @@
                             <input type="checkbox" name='chkSelected' onchange='selectRow(this)' value='<%# Eval("ControlId") %>' />
                         </td>
                         <td>
-                            <a href='controlconfig.aspx?siteId=<%=SiteId %>&controlId=<%# Eval("ControlId") %>'>
+                            <a href='controlconfig.aspx?siteId=<%=SiteId %>&controlId=<%# Eval("ControlId") %>'
+                                title="单击编辑该控件">
                                 <%# Eval("ControlName") %></a>
                         </td>
                         <td>

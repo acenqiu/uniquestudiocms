@@ -456,7 +456,7 @@ namespace UniqueStudio.ComContent.DAL
             }
             if (categoryId != 0)
             {
-                sbWhere.Append(" AND c.PostUri=p.Uri AND c.CategoryID={0}" + categoryId);
+                sbWhere.Append(" AND c.PostUri=p.Uri AND c.CategoryID=" + categoryId);
             }
             if (postListType != PostListType.Both)
             {
