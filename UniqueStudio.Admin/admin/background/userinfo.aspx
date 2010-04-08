@@ -1,7 +1,7 @@
-﻿<%@ Page MasterPageFile="~/admin/background/background.Master" Language="C#" AutoEventWireup="true"
+﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true"
     CodeBehind="userinfo.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.userinfo" %>
 
-<%@ Register Src="~/admin/controls/Message.ascx" TagPrefix="US" TagName="Message" %>
+<%@ Register Src="../controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 <asp:Content ID="content" ContentPlaceHolderID="cphBody" runat="server">
     <US:Message ID="message" runat="server" />
     <div class="panel">

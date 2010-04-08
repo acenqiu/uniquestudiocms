@@ -5,7 +5,7 @@ using UniqueStudio.Common.Config;
 
 namespace UniqueStudio.Admin.admin.background
 {
-    public partial class serverconfig : System.Web.UI.Page
+    public partial class serverconfig : Controls.AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
