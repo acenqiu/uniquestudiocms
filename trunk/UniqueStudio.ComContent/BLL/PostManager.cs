@@ -31,11 +31,13 @@ namespace UniqueStudio.ComContent.BLL
     /// </summary>
     public class PostManager
     {
-        public delegate void PostPublishedEventHandler(object sender, PostEventArgs e);
         public delegate void PostDeletedEventHandler(object sender, PostEventArgs e);
+        public delegate void PostPublishedEventHandler(object sender, PostEventArgs e);
+        public delegate void PostUpdatedEventHandler(object sender, PostEventArgs e);
 
-        public static event PostPublishedEventHandler OnPostPublished;
         public static event PostDeletedEventHandler OnPostDeleted;
+        public static event PostPublishedEventHandler OnPostPublished;
+        public static event PostUpdatedEventHandler OnPostUpdated;
 
         private PostProvider provider = new PostProvider();
 
@@ -120,7 +122,27 @@ namespace UniqueStudio.ComContent.BLL
 
             try
             {
-                return provider.DeletePost(uri);
+                if (provider.DeletePost(uri))
+                {
+                    if (OnPostDeleted != null)
+                    {
+                        try
+                        {
+                            PostInfo post = new PostInfo();
+                            post.Uri = uri;
+                            OnPostDeleted(null, new PostEventArgs(post));
+                        }
+                        catch (Exception ex)
+                        {
+                            ErrorLogger.LogError(ex, "OnPostDeleted事件触发异常。");
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (DbException ex)
             {
@@ -157,7 +179,27 @@ namespace UniqueStudio.ComContent.BLL
 
             try
             {
-                return provider.DeletePosts(uris);
+                if (provider.DeletePosts(uris))
+                {
+                    if (OnPostDeleted != null)
+                    {
+                        try
+                        {
+                            PostInfo post = new PostInfo();
+                            post.Uri = uris[0];
+                            OnPostDeleted(null, new PostEventArgs(post));
+                        }
+                        catch (Exception ex)
+                        {
+                            ErrorLogger.LogError(ex, "OnPostDeleted事件触发异常。");
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (DbException ex)
             {
@@ -193,7 +235,25 @@ namespace UniqueStudio.ComContent.BLL
 
             try
             {
-                return provider.EditPost(post);
+                if (provider.EditPost(post))
+                {
+                    if (OnPostUpdated != null)
+                    {
+                        try
+                        {
+                            OnPostUpdated(null, new PostEventArgs(post));
+                        }
+                        catch (Exception ex)
+                        {
+                            ErrorLogger.LogError(ex, "OnPostUpdated事件触发异常。");
+                        }
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (DbException ex)
             {

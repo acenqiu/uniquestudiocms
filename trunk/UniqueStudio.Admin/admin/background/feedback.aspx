@@ -1,5 +1,5 @@
-﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true" CodeBehind="feedback.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.feedback" %>
-<%@ Register Src="~/admin/controls/Message.ascx" TagPrefix="US" TagName="Message" %>
+﻿<%@ Page MasterPageFile="background.Master" EnableViewState="false" Language="C#" AutoEventWireup="true" CodeBehind="feedback.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.feedback" %>
+<%@ Register Src="../controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 <%@ Register Assembly="FredCK.FCKeditorV2" Namespace="FredCK.FCKeditorV2" TagPrefix="FCKeditorV2" %>
 <asp:Content ContentPlaceHolderID="cphBody" runat="server">
     <US:Message ID="message" runat="server" />

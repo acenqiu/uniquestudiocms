@@ -201,7 +201,8 @@ namespace UniqueStudio.ComContent.DAL
                                                     new SqlParameter("@IsPublished",post.IsPublished),
                                                     new SqlParameter("@PostDisplay",post.PostDisplay),
                                                     new SqlParameter("@Content",post.Content),
-                                                    new SqlParameter("@Settings",post.Settings)};
+                                                    new SqlParameter("@Settings",post.Settings),
+                                                    new SqlParameter("@NewsImage",post.NewsImage)};
             using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
             {
                 if (conn.State == ConnectionState.Closed)
@@ -284,10 +285,6 @@ namespace UniqueStudio.ComContent.DAL
                         {
                             post = FillPostInfo(reader, true);
                             post.Content = (string)reader["Content"];
-                            if (reader["NewsImage"] != DBNull.Value)
-                            {
-                                post.NewsImage = (string)reader["NewsImage"];
-                            }
                             post.PostDisplay = Convert.ToInt32(reader["PostDisplay"]);
                             if (reader["Settings"] != DBNull.Value)
                             {
@@ -829,6 +826,10 @@ namespace UniqueStudio.ComContent.DAL
             if (isIncludeSummary)
             {
                 post.Summary = (string)reader["Summary"];
+            }
+            if (reader["NewsImage"] != DBNull.Value)
+            {
+                post.NewsImage = (string)reader["NewsImage"];
             }
             post.Count = (int)reader["Count"];
             return post;

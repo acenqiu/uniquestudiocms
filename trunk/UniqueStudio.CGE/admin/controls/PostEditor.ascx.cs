@@ -280,6 +280,7 @@ namespace UniqueStudio.ComContent.Admin
                 }
 
                 ViewState["IsPublished"] = post.IsPublished;
+                ViewState["NewsImage"] = post.NewsImage;
             }
         }
 
@@ -351,6 +352,10 @@ namespace UniqueStudio.ComContent.Admin
                 if (!string.IsNullOrEmpty(newsImage))
                 {
                     post.NewsImage = newsImage;
+                }
+                else
+                {
+                    post.NewsImage = (string)ViewState["NewsImage"];
                 }
                 if (postManager.EditPost(currentUser, post))
                 {
