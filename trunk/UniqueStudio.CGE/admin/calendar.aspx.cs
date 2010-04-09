@@ -1,18 +1,18 @@
 ﻿using System;
 
+using UniqueStudio.Common.Utilities;
+
 namespace UniqueStudio.ComCalendar.Admin
 {
-    public partial class calendar : System.Web.UI.Page
+    public partial class calendar : Controls.AdminBasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["caldate"] != null)
+            calendar1.SiteId = SiteId;
+            
+            if (!IsPostBack)
             {
-                calendar1.MyCalendar.VisibleDate = Convert.ToDateTime(Session["caldate"]);
-            }
-            else
-            {
-                Session["caldate"] = DateTime.Today.ToString();
+                calendar1.MyCalendar.VisibleDate = Converter.DatetimeParse(Request.QueryString["date"], DateTime.Today);
             }
         }
     }

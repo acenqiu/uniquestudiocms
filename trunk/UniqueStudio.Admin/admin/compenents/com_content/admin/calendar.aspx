@@ -3,19 +3,18 @@
 
 <%@ Register Src="controls/Calendar.ascx" TagPrefix="US" TagName="Calendar" %>
 
-<asp:Content ID="Content1" runat="server" ContentPlaceHolderID="head">
+<asp:Content runat="server" ContentPlaceHolderID="head">
 
     <style type="text/css">
         #ifrcalnotice
         {
             height: 300px;
             width: 100%;
-            
         }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" runat="server" ContentPlaceHolderID="cphBody">
+<asp:Content runat="server" ContentPlaceHolderID="cphBody">
     <US:Calendar ID="calendar1" runat="server" />
     <br />
-    <iframe src="calendarnotice.aspx" id="ifrcalnotice" frameborder="0"></iframe>
+    <iframe src="calendarnotice.aspx<%= Request.Url.Query %>" id="ifrcalnotice" frameborder="0"></iframe>
 </asp:Content>

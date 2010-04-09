@@ -12,11 +12,14 @@ namespace UniqueStudio.ComCalendar.Model
         public CalendarNotice()
         {
         }
+
         private Guid id;
+        private int siteId;
         private DateTime date;
         private string time;
         private string content;
         private string remarks;
+
         /// <summary>
         /// 通知ID
         /// </summary>
@@ -25,7 +28,14 @@ namespace UniqueStudio.ComCalendar.Model
             get { return id; }
             set { id = value; }
         }
-        
+        /// <summary>
+        /// 网站ID。
+        /// </summary>
+        public int SiteId
+        {
+            get { return siteId; }
+            set { siteId = value; }
+        }
         /// <summary>
         /// 日期
         /// </summary>

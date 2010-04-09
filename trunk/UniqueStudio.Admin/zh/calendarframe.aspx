@@ -32,7 +32,7 @@
 <body >
     <form id="form1" runat="server">
     <div>
-        <US:Calendar ID="showcalendar2" Target="_blank" runat="server" />
+        <US:Calendar ID="showcalendar" Target="_blank" runat="server" />
     </div>
     </form>
 </body>

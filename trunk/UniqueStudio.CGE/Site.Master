@@ -38,8 +38,10 @@
                 <div id="navigation">
                     <asp:Literal ID="navigationMenu" runat="server"></asp:Literal>
                     <span class="search-box">
-                        <asp:TextBox ID="txtSearch" runat="server" Width="110px"></asp:TextBox>
-                        <asp:Button ID="btnSearch" class="input-button" runat="server" Text="ËÑË÷" OnClick="btnSearch_Click" /></span>
+                        <asp:TextBox ID="txtSearch" runat="server" Width="110px" />
+                        <asp:Button ID="btnSearch" class="input-button" runat="server" ValidationGroup="search" Text="ËÑË÷" OnClick="btnSearch_Click" /></span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtSearch" 
+                                    Display="None" ValidationGroup="search" runat="server" />
                 </div>
             </div>
         </div>
