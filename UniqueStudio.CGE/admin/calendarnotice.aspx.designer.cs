@@ -11,7 +11,7 @@
 namespace UniqueStudio.ComCalendar.Admin {
     
     
-    public partial class WebForm1 {
+    public partial class calendernotice {
         
         /// <summary>
         /// Head1 control.

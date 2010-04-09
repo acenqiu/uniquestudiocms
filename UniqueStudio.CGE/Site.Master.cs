@@ -13,16 +13,16 @@ namespace UniqueStudio.CGE
         protected void Page_Load(object sender, EventArgs e)
         {
             int siteId = (int)this.Session[GlobalConfig.SESSION_SITEID];
+            MenuManager manager = new MenuManager();
+            MenuInfo menu = manager.GetMenu(siteId);
+            if (menu != null)
+            {
+                MenuItemInfo head = manager.GetMenuTree(menu.Items);
+                navigationMenu.Text = manager.GetMenuHtml(head);
+            }
+
             if (!IsPostBack)
             {
-                MenuManager manager = new MenuManager();
-                MenuInfo menu = manager.GetMenu(siteId);
-                if (menu != null)
-                {
-                    MenuItemInfo head = manager.GetMenuTree(menu.Items);
-                    navigationMenu.Text = manager.GetMenuHtml(head);
-                }
-
                 try
                 {
                     ltlPv.Text = PageVisitManager.GetPageVisitCount().ToString();

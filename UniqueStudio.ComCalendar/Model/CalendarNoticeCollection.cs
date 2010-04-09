@@ -11,6 +11,7 @@ namespace UniqueStudio.ComCalendar.Model
         /// </summary>
         public CalendarNoticeCollection()
             : base()
-        { }
+        {
+        }
     }
 }

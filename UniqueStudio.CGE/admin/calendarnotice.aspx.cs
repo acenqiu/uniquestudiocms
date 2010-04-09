@@ -3,33 +3,28 @@ using System.Collections.Generic;
 
 using UniqueStudio.ComCalendar.BLL;
 using UniqueStudio.ComCalendar.Model;
+using UniqueStudio.Common.Model;
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.ComCalendar.Admin
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class calendernotice : Controls.AdminBasePage
     {
-        private List<CalendarNotice> testList = new List<CalendarNotice>();
-        private CalNoticeManager cnm = new CalNoticeManager();
+        protected DateTime Date = DateTime.Today;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            DateTime date;
-            if (Session["caldate"] != null)
+            Date = Converter.DatetimeParse(Request.QueryString["date"], DateTime.Today);
+            calendarDate.Text = Date.ToString("yyyy年MM月dd日");
+
+            CalendarNoticeCollection list = (new CalNoticeManager()).GetNoticesByDate(SiteId, Date);
+            if (list == null)
             {
-                date = Convert.ToDateTime(Session["caldate"]);
+                list = new CalendarNoticeCollection();
             }
-            else
-            {
-                date = DateTime.Today;
-            }
-            calendarDate.Text = date.Year.ToString() + "年" + date.Month.ToString() + "月" + date.Day.ToString() + "日";
-            testList = cnm.GetNoticesByDate(date);
-            if (testList == null)
-            {
-                testList = new List<CalendarNotice>();
-            }
-            DataControlManager<CalendarNotice> manager = new DataControlManager<CalendarNotice>(testList, new CalendarDataAccess());
+            DataControlManager<CalendarNotice> manager = new DataControlManager<CalendarNotice>(list, new CalendarDataAccess());
             ControlToInputText textbox = new ControlToInputText();
-            string s = manager.ConvertContrlToHtml(new string[] { "Time", "Content", "Remarks" }, textbox);
+            string s = manager.ConvertControlToHtml(new string[] { "Time", "Content", "Remarks" }, textbox);
             Literal1.Text = "<table >" + s + "</table>";
         }
 
@@ -38,15 +33,15 @@ namespace UniqueStudio.ComCalendar.Admin
             private CalNoticeManager cnm = new CalNoticeManager();
             public void Add(CalendarNotice notice)
             {
-                cnm.AddCalNotice(notice);
+                cnm.AddCalNotice(null, notice);
             }
             public void Update(DataControl<CalendarNotice> control)
             {
-                cnm.EditCalNotice(control.Instance);
+                cnm.EditCalNotice(null, control.Instance);
             }
             public void Delete(DataControl<CalendarNotice> control)
             {
-                cnm.DeleteCalendarNoticeByCatId(control.Instance.ID);
+                cnm.DeleteCalendarNoticeByCatId(null, control.Instance.ID);
             }
         }
     }

@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 
-using UniqueStudio.Common.DatabaseHelper;
 using UniqueStudio.ComCalendar.Model;
+using UniqueStudio.Common.DatabaseHelper;
 
 namespace UniqueStudio.ComCalendar.DAL
 {
     public class NoticeProvider
     {
-        private const string ADDCALNOTICE = "AddCalNotice";
-        private const string EDITCALNOTICE = "EditCalNotice";
-        private const string DELETECALNOTICEBYCALID = "DeleteCalNoticeByCalID";
-        private const string DELETECALNOTICESBYDATE = "DeleteCalNoticesByDate";
-        private const string GETALLNOTICEDDATE = "GetAllNoticedDate";
-        private const string GETNOTICESBYDATE = "GetNoticesByDate";
+        private const string ADD_CALNOTICE = "AddCalNotice";
+        private const string EDIT_CALNOTICE = "EditCalNotice";
+        private const string DELETE_CALNOTICE_BY_CALID = "DeleteCalNoticeByCalID";
+        private const string DELETE_CALNOTICES_BY_DATE = "DeleteCalNoticesByDate";
+        private const string GET_ALL_NOTICE_DATE = "GetAllNoticeDate";
+        private const string GET_NOTICES_BY_DATE = "GetNoticesByDate";
+
         /// <summary>
         /// 默认构造函数
         /// </summary>
         public NoticeProvider()
         {
         }
+
         /// <summary>
         /// 为日历添加一条通知
         /// </summary>
@@ -31,20 +32,15 @@ namespace UniqueStudio.ComCalendar.DAL
         public bool AddCalNotice(CalendarNotice notice)
         {
             SqlParameter[] parms = new SqlParameter[] { 
+                                   new SqlParameter("@SiteID",notice.SiteId),
                                    new SqlParameter("@NoticeDate",notice.Date),
                                    new SqlParameter("@NoticeTime",notice.Time),
                                    new SqlParameter("@Content",notice.Content),
-                                   new SqlParameter("@Remarks",notice.Remarks)
-            };
-            try
-            {
-                return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, ADDCALNOTICE, parms) > 0;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+                                   new SqlParameter("@Remarks",notice.Remarks)};
+
+            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, ADD_CALNOTICE, parms) > 0;
         }
+
         /// <summary>
         /// 编辑一条日历通知
         /// </summary>
@@ -59,15 +55,9 @@ namespace UniqueStudio.ComCalendar.DAL
                                    new SqlParameter("@Content",notice.Content),
                                    new SqlParameter("@Remarks",notice.Remarks)
             };
-            try
-            {
-                return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, EDITCALNOTICE, parms) > 0;
-            }
-            catch
-            {
-                return false;
-            }
+            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, EDIT_CALNOTICE, parms) > 0;
         }
+
         /// <summary>
         /// 删除一条日历通知
         /// </summary>
@@ -76,97 +66,76 @@ namespace UniqueStudio.ComCalendar.DAL
         public bool DeleteCalNoticeByCalId(Guid calId)
         {
             SqlParameter parm = new SqlParameter("@ID", calId);
-            try
-            {
-                return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, DELETECALNOTICEBYCALID, parm) > 0;
-            }
-            catch
-            {
-                return false;
-            }
+            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, DELETE_CALNOTICE_BY_CALID, parm) > 0;
         }
+
         /// <summary>
         /// 删除特定日期下的所有通知
         /// </summary>
+        /// <param name="siteId">网站ID。</param>
         /// <param name="date">日期</param>
         /// <returns>是否删除成功</returns>
-        public bool DeleteCalNoticesByDate(DateTime date)
+        public bool DeleteCalNoticesByDate(int siteId, DateTime date)
         {
-            SqlParameter parm = new SqlParameter("@NoticeDate", date);
-            try
-            {
-                return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, DELETECALNOTICESBYDATE, parm) > 0;
-            }
-            catch
-            {
-                return false;
-            }
+            SqlParameter[] parms = new SqlParameter[]{
+                                                                new SqlParameter("@SiteID",siteId),
+                                                                new SqlParameter("@NoticeDate", date)};
+            return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, DELETE_CALNOTICES_BY_DATE, parms) > 0;
         }
+
         /// <summary>
         /// 获得所有有通知的日期
         /// </summary>
+        /// <param name="siteId">网站ID。</param>
         /// <returns>有通知的日期</returns>
-        public List<DateTime> GetAllNoticedDate()
+        public List<DateTime> GetAllNoticedDate(int siteId)
         {
-            try
+            SqlParameter parm = new SqlParameter("@SiteID", siteId);
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_ALL_NOTICE_DATE, parm))
             {
-                using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GETALLNOTICEDDATE, null))
+                List<DateTime> dates = new List<DateTime>();
+                while (reader.Read())
                 {
-                    List<DateTime> dates = new List<DateTime>();
-                    while (reader.Read())
-                    {
-                        dates.Add(Convert.ToDateTime(reader["NoticeDate"]));
-                    }
-                    return dates;
+                    dates.Add((DateTime)reader["NoticeDate"]);
                 }
-            }
-            catch
-            {
-                return null;
+                return dates;
             }
         }
+
         /// <summary>
         /// 获得特定日期的所有通知
         /// </summary>
+        /// <param name="siteId">网站ID。 </param>
         /// <param name="date">日期</param>
         /// <returns></returns>
-        public CalendarNoticeCollection GetNoticesByDate(DateTime date)
+        public CalendarNoticeCollection GetNoticesByDate(int siteId, DateTime date)
         {
-            //date.AddHours(0);
-            //date.AddMinutes(0);
-            //date.AddSeconds(0);
-            //date.AddMilliseconds(0);
-            SqlParameter parm = new SqlParameter("@NoticeDate", date);
-            try
+            SqlParameter[] parms = new SqlParameter[]{
+                                                    new SqlParameter("@SiteID",siteId),
+                                                    new SqlParameter("@NoticeDate", date)};
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_NOTICES_BY_DATE, parms))
             {
-                using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GETNOTICESBYDATE, parm))
+                CalendarNoticeCollection notices = new CalendarNoticeCollection();
+                while (reader.Read())
                 {
-                    CalendarNoticeCollection notices = new CalendarNoticeCollection();
-                    while (reader.Read())
+                    CalendarNotice notice = new CalendarNotice();
+                    notice.ID = new Guid(reader["ID"].ToString());
+                    notice.Content = (string)reader["Content"];
+                    notice.Date = (DateTime)reader["NoticeDate"];
+                    if (reader["NoticeTime"] != DBNull.Value)
                     {
-                        CalendarNotice notice = new CalendarNotice();
-                        notice.ID = new Guid(reader["ID"].ToString());
-                        notice.Content = (string)reader["Content"];
-                        notice.Date = Convert.ToDateTime(reader["NoticeDate"]);
-                        if (reader["NoticeTime"] != DBNull.Value)
-                        {
-                            notice.Time = (string)reader["NoticeTime"];
-                        }
-                        if (reader["Remarks"] != DBNull.Value)
-                        {
-                            notice.Remarks = (string)reader["Remarks"];
-                        }
-                        notices.Add(notice);
-                        // notices.Add(FillCalNotice(reader));
+                        notice.Time = (string)reader["NoticeTime"];
                     }
-                    return notices;
+                    if (reader["Remarks"] != DBNull.Value)
+                    {
+                        notice.Remarks = (string)reader["Remarks"];
+                    }
+                    notices.Add(notice);
                 }
-            }
-            catch
-            {
-                return null;
+                return notices;
             }
         }
+
         /// <summary>
         /// 填充CalendarNotice
         /// </summary>
@@ -179,7 +148,7 @@ namespace UniqueStudio.ComCalendar.DAL
             {
                 notice.ID = new Guid(reader["ID"].ToString());
                 notice.Content = (string)reader["Content"];
-                notice.Date = Convert.ToDateTime(reader["NoticeDate"]);
+                notice.Date = (DateTime)reader["NoticeDate"];
                 if (reader["NoticeTime"] != DBNull.Value)
                 {
                     notice.Time = (string)reader["NoticeTime"];

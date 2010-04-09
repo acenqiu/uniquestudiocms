@@ -1,9 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Configuration;
-using System.Collections.Generic;
-using System.Web;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace UniqueStudio.ComCalendar.BLL
@@ -12,14 +7,18 @@ namespace UniqueStudio.ComCalendar.BLL
     {
         private List<T> dataList = new List<T>();
         private List<DataControl<T>> controlList = new List<DataControl<T>>();
+
+        private static IDataAccess<T> dataAccess;
+
         public static List<DataControl<T>> ControlList = new List<DataControl<T>>();
         public static string[] Properties;
-        private static IDataAccess<T> dataAccess;
+
         public DataControlManager(List<T> tList, IDataAccess<T> iAccess)
         {
             dataList = tList;
             dataAccess = iAccess;
         }
+
         private void convertDataToControl(string[] property)
         {
 
@@ -30,20 +29,24 @@ namespace UniqueStudio.ComCalendar.BLL
             }
             ControlList = controlList;
         }
+
         public static void Add(T t)
         {
             dataAccess.Add(t);
             // ControlList.Add(dataAccess.Add(control));
         }
+
         public static void Delete(DataControl<T> control)
         {
             dataAccess.Delete(control);
             ControlList.Remove(control);
         }
+
         public static void Update(DataControl<T> control)
         {
             dataAccess.Update(control);
         }
+
         public static DataControl<T> GetControlByID(string id)
         {
             foreach (DataControl<T> control in ControlList)
@@ -55,6 +58,7 @@ namespace UniqueStudio.ComCalendar.BLL
             }
             return null;
         }
+
         private string convertContrlToHtml(IControlToHtml<T> controlToHtml)
         {
             StringBuilder sb = new StringBuilder();
@@ -65,7 +69,7 @@ namespace UniqueStudio.ComCalendar.BLL
             return sb.ToString();
         }
 
-        public string ConvertContrlToHtml(string[] properties, IControlToHtml<T> controlToHtml)
+        public string ConvertControlToHtml(string[] properties, IControlToHtml<T> controlToHtml)
         {
             Properties = properties;
             convertDataToControl(properties);
