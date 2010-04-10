@@ -12,7 +12,6 @@ namespace UniqueStudio.ComContent.BLL
                                             +"<Settings xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">"
                                             +"<ArrayOfEnclosure/></Settings>";
         private XmlDocument xmlDoc = new XmlDocument();
-        private XmlManager xmlManager = new XmlManager();
 
         public SettingsManager()
         {
@@ -34,7 +33,7 @@ namespace UniqueStudio.ComContent.BLL
                     enclosure.Type = Path.GetExtension(item);
                     enclosure.Url = "/upload/" + fileInfo.Name;
                     enclosure.Length = fileInfo.Length;
-                    xmlManager.InsertNode(xmlDoc, "/Settings/ArrayOfEnclosure", enclosure, typeof(Enclosure));
+                    XmlManager.InsertNode(xmlDoc, "/Settings/ArrayOfEnclosure", enclosure, typeof(Enclosure));
                 }
                 return xmlDoc.OuterXml;
             }
@@ -48,8 +47,8 @@ namespace UniqueStudio.ComContent.BLL
         {
             XmlDocument settings = new XmlDocument();
             settings.LoadXml(enclosuresXML);
-            XmlDocument temp = xmlManager.ConstructSubXmlDocument(settings, "/Settings/ArrayOfEnclosure/*", "ArrayOfEnclosure");
-            EnclosureCollection enclosures = (EnclosureCollection)xmlManager.ConvertToEntity(temp, typeof(EnclosureCollection), null);
+            XmlDocument temp = XmlManager.SubXmlDocument(settings, "/Settings/ArrayOfEnclosure/*", "ArrayOfEnclosure");
+            EnclosureCollection enclosures = (EnclosureCollection)XmlManager.ConvertToEntity(temp, typeof(EnclosureCollection), null);
             return enclosures;
         }
     }

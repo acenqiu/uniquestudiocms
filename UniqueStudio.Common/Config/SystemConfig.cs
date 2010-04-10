@@ -1,7 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：系统配置（基类）。
+// 完成日期：2010年04月10日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
 using System.Reflection;
-using System.Text;
 using System.Xml;
 
 using UniqueStudio.Common.Utilities;
@@ -10,36 +14,34 @@ using UniqueStudio.Common.XmlHelper;
 namespace UniqueStudio.Common.Config
 {
     /// <summary>
-    /// 系统配置（基类）
+    /// 系统配置（基类）。
     /// </summary>
     public class SystemConfig
     {
         protected string path = null;
 
         /// <summary>
-        /// 返回xml格式的配置文件
+        /// 返回xml格式的配置文件。
         /// </summary>
-        /// <returns></returns>
+        /// <returns>配置文件xml文档。</returns>
         public XmlDocument GetXmlConfig()
         {
-            XmlManager manager = new XmlManager();
-            return manager.LoadXml(PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, path));
+            return XmlManager.LoadXml(PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, path));
         }
 
         /// <summary>
-        /// 从XML文件中载入配置信息
+        /// 从XML文件中载入配置信息，并填充到该类。
         /// </summary>
         public void LoadConfig()
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, path));
+            XmlDocument doc = XmlManager.LoadXml(PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, path));
             LoadConfig(doc);
         }
 
         /// <summary>
-        /// 从XML文件中载入配置信息
+        /// 从XML文件中载入配置信息，并填充到该类。
         /// </summary>
-        /// <param name="content">xml格式配置文件内容</param>
+        /// <param name="content">xml格式配置文件内容。</param>
         public void LoadConfig(string content)
         {
             XmlDocument doc = new XmlDocument();
@@ -50,6 +52,10 @@ namespace UniqueStudio.Common.Config
         private void LoadConfig(XmlDocument doc)
         {
             XmlNodeList nodes = doc.SelectNodes("//param");
+            if (nodes == null)
+            {
+                return;
+            }
             foreach (XmlNode node in nodes)
             {
                 PropertyInfo property = this.GetType().GetProperty(node.Attributes["name"].Value);
@@ -89,18 +95,17 @@ namespace UniqueStudio.Common.Config
                     }
                     property.SetValue(this, oValue, null);
                 }
-            }
+            }//end of foreach
         }
 
         /// <summary>
-        /// 将配置信息保存到xml文档
+        /// 将配置信息保存到xml文档。
         /// </summary>
-        /// <param name="content">配置信息xml格式内容</param>
+        /// <param name="content">配置信息xml格式内容。</param>
         public void SaveXmlConfig(string content)
         {
-            (new XmlManager()).SaveXml(PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, path), content);
+            XmlManager.SaveXml(PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, path), content);
             LoadConfig();
-
         }
     }
 }

@@ -428,16 +428,19 @@ namespace UniqueStudio.Core.PlugIn
             string path = PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, workingPath);
             path = PathHelper.PathCombine(path, "install.xml");
 
-            XmlManager manager = new XmlManager();
-            XmlDocument doc = manager.LoadXml(path);
-            PlugInInfo plugIn = (PlugInInfo)manager.ConvertToEntity(doc, typeof(PlugInInfo), "/install/*");
+            XmlManager manager = new XmlManager(path);
+            PlugInInfo plugIn = (PlugInInfo)manager.ConvertToEntity(typeof(PlugInInfo), "/install/*");
             if (plugIn == null)
             {
                 return false;
             }
             else
             {
-                plugIn.Config = manager.ConstructSubXmlDocument(doc, "/install/params", "config").OuterXml;
+                XmlDocument subDoc = manager.SubXmlDocument("/install/params", "config");
+                if (subDoc != null)
+                {
+                    plugIn.Config = subDoc.OuterXml;
+                }
                 plugIn.WorkingPath = workingPath;
                 plugIn.Instances = new List<PlugInInstanceInfo>();
                 PlugInInstanceInfo instance = new PlugInInstanceInfo();
@@ -557,9 +560,8 @@ namespace UniqueStudio.Core.PlugIn
             string path = PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, workingPath);
             path = PathHelper.PathCombine(path, "install.xml");
 
-            XmlManager manager = new XmlManager();
-            XmlDocument doc = manager.LoadXml(path);
-            return (PlugInInfo)manager.ConvertToEntity(doc, typeof(PlugInInfo), "/install/*");
+            XmlManager manager = new XmlManager(path);
+            return (PlugInInfo)manager.ConvertToEntity(typeof(PlugInInfo), "/install/*");
         }
 
         /// <summary>

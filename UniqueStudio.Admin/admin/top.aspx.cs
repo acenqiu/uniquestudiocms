@@ -1,7 +1,13 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：后台管理顶部页面。
+// 完成日期：2010年04月10日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 
 using UniqueStudio.Common.Config;
-using UniqueStudio.Common.Model;
 using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.Admin.admin
@@ -15,8 +21,7 @@ namespace UniqueStudio.Admin.admin
                 if (CurrentUser != null)
                 {
                     ltlUserName.Text = CurrentUser.UserName;
-                    //修改
-                    ltlEnableTime.Visible = SiteManager.Config(1).IsDisplayTime;
+                    ltlEnableTime.Visible = ServerConfig.IsDisplayTime;
                 }
 
                 rptSiteList.DataSource = (new SiteManager()).GetAllSites();

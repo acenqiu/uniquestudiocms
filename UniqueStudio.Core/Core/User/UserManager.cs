@@ -612,8 +612,7 @@ namespace UniqueStudio.Core.User
                     UserInfo user = provider.GetUserInfo(userId, true);
                     if (user != null && !string.IsNullOrEmpty(user.ExInfoXml))
                     {
-                        XmlManager manager = new XmlManager();
-                        user.ExInfo = (UserExInfo)manager.ConvertToEntity(user.ExInfoXml, typeof(UserExInfo), null);
+                        user.ExInfo = (UserExInfo)XmlManager.ConvertToEntity(user.ExInfoXml, typeof(UserExInfo), null);
                         user.ExInfoXml = null;
                     }
                     return user;
@@ -948,10 +947,9 @@ namespace UniqueStudio.Core.User
             }
             else
             {
-                XmlManager manager = new XmlManager();
                 try
                 {
-                    user.ExInfoXml = manager.ConvertToXml(user.ExInfo, typeof(UserExInfo)).OuterXml;
+                    user.ExInfoXml = XmlManager.ConvertToXml(user.ExInfo, typeof(UserExInfo)).OuterXml;
                 }
                 catch (Exception ex)
                 {

@@ -1,20 +1,38 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：提供对Xml的操作方法。
+// 完成日期：2010年04月10日
+// 版本：v1.0
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Xml.XPath;
-using System.Xml.Xsl;
+
+using UniqueStudio.Common.Utilities;
 
 namespace UniqueStudio.Common.XmlHelper
 {
     /// <summary>
-    /// 提供对XML的读、写方法
+    /// 提供对Xml的操作方法。
     /// </summary>
+    /// <remarks>该类不捕捉异常；非静态类将把操作结果
+    /// 保存在内部的XmlDocument中，并且其他操作都将在这个文档的基础上进行。</remarks>
     public class XmlManager
     {
-        private XmlDocument doc = new XmlDocument();
+        private XmlDocument doc = null;
+
+        /// <summary>
+        /// 获取或设置内部xml文档。
+        /// </summary>
+        public XmlDocument Doc
+        {
+            get { return doc; }
+            set { doc = value; }
+        }
 
         /// <summary>
         /// 初始化<see cref="XmlManager"/>类的实例。
@@ -25,166 +43,129 @@ namespace UniqueStudio.Common.XmlHelper
         }
 
         /// <summary>
-        /// 载入xml文档
+        /// 以xml文档路径初始化<see cref="XmlManager"/>类的实例。
         /// </summary>
-        /// <param name="fileName">文档路径</param>
-        /// <returns>xml文档</returns>
-        /// <exception cref="FileNotFoundException">当指定的xml文件不存在时抛出该异常</exception>
-        public XmlDocument LoadXml(string fileName)
+        /// <param name="fileName">xml文档路径。</param>
+        public XmlManager(string fileName)
         {
-            if (string.IsNullOrEmpty(fileName))
-            {
-                throw new ArgumentNullException("fileName");
-            }
-            if (!File.Exists(fileName))
-            {
-                throw new FileNotFoundException(fileName);
-            }
+            Validator.CheckStringNull(fileName, "fileName");
+
+            doc = LoadXml(fileName);
+        }
+
+        /// <summary>
+        /// 以xml文档初始化<see cref="XmlManager"/>类的实例。
+        /// </summary>
+        /// <param name="doc">xml文档。</param>
+        public XmlManager(XmlDocument doc)
+        {
+            Validator.CheckNull(doc, "doc");
+            this.doc = doc;
+        }
+
+        #region Static Methods
+
+        /// <summary>
+        /// 将xml文档反序列化为对象。
+        /// </summary>
+        /// <param name="content">xml文档内容。</param>
+        /// <param name="t">对象类型。</param>
+        /// <param name="xPath">xPath,用于指定将哪个节点反序列化为对象。</param>
+        /// <returns>反序列化后的对象。</returns>
+        public static object ConvertToEntity(string content, Type t, string xPath)
+        {
+            Validator.CheckNull(t, "t");
+
+            return ConvertToEntity(content, t, t.Name, xPath);
+        }
+
+        /// <summary>
+        /// 将xml文档反序列化为对象。
+        /// </summary>
+        /// <param name="content">xml文档内容。</param>
+        /// <param name="t">对象类型。</param>
+        /// <param name="typeName">对象类型名称（对于有些继承类型，通过反射
+        /// 得到的类型名可能和声明的不同）。</param>
+        /// <param name="xPath">xPath,用于指定将哪个节点反序列化为对象。</param>
+        /// <returns>反序列化后的对象。</returns>
+        public static object ConvertToEntity(string content, Type t, string typeName, string xPath)
+        {
+            Validator.CheckStringNull(content, "content");
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(fileName);
-            return doc;
+            doc.LoadXml(content);
+            return ConvertToEntity(doc, t, typeName, xPath);
         }
 
         /// <summary>
-        /// 载入xml文档内容
+        /// 将xml文档反序列化为对象。
         /// </summary>
-        /// <param name="fileName">文档路径</param>
-        /// <returns>文档内容</returns>
-        public string LoadXmlContent(string fileName)
+        /// <param name="doc">xml文档。</param>
+        /// <param name="t">对象类型。</param>
+        /// <param name="xPath">xPath,用于指定将哪个节点反序列化为对象。</param>
+        /// <returns>反序列化后的对象。</returns>
+        public static object ConvertToEntity(XmlDocument doc, Type t, string xPath)
         {
-            XmlDocument doc = LoadXml(fileName);
-            return doc.OuterXml;
+            Validator.CheckNull(t, "t");
+
+            return ConvertToEntity(doc, t, t.Name, xPath);
         }
 
         /// <summary>
-        /// 生成xml文档的子文档
+        /// 将xml文档反序列化为对象。
         /// </summary>
-        /// <param name="fileName">文档路径</param>
-        /// <param name="xPath">xpath（用于选取由哪些节点构成新的文档）</param>
-        /// <returns>生成的新的xml文档</returns>
-        public XmlDocument ConstructSubXmlDocument(string fileName, string xPath)
+        /// <param name="doc">xml文档。</param>
+        /// <param name="t">对象类型。</param>
+        /// <param name="typeName">对象类型名称（对于有些继承类型，通过反射
+        /// 得到的类型名可能和声明的不同）。</param>
+        /// <param name="xPath">xPath,用于指定将哪个节点反序列化为对象。</param>
+        /// <returns>反序列化后的对象。</returns>
+        public static object ConvertToEntity(XmlDocument doc, Type t, string typeName, string xPath)
         {
-            XmlDocument doc = LoadXml(fileName);
-            return ConstructSubXmlDocument(doc, xPath);
-        }
+            Validator.CheckNull(doc, "doc");
+            Validator.CheckNull(t, "t");
+            Validator.CheckStringNull(typeName, "typeName");
 
-        /// <summary>
-        /// 生成xml文档的子文档
-        /// </summary>
-        /// <param name="fileName">文档路径</param>
-        /// <param name="xPath">xpath（用于选取由哪些节点构成新的文档）</param>
-        /// <param name="rootName">生成的文档的根节点名</param>
-        /// <returns>生成的新的xml文档</returns>
-        public XmlDocument ConstructSubXmlDocument(string fileName, string xPath, string rootName)
-        {
-            XmlDocument doc = LoadXml(fileName);
-            return ConstructSubXmlDocument(doc, xPath, rootName);
-        }
-
-        /// <summary>
-        /// 生成xml文档的子文档
-        /// </summary>
-        /// <param name="doc">xml文档</param>
-        /// <param name="xPath">xpath（用于选取由哪些节点构成新的文档）</param>
-        /// <returns>生成的新的xml文档</returns>
-        public XmlDocument ConstructSubXmlDocument(XmlDocument doc, string xPath)
-        {
-            return ConstructSubXmlDocument(doc, xPath, "root");
-        }
-
-        /// <summary>
-        /// 生成xml文档的子文档
-        /// </summary>
-        /// <param name="doc">xml文档</param>
-        /// <param name="xPath">xpath（用于选取由哪些节点构成新的文档）</param>
-        /// <param name="rootName">生成的文档的根节点名</param>
-        /// <returns>生成的新的xml文档</returns>
-        public XmlDocument ConstructSubXmlDocument(XmlDocument doc, string xPath, string rootName)
-        {
-            if (!ValidxPathSyntax(xPath))
+            if (!string.IsNullOrEmpty(xPath))
             {
-                throw new Exception();
+                doc = SubXmlDocument(doc, xPath, typeName);
             }
 
-            XmlDocument subDoc = new XmlDocument();
-            XmlDeclaration dec = subDoc.CreateXmlDeclaration("1.0", "utf-8", null);
-            subDoc.AppendChild(dec);
-            XmlElement root = subDoc.CreateElement(rootName);
-
-            //如果是“/"，以下代码会出错
-            if (xPath.Trim() == "/")
-            {
-
-            }
-            XmlNodeList list = doc.SelectNodes(xPath);
-            StringBuilder innerXml = new StringBuilder();
-            foreach (XmlNode node in list)
-            {
-                innerXml.Append(node.OuterXml);
-            }
-            root.InnerXml = innerXml.ToString();
-            subDoc.AppendChild(root);
-            return subDoc;
-        }
-        /// <summary>
-        /// 向指定xml文档插入节点
-        /// </summary>
-        /// <param name="doc">xml文档</param>
-        /// <param name="xPath">xpath,用于选取在哪些节点中插入新节点</param>
-        /// <param name="innerXml">待插入节点的xml格式内容</param>
-        /// <param name="nodeName">待插入节点名</param>
-        public void InsertNode(XmlDocument doc, string xPath, string innerXml, string nodeName)
-        {
-            if (!ValidxPathSyntax(xPath))
-            {
-                throw new Exception();
-            }
-
-            //TODO:测试在选取到多个节点时是否会出现异常
-            XmlNodeList list = doc.SelectNodes(xPath);
-            XmlElement newNode = doc.CreateElement(nodeName);
-            newNode.InnerXml = innerXml;
-            foreach (XmlNode node in list)
-            {
-                node.AppendChild(newNode);
-            }
+            byte[] buffer = Encoding.UTF8.GetBytes(doc.OuterXml);
+            MemoryStream memStream = new MemoryStream(buffer);
+            XmlSerializer xs = new XmlSerializer(t);
+            object o = xs.Deserialize(memStream);
+            memStream.Close();
+            return o;
         }
 
         /// <summary>
-        /// 向指定xml文档插入节点
+        /// 将xml文档反序列化为对象。
         /// </summary>
-        /// <param name="doc">xml文档</param>
-        /// <param name="xPath">xpath,用于选取在哪些节点中插入新节点</param>
-        /// <param name="source">待插入的对象（将序列化为xml节点）</param>
-        /// <param name="t">待插入对象的类型</param>
-        public void InsertNode(XmlDocument doc, string xPath, object source, Type t)
+        /// <param name="stream">xml文档流。</param>
+        /// <param name="t">对象类型。</param>
+        /// <returns>反序列化后的对象。</returns>
+        public static object ConvertToEntity(Stream stream, Type t)
         {
-            InsertNode(doc, xPath, source, t, t.Name);
-        }
-        /// <summary>
-        /// 向指定xml文档插入节点
-        /// </summary>
-        /// <param name="doc">xml文档</param>
-        /// <param name="xPath">xpath,用于选取在哪些节点中插入新节点</param>
-        /// <param name="source">待插入的对象（将序列化为xml节点）</param>
-        /// <param name="t">待插入对象的类型</param>
-        /// <param name="nodeName">待插入节点名</param>
-        public void InsertNode(XmlDocument doc, string xPath, object source, Type t, string nodeName)
-        {
-            XmlDocument nodeDoc = ConvertToXml(source, t);
-            XmlNode root = nodeDoc.ChildNodes[1];
-            InsertNode(doc, xPath, root.InnerXml, nodeName);
+            Validator.CheckNull(stream, "stream");
+
+            XmlSerializer xs = new XmlSerializer(t);
+            object o = xs.Deserialize(stream);
+            stream.Close();
+            return o;
         }
 
         /// <summary>
-        /// 将对象序列化为xml文档
+        /// 将对象序列化为xml文档。
         /// </summary>
-        /// <param name="source">待序列化对象</param>
-        /// <param name="t">对象类型</param>
-        /// <returns>xml文档</returns>
-        public XmlDocument ConvertToXml(object source, Type t)
+        /// <param name="source">待序列化对象。</param>
+        /// <param name="t">对象类型。</param>
+        /// <returns>xml文档。</returns>
+        public static XmlDocument ConvertToXml(object source, Type t)
         {
+            Validator.CheckNull(source, "source");
+            Validator.CheckNull(t, "t");
+
             MemoryStream stream = new MemoryStream();
             XmlSerializer xs = new XmlSerializer(t);
             xs.Serialize(stream, source);
@@ -205,109 +186,287 @@ namespace UniqueStudio.Common.XmlHelper
         }
 
         /// <summary>
-        /// 将xml文档反序列化为对象
+        /// 返回xml文档内容。
         /// </summary>
-        /// <param name="content">xml文档内容</param>
-        /// <param name="t">对象类型</param>
-        /// <param name="xPath">xpath,用于指定将那个节点反序列化为对象</param>
-        /// <returns>反序列化后的对象</returns>
-        public object ConvertToEntity(string content, Type t, string xPath)
+        /// <param name="fileName">文档路径。</param>
+        /// <returns>文档内容。</returns>
+        public static string GetXmlContent(string fileName)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(content);
-            return ConvertToEntity(doc, t, xPath);
+            Validator.CheckStringNull(fileName, "fileName");
+
+            XmlDocument doc = LoadXml(fileName);
+            return doc.OuterXml;
         }
+
         /// <summary>
-        /// 将xml文档反序列化为对象
+        /// 向指定的xml文档插入节点。
         /// </summary>
-        /// <param name="doc">xml文档类型</param>
-        /// <param name="t">对象类型</param>
-        /// <param name="xPath">xpath,用于指定将那个节点反序列化为对象</param>
-        /// <returns>反序列化后的对象</returns>
-        public object ConvertToEntity(XmlDocument doc, Type t, string xPath)
+        /// <param name="doc">xml文档。</param>
+        /// <param name="xPath">xPath,用于选取在哪些节点内插入新节点。</param>
+        /// <param name="innerXml">待插入节点的xml格式内容（不含节点名）。</param>
+        /// <param name="nodeName">待插入节点名。</param>
+        public static void InsertNode(XmlDocument doc, string xPath, string innerXml, string nodeName)
         {
-            if (!string.IsNullOrEmpty(xPath))
+            Validator.CheckNull(doc, "doc");
+            Validator.CheckStringNull(nodeName, "nodeName");
+            if (!ValidxPathSyntax(xPath))
             {
-                if (!ValidxPathSyntax(xPath))
+                throw new Exception("指定的xPath格式不正确！");
+            }
+
+            XmlNodeList list = doc.SelectNodes(xPath);
+            if (list != null)
+            {
+                foreach (XmlNode node in list)
                 {
-                    throw new Exception();
-                }
-                else
-                {
-                    doc = ConstructSubXmlDocument(doc, xPath, t.Name);
+                    XmlElement newNode = doc.CreateElement(nodeName);
+                    newNode.InnerXml = innerXml;
+                    node.AppendChild(newNode);
                 }
             }
-            byte[] buffer = Encoding.UTF8.GetBytes(doc.OuterXml);
-            MemoryStream memStream = new MemoryStream(buffer);
-            XmlSerializer xs = new XmlSerializer(t);
-            object o = xs.Deserialize(memStream);
-            memStream.Close();
-            return o;
         }
 
         /// <summary>
-        /// 将xml文档反序列化为对象
+        /// 向指定的xml文档插入节点。
         /// </summary>
-        /// <param name="stream">xml文档流</param>
-        /// <param name="t">对象类型</param>
-        /// <returns>反序列化后的对象</returns>
-        public object ConvertToEntity(Stream stream, Type t)
+        /// <remarks>节点名称为类型的名称。</remarks>
+        /// <param name="doc">xml文档。</param>
+        /// <param name="xPath">xPath,用于选取在哪些节点中插入新节点。</param>
+        /// <param name="source">待插入的对象（将序列化为xml节点）。</param>
+        /// <param name="t">待插入对象的类型。</param>
+        public static void InsertNode(XmlDocument doc, string xPath, object source, Type t)
         {
-            XmlSerializer xs = new XmlSerializer(t);
-            object o = xs.Deserialize(stream);
-            stream.Close();
-            return o;
+            Validator.CheckNull(t, "t");
+            InsertNode(doc, xPath, source, t, t.Name);
         }
 
         /// <summary>
-        /// 用指定的xsl文件转换指定的xml文档
+        /// 向指定的xml文档插入节点。
         /// </summary>
-        /// <remarks>该方法暂时无法实现该功能</remarks>
-        /// <param name="doc">待转换xml文档</param>
-        /// <param name="xslFile">xsl文件</param>
-        /// <returns>已转换的doc文档</returns>
-        public XmlDocument XslTransform(XmlDocument doc, string xslFile)
+        /// <param name="doc">xml文档。</param>
+        /// <param name="xPath">xPath,用于选取在哪些节点中插入新节点。</param>
+        /// <param name="source">待插入的对象（将序列化为xml节点）。</param>
+        /// <param name="t">待插入对象的类型。</param>
+        /// <param name="nodeName">待插入节点名。</param>
+        public static void InsertNode(XmlDocument doc, string xPath, object source, Type t, string nodeName)
         {
-            XPathNavigator nav = doc.CreateNavigator();
-            nav.Select("/");
-            MemoryStream stream = new MemoryStream();
-            XmlWriter xw = new XmlTextWriter(stream, null);
-            XslCompiledTransform trans = new XslCompiledTransform();
-            trans.Load(xslFile);
-            trans.Transform(nav, xw);
-            xw.Flush();
-            XmlDocument newDoc = new XmlDocument();
-            byte[] buffer = stream.ToArray();
-            string s = Encoding.Default.GetString(buffer);
-            newDoc.Load(stream);
-            xw.Close();
-            stream.Close();
-            return newDoc;
+            Validator.CheckNull(doc, "doc");
+            Validator.CheckNull(source, "source");
+            Validator.CheckNull(t, "t");
+            Validator.CheckStringNull(nodeName, "nodeName");
+
+            XmlDocument nodeDoc = ConvertToXml(source, t);
+            XmlNode root = nodeDoc.ChildNodes[1];
+            InsertNode(doc, xPath, root.InnerXml, nodeName);
         }
 
         /// <summary>
-        /// 用指定的xsl文件转换指定的xml文档
+        /// 载入xml文档。
         /// </summary>
-        /// <remarks>该方法暂时无法实现该功能</remarks>
-        /// <param name="doc">待转换xml文档</param>
-        /// <param name="xslFile">xsl文件</param>
-        /// <param name="stream">用于存放生成的xml文档的流</param>
-        public void XslTransform(XmlDocument doc, string xslFile, Stream stream)
+        /// <param name="fileName">文档路径。</param>
+        /// <returns>xml文档。</returns>
+        public static XmlDocument LoadXml(string fileName)
         {
-            throw new NotImplementedException();
+            Validator.CheckStringNull(fileName, "fileName");
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(fileName);
+            return doc;
         }
 
         /// <summary>
-        /// 将xml格式的内容保存成xml文档
+        /// 将xml格式的内容保存成xml文档。
         /// </summary>
-        /// <param name="fileName">文档路径</param>
-        /// <param name="content">xml格式的内容</param>
-        public void SaveXml(string fileName, string content)
+        /// <param name="fileName">文档路径。</param>
+        /// <param name="content">xml格式的内容。</param>
+        public static void SaveXml(string fileName, string content)
         {
+            Validator.CheckStringNull(fileName, "fileName");
+            Validator.CheckStringNull(content, "content");
+
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(content);
             doc.Save(fileName);
         }
+
+        /// <summary>
+        /// 生成xml文档的子文档。
+        /// </summary>
+        /// <remarks>默认的根节点为root。</remarks>
+        /// <param name="doc">xml文档。</param>
+        /// <param name="xPath">xPath（用于选取由哪些节点构成新的文档）。</param>
+        /// <returns>生成的新的xml文档。</returns>
+        public static XmlDocument SubXmlDocument(XmlDocument doc, string xPath)
+        {
+            return SubXmlDocument(doc, xPath, "root");
+        }
+
+        /// <summary>
+        /// 生成xml文档的子文档。
+        /// </summary>
+        /// <param name="doc">xml文档。</param>
+        /// <param name="xPath">xPath（用于选取由哪些节点构成新的文档）。</param>
+        /// <param name="rootName">生成的文档的根节点名。</param>
+        /// <returns>生成的新的xml文档。</returns>
+        public static XmlDocument SubXmlDocument(XmlDocument doc, string xPath, string rootName)
+        {
+            Validator.CheckNull(doc, "doc");
+            Validator.CheckStringNull(rootName, "rootName");
+            if (!ValidxPathSyntax(xPath))
+            {
+                throw new Exception("指定的xPath格式不正确！");
+            }
+
+            //如果是“/"，选取到的是整个文档，直接返回
+            if (xPath.Trim() == "/")
+            {
+                return doc;
+            }
+
+            XmlDocument subDoc = new XmlDocument();
+            XmlDeclaration declaration = subDoc.CreateXmlDeclaration("1.0", "utf-8", null);
+            subDoc.AppendChild(declaration);
+            XmlElement root = subDoc.CreateElement(rootName);
+            XmlNodeList list = doc.SelectNodes(xPath);
+            StringBuilder innerXml = new StringBuilder();
+            if (list != null)
+            {
+                foreach (XmlNode node in list)
+                {
+                    innerXml.Append(node.OuterXml);
+                }
+            }
+            root.InnerXml = innerXml.ToString();
+            subDoc.AppendChild(root);
+            return subDoc;
+        }
+
+        #endregion
+
+        #region Non-Static Methods
+
+        /// <summary>
+        /// 将内部xml文档反序列化为对象。
+        /// </summary>
+        /// <param name="t">对象类型。</param>
+        /// <param name="xPath">xPath,用于指定将哪个节点反序列化为对象。</param>
+        /// <returns>反序列化后的对象。</returns>
+        public object ConvertToEntity(Type t, string xPath)
+        {
+            Validator.CheckNull(t, "t");
+
+            return ConvertToEntity(this.doc, t, t.Name, xPath);
+        }
+
+        /// <summary>
+        /// 将内部xml文档反序列化为对象。
+        /// </summary>
+        /// <param name="t">对象类型。</param>
+        /// <param name="typeName">对象类型名称（对于有些继承类型，通过反射
+        /// 得到的类型名可能和声明的不同）。</param>
+        /// <param name="xPath">xPath,用于指定将哪个节点反序列化为对象。</param>
+        /// <returns>反序列化后的对象。</returns>
+        public object ConvertToEntity(Type t, string typeName, string xPath)
+        {
+            return ConvertToEntity(this.doc, t, typeName, xPath);
+        }
+
+        /// <summary>
+        /// 返回内部xml文档的内容。
+        /// </summary>
+        /// <returns>文档内容。</returns>
+        public string GetXmlContent()
+        {
+            if (doc != null)
+            {
+                return doc.OuterXml;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 向内部xml文档插入节点。
+        /// </summary>
+        /// <param name="xPath">xPath,用于选取在哪些节点内插入新节点。</param>
+        /// <param name="innerXml">待插入节点的xml格式内容（不含节点名）。</param>
+        /// <param name="nodeName">待插入节点名。</param>
+        public void InsertNode(string xPath, string innerXml, string nodeName)
+        {
+            InsertNode(this.doc, xPath, innerXml, nodeName);
+        }
+
+        /// <summary>
+        /// 向内部xml文档插入节点。
+        /// </summary>
+        /// <remarks>节点名称为类型的名称。</remarks>
+        /// <param name="xPath">xPath,用于选取在哪些节点中插入新节点。</param>
+        /// <param name="source">待插入的对象（将序列化为xml节点）。</param>
+        /// <param name="t">待插入对象的类型。</param>
+        public void InsertNode(string xPath, object source, Type t)
+        {
+            Validator.CheckNull(t, "t");
+            InsertNode(this.doc, xPath, source, t, t.Name);
+        }
+
+        /// <summary>
+        /// 向内部xml文档插入节点。
+        /// </summary>
+        /// <param name="xPath">xPath,用于选取在哪些节点中插入新节点。</param>
+        /// <param name="source">待插入的对象（将序列化为xml节点）。</param>
+        /// <param name="t">待插入对象的类型。</param>
+        /// <param name="nodeName">待插入节点名。</param>
+        public void InsertNode(string xPath, object source, Type t, string nodeName)
+        {
+            InsertNode(this.doc, xPath, source, t, nodeName);
+        }
+
+        /// <summary>
+        /// 将指定xml文档内容载入内部xml文档。
+        /// </summary>
+        /// <param name="content">xml内容。</param>
+        public void LoadContent(string content)
+        {
+            doc = new XmlDocument();
+            doc.LoadXml(content);
+        }
+
+        /// <summary>
+        /// 保存内部xml文档。
+        /// </summary>
+        /// <param name="fileName">文档路径。</param>
+        public void SaveXml(string fileName)
+        {
+            Validator.CheckStringNull(fileName, "fileName");
+
+            doc.Save(fileName);
+        }
+
+        /// <summary>
+        /// 生成内部xml文档的子文档。
+        /// </summary>
+        /// <remarks>默认的根节点为root。</remarks>
+        /// <param name="xPath">xPath（用于选取由哪些节点构成新的文档）。</param>
+        /// <returns>生成的新的xml文档。</returns>
+        public XmlDocument SubXmlDocument(string xPath)
+        {
+            return SubXmlDocument(xPath, "root");
+        }
+
+        /// <summary>
+        /// 生成内部xml文档的子文档。
+        /// </summary>
+        /// <param name="xPath">xPath（用于选取由哪些节点构成新的文档）。</param>
+        /// <param name="rootName">生成的文档的根节点名。</param>
+        /// <returns>生成的新的xml文档。</returns>
+        public XmlDocument SubXmlDocument(string xPath, string rootName)
+        {
+            return SubXmlDocument(this.doc, xPath, rootName);
+        }
+
+        #endregion
 
         private static bool ValidxPathSyntax(string xPath)
         {
