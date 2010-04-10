@@ -44,7 +44,7 @@ namespace UniqueStudio.ComContent.BLL
                 }
                 sb.Append("</viewer>\r\n");
 
-                (new XmlManager()).SaveXml(path, sb.ToString());
+                XmlManager.SaveXml(path, sb.ToString());
             }
             catch (Exception ex)
             {

@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：全局配置类。
+// 完成日期：2010年04月10日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
 using System.Configuration;
-using System.Text;
 
 using UniqueStudio.Common.Model;
 
 namespace UniqueStudio.Common.Config
 {
     /// <summary>
-    /// 全局配置类
+    /// 全局配置类。
     /// </summary>
-    /// <remarks>修改该类的值需重新编译</remarks>
     public class GlobalConfig
     {
         /// <summary>
@@ -18,19 +21,19 @@ namespace UniqueStudio.Common.Config
         /// </summary>
         public static string SqlConnectionString = ConfigurationSettings.AppSettings["ConnectionString"];
         /// <summary>
-        /// 默认密码加密方式
+        /// 默认密码加密方式。
         /// </summary>
         public static PasswordEncryptionType DefaultPasswordEncryption = PasswordEncryptionType.Hashed;
         /// <summary>
-        /// 是否启用url重写功能
+        /// 是否启用url重写功能。
         /// </summary>
         public static bool EnableUrlRewrite = false;
         /// <summary>
-        /// 网站根目录物理路径
+        /// 网站根目录物理路径。
         /// </summary>
         public static string BasePhysicalPath = string.Empty;
         /// <summary>
-        /// 缓存容量
+        /// 缓存容量。
         /// </summary>
         public static int CacheCapacity = 100;
 

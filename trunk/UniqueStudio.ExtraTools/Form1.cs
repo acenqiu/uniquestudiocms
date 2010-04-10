@@ -35,10 +35,9 @@ namespace UniqueStudio.ExtraTools
             object o = SqlHelper.ExecuteScalar(txtConnnectionString.Text, CommandType.Text, cmdText, parm);
             if (o != null && o != DBNull.Value)
             {
-                XmlManager manager = new XmlManager();
                 try
                 {
-                    manager.SaveXml(Environment.CurrentDirectory + "/temp.xml", (string)o);
+                    XmlManager.SaveXml(Environment.CurrentDirectory + "/temp.xml", (string)o);
                     webBrowser1.Url = new Uri(Environment.CurrentDirectory + "/temp.xml");
                 }
                 catch (Exception ex)

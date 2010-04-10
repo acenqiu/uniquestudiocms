@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 using UniqueStudio.Common.ErrorLogging;
 
@@ -10,13 +11,14 @@ namespace UniqueStudio.Admin.admin.background
         {
             if (!IsPostBack)
             {
+
                 GetData();
             }
         }
 
         private void GetData()
         {
-            rptList.DataSource = ErrorLogger.GetAllErrors();
+            rptList.DataSource = ErrorLogger.GetAllErrors(DateTime.Now);
             rptList.DataBind();
         }
     }

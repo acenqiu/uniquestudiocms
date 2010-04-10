@@ -255,9 +255,8 @@ namespace UniqueStudio.Core.Module
             string path = PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, workingPath);
             path = PathHelper.PathCombine(path, "install.xml");
 
-            XmlManager manager = new XmlManager();
-            XmlDocument doc = manager.LoadXml(path);
-            ModuleInfo module = (ModuleInfo)manager.ConvertToEntity(doc, typeof(ModuleInfo), "/install/*");
+            XmlManager manager = new XmlManager(path);
+            ModuleInfo module = (ModuleInfo)manager.ConvertToEntity(typeof(ModuleInfo), "/install/*");
             if (module == null)
             {
                 return false;
@@ -269,7 +268,11 @@ namespace UniqueStudio.Core.Module
                     throw new Exception("该模块已经安装过了。");
                 }
 
-                module.Config = manager.ConstructSubXmlDocument(doc, "/install/params", "config").OuterXml;
+                XmlDocument subDoc = manager.SubXmlDocument("/install/params", "config");
+                if (subDoc!=null)
+                {
+                    module.Config = subDoc.OuterXml;
+                }
                 module.WorkingPath = workingPath;
 
                 try
@@ -346,9 +349,8 @@ namespace UniqueStudio.Core.Module
             string path = PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, workingPath);
             path = PathHelper.PathCombine(path, "install.xml");
 
-            XmlManager manager = new XmlManager();
-            XmlDocument doc = manager.LoadXml(path);
-            return (ModuleInfo)manager.ConvertToEntity(doc, typeof(ModuleInfo), "/install/*");
+            XmlManager manager = new XmlManager(path);
+            return (ModuleInfo)manager.ConvertToEntity(typeof(ModuleInfo), "/install/*");
         }
 
         /// <summary>

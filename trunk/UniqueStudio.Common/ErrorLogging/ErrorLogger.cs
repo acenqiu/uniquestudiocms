@@ -2,7 +2,7 @@
 // 版权所有：版权所有(c) 2010，联创团队
 // 内容摘要：异常记录类。
 // 完成日期：2010年03月20日
-// 版本：v0.5
+// 版本：v1.0alpha
 // 作者：邱江毅
 //=================================================================
 using System;
@@ -19,7 +19,7 @@ namespace UniqueStudio.Common.ErrorLogging
     /// </summary>
     public class ErrorLogger
     {
-        private static string XML_PATH = Path.Combine(GlobalConfig.BasePhysicalPath, @"admin\xml\error.xml");
+        private static string XML_PATH = Path.Combine(GlobalConfig.BasePhysicalPath, @"admin\xml\log\{0}.xml");
         private static string XML_ROOT = "<?xml version=\"1.0\" encoding=\"utf-8\"?><ArrayOfErrorInfo xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"></ArrayOfErrorInfo>";
 
         /// <summary>
@@ -43,14 +43,19 @@ namespace UniqueStudio.Common.ErrorLogging
                 return;
             }
 
+            string path = string.Format(XML_PATH, DateTime.Now.ToString("yyyyMMdd"));
             try
             {
-                XmlManager manager = new XmlManager();
-                if (!File.Exists(XML_PATH))
+                XmlManager manager = null;
+                if (!File.Exists(path))
                 {
-                    manager.SaveXml(XML_PATH, XML_ROOT);
+                    manager = new XmlManager();
+                    manager.LoadContent(XML_ROOT);
                 }
-                XmlDocument doc = manager.LoadXml(XML_PATH);
+                else
+                {
+                    manager = new XmlManager(path);
+                }
 
                 ErrorInfo error = new ErrorInfo();
                 error.ExceptionType = e.GetType().FullName;
@@ -64,8 +69,8 @@ namespace UniqueStudio.Common.ErrorLogging
                 error.Time = DateTime.Now;
                 error.Remarks = remarks;
 
-                manager.InsertNode(doc, "/ArrayOfErrorInfo", error, typeof(ErrorInfo));
-                doc.Save(XML_PATH);
+                manager.InsertNode("/ArrayOfErrorInfo", error, typeof(ErrorInfo));
+                manager.SaveXml(path);
             }
             catch
             {
@@ -86,14 +91,19 @@ namespace UniqueStudio.Common.ErrorLogging
                 return;
             }
 
+            string path = string.Format(XML_PATH, DateTime.Now.ToString("yyyyMMdd"));
             try
             {
-                XmlManager manager = new XmlManager();
-                if (!File.Exists(XML_PATH))
+                XmlManager manager = null;
+                if (!File.Exists(path))
                 {
-                    manager.SaveXml(XML_PATH, XML_ROOT);
+                    manager = new XmlManager();
+                    manager.LoadContent(XML_ROOT);
                 }
-                XmlDocument doc = manager.LoadXml(XML_PATH);
+                else
+                {
+                    manager = new XmlManager(path);
+                }
 
                 ErrorInfo error = new ErrorInfo();
                 error.ExceptionType = errorType;
@@ -101,8 +111,8 @@ namespace UniqueStudio.Common.ErrorLogging
                 error.Time = DateTime.Now;
                 error.Remarks = remarks;
 
-                manager.InsertNode(doc, "/ArrayOfErrorInfo", error, typeof(ErrorInfo));
-                doc.Save(XML_PATH);
+                manager.InsertNode("/ArrayOfErrorInfo", error, typeof(ErrorInfo));
+                manager.SaveXml(path);
             }
             catch
             {
@@ -111,23 +121,54 @@ namespace UniqueStudio.Common.ErrorLogging
         }
 
         /// <summary>
-        /// 返回所有错误日志。
+        /// 返回指定日期的错误日志。
         /// </summary>
+        /// <param name="date">日期。</param>
         /// <returns>错误日志的集合。</returns>
-        public static ErrorCollection GetAllErrors()
+        public static ErrorCollection GetAllErrors(DateTime date)
         {
             try
             {
-                XmlManager manager = new XmlManager();
-                if (!File.Exists(XML_PATH))
+                string path = string.Format(XML_PATH, date.ToString("yyyyMMdd"));
+                if (!File.Exists(path))
                 {
-                    manager.SaveXml(XML_PATH, XML_ROOT);
                     return new ErrorCollection();
                 }
 
-                XmlDocument doc = manager.LoadXml(XML_PATH);
-                ErrorCollection collection = (ErrorCollection)manager.ConvertToEntity(doc, typeof(ErrorCollection), null);
-                collection.Reverse();
+                XmlDocument doc = XmlManager.LoadXml(path);
+                ErrorCollection collection = (ErrorCollection)XmlManager.ConvertToEntity(doc, typeof(ErrorCollection), null);
+                if (collection != null)
+                {
+                    collection.Reverse();
+                }
+                return collection;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 返回指定日志文件中的错误日志。
+        /// </summary>
+        /// <param name="fileName">日志文件。</param>
+        /// <returns>错误日志的集合。</returns>
+        public static ErrorCollection GetAllErrors(string fileName)
+        {
+            try
+            {
+                if (!File.Exists(fileName))
+                {
+                    return new ErrorCollection();
+                }
+
+                XmlDocument doc = XmlManager.LoadXml(fileName);
+                ErrorCollection collection = (ErrorCollection)XmlManager.ConvertToEntity(doc, typeof(ErrorCollection), null);
+                if (collection != null)
+                {
+                    collection.Reverse();
+                }
                 return collection;
             }
             catch

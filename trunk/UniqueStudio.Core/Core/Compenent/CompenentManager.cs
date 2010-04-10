@@ -197,9 +197,8 @@ namespace UniqueStudio.Core.Compenent
             string path = PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, workingPath);
             path = PathHelper.PathCombine(path, "install.xml");
 
-            XmlManager manager = new XmlManager();
-            XmlDocument doc = manager.LoadXml(path);
-            CompenentInfo compenent = (CompenentInfo)manager.ConvertToEntity(doc, typeof(CompenentInfo), "/install/*");
+            XmlDocument doc = XmlManager.LoadXml(path);
+            CompenentInfo compenent = (CompenentInfo)XmlManager.ConvertToEntity(doc, typeof(CompenentInfo), "/install/*");
             if (compenent == null)
             {
                 return false;
@@ -213,7 +212,11 @@ namespace UniqueStudio.Core.Compenent
 
                 compenent.SiteId = siteId;
                 compenent.WorkingPath = workingPath;
-                compenent.Config = manager.ConstructSubXmlDocument(doc, "/install/params", "config").OuterXml;
+                XmlDocument subDoc = XmlManager.SubXmlDocument(doc, "/install/params", "config");
+                if (subDoc != null)
+                {
+                    compenent.Config = subDoc.OuterXml;
+                }
 
                 XmlNodeList nodes = doc.SelectNodes("//Permissions/Permission");
                 PermissionCollection permissions = new PermissionCollection();
@@ -422,9 +425,8 @@ namespace UniqueStudio.Core.Compenent
             string path = PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, workingPath);
             path = PathHelper.PathCombine(path, "install.xml");
 
-            XmlManager manager = new XmlManager();
-            XmlDocument doc = manager.LoadXml(path);
-            return (CompenentInfo)manager.ConvertToEntity(doc, typeof(CompenentInfo), "/install/*");
+            XmlManager manager = new XmlManager(path);
+            return (CompenentInfo)manager.ConvertToEntity(typeof(CompenentInfo), "/install/*");
         }
 
         /// <summary>

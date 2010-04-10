@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：系统安全配置类。
+// 完成日期：2010年04月10日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
 namespace UniqueStudio.Common.Config
 {
     /// <summary>
-    /// 系统安全配置
+    /// 系统安全配置类。
     /// </summary>
     public class SecurityConfig:SystemConfig
     {
@@ -17,17 +20,16 @@ namespace UniqueStudio.Common.Config
             path = @"admin\xml\SecurityConfig.xml";
         }
 
-        private static string enclosureExtension = ".doc;.docx;.rar;.zip;.7z";
+        //string
+        private static string enclosureExtension = ".doc;.docx;.ppt;.pps;.pptx;.xls;.xlsx;.rar;.zip;.7z;.pdf;.txt";
 
         //Boolean
         private static bool enableLoginByUserName = true;
         private static bool enableRegister = false;
         private static bool isApprovedAfterRegister = false;
 
-        //Boolean
-
         /// <summary>
-        /// 是否启用用户名方式登录
+        /// 是否启用用户名方式登录。
         /// </summary>
         public static bool EnableLoginByUserName
         {
@@ -35,7 +37,7 @@ namespace UniqueStudio.Common.Config
             set { enableLoginByUserName = value; }
         }
         /// <summary>
-        /// 是否开放注册
+        /// 是否开放注册。
         /// </summary>
         public static bool EnableRegister
         {
@@ -43,7 +45,7 @@ namespace UniqueStudio.Common.Config
             set { enableRegister = value; }
         }
         /// <summary>
-        /// 外部注册后是否处于激活状态
+        /// 外部注册后是否处于激活状态。
         /// </summary>
         public static bool IsApprovedAfterRegister
         {
@@ -51,14 +53,12 @@ namespace UniqueStudio.Common.Config
             set { isApprovedAfterRegister = value; }
         }
         /// <summary>
-        /// 允许上传的附件扩展名
+        /// 允许上传的附件扩展名。
         /// </summary>
-        /// <remarks>将在后续版本中转移</remarks>
         public static string EnclosureExtension
         {
             get { return enclosureExtension; }
             set { enclosureExtension = value; }
         }
-
     }
 }
