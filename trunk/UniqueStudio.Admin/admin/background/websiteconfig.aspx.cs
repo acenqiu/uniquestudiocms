@@ -18,7 +18,14 @@ namespace UniqueStudio.Admin.admin.background
         {
             if (!IsPostBack)
             {
-                config.ConfigDocument = (new SiteManager()).LoadConfig(SiteId);
+                try
+                {
+                    config.ConfigDocument = (new SiteManager()).LoadConfig(SiteId);
+                }
+                catch (Exception ex)
+                {
+                    message.SetErrorMessage("配置信息读取失败：" + ex.Message);
+                }
             }
         }
 

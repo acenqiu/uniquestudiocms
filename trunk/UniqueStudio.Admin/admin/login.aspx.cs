@@ -1,4 +1,11 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：登录、注册、找回密码页面。
+// 完成日期：2010年04月11日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Web;
 
 using UniqueStudio.Common.Config;
@@ -39,10 +46,6 @@ namespace UniqueStudio.Admin.admin
                         divLogin.Visible = false;
                         divRegister.Visible = true;
                     }
-                }
-                else if (Request.QueryString["action"] == "findpassword")
-                {
-                    //TODO:增加找回密码功能
                 }
             }
         }
@@ -114,6 +117,13 @@ namespace UniqueStudio.Admin.admin
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
+            if (this.Session["CheckCode"] == null || ((string)this.Session["CheckCode"]).ToLower() != txtCheckCodeR.Text.ToLower())
+            {
+                messageR.SetErrorMessage("验证码错误，请刷新后重试！");
+                txtCheckCode.Text = "";
+                return;
+            }
+
             UserManager manager = new UserManager();
             UserInfo user = new UserInfo();
             user.Email = txtEmail.Text.Trim();
@@ -124,13 +134,9 @@ namespace UniqueStudio.Admin.admin
             {
                 user = manager.CreateUser(null, user);
 
-                //TODO:处理方式需重新设计
                 if (user != null)
                 {
-                    messageR.SetSuccessMessage("恭喜您，注册成功！");
-                    txtEmail.Text = "";
-                    txtUserName.Text = "";
-                    txtNewPassword.Text = "";
+                    messageR.SetErrorMessage("恭喜您，注册成功！");
                 }
                 else
                 {
@@ -146,6 +152,11 @@ namespace UniqueStudio.Admin.admin
         protected void btnRediretToRegister_Click(object sender, EventArgs e)
         {
             Response.Redirect("login.aspx?action=register");
+        }
+
+        protected void btnRedirectToLogin_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("login.aspx");
         }
     }
 }

@@ -19,7 +19,7 @@ $(function () {
 	
 	$('#RecentMonthPvStat').gchart({
 		type: 'line',//图表类型
-		title: '<%= DateTime.Now.ToString("yyyy年MM月") %>网站访问量折线图', //图表标题
+		title: '<%= Date.ToString("yyyy年MM月") %>网站访问量折线图', //图表标题
 		series: [
 			$.gchart.series(array1,'red')//图表数据
 		],
@@ -33,7 +33,23 @@ $(function () {
 
 </asp:Content>
 <asp:Content ID="cntBody" ContentPlaceHolderID="cphBody" runat="server">
+    <div class="tip">
+        <p>选择月份可以查看各个月的访问统计结果。</p>
+        <p>注：可能由于网络原因导致折线图无法显示，您可以检查网络并重试。</p>
+    </div>
     <US:Message ID="message" runat="server" />
+    <div class="panel">
+        <div class="panel_title">
+            筛选</div>
+        <div class="panel_body">
+            选择月份：
+            <asp:DropDownList ID="ddlYears" runat="server" >
+            </asp:DropDownList>年
+           <asp:DropDownList ID="ddlMonths" runat="server" >
+            </asp:DropDownList>月
+            <asp:Button ID="btnView" runat="server" Text="查看" onclick="btnView_Click"  />
+        </div>
+    </div>
     <div class="panel">
         <div class="panel_title">
             访问统计图</div>

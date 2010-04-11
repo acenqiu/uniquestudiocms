@@ -423,6 +423,7 @@
     <Content Include="admin\controls\FileManager.ascx" />
     <Content Include="admin\controls\Message.ascx" />
     <Content Include="admin\css\style.css" />
+    <Content Include="admin\css\ui-sui.css" />
     <Content Include="admin\default.aspx" />
     <Content Include="admin\editor\fckeditor\editor\css\behaviors\disablehandles.htc" />
     <Content Include="admin\editor\fckeditor\editor\css\behaviors\showtableborders.htc" />
@@ -734,6 +735,7 @@
     <Content Include="admin\editor\fckeditor\fckeditor.js" />
     <Content Include="admin\editor\fckeditor\fckstyles.xml" />
     <Content Include="admin\editor\fckeditor\fcktemplates.xml" />
+    <Content Include="admin\js\jquery-plus-jquery-ui.js" />
     <Content Include="admin\js\jquery.js" />
     <Content Include="admin\js\jquery.gchart.js" />
     <Content Include="admin\js\uscript-base.js" />
@@ -789,6 +791,7 @@
     <Folder Include="admin\compenents\com_content\" />
     <Folder Include="admin\modules\" />
     <Folder Include="admin\plugins\" />
+    <Folder Include="admin\xml\log\" />
     <Folder Include="upload\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

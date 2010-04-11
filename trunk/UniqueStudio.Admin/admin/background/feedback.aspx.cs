@@ -1,7 +1,11 @@
-﻿
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：反馈页面。
+// 完成日期：2010年04月11日
+// 版本：v1.0alpha
+// 作者：邱江毅
+//=================================================================
 using System;
-
-using UniqueStudio.Common.Mailing;
 
 namespace UniqueStudio.Admin.admin.background
 {
@@ -10,22 +14,6 @@ namespace UniqueStudio.Admin.admin.background
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        }
-
-        protected void btnSend_Click(object sender, EventArgs e)
-        {
-            SMTP smtp = new SMTP();
-            try
-            {
-                smtp.Send("smtp.qq.com", 465, true, "imacen", "keepahead",
-                                            "support@uniquestudio.org", "Feedback",
-                                            fckContent.Value + "<p>"+txtEmail.Text+"</p>");
-                message.SetSuccessMessage("反馈信息已经发送，感谢您的配合，我们将及时回复您，谢谢！");
-            }
-            catch (Exception ex)
-            {
-                message.SetErrorMessage(ex.Message);
-            }
         }
     }
 }
