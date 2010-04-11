@@ -1,45 +1,45 @@
 ﻿using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
+
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
 using UniqueStudio.Core.Category;
-using System.Text.RegularExpressions;
-using System.Text;
+using UniqueStudio.Core.Site;
 
 namespace UniqueStudio.CGE
 {
-    public partial class stuff : System.Web.UI.Page
+    public partial class stuff : Controls.PlBasePage
     {
         public string StuffName
         {
             get;
             set;
-
         }
         public int CatId
         {
             get;
             set;
         }
-        private string requestRegex=@"name=[^&]*";
+
+        private string requestRegex = @"name=[^&]*";
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            byte[] bytes =  Encoding.GetEncoding("ascii").GetBytes(Request.QueryString["name"]);
+            if (Request.QueryString["name"] == null)
+            {
+                Response.Redirect("404.aspx");
+            }
+
             string rawUrl = Request.RawUrl;
-            StuffName = Request.QueryString["name"];
             Match match = Regex.Match(rawUrl, requestRegex);
-            if (match.Length>0)
+            if (match.Length > 0)
             {
                 StuffName = HttpUtility.UrlDecode(match.Value.Replace("name=", ""), Encoding.GetEncoding("gb2312"));
+                this.Header.Title = StuffName + " - " + SiteManager.Config(SiteId).WebName;
             }
+
             if (!IsPostBack)
             {
                 int categoryId = Converter.IntParse(sitePath.Text, 0);
@@ -51,8 +51,7 @@ namespace UniqueStudio.CGE
                 if (category != null)
                 {
                     //设置侧边栏
-                   
-                   subCategories.CategoryId = category.CategoryId;
+                    subCategories.CategoryId = category.CategoryId;
                 }
                 while (category != null)
                 {

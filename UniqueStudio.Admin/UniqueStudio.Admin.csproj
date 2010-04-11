@@ -378,13 +378,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="installer\default.aspx.cs">
-      <DependentUpon>default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="installer\default.aspx.designer.cs">
-      <DependentUpon>default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -770,7 +763,6 @@
     <Content Include="admin\xml\error.xml" />
     <Content Include="admin\xml\WebSiteConfig.xml" />
     <Content Include="Global.asax" />
-    <Content Include="installer\default.aspx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniqueStudio.Common\UniqueStudio.Common.csproj">
@@ -817,7 +809,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4758</DevelopmentServerPort>
+          <DevelopmentServerPort>19549</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
