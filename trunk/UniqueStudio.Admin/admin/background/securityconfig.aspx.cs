@@ -9,6 +9,7 @@ using System;
 using System.Web;
 
 using UniqueStudio.Common.Config;
+using UniqueStudio.Core.Permission;
 
 namespace UniqueStudio.Admin.admin.background
 {
@@ -33,6 +34,7 @@ namespace UniqueStudio.Admin.admin.background
         {
             try
             {
+                CheckPermission();
                 (new SecurityConfig()).SaveXmlConfig(config.GetConfigString());
                 Response.Redirect("securityconfig.aspx?msg=" + HttpUtility.UrlEncode("安全配置保存成功！"));
             }
@@ -40,6 +42,11 @@ namespace UniqueStudio.Admin.admin.background
             {
                 message.SetErrorMessage("配置信息保存失败：" + ex.Message);
             }
+        }
+
+        protected void CheckPermission()
+        {
+            PermissionManager.CheckPermission(CurrentUser, "EditSystemConfig", "配置系统设置");
         }
     }
 }

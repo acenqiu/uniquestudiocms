@@ -102,7 +102,7 @@ namespace UniqueStudio.Common.Config
         /// 将配置信息保存到xml文档。
         /// </summary>
         /// <param name="content">配置信息xml格式内容。</param>
-        public void SaveXmlConfig(string content)
+        public void SaveXmlConfig( string content)
         {
             XmlManager.SaveXml(PathHelper.PathCombine(GlobalConfig.BasePhysicalPath, path), content);
             LoadConfig();

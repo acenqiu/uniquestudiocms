@@ -1,23 +1,30 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：实现将特定格式的xml文档转换为html控件的方法。
+// 完成日期：2010年04月11日
+// 版本：v1.0alpha
+// 作者：葛致良
+//=================================================================
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
-using System.Collections;
 
 namespace  UniqueStudio.Common.PageParser
 {
     /// <summary>
-    /// 实现将特定格式的xml文档转换为html控件的方法
+    /// 实现将特定格式的xml文档转换为html控件的方法。
     /// </summary>
     public class XmlPageParser
     {
         private XmlTextReader reader = null;
 
         /// <summary>
-        /// 处理xml文档，生成html控件代码
+        /// 处理xml文档，生成html控件代码。
         /// </summary>
-        /// <param name="doc">xml文档</param>
-        /// <returns>html控件代码</returns>
+        /// <param name="doc">xml文档。</param>
+        /// <returns>html控件代码。</returns>
         public string ProcessXML(XmlDocument doc)
         {
            StringBuilder str = new StringBuilder();
@@ -49,10 +56,10 @@ namespace  UniqueStudio.Common.PageParser
         }
 
         /// <summary>
-        /// 处理xml文档，生成html控件代码
+        /// 处理xml文档，生成html控件代码。
         /// </summary>
-        /// <param name="fileName">xml文档路径</param>
-        /// <returns>html控件代码</returns>
+        /// <param name="fileName">xml文档路径。</param>
+        /// <returns>html控件代码。</returns>
         public String ProcessXML(string fileName)
         {
 

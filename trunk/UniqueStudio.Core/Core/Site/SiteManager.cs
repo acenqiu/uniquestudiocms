@@ -1,22 +1,28 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：提供网站管理的方法。
+// 完成日期：2010年04月11日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Text;
 
 using UniqueStudio.Common.Config;
-using UniqueStudio.Common.Exceptions;
 using UniqueStudio.Common.ErrorLogging;
+using UniqueStudio.Common.Exceptions;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
-using UniqueStudio.Core.Permission;
 using UniqueStudio.DAL;
 using UniqueStudio.DAL.IDAL;
+using UniqueStudio.Core.Permission;
 
 namespace UniqueStudio.Core.Site
 {
     /// <summary>
     /// 提供网站管理的方法。
-    /// </summary>
+    /// </summary> 
     public class SiteManager
     {
         private static readonly ISite provider = DALFactory.CreateSite();
@@ -35,10 +41,10 @@ namespace UniqueStudio.Core.Site
         }
 
         /// <summary>
-        /// 返回网站配置的实例
+        /// 返回网站配置的实例。
         /// </summary>
-        /// <param name="siteId">站点ID</param>
-        /// <returns>网站配置的实例</returns>
+        /// <param name="siteId">站点ID。</param>
+        /// <returns>网站配置的实例。</returns>
         public static WebSiteConfig Config(int siteId)
         {
             Validator.CheckNotPositive(siteId, "siteId");
@@ -150,9 +156,9 @@ namespace UniqueStudio.Core.Site
         }
 
         /// <summary>
-        /// 返回网站列表
+        /// 返回网站列表。
         /// </summary>
-        /// <returns>网站列表</returns>
+        /// <returns>网站列表。</returns>
         public SiteCollection GetAllSites()
         {
             try
@@ -172,10 +178,10 @@ namespace UniqueStudio.Core.Site
         }
 
         /// <summary>
-        /// 返回网站配置信息
+        /// 返回网站配置信息。
         /// </summary>
-        /// <param name="siteId">站点ID</param>
-        /// <returns>网站配置的实例</returns>
+        /// <param name="siteId">站点ID。</param>
+        /// <returns>网站配置的实例。</returns>
         public string LoadConfig(int siteId)
         {
             Validator.CheckNotPositive(siteId, "siteId");
@@ -197,11 +203,11 @@ namespace UniqueStudio.Core.Site
         }
 
         /// <summary>
-        /// 保存网站配置信息
+        /// 保存网站配置信息。
         /// </summary>
-        /// <param name="currentUser">执行该方法的用户信息</param>
-        /// <param name="siteId">网站ID</param>
-        /// <param name="content">网站配置信息</param>
+        /// <param name="currentUser">执行该方法的用户信息。</param>
+        /// <param name="siteId">网站ID。</param>
+        /// <param name="content">网站配置信息。</param>
         /// <returns>是否保存成功</returns>
         public bool SaveConfig(UserInfo currentUser, int siteId, string content)
         {
@@ -209,7 +215,7 @@ namespace UniqueStudio.Core.Site
             Validator.CheckStringNull(content, "content");
             //验证内容格式
 
-            //PermissionManager.CheckPermission(currentUser, "EditWebSite", "");
+            PermissionManager.CheckPermission(currentUser, "EditSiteConfig", "配置系统设置");
 
             try
             {

@@ -14,7 +14,7 @@ namespace UniqueStudio.Common.Model
     /// 类的集合。
     /// </summary>
     [Serializable]
-    public class ClassCollection:List<ClassInfo>
+    public class ClassCollection : List<ClassInfo>
     {
         /// <summary>
         /// 初始化<see cref="ClassCollection"/>类的实例。
@@ -29,7 +29,7 @@ namespace UniqueStudio.Common.Model
         /// </summary>
         /// <param name="capacity">集合容量。</param>
         public ClassCollection(int capacity)
-            :base(capacity)
+            : base(capacity)
         {
         }
     }

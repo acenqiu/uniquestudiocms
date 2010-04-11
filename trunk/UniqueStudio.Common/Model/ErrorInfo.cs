@@ -12,7 +12,6 @@ namespace UniqueStudio.Common.Model
     /// <summary>
     /// 表示系统异常的实体类。
     /// </summary>
-    /// <remarks>可能在后续版本中修改名称。</remarks>
     [Serializable]
     public class ErrorInfo
     {
