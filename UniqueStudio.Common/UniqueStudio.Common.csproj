@@ -62,15 +62,11 @@
     <Compile Include="Cookies\CookieManager.cs" />
     <Compile Include="DatabaseHelper\SqlHelper.cs" />
     <Compile Include="ErrorLogging\ErrorLogger.cs" />
-    <Compile Include="Exceptions\CompenentInstallException.cs" />
-    <Compile Include="Exceptions\CompenentUninstallException.cs" />
     <Compile Include="Exceptions\ControlNotFoundException.cs" />
     <Compile Include="Exceptions\DatabaseException.cs" />
     <Compile Include="Exceptions\InvalidPermissionException.cs" />
-    <Compile Include="Exceptions\ModeluInstallException.cs" />
     <Compile Include="Exceptions\NegativeNumberException.cs" />
     <Compile Include="Exceptions\NotPositiveNumberException.cs" />
-    <Compile Include="Exceptions\PlugInInstallException.cs" />
     <Compile Include="Exceptions\PlugInNotFoundException.cs" />
     <Compile Include="Exceptions\UnhandledException.cs" />
     <Compile Include="Exceptions\UserDoesNotApprovedException.cs" />

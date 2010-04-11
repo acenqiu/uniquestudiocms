@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：提供对参数进行验证的方法。
+// 完成日期：2010年04月11日
+// 版本：v1.0alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Text.RegularExpressions;
 
 using UniqueStudio.Common.Exceptions;
 
 namespace UniqueStudio.Common.Utilities
 {
+    /// <summary>
+    /// 提供对参数进行验证的方法。
+    /// </summary>
     public class Validator
     {
         private static Regex rEmail = new Regex(RegularExpressions.EMAIL);
@@ -17,10 +25,10 @@ namespace UniqueStudio.Common.Utilities
         }
 
         /// <summary>
-        /// 检测指定GUID值是否为空，如果为空，抛出<see cref="ArgumentNullException"/>。
+        /// 检测指定Guid值是否为空，如果为空，抛出<see cref="ArgumentNullException"/>。
         /// </summary>
-        /// <param name="value">待检测GUID值</param>
-        /// <param name="paramName">参数名</param>
+        /// <param name="value">待检测Guid值。</param>
+        /// <param name="paramName">参数名。</param>
         public static void CheckGuid(Guid value, string paramName)
         {
             if (value == Guid.Empty)
@@ -32,8 +40,8 @@ namespace UniqueStudio.Common.Utilities
         /// <summary>
         /// 检测指定参数是否为空，如果为空，抛出<see cref="ArgumentNullException"/>。
         /// </summary>
-        /// <param name="value">待查空参数</param>
-        /// <param name="paramName">参数名</param>
+        /// <param name="value">待查空参数。</param>
+        /// <param name="paramName">参数名。</param>
         public static void CheckNull(object value, string paramName)
         {
             if (value == null)
@@ -45,8 +53,8 @@ namespace UniqueStudio.Common.Utilities
         /// <summary>
         /// 检测指定字符串是否为空或空白，如果为空或空白，抛出<see cref="ArgumentNullException"/>。
         /// </summary>
-        /// <param name="value">待检测字符串</param>
-        /// <param name="paramName">参数名</param>
+        /// <param name="value">待检测字符串。</param>
+        /// <param name="paramName">参数名。</param>
         public static void CheckStringNull(string value, string paramName)
         {
             if (string.IsNullOrEmpty(value))
@@ -56,12 +64,12 @@ namespace UniqueStudio.Common.Utilities
         }
 
         /// <summary>
-        /// 返回指定字符串是否为邮箱格式
+        /// 返回指定字符串是否为邮箱格式。
         /// </summary>
-        /// <param name="value">待检测字符串</param>
-        /// <returns>是否为邮箱格式</returns>
+        /// <param name="value">待检测字符串。</param>
+        /// <returns>是否为邮箱格式。</returns>
         /// <exception cref="ArgumentNullException">
-        /// 当待检测字符串为空时抛出该异常</exception>
+        /// 当待检测字符串为空时抛出该异常。</exception>
         public static bool CheckEmail(string value)
         {
             CheckStringNull(value,null);
@@ -72,8 +80,8 @@ namespace UniqueStudio.Common.Utilities
         /// 检测指定字符串是否为邮箱格式，如果该字符串为空，抛出<see cref="ArgumentNullException"/>，
         /// 如果不是邮箱格式，抛出<see cref="ArgumentException"/>。
         /// </summary>
-        /// <param name="value">待检测字符串</param>
-        /// <param name="paramName">参数名，可空</param>
+        /// <param name="value">待检测字符串。</param>
+        /// <param name="paramName">参数名，可空。</param>
         public static void CheckEmail(string value, string paramName)
         {
             CheckStringNull(value, paramName);
@@ -93,8 +101,8 @@ namespace UniqueStudio.Common.Utilities
         /// <summary>
         /// 检测指定数值是否为负数，如果是，抛出<see cref="NegativeNumberException"/>。
         /// </summary>
-        /// <param name="value">待检测数值</param>
-        /// <param name="paramName">参数名</param>
+        /// <param name="value">待检测数值。</param>
+        /// <param name="paramName">参数名。</param>
         public static void CheckNegative(int value, string paramName)
         {
             if (value<0)
@@ -106,8 +114,8 @@ namespace UniqueStudio.Common.Utilities
         /// <summary>
         /// 检测指定数值是否为非正数，如果是，抛出<see cref="NotPositiveNumberException"/>。
         /// </summary>
-        /// <param name="value">待检测数值</param>
-        /// <param name="paramName">参数名</param>
+        /// <param name="value">待检测数值。</param>
+        /// <param name="paramName">参数名。</param>
         public static void CheckNotPositive(int value, string paramName)
         {
             if (value <= 0)
