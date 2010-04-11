@@ -24,7 +24,7 @@ namespace UniqueStudio.HttpControlLayer
             context.AcquireRequestState += new EventHandler(context_AcquireRequestState);
         }
 
-        void context_AcquireRequestState(object sender, EventArgs e)
+        private void context_AcquireRequestState(object sender, EventArgs e)
         {
             HttpContext context = ((HttpApplication)sender).Context;
 

@@ -12,7 +12,7 @@ namespace UniqueStudio.HttpControlLayer
 
         public void Dispose()
         {
-            //throw new NotImplementedException();
+
         }
 
         public void Init(HttpApplication context)
@@ -25,7 +25,8 @@ namespace UniqueStudio.HttpControlLayer
             HttpApplication app = (HttpApplication)sender;
             HttpContext context = app.Context;
             if (context.Request.Path.EndsWith(".aspx") 
-                && !context.Request.Path.StartsWith("/admin/login.aspx") && !context.Request.Path.StartsWith("/admin/GetCheckCode.aspx"))
+                && !context.Request.Path.StartsWith("/admin/login.aspx") 
+                && !context.Request.Path.StartsWith("/admin/GetCheckCode.aspx"))
             {
                 if (r.IsMatch(context.Request.Path))
                 {
