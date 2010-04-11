@@ -1,4 +1,11 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：安全配置页面。
+// 完成日期：2010年04月11日
+// 版本：v1.0 alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Web;
 
 using UniqueStudio.Common.Config;
@@ -17,7 +24,7 @@ namespace UniqueStudio.Admin.admin.background
                 }
                 catch (Exception ex)
                 {
-                    message.SetErrorMessage(ex.Message);
+                    message.SetErrorMessage("配置信息读取失败：" + ex.Message);
                 }
             }
         }
@@ -31,7 +38,7 @@ namespace UniqueStudio.Admin.admin.background
             }
             catch (Exception ex)
             {
-                message.SetErrorMessage(ex.Message);
+                message.SetErrorMessage("配置信息保存失败：" + ex.Message);
             }
         }
     }

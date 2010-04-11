@@ -19,7 +19,7 @@ namespace UniqueStudio.Common.ErrorLogging
     /// </summary>
     public class ErrorLogger
     {
-        private static string XML_PATH = Path.Combine(GlobalConfig.BasePhysicalPath, @"admin\xml\log\{0}.xml");
+        private static string XML_PATH = Path.Combine(GlobalConfig.BasePhysicalPath, @"admin\xml\log\{0}");
         private static string XML_ROOT = "<?xml version=\"1.0\" encoding=\"utf-8\"?><ArrayOfErrorInfo xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"></ArrayOfErrorInfo>";
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace UniqueStudio.Common.ErrorLogging
         {
             try
             {
-                string path = string.Format(XML_PATH, date.ToString("yyyyMMdd"));
+                string path = string.Format(XML_PATH, date.ToString("yyyyMMdd") + ".xml");
                 if (!File.Exists(path))
                 {
                     return new ErrorCollection();
@@ -156,14 +156,18 @@ namespace UniqueStudio.Common.ErrorLogging
         /// <returns>错误日志的集合。</returns>
         public static ErrorCollection GetAllErrors(string fileName)
         {
+            Utilities.Validator.CheckStringNull(fileName, "fileName");
+
             try
             {
-                if (!File.Exists(fileName))
+                string path = string.Format(XML_PATH, fileName);
+
+                if (!File.Exists(path))
                 {
                     return new ErrorCollection();
                 }
 
-                XmlDocument doc = XmlManager.LoadXml(fileName);
+                XmlDocument doc = XmlManager.LoadXml(path);
                 ErrorCollection collection = (ErrorCollection)XmlManager.ConvertToEntity(doc, typeof(ErrorCollection), null);
                 if (collection != null)
                 {

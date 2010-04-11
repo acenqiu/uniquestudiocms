@@ -1,4 +1,11 @@
-﻿using System;
+﻿//=================================================================
+// 版权所有：版权所有(c) 2010，联创团队
+// 内容摘要：访问统计图页面。
+// 完成日期：2010年04月11日
+// 版本：v1.0alpha
+// 作者：邱江毅
+//=================================================================
+using System;
 using System.Text;
 
 using UniqueStudio.Common.Config;
@@ -10,6 +17,7 @@ namespace UniqueStudio.Admin.admin.background
 {
     public partial class pvstat : Controls.AdminBasePage
     {
+        protected DateTime Date;
         protected string JsArrayOfDay;
         protected string JsArrayOfCount;
         protected int MinCount;
@@ -19,8 +27,24 @@ namespace UniqueStudio.Admin.admin.background
         {
             if (!IsPostBack)
             {
+                FillDropDownLists();
                 GetData();
             }
+        }
+
+        private void FillDropDownLists()
+        {
+            Date = DateTime.Now;
+
+            for (int i = Date.Year; i >= 2010; i--)
+            {
+                ddlYears.Items.Add(i.ToString());
+            }
+            for (int i = 1; i <= 12; i++)
+            {
+                ddlMonths.Items.Add(i.ToString());
+            }
+            ddlMonths.SelectedIndex = Date.Month - 1;
         }
 
         private void GetData()
@@ -28,7 +52,7 @@ namespace UniqueStudio.Admin.admin.background
             PageVisitManager manager = new PageVisitManager();
             try
             {
-                PointCollection<int, int> stat = manager.GetPvStatByMonth(CurrentUser, DateTime.Now);
+                PointCollection<int, int> stat = manager.GetPvStatByMonth(CurrentUser, Date);
 
                 StringBuilder sbJsArrayOfDay = new StringBuilder("[");
                 StringBuilder sbJsArrayOfCount = new StringBuilder("[");
@@ -55,6 +79,12 @@ namespace UniqueStudio.Admin.admin.background
             {
                 message.SetErrorMessage("数据读取失败：" + ex.Message);
             }
+        }
+
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            Date = new DateTime(DateTime.Now.Year - ddlYears.SelectedIndex, 1 + ddlMonths.SelectedIndex, 1);
+            GetData();
         }
     }
 }
