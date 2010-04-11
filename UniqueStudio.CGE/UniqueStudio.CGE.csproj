@@ -230,6 +230,13 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="stuff.aspx.cs">
+      <DependentUpon>stuff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="stuff.aspx.designer.cs">
+      <DependentUpon>stuff.aspx</DependentUpon>
+    </Compile>
     <Compile Include="usupload.aspx.cs">
       <DependentUpon>usupload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -658,6 +665,7 @@
     <Content Include="img\hust-logo.png" />
     <Content Include="img\hust.png" />
     <Content Include="img\jpg.png" />
+    <Content Include="img\list-style.gif" />
     <Content Include="img\list-style.png" />
     <Content Include="img\new.png" />
     <Content Include="img\pdf.png" />
@@ -669,6 +677,7 @@
     <Content Include="MetaWeblogAPI.ashx" />
     <Content Include="css\search-style.css" />
     <Content Include="Search.aspx" />
+    <Content Include="stuff.aspx" />
     <Content Include="usupload.aspx" />
     <Content Include="view.aspx" />
     <Content Include="xml\viewerData.xml" />
