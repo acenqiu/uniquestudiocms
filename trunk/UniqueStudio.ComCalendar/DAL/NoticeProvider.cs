@@ -36,7 +36,9 @@ namespace UniqueStudio.ComCalendar.DAL
                                    new SqlParameter("@NoticeDate",notice.Date),
                                    new SqlParameter("@NoticeTime",notice.Time),
                                    new SqlParameter("@Content",notice.Content),
-                                   new SqlParameter("@Remarks",notice.Remarks)};
+                                   new SqlParameter("@Remarks",notice.Remarks),
+                                   new SqlParameter("@Link",notice.Link)
+            };
 
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, ADD_CALNOTICE, parms) > 0;
         }
@@ -53,7 +55,8 @@ namespace UniqueStudio.ComCalendar.DAL
                                    new SqlParameter("@NoticeDate",notice.Date),
                                    new SqlParameter("@NoticeTime",notice.Time),
                                    new SqlParameter("@Content",notice.Content),
-                                   new SqlParameter("@Remarks",notice.Remarks)
+                                   new SqlParameter("@Remarks",notice.Remarks),
+                                   new SqlParameter("@Link",notice.Link)
             };
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, EDIT_CALNOTICE, parms) > 0;
         }
@@ -130,6 +133,10 @@ namespace UniqueStudio.ComCalendar.DAL
                     {
                         notice.Remarks = (string)reader["Remarks"];
                     }
+                    if (reader["Link"] != DBNull.Value)
+                    {
+                        notice.Link = (string)reader["Link"];
+                    }
                     notices.Add(notice);
                 }
                 return notices;
@@ -149,6 +156,10 @@ namespace UniqueStudio.ComCalendar.DAL
                 notice.ID = new Guid(reader["ID"].ToString());
                 notice.Content = (string)reader["Content"];
                 notice.Date = (DateTime)reader["NoticeDate"];
+                if (reader["Linke"] != DBNull.Value)
+                {
+                    notice.Link = (string)reader["Link"];
+                }
                 if (reader["NoticeTime"] != DBNull.Value)
                 {
                     notice.Time = (string)reader["NoticeTime"];

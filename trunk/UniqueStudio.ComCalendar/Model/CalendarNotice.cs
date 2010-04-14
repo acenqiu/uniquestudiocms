@@ -19,7 +19,7 @@ namespace UniqueStudio.ComCalendar.Model
         private string time;
         private string content;
         private string remarks;
-
+        private string link;
         /// <summary>
         /// 通知ID
         /// </summary>
@@ -67,6 +67,14 @@ namespace UniqueStudio.ComCalendar.Model
         {
             get { return remarks; }
             set { remarks = value; }
+        }
+        /// <summary>
+        /// 链接
+        /// </summary>
+        public string Link
+        {
+            get { return link; }
+            set { link = value; }
         }
     }
 }
