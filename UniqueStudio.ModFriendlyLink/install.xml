@@ -7,7 +7,7 @@
   <ClassPath>UniqueStudio.ModFriendlyLink.ModFriendlyLink</ClassPath>
   <Assembly>UniqueStudio.ModFriendlyLink</Assembly>
   <params>
-	<param name="ColumnTitle" type="text" default="友情链接" value="友情链接" label="栏目名称" description="栏目名称。" />
+	  <param name="ColumnTitle" type="text" default="友情链接" value="友情链接" label="栏目名称" description="栏目名称。" />
     <param name="MenuId" type="text" default="1" value="1" label="菜单ID" description="菜单ID。" />
   </params>
 </install>

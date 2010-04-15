@@ -24,18 +24,11 @@
            <iframe frameborder="0" src="calendarframe.aspx" height="220px" width="100%" scrolling="no">
            </iframe>
         </div>
-        <div class="column mini" style="display: none">
-            <div class="column-head">
-                站内搜索</div>
-            <div class="column-content">
-                <asp:TextBox ID="txtSearch" runat="server"></asp:TextBox>
-                <asp:Button ID="btnSearch" class="input-button" runat="server" Text="搜索" OnClick="btnSearch_Click" />
-            </div>
-        </div>
-        
-        <div class="column mini">
+         <div class="column mini">
             <US:Module ID="friendlyLink" ModuleName="mod_friendlylink" runat="server" />
         </div>
+   
+       
     </div>
     <div class="index-main-content">
         <div class="column picnews">
@@ -45,7 +38,7 @@
                 <param name="quality" value="high">
                 <param value="transparent">
                 <param name="wmode" value="transparent">
-                <embed src="flashad/viewer.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer"
+                <embed src="flashad/viewer.swf" wmode="transparent" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer"
                     type="application/x-shockwave-flash" width="312" height="210"></embed>
             </object>
         </div>

@@ -14,6 +14,11 @@ namespace UniqueStudio.Common.Utilities
     /// </summary>
     public class Converter
     {
+        private Converter()
+        {
+            //默认构造函数
+        }
+
         /// <summary>
         /// 字符串转换为Bool。
         /// </summary>

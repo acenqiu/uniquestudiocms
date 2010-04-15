@@ -16,6 +16,11 @@ namespace UniqueStudio.Common.Utilities
     /// </summary>
     public class PathHelper
     {
+        private PathHelper()
+        {
+            //默认构造函数
+        }
+
         /// <summary>
         /// 连接两个路径，获得一个完整的路径。
         /// </summary>
@@ -24,8 +29,8 @@ namespace UniqueStudio.Common.Utilities
         /// <returns>完整路径。</returns>
         public static string PathCombine(string path1, string path2)
         {
-            Validator.CheckStringNull(path1, "path1");
-            Validator.CheckStringNull(path2, "path2");
+            Validator.CheckNull(path1, "path1");
+            Validator.CheckNull(path2, "path2");
 
             path1 = path1.TrimEnd(new char[] { '/', '\\' });
             path2 = path2.TrimStart(new char[] { '/', '\\' });
