@@ -43,7 +43,7 @@ namespace UniqueStudio.Common.ErrorLogging
                 return;
             }
 
-            string path = string.Format(XML_PATH, DateTime.Now.ToString("yyyyMMdd"));
+            string path = string.Format(XML_PATH, DateTime.Now.ToString("yyyyMMdd") + ".xml");
             try
             {
                 XmlManager manager = null;
@@ -91,7 +91,7 @@ namespace UniqueStudio.Common.ErrorLogging
                 return;
             }
 
-            string path = string.Format(XML_PATH, DateTime.Now.ToString("yyyyMMdd"));
+            string path = string.Format(XML_PATH, DateTime.Now.ToString("yyyyMMdd") + ".xml");
             try
             {
                 XmlManager manager = null;

@@ -19,7 +19,7 @@ namespace UniqueStudio.Controls
         {
             base.OnLoadComplete(e);
             TimeSpan ts = DateTime.Now - dt;
-            Response.Write("<!--query time:" + ts.TotalMilliseconds + "-->");
+            //Response.Write("<!--query time:" + ts.TotalMilliseconds + "-->");
         }
 
         protected override void OnLoad(EventArgs e)

@@ -497,6 +497,7 @@
     <Content Include="admin\editor\fckeditor\editor\dialog\fck_template\images\template3.gif" />
     <Content Include="admin\editor\fckeditor\editor\dialog\fck_textarea.html" />
     <Content Include="admin\editor\fckeditor\editor\dialog\fck_textfield.html" />
+    <Content Include="admin\editor\fckeditor\editor\dialog\InsertCode\InsertCode.aspx" />
     <Content Include="admin\editor\fckeditor\editor\dtd\fck_dtd_test.html" />
     <Content Include="admin\editor\fckeditor\editor\dtd\fck_xhtml10strict.js" />
     <Content Include="admin\editor\fckeditor\editor\dtd\fck_xhtml10transitional.js" />
@@ -763,6 +764,34 @@
     <Content Include="admin\xml\error.xml" />
     <Content Include="admin\xml\WebSiteConfig.xml" />
     <Content Include="Global.asax" />
+    <Content Include="Languages\CSharpDynamicSyntaxLanguage.vb" />
+    <Content Include="Languages\CssDynamicSyntaxLanguage.vb" />
+    <Content Include="Languages\HtmlDynamicSyntaxLanguage.vb" />
+    <Content Include="Languages\JavaDynamicSyntaxLanguage.vb" />
+    <Content Include="Languages\JScriptDynamicSyntaxLanguage.vb" />
+    <Content Include="Languages\Lexers\ActiproSoftware.Assembly.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.BatchFile.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.CSharp.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.CSS.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.GrammarProduction.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.HTML.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.INIFile.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.Java.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.JScript.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.Lua.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.MSIL.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.Pascal.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.Perl.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.PHP.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.PowerShell.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.Python.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.SQL.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.VBDotNet.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.VBScript.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.XAML.xml" />
+    <Content Include="Languages\Lexers\ActiproSoftware.XML.xml" />
+    <Content Include="Languages\SqlDynamicSyntaxLanguage.vb" />
+    <Content Include="Languages\VBDotNetDynamicSyntaxLanguage.vb" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniqueStudio.Common\UniqueStudio.Common.csproj">
@@ -786,6 +815,10 @@
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.cfm" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.php" />
     <None Include="admin\editor\fckeditor\editor\dialog\fck_spellerpages\spellerpages\server-scripts\spellchecker.pl" />
+    <None Include="Languages\Lexers\ActiproSoftware.SyntaxEditor.LanguageDefinition.xsd" />
+    <None Include="Languages\Lexers\ActiproSoftware.SyntaxEditor.LanguageDefinition.xsx">
+      <DependentUpon>ActiproSoftware.SyntaxEditor.LanguageDefinition.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="admin\compenents\com_content\" />

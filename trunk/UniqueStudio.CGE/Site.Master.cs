@@ -1,10 +1,10 @@
-﻿
-using System;
+﻿using System;
 using System.Web;
+
+using UniqueStudio.Common.Config;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Core.Menu;
 using UniqueStudio.Core.PageVisit;
-using UniqueStudio.Common.Config;
 
 namespace UniqueStudio.CGE
 {

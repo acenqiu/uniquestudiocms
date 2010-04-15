@@ -541,7 +541,7 @@ namespace UniqueStudio.ComContent.DAL
         /// <param name="postListType">文章类型。</param>
         /// <param name="categoryId">分类ID。</param>
         /// <returns>文章列表。</returns>
-        public PostCollection GetPostListByCatId(int pageIndex, int pageSize, int categoryId, bool isIncludeSummary)
+        public PostCollection GetPostListByCatId(int pageIndex, int pageSize, int categoryId, bool isIncludeSummary, bool isGetCategoryInfo)
         {
             PostCollection collection = new PostCollection(pageSize);
 
@@ -559,7 +559,7 @@ namespace UniqueStudio.ComContent.DAL
                     cmd.Parameters["@Amount"].Direction = ParameterDirection.Output;
 
                     conn.Open();
-                    using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -569,7 +569,34 @@ namespace UniqueStudio.ComContent.DAL
                     }
                     collection.PageIndex = (int)cmd.Parameters["@PageIndex"].Value;
                     collection.Amount = (int)cmd.Parameters["@Amount"].Value;
-                }
+
+                    if (isGetCategoryInfo)
+                    {
+                        cmd.CommandText = GET_CATEGORYINFO_BY_POSTURI;
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add("@Uri", SqlDbType.BigInt);
+
+                        foreach (PostInfo post in collection)
+                        {
+                            cmd.Parameters[0].Value = post.Uri;
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                post.Categories = new CategoryCollection();
+                                CategoryInfo category;
+                                while (reader.Read())
+                                {
+                                    category = new CategoryInfo();
+                                    category.CategoryId = (int)reader["CategoryID"];
+                                    category.CategoryName = (string)reader["CategoryName"];
+                                    category.CategoryNiceName = (string)reader["CategoryNiceName"];
+                                    post.Categories.Add(category);
+                                }
+                                reader.Close();
+                            }
+                        }
+                    }
+                } // end of using sqlcommand
+                conn.Close();
             }
             return collection;
         }
@@ -583,38 +610,70 @@ namespace UniqueStudio.ComContent.DAL
         /// <param name="isIncludeSummary">是否返回摘要。</param>
         /// <param name="postListType">文章类型。</param>
         /// <returns>文章列表。</returns>
-        public PostCollection GetRecentPosts(int siteId, int number, int offset, bool isIncludeSummary, PostListType postListType)
+        public PostCollection GetRecentPosts(int siteId, int number, int offset, bool isIncludeSummary, PostListType postListType, bool isGetCategoryInfo)
         {
             PostCollection collection = new PostCollection(number);
-            SqlParameter[] parms = null;
-            SqlDataReader reader = null;
 
-            if (postListType == PostListType.Both)
+            using (SqlConnection conn = new SqlConnection(GlobalConfig.SqlConnectionString))
             {
-                parms = new SqlParameter[]{
-                                                    new SqlParameter("@SiteID",siteId),
-                                                    new SqlParameter("@number",number),
-                                                    new SqlParameter("@offset",offset),
-                                                    new SqlParameter("@IsIncludeSummary",isIncludeSummary)};
-                reader = SqlHelper.ExecuteReader(GlobalConfig.SqlConnectionString, CommandType.StoredProcedure, GET_RECENT_POSTS_ALL, parms);
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = conn;
+
+                    cmd.Parameters.AddWithValue("@SiteID", siteId);
+                    cmd.Parameters.AddWithValue("@Number", number);
+                    cmd.Parameters.AddWithValue("@Offset", offset);
+                    cmd.Parameters.AddWithValue("@IsIncludeSummary", isIncludeSummary);
+
+                    if (postListType == PostListType.Both)
+                    {
+                        cmd.CommandText = GET_RECENT_POSTS_ALL;
+                    }
+                    else
+                    {
+                        bool isPublished = (postListType == PostListType.PublishedOnly);
+                        cmd.Parameters.AddWithValue("@IsPublished", isPublished);
+                        cmd.CommandText = GET_RECENT_POSTS;
+                    }
+
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            collection.Add(FillPostInfo(reader, isIncludeSummary));
+                        }
+                        reader.Close();
+                    }
+
+                    if (isGetCategoryInfo)
+                    {
+                        cmd.CommandText = GET_CATEGORYINFO_BY_POSTURI;
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add("@Uri", SqlDbType.BigInt);
+
+                        foreach (PostInfo post in collection)
+                        {
+                            cmd.Parameters[0].Value = post.Uri;
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                post.Categories = new CategoryCollection();
+                                CategoryInfo category;
+                                while (reader.Read())
+                                {
+                                    category = new CategoryInfo();
+                                    category.CategoryId = (int)reader["CategoryID"];
+                                    category.CategoryName = (string)reader["CategoryName"];
+                                    category.CategoryNiceName = (string)reader["CategoryNiceName"];
+                                    post.Categories.Add(category);
+                                }
+                                reader.Close();
+                            }
+                        }
+                    }
+                }
             }
-            else
-            {
-                bool isPublished = (postListType == PostListType.PublishedOnly);
-                parms = new SqlParameter[]{
-                                                    new SqlParameter("@SiteID",siteId),
-                                                    new SqlParameter("@number",number),
-                                                    new SqlParameter("@offset",offset),
-                                                    new SqlParameter("@IsIncludeSummary",isIncludeSummary),
-                                                    new SqlParameter("@IsPublished",isPublished)};
-                reader = SqlHelper.ExecuteReader(GlobalConfig.SqlConnectionString, CommandType.StoredProcedure, GET_RECENT_POSTS, parms);
-            }
-            while (reader.Read())
-            {
-                collection.Add(FillPostInfo(reader, isIncludeSummary));
-            }
-            reader.Close();
-            reader.Dispose();
             return collection;
         }
 

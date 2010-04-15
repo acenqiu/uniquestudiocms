@@ -1,5 +1,4 @@
-﻿
-<%@ Page Language="C#" MasterPageFile="Site.Master" AutoEventWireup="true" CodeBehind="stuff.aspx.cs"
+﻿<%@ Page Language="C#" MasterPageFile="Site.Master" AutoEventWireup="true" CodeBehind="stuff.aspx.cs"
     Inherits="UniqueStudio.CGE.stuff" %>
 
 <%@ Import Namespace="UniqueStudio.Common.Config" %>

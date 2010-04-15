@@ -2,6 +2,11 @@ namespace UniqueStudio.Common.Utilities
 {
     public class RegularExpressions
     {
+        private RegularExpressions()
+        {
+            //默认构造函数
+        }
+
         public static readonly string QQ_NO = "[1-9][0-9]{4,}";//QQ
         public static readonly string EMAIL = @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";//MSN 或 EMail
         public static readonly string TELEPHONE = @"\d{2,5}-\d{7,8}(-\d{1,})?";//固定电话或小灵通 (匹配形式如 0511-4405222 或 021-87888822)

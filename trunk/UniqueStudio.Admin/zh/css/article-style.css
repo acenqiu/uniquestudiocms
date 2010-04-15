@@ -2,91 +2,106 @@
 
 .article
 {
- font-size:12px;
- color:#333333;
- text-align:center;
- padding:15px;
+	font-size: 12px;
+	color: #333333;
+	text-align: center;
+	padding: 15px;
 }
 .article p
 {
- text-indent:2em;
- text-align:left;
+	text-indent: 2em;
+	text-align: left;
 }
 .article h4
 {
-font-size:16px;
- color:#FF9900;
+	font-size: 16px;
+	color: #FF9900;
 }
 .article h5
 {
-text-align:left;
-padding:0px;
-margin:0px;
-line-height:20px;
-font-size:14px;
-color:#336699;
+	text-align: left;
+	padding: 0px;
+	margin: 0px;
+	line-height: 20px;
+	font-size: 14px;
+	color: #336699;
 }
-.article .detail  span
+.article .article-content
 {
-  padding:2px 10px;
-  color:#999999;
+	text-align: left;
+}
+.article .article-content pre.code
+{
+	font-family: Consolas, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', '宋体';
+    line-height: 110%;
+    border: dashed 1px #AAA;
+    border-left: solid 5px #6ce26c;
+    margin: 10px 0px 10px 0px;
+    font-size: 10pt;
+    white-space: pre-wrap;       /* 支持css 3的浏览器 */
+    white-space: -moz-pre-wrap;  /* 老版Mozilla*/
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* IE 5.5以上 */
+}
+.article .detail span
+{
+	padding: 2px 10px;
+	color: #999999;
 }
 .article .float-image
 {
- float:right;
- padding:20px;
+	float: right;
+	padding: 20px;
 }
 .site-depth
 {
-  line-height:14px;
-  padding:0 0 0 20px;
-  color:#000066;
-  font-weight:bold;
-  margin:14px 0 0 0px;
-  background:url(../img/column-header-icon.png) no-repeat;
-  
+	line-height: 14px;
+	padding: 0 0 0 20px;
+	color: #000066;
+	font-weight: bold;
+	margin: 14px 0 0 0px;
+	background: url(../img/column-header-icon.png) no-repeat;
 }
 .site-depth a
 {
-color:#0099FF;
+	color: #0099FF;
 }
 .attachment
 {
-font-weight:bold;
- text-align:left;
- font-style:italic;
- color:#FF9900;
+	font-weight: bold;
+	text-align: left;
+	font-style: italic;
+	color: #FF9900;
 }
 .attachment .file a
 {
-
-font-style:normal;
-color:#3399CC;
-padding-left:20px;
+	font-style: normal;
+	color: #3399CC;
+	padding-left: 20px;
 }
 
 .file
 {
- background:url(../img/file.png) no-repeat;
+	background: url(../img/file.png) no-repeat;
 }
-.doc , .docx
+.doc, .docx
 {
-
- background:url(../img/doc.png) no-repeat;
+	background: url(../img/doc.png) no-repeat;
 }
 .pdf
 {
- background:url(../img/pdf.png) no-repeat;
+	background: url(../img/pdf.png) no-repeat;
 }
 .ppt, .pptx
 {
- background:url(../img/ppt.png) no-repeat;
+	background: url(../img/ppt.png) no-repeat;
 }
 .xls, .xlsx
 {
- background:url(../img/xls.png) no-repeat;
+	background: url(../img/xls.png) no-repeat;
 }
 .png, .jpg, .jpeg, .gif
 {
- background:url(../img/jpg.png) no-repeat;
+	background: url(../img/jpg.png) no-repeat;
 }

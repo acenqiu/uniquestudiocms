@@ -406,6 +406,19 @@ namespace UniqueStudio.ComContent.BLL
         /// <returns>文章列表。</returns>
         public PostCollection GetPostListByCatId(int pageIndex, int pageSize, int categoryId, bool isIncludeSummary)
         {
+            return GetPostListByCatId(pageIndex, pageSize, categoryId, isIncludeSummary, false);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="categoryId"></param>
+        /// <param name="isIncludeSummary"></param>
+        /// <returns></returns>
+        public PostCollection GetPostListByCatId(int pageIndex, int pageSize, int categoryId, bool isIncludeSummary, bool isGetCategoryInfo)
+        {
             Validator.CheckNotPositive(pageSize, "pageSize");
             Validator.CheckNotPositive(categoryId, "categoryId");
             if (pageIndex <= 0)
@@ -415,7 +428,7 @@ namespace UniqueStudio.ComContent.BLL
 
             try
             {
-                return provider.GetPostListByCatId(pageIndex, pageSize, categoryId, isIncludeSummary);
+                return provider.GetPostListByCatId(pageIndex, pageSize, categoryId, isIncludeSummary, isGetCategoryInfo);
             }
             catch (DbException ex)
             {
@@ -464,11 +477,16 @@ namespace UniqueStudio.ComContent.BLL
         /// <returns>文章列表。</returns>
         public PostCollection GetRecentPosts(int siteId, int number, int offset, bool isIncludeSummary, PostListType postListType)
         {
+            return GetRecentPosts(siteId, number, offset, isIncludeSummary, postListType, false);
+        }
+
+        public PostCollection GetRecentPosts(int siteId, int number, int offset, bool isIncludeSummary, PostListType postListType, bool isGetCategoryInfo)
+        {
             Validator.CheckNotPositive(siteId, "siteId");
 
             try
             {
-                return provider.GetRecentPosts(siteId, number, offset, isIncludeSummary, postListType);
+                return provider.GetRecentPosts(siteId, number, offset, isIncludeSummary, postListType, isGetCategoryInfo);
             }
             catch (DbException ex)
             {

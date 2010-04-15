@@ -67,9 +67,9 @@
                             <td>
                                 是否锁定
                             </td>
-                            <td>
+                            <%--<td>
                                 是否在线
-                            </td>
+                            </td>--%>
                         </tr>
                 </HeaderTemplate>
                 <ItemTemplate>
@@ -98,9 +98,9 @@
                             <asp:CheckBox ID="chbIsLockedOut" Enabled="false" Checked='<%# Eval("IsLockedOut") %>'
                                 runat="server" />
                         </td>
-                        <td>
+                        <%--<td>
                             <asp:CheckBox ID="chkIsOnline" Enabled="false" Checked='<%# Eval("IsOnline") %>'
-                                runat="server" />
+                                runat="server" />--%>
                         </td>
                     </tr>
                 </ItemTemplate>
