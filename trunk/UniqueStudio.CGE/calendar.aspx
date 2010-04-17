@@ -31,7 +31,9 @@
                     <tr>
                         <td class='calendarItem-event'><%# Eval("Content") %></td>
                         <td class='calendarItem-time'>时间：<%# Eval("Time")%></td>
+                        <td class='calendarItem-place'>地点：<%# Eval("Place")%></td>
                         <td class='calendarItem-note'>备注：<%# Eval("Remarks")%></td>
+                        <td class='calendarItem-link'><a href='<%# Eval("Link")%>' title='<%# Eval("Link")%>' target="_blank">详情...</a></td>
                    </tr>
                 </ItemTemplate>
                 <FooterTemplate>

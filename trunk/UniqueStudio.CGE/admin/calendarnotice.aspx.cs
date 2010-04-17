@@ -24,7 +24,7 @@ namespace UniqueStudio.ComCalendar.Admin
             }
             DataControlManager<CalendarNotice> manager = new DataControlManager<CalendarNotice>(list, new CalendarDataAccess());
             ControlToInputText textbox = new ControlToInputText();
-            string s = manager.ConvertControlToHtml(new string[] { "Time", "Content", "Remarks" }, textbox);
+            string s = manager.ConvertControlToHtml(new string[] { "Time", "Content", "Place","Remarks","Link"}, textbox);
             Literal1.Text = "<table >" + s + "</table>";
         }
 

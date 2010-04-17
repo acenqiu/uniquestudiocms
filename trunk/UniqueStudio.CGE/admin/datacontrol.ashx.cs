@@ -32,7 +32,7 @@ namespace UniqueStudio.Admin
                 {
                     DateTime date = Converter.DatetimeParse(context.Request["date"], DateTime.Today);
                     int siteId = Converter.IntParse(context.Request["siteId"], 0);
-                    DataControlManager<CalendarNotice>.Add(new CalendarNotice() { SiteId = siteId, Content = "事件", Remarks = "备注", Time = "时间", Date = date });
+                    DataControlManager<CalendarNotice>.Add(new CalendarNotice() { SiteId = siteId, Content = "事件", Remarks = "备注", Time = "时间", Date = date,Link="链接",Place="地点" });
                     test = DataControlManager<CalendarNotice>.ControlList.Count.ToString();
                 }
                 else

@@ -42,4 +42,14 @@ background:url(../img/event.png) no-repeat;
 {
 background:url(../img/note.png) no-repeat;
 }
+.calendarItem-link
+{
+background:url(../img/link.png) no-repeat;
+
+}
+.calendarItem-link a
+{
+color:#666666;
+font-weight:bold;
+}
 

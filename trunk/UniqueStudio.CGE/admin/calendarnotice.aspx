@@ -17,16 +17,20 @@
 
         function addRow()
         {
+        //alert(lock);
             if (!lock)
             {
 	            var postO=new Object();
   	            postO["action"]="add";
   	            postO["siteId"]='<%=SiteId %>';
+  	          
   	            postO["date"]='<%=Date.ToString("yyyy-MM-dd") %>';
                 $.post("datacontrol.ashx",
                         postO,
                         function(data){
+                        
                             toolTip("添加成功!",1000);
+                             
                             window.location.reload();
                         });
             }
