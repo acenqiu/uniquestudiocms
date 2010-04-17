@@ -37,7 +37,8 @@ namespace UniqueStudio.ComCalendar.DAL
                                    new SqlParameter("@NoticeTime",notice.Time),
                                    new SqlParameter("@Content",notice.Content),
                                    new SqlParameter("@Remarks",notice.Remarks),
-                                   new SqlParameter("@Link",notice.Link)
+                                   new SqlParameter("@Link",notice.Link),
+                                   new SqlParameter("@Place",notice.Place)
             };
 
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, ADD_CALNOTICE, parms) > 0;
@@ -56,7 +57,8 @@ namespace UniqueStudio.ComCalendar.DAL
                                    new SqlParameter("@NoticeTime",notice.Time),
                                    new SqlParameter("@Content",notice.Content),
                                    new SqlParameter("@Remarks",notice.Remarks),
-                                   new SqlParameter("@Link",notice.Link)
+                                   new SqlParameter("@Link",notice.Link),
+                                   new SqlParameter("@Place",notice.Place)
             };
             return SqlHelper.ExecuteNonQuery(CommandType.StoredProcedure, EDIT_CALNOTICE, parms) > 0;
         }
@@ -136,6 +138,10 @@ namespace UniqueStudio.ComCalendar.DAL
                     if (reader["Link"] != DBNull.Value)
                     {
                         notice.Link = (string)reader["Link"];
+                    }
+                    if (reader["Place"] != DBNull.Value)
+                    {
+                        notice.Place = (string)reader["Place"];
                     }
                     notices.Add(notice);
                 }
