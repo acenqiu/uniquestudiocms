@@ -14,7 +14,7 @@ namespace UniqueStudio.ComCalendar.DAL
         private const string EDIT_CALNOTICE = "EditCalNotice";
         private const string DELETE_CALNOTICE_BY_CALID = "DeleteCalNoticeByCalID";
         private const string DELETE_CALNOTICES_BY_DATE = "DeleteCalNoticesByDate";
-        private const string GET_ALL_NOTICE_DATE = "GetAllNoticeDate";
+        private const string GET_ALL_NOTICE_DATE = "GetAllNoticedDate";
         private const string GET_NOTICES_BY_DATE = "GetNoticesByDate";
 
         /// <summary>
