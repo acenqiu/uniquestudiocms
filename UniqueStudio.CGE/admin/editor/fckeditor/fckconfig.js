@@ -49,7 +49,7 @@ FCKConfig.SkinDialogCSS = '' ;	// FCKConfig.SkinPath + "|<minified css>" ;
 FCKConfig.PreloadImages = [ FCKConfig.SkinPath + 'images/toolbar.start.gif', FCKConfig.SkinPath + 'images/toolbar.buttonarrow.gif' ] ;
 
 FCKConfig.PluginsPath = FCKConfig.BasePath + 'plugins/' ;
-
+//FCKConfig.Plugins.Add('ImportWord','zh-cn');
 // FCKConfig.Plugins.Add( 'autogrow' ) ;
 // FCKConfig.Plugins.Add( 'dragresizetable' );
 FCKConfig.AutoGrowMax = 400 ;
@@ -100,7 +100,7 @@ FCKConfig.ToolbarLocation = 'In' ;
 
 FCKConfig.ToolbarSets["Default"] = [
 	['Source','DocProps','-','Preview','-'],
-	['Cut','Copy','Paste','PasteText','PasteWord','-'],
+	['Cut','Copy','Paste','PasteText','PasteWord','ImportWord','-'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
 	'/',
 	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
