@@ -15,6 +15,14 @@ var catSpan=$("#categorySpan");
                 var content=$(this).html();
                 p.innerHTML=content;
                 var label=$(this).find("label").html();
+                /*
+                var t=$(this);
+                t.find("input").each(function (a)
+                {
+                    $(this).attr("disabled","disabled");
+                   
+                });
+                */
                 if (label)
                 {
                   var id=trimId(label.match(idRegex)[0]);
@@ -29,8 +37,8 @@ var catSpan=$("#categorySpan");
                
                 });
    catSpan.addClass("categorySpan-common");
-    catSpan.mouseover(function(){ catSpan.addClass("categorySpan-hover"); catSpan.removeClass("categorySpan-common");});
-    catSpan.mouseout(function(){ catSpan.removeClass("categorySpan-hover"); catSpan.addClass("categorySpan-common");});
+   catSpan.mouseover(function(){ catSpan.addClass("categorySpan-hover"); catSpan.removeClass("categorySpan-common");});
+   catSpan.mouseout(function(){ catSpan.removeClass("categorySpan-hover"); catSpan.addClass("categorySpan-common");});
    catList.push(root);
    idHash[0]=catList.length-1;
   for(var i=0;i<catList.length-1;i++)
@@ -53,6 +61,24 @@ function rangeCategory(root)
   var l=root.childrenList.length;
   if (l>0)
   {
+
+      var j= s.indexOf("input");
+      if (j<0)
+      {
+      j=s.indexOf("INPUT");
+      }
+      var a;
+    //  alert(j);
+      if (j>=0)
+      {
+          j+=6;
+         // alert(s);
+          a=s.substring(0,j);
+          a+="disabled=\"disabled\"";
+          a+=s.substring(j+1,s.length);
+          s=a;
+      }
+    
       s+="<ul>";
       for (var i=0;i<l;i++)
       {
