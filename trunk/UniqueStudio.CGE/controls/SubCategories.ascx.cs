@@ -3,6 +3,8 @@ using System.Text;
 using UniqueStudio.Common.Model;
 using UniqueStudio.Common.Utilities;
 using UniqueStudio.Core.Category;
+using UniqueStudio.Common.Config;
+using UniqueStudio.Core.Menu;
 
 namespace UniqueStudio.CGE.controls
 {
@@ -19,12 +21,55 @@ namespace UniqueStudio.CGE.controls
         {
             if (!IsPostBack && categoryId != 0)
             {
+
+                int siteId = (int)this.Session[GlobalConfig.SESSION_SITEID];
+                MenuManager manager = new MenuManager();
+                MenuInfo menu = manager.GetMenu(siteId);
+                MenuItemInfo menuCat = null;
                 CategoryInfo root = (new CategoryManager()).GetCategoryChain(categoryId);
-                if (root != null)
+                if (menu != null)
+                {
+                    MenuItemInfo head = manager.GetMenuTree(menu.Items);
+                    menuCat = GetMenuByCategoryId(head, categoryId);
+                    //navigationMenu.Text = manager.GetMenuHtml(head);
+                }
+
+                if (menuCat != null)
                 {
                     ltlCategoryName.Text = root.CategoryName;
-                    ltlList.Text = GetCategoryHtml(root);
+                    ltlList.Text = manager.GetMenuHtml(menuCat).Replace("candy-menu","").Replace("hide(this)","").Replace("show(this)","");
                 }
+                else
+                {
+
+                   
+                    if (root != null)
+                    {
+                        ltlCategoryName.Text = root.CategoryName;
+                        ltlList.Text = GetCategoryHtml(root);
+                    }
+                }
+            }
+        }
+
+        private MenuItemInfo GetMenuByCategoryId(MenuItemInfo menu,int id)
+        {
+            string sb=new StringBuilder("list.aspx?catId=").Append(id).ToString();
+            MenuItemInfo info = null;
+            if (menu.Link.Equals(sb))
+            {
+                return menu;
+            }
+            else
+            {
+                foreach (MenuItemInfo item in menu.ChildItems)
+                {
+                    if (info==null)
+                    {
+                       info=GetMenuByCategoryId(item, id);
+                    }
+                }
+                return info;
             }
         }
 
