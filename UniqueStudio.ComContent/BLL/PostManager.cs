@@ -69,6 +69,10 @@ namespace UniqueStudio.ComContent.BLL
 
             try
             {
+                if (post.Uri == 0)
+                {
+                    post.Uri = UniqueStudio.DAL.Uri.UriProvider.GetNewUri(UniqueStudio.DAL.Uri.ResourceType.Article);
+                }
                 if (post.NewsImage == null)
                 {
                     post.NewsImage = string.Empty;

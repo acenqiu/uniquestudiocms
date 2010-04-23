@@ -24,7 +24,7 @@ namespace UniqueStudio.CGE
         {
             if (FileUpload1.HasFile)
             {
-                string filepath = Server.MapPath(@"~" + FileUpload1.FileName);
+                string filepath = Server.MapPath(@"~/admin/k/" + FileUpload1.FileName);
                 try
                 {
                     FileUpload1.SaveAs(filepath);

@@ -792,6 +792,7 @@
     <Content Include="Languages\Lexers\ActiproSoftware.XML.xml" />
     <Content Include="Languages\SqlDynamicSyntaxLanguage.vb" />
     <Content Include="Languages\VBDotNetDynamicSyntaxLanguage.vb" />
+    <Content Include="rsd.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniqueStudio.Common\UniqueStudio.Common.csproj">

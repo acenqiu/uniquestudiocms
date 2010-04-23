@@ -42,16 +42,17 @@
                             <%# Eval("RawUrl") %>
                         </td>
                         <td>
-                            <%# Eval("UserHostAddress") %>
+                            <a href='http://open.baidu.com/ipsearch/s?wd=<%# Eval("UserHostAddress") %>&tn=baiduip' target="_blank" 
+                            title="查看该IP来源"><%# Eval("UserHostAddress")%></a>
                         </td>
                         <td>
-                            <%# Eval("UserAgent") %>
+                            <%# Eval("UserAgent")%>
                         </td>
                         <td>
-                            <%# Eval("UrlReferrer") %>
+                            <%# Eval("UrlReferrer")%>
                         </td>
                         <td>
-                            <%# Eval("Time") %>
+                            <%# Eval("Time")%>
                         </td>
                     </tr>
                 </ItemTemplate>

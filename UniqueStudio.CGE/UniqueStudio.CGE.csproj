@@ -708,6 +708,7 @@
     <Content Include="stuff\陈相松.html" />
     <Content Include="usupload.aspx" />
     <Content Include="view.aspx" />
+    <Content Include="rsd.xml" />
     <Content Include="xml\viewerData.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

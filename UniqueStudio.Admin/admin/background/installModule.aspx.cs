@@ -73,9 +73,10 @@ namespace UniqueStudio.Admin.admin.background
 
             try
             {
-                if ((new ModuleManager()).InstallModule(CurrentUser,path))
+                if ((new ModuleManager()).InstallModule(CurrentUser, path))
                 {
                     message.SetSuccessMessage("模块安装成功！");
+                    pnlInfo.Visible = false;
                 }
                 else
                 {

@@ -48,6 +48,7 @@ namespace UniqueStudio.CGE
 
                         pagination.CurrentPage = posts.PageIndex;
                         pagination.Count = posts.PageCount;
+                        pagination.Url = "list.aspx?catId=" + CategoryId + "&page={0}";
                     }
                 }
 
