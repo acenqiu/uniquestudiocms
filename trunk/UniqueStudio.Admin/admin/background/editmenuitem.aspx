@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true"
+﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true"  ValidateRequest="false"
     CodeBehind="editmenuitem.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.editmenuitem" %>
 
 <%@ Register Src="../controls/Message.ascx" TagPrefix="US" TagName="Message" %>

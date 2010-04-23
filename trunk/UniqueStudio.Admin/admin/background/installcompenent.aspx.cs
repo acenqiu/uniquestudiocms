@@ -83,6 +83,7 @@ namespace UniqueStudio.Admin.admin.background
                 if ((new CompenentManager()).InstallCompenent(CurrentUser, path, siteId))
                 {
                     message.SetSuccessMessage("组件安装成功!");
+                    pnlInfo.Visible = false;
                 }
                 else
                 {

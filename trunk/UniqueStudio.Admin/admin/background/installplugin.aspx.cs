@@ -86,6 +86,7 @@ namespace UniqueStudio.Admin.admin.background
                 if ((new PlugInManager()).InstallPlugIn(CurrentUser, path, siteId))
                 {
                     message.SetSuccessMessage("插件安装成功！");
+                    pnlInfo.Visible = false;
                 }
                 else
                 {

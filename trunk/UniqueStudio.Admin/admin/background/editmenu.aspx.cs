@@ -59,7 +59,7 @@ namespace UniqueStudio.Admin.admin.background
                 txtDescription.Text = menu.Description;
 
                 //菜单项
-                txtLink.Text = SiteManager.BaseAddress(SiteId);
+                txtLink.Text = string.Empty;
                 txtItemName.Text = string.Empty;
                 txtDescription.Text = string.Empty;
                 txtTarget.Text = string.Empty;

@@ -33,7 +33,7 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </ul>
-            <US:Pagination ID="pagination" runat="server" Url="list.aspx?page={0}" NumberOfShow="15" />
+            <US:Pagination ID="pagination" runat="server" NumberOfShow="15" />
         </div>
     </div>
 </asp:Content>

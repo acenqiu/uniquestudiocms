@@ -1,5 +1,5 @@
 ﻿<%@ Page MasterPageFile="background.Master" Language="C#" AutoEventWireup="true"
-    CodeBehind="editmenu.aspx.cs" Inherits="UniqueStudio.Admin.admin.background.editmenu" %>
+    CodeBehind="editmenu.aspx.cs" ValidateRequest="false" Inherits="UniqueStudio.Admin.admin.background.editmenu" %>
 
 <%@ Register Src="../controls/Message.ascx" TagPrefix="US" TagName="Message" %>
 <asp:Content ID="cntBody" ContentPlaceHolderID="cphBody" runat="server">
