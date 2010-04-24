@@ -14,7 +14,7 @@ namespace UniqueStudio.ComCalendar.DAL
         private const string EDIT_CALNOTICE = "EditCalNotice";
         private const string DELETE_CALNOTICE_BY_CALID = "DeleteCalNoticeByCalID";
         private const string DELETE_CALNOTICES_BY_DATE = "DeleteCalNoticesByDate";
-        private const string GET_ALL_NOTICE_DATE = "GetAllNoticedDate";
+        private const string GET_ALL_NOTICED_DATE = "GetAllNoticedDate";
         private const string GET_NOTICES_BY_DATE = "GetNoticesByDate";
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace UniqueStudio.ComCalendar.DAL
         public List<DateTime> GetAllNoticedDate(int siteId)
         {
             SqlParameter parm = new SqlParameter("@SiteID", siteId);
-            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_ALL_NOTICE_DATE, parm))
+            using (SqlDataReader reader = SqlHelper.ExecuteReader(CommandType.StoredProcedure, GET_ALL_NOTICED_DATE, parm))
             {
                 List<DateTime> dates = new List<DateTime>();
                 while (reader.Read())
