@@ -797,6 +797,7 @@ namespace UniqueStudio.Core.Menu
                 {
                     sb.Append(GetHtml(child)).Append("\r\n");
                 }
+                node.Link = node.ChildItems[0].Link;
                 sb.Append("</ul>").Append("\r\n");
                 sb.Append("</div>").Append("\r\n");
             }

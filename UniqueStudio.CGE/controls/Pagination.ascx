@@ -11,6 +11,7 @@
 	padding:3px 7px;
 	font:12px/1.6em Verdana,Helvetica,Arial,sans-serif;
 	color:#3366CC;
+	display:block;
 }
 .pagination strong
 {

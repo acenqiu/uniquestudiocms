@@ -10,5 +10,5 @@
     <OtherMonthDayStyle ForeColor="#808080" />
     <NextPrevStyle VerticalAlign="Bottom" ForeColor="White" />
     <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
-    <TitleStyle BackColor="#FF9900" BorderColor="Black" Font-Bold="True" ForeColor="White" />
+    <TitleStyle BackColor="#136DBC" BorderColor="Black" Font-Bold="True" ForeColor="White" />
 </asp:Calendar>
