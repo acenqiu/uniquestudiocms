@@ -40,6 +40,7 @@ namespace UniqueStudio.PlugInPictureNews
             }
 
             PostInfo post = e.Post;
+            post.SiteId = 1;
             if (!PlugInManager.IsEnabled(PLUGIN_NAME, post.SiteId))
             {
                 return;
