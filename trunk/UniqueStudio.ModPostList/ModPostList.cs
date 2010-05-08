@@ -61,7 +61,7 @@ namespace UniqueStudio.ModPostList
                                                                                 , post.Title
                                                                                 , post.LastEditDate >= earliest ? "class='new'" : ""
                                                                                 , post.Title.Length > maxTitleLength ? post.Title.Substring(0, maxTitleLength) : post.Title
-                                                                                , post.LastEditDate.ToString(timeFormat)));
+                                                                                , post.CreateDate.ToString(timeFormat)));
                         }
                     }
                     return string.Format(MAIN, category.CategoryName, categoryId, items.ToString());
