@@ -218,6 +218,13 @@ namespace UniqueStudio.ComContent.DAL
                         cmd.CommandType = CommandType.StoredProcedure;
                         try
                         {
+                            //删除原有分类，使触发器更新文章统计信息
+                            cmd.Parameters.AddWithValue("@PostUri", post.Uri);
+                            cmd.CommandText = DELETE_POST_CATEGORYID;
+                            cmd.ExecuteNonQuery(); //不判断是否大于0，以避免原文章没有选择分类时报错。
+
+                            //更新文章信息
+                            cmd.Parameters.Clear();
                             cmd.CommandText = EDIT_POST;
                             cmd.Parameters.AddRange(parms);
                             if (cmd.ExecuteNonQuery() <= 0)
@@ -229,9 +236,6 @@ namespace UniqueStudio.ComContent.DAL
 
                             cmd.Parameters.Clear();
                             cmd.Parameters.AddWithValue("@PostUri", post.Uri);
-                            cmd.CommandText = DELETE_POST_CATEGORYID;
-                            cmd.ExecuteNonQuery(); //不判断是否大于0，以避免原文章没有选择分类时报错。
-
                             cmd.Parameters.Add("@CategoryID", SqlDbType.Int);
                             cmd.CommandText = ADD_POST_CATEGORYID;
                             foreach (CategoryInfo cate in post.Categories)
