@@ -42,6 +42,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +74,7 @@
     <Compile Include="Exceptions\UserDoesNotOnlineException.cs" />
     <Compile Include="Exceptions\UserLockedOutException.cs" />
     <Compile Include="FileAccessHelper\FileAccess.cs" />
+    <Compile Include="Imaging\ImageConverter.cs" />
     <Compile Include="Mailing\SMTP.cs" />
     <Compile Include="Model\CacheItemInfo.cs" />
     <Compile Include="Model\CategoryCollection.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Model\ClassInfo.cs" />
     <Compile Include="Model\CompenentCollection.cs" />
     <Compile Include="Model\CompenentInfo.cs" />
+    <Compile Include="Model\Enum\ImageFormat.cs" />
     <Compile Include="Model\Enum\PageType.cs" />
     <Compile Include="Model\Enum\PasswordEncryptionType.cs" />
     <Compile Include="Model\Enum\ProcessType.cs" />

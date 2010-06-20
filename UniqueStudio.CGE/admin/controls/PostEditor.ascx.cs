@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Web;
@@ -451,7 +452,33 @@ namespace UniqueStudio.ComContent.Admin
                     //控件对中文路径支持不好
                     string fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + extension;
                     string filePath = SiteManager.BasePhysicalPath(siteId) + "\\upload\\image\\" + fileName;
-                    fuNewsImage.SaveAs(filePath);
+                    //string filePath = Server.MapPath(@"~\upload\image\" + fileName);
+                    System.Drawing.Image image = System.Drawing.Image.FromStream(fuNewsImage.FileContent);
+
+                    int maxHeight = ConfigAdapter.Config(siteId).ImageHeight;
+                    int maxWidth = ConfigAdapter.Config(siteId).ImageWidth;
+                    //宽度优先
+                    int height = (int)(image.Height * (maxWidth * 1.0 / image.Width));
+                    //高度优先
+                    int width = (int)(image.Width * (maxHeight * 1.0 / image.Height));
+                    if (image.Height < maxHeight && image.Width < maxWidth)
+                    {
+                        width = image.Width;
+                        height = image.Height;
+                    }
+                    if (height > maxHeight)
+                    {
+                        //宽度优先时导致高度超过预设值，则使用高度优先
+                        height = maxHeight;
+                    }
+                    if (width > maxWidth)
+                    {                       
+                        //高度优先时导致宽度超过预设值，则使用宽度优先
+                        width = maxWidth;
+                    }
+
+                    Common.Imaging.ImageConverter.Convert(fuNewsImage.FileContent, filePath, width, height, ConfigAdapter.Config(siteId).ImageQuality,
+                                        UniqueStudio.Common.Model.ImageFormat.Jpeg);
                     lblImageName.Visible = true;
                     lblImageName.Text = fuNewsImage.FileName;
                     return "upload/image/" + fileName;

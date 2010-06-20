@@ -16,7 +16,7 @@
     </Tab>
   </TabCollection>
   <Permissions>
-    <Permission name="AddPost" description="发表文章" />    
+    <Permission name="AddPost" description="发表文章" />
     <Permission name="DeleteAllDraftAPost" description="删除所有人的草稿及文章" />
     <Permission name="DeleteOwnDraftAPost" description="删除自己的草稿和文章" />
     <Permission name="DeleteOwnDraftOnly" description="只能删除自己的草稿，不能删除自己的文章" />
@@ -28,13 +28,16 @@
     <param name="TimeFormatOfSectionPostList" type="text" value="yyyy-MM-dd" label="子栏目文章列表时间格式" title="子栏目文章列表时间格式" />
     <param name="PageSizeOfSectionPostList" type="text" value="20" label="子栏目文章列表显示数量" title="子栏目文章列表显示数量" />
     <param name="NewImageThreshold" type="text" value="7" label="定义为新文章的天数" title="定义为新文章的天数" />
-	
+
     <param name="PictureNewsCategoryId" type="text" value="1" label="图片新闻分类ID" title="存放图片新闻的分类ID" />
-	<param name="PictureNewsInterval" type="text" value="4000" label="图片新闻切换间隔时间（单位：毫秒）" title="图片新闻切换间隔时间（单位：毫秒）。" />
-	<param name="PictureNewsNumber" type="text" value="3" label="图片新闻显示条数" title="图片新闻显示条数。" />
-	<param name="PictureNewsIsRandom" type="radio" value="true" label="图片新闻是否随机切换" title="图片新闻是否随机切换。">
-		<option value="true" label="是" />
-		<option value="false" label="否" />
-	</param>
+    <param name="PictureNewsInterval" type="text" value="4000" label="图片新闻切换间隔时间（单位：毫秒）" title="图片新闻切换间隔时间（单位：毫秒）。" />
+    <param name="PictureNewsNumber" type="text" value="3" label="图片新闻显示条数" title="图片新闻显示条数。" />
+    <param name="ImageWidth" type="text" value="312" label="图片最大宽度" title="图片最大宽度" />
+    <param name="ImageHeight" type="text" value="210" label="图片最大高度" title="图片最大高度" />
+    <param name="ImageQuality" type="text" value ="100" label ="图片质量" title="1到100的整数"/>
+    <param name="PictureNewsIsRandom" type="radio" value="true" label="图片新闻是否随机切换" title="图片新闻是否随机切换。">
+      <option value="true" label="是" />
+      <option value="false" label="否" />
+    </param>
   </params>
 </install>

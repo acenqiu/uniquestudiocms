@@ -14,7 +14,7 @@ namespace UniqueStudio.ExtraTools
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Sitemaps());
+            Application.Run(new Form1());
         }
     }
 }
