@@ -25,6 +25,10 @@ namespace UniqueStudio.ComContent
         private int pictureNewsCategoryId = 1;
         private int pictureNewsInterval = 4000;
         private int pictureNewsNumber = 3;
+        private int imgWidth = 312;
+        private int imgHeight = 210;
+
+        private long imageQuality = 100;
 
         //bool
         private bool pictureNewsIsRandom = true;
@@ -80,6 +84,32 @@ namespace UniqueStudio.ComContent
             get { return pictureNewsNumber; }
             set { pictureNewsNumber = value; }
         }
+        /// <summary>
+        /// 图片最大宽度
+        /// </summary>
+        public int ImageWidth
+        {
+            get { return imgWidth; }
+            set { imgWidth = value; }
+        }
+        /// <summary>
+        /// 图片最大高度
+        /// </summary>
+        public int ImageHeight
+        {
+            get { return imgHeight; }
+            set { imgHeight = value; }
+        }
+
+        /// <summary>
+        /// 图片质量
+        /// </summary>
+        public long ImageQuality
+        {
+            get { return imageQuality; }
+            set { imageQuality = value; }
+        }
+
         /// <summary>
         /// 图片新闻是否随机切换。
         /// </summary>

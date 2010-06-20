@@ -89,6 +89,17 @@ namespace UniqueStudio.Common.Config
                                 oValue = property.GetValue(this, null);
                             }
                             break;
+                        case "Int64":
+                            long lTemp;
+                            if (long.TryParse(node.Attributes["value"].Value, out lTemp))
+                            {
+                                oValue = lTemp;
+                            }
+                            else
+                            {
+                                oValue = property.GetValue(this, null);
+                            }
+                            break;
                         default:
                             oValue = node.Attributes["value"].Value;
                             break;

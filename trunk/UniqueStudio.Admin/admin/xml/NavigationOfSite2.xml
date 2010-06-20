@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TabCollection>
   <Compenents>
+    <Tab id="Com_Calendar" text="日历组件" permissions="" selected="true">
+      <SubTabs>
+        <Tab text="日历管理" permissions="" href="compenents/com_content/admin/calendar.aspx" target="right" />
+      </SubTabs>
+    </Tab>
     <Tab id="Com_Content" text="文章组件" permissions="AddPost,EditAllDraftAPost,EditOwnDraftAPost,EditOwnDraftOnly,DeleteAllDraftAPost,DeleteOwnDraftAPost,DeleteOwnDraftOnly" selected="true">
       <SubTabs>
         <Tab text="发表" permissions="AddPost" href="compenents/com_content/admin/addpost.aspx" target="right" />
         <Tab text="管理" permissions="EditAllDraftAPost,EditOwnDraftAPost,EditOwnDraftOnly,DeleteAllDraftAPost,DeleteOwnDraftAPost,DeleteOwnDraftOnly" href="compenents/com_content/admin/postlist.aspx" target="right" />
       </SubTabs>
     </Tab>
-	<Tab id="Com_Calendar" text="日历组件" permissions="" selected="true">
-		  <SubTabs>
-			  <Tab text="日历管理" permissions="" href="compenents/com_content/admin/calendar.aspx" target="right" />
-		  </SubTabs>
-	</Tab>  
   </Compenents>
   <System>
     <Tab id="Category" text="分类管理" permissions="CreateCategory,DeleteCategory,EditCategory">
